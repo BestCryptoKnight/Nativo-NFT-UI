@@ -25,7 +25,8 @@
         "create" : "Create",
         "myNFTs" : "My NFTs",
         "warning" : "This is a public beta version - Use at your own risk - Unaudited code",
-        "language" : "English"
+        "language" : "English",
+        "gallery" : "Gallery"
     },
     "Footer" : {
         "made" : "Made with:",
@@ -54,7 +55,10 @@
         "owner" : "Owner",
         "load-1" : "Loading Please wait",
         "load-2" : "There are no NFTs in this collection yet",
-        "descrip" : "This collection doesn't have a description"
+        "descrip" : "This collection doesn't have a description",
+        "loading" : "Loading...",
+        "end" : "There are no more NFTs",
+        "noData" : "No NFTs Currently"
     },
     "Detail" : {
         "collection" : "Collection",
@@ -163,7 +167,10 @@
         "errCol-3" : "Create collection",
         "createNFT" : "Create NFT",
         "sweetTitle" : "Select a collection",
-        "sweetTxt" : "To create an NFT it is necessary to select a collection, select one and try again"
+        "sweetTxt" : "To create an NFT it is necessary to select a collection, select one and try again",
+        "noColTit" : "You don't have collections",
+        "noColTxt" : "To be able to mine a token, it's necessary to create a collection before",
+        "noColBtn" : "Create collection"
     },
     "Modal" : {
         "accept" : "I accept the terms and conditions of service"

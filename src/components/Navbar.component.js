@@ -113,8 +113,8 @@ function LightHeaderB(props) {
             Galeria
           </a> */}
 
-          <a href="/collections" className="mr-5 hover:text-[#ec8b01] hover:text-lg hover:font-bold">
-            {t("Navbar.collections")}
+          <a href="/gallery" className="mr-5 hover:text-[#ec8b01] hover:text-lg hover:font-bold">
+            {t("Navbar.gallery")}
           </a>
           {/* <a href="https://v1.nativonft.app/galeria" className="mr-5 hover:text-gray-900">
             Galeria V1

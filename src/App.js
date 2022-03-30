@@ -7,7 +7,7 @@ import Navbar from "./components/Navbar.component";
 import Footer from "./components/Footer.component";
 //views
 import Landing from "./views/Landing.view";
-import Galeria from "./views/Galeria.view";
+import Gallery from "./views/gallery";
 import Detail from "./views/Detail.view";
 import Mint from "./views/mintNft.view";
 import MisNfts from "./views/MisTokens.view";
@@ -67,7 +67,7 @@ class App extends Component {
             <Route exact path="/" component={Landing} />
             <BlockchainProtectedRoute path="/create" component={Mint} />
             <BlockchainProtectedRoute path="/createcollection" component={creCol} />
-            <Route path="/galeria" component={Galeria} />
+            <Route path="/gallery" component={Gallery} />
             <Route path="/collections" component={Collections} />
             <Route path="/collection/:data" component={TokensCollection} />
             <Route path="/perfil/:tokenid" component={Perfil} />
