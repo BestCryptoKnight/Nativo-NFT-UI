@@ -182,7 +182,6 @@ function LightEcommerceA() {
         let contract = await getNearContract();
         let account = await getNearAccount();
         let nft_total_supply = await contract.nft_total_supply()
-        
         if(nft_total_supply>0){
           setHasData(true)
           window.scroll(0,100)
@@ -440,7 +439,7 @@ function LightEcommerceA() {
   }, [trigger]);
 
   return (
-    <section className={"text-gray-600 body-font "+(ini&&hasData ? "" : "py-64 bg-[#f3f4f6]")}>
+    <section className={"text-gray-600 body-font "+(ini&&hasData ? "" : "py-64 bg-white")}>
       
       {/* <div className="bg-white px-4 py-3 flex items-center justify-center border-b border-gray-200 sm:px-6 mt-1">
         <button className="bg-transparent hover:bg-slate-200 text-slate-500 hover:text-slate-700 font-extrabold text-center items-center rounded-full py-2 px-4 mx-4"
@@ -516,7 +515,7 @@ function LightEcommerceA() {
           }
         </select>
       </div> */}
-      <div className="pt-3 mx-auto bg-[#f3f4f6] ">
+      <div className={"pt-3 mx-auto "+(ini&&hasData ? "bg-[#f3f4f6]" : "bg-white") }>
 
      
 
@@ -585,9 +584,9 @@ function LightEcommerceA() {
 
 
                                 <div className="col-span-2">
-                                  Token ID:
+                                  <span className="text-sm">Token ID:</span>
                                   <span
-                                    className="inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none text-white bg-[#fbbf24] rounded-full"
+                                    className="inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none text-white bg-[#fbbf24] rounded-full ml-2"
                                   >{i.token_id}</span>
                                 </div>
 
@@ -614,7 +613,7 @@ function LightEcommerceA() {
               </InfiniteScroll>
             </div> 
             :
-            <div className="container mx-auto flex  my- md:flex-row flex-col  justify-center h-96 items-center text-3xl">
+            <div className="container mx-auto flex  my- md:flex-row flex-col  justify-center h-96 items-center text-4xl font-bold">
               <div className="flex flex-col justify-center">
                 <h1 className="text-center">{t("tokCollection.noData")}</h1>
               </div>
@@ -706,7 +705,7 @@ function LightEcommerceA() {
               </div>
           } */}
         </div>
-        <div className="bg-white   flex items-center justify-center border-t border-gray-200  mt-16">
+        <div className={"bg-white flex items-center justify-center border-t border-gray-200  mt-16"+(ini&&hasData ? "" : "hidden border-white")}>
           {/* <Pagination count={Landing.nPages} page={page} onChange={handleChangePage} color="warning" theme="light" /> */}
           {/* <button className="bg-transparent hover:bg-slate-200 text-slate-500 hover:text-slate-700 font-extrabold text-center items-center rounded-full py-2 px-4 mx-4"
           onClick={() => handleBackPage()}
