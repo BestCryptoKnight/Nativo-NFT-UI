@@ -80,21 +80,17 @@ function LightEcommerceB(props) {
         // }
       } else {
 
-        console.log('data',data);
+        
         let contract = await getNearContract();
         let account = await getNearAccount();
         let tokenId = data;
-        console.log('sdas',contract);
-        console.log('23as',account);
-        console.log('sdas',contract);
-        console.log('23as',account);
+
 
         let payload = {
           account_id: account,
           token_id: tokenId, 
         };
         let nft = await contract.nft_token(payload);
-        console.log('nft',nft);
         setstate({
           ...state,
           tokens: {

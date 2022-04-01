@@ -96,12 +96,7 @@ function MisTokens(props) {
 
   
   const fetchMoreData = async () => {
-    console.log('segunda vez on Nft',nfts);
     setpage(page+1);
-    console.log('pageCo',page+1);
-    console.log('nfts',nfts);
-    console.log('nfts',nfts.nfts.length);
-    console.log('items',state.items);
 
     let contract = await getNearContract();
     let account = await getNearAccount();
@@ -109,7 +104,7 @@ function MisTokens(props) {
       account_id: account
     };
     let totalTokensByOwner = await contract.nft_supply_for_owner(paramsSupplyForOwner);
-    console.log('totalByOwner',totalTokensByOwner);
+    
 
     if (nfts.nfts.length >= totalTokensByOwner) {
       setState({ hasMore: false });
@@ -117,7 +112,7 @@ function MisTokens(props) {
     }
 
     
-    console.log('(page*40).toString()',(page*40).toString());
+    
 
     let payload = {
       account_id: account,
@@ -126,19 +121,14 @@ function MisTokens(props) {
     };
     let nftsPerOwnerArr = await contract.nft_tokens_for_owner(payload);
 
-    console.log('32432',contract);
-    console.log('account',account);
-    console.log('nftsPerOwnerArr',nftsPerOwnerArr);
-    let toks;
-    console.log('statePage',statePage);
+
 
     // //convertir los datos al formato esperado por la vista
     let nftsArr = nftsPerOwnerArr.map((tok, i) => {
-      console.log('insidetok',tok);
-      //console.log("X->",  tok  )
+ 
       imgs.push(false);
       fetch("https://ipfs.io/ipfs/" + tok.media).then(request => request.blob()).then(() => {
-        console.log("entro " + imgs.length);
+
         imgs[i] = true;
       });
       return {
@@ -154,9 +144,7 @@ function MisTokens(props) {
 
     });
 
-    
-    console.log('nftsArr',nftsArr);
-    console.log('final nft', nfts.nfts);
+
     let newValue = nfts.nfts.concat(nftsArr);
     setNfts({nfts: newValue });
     
@@ -261,7 +249,6 @@ function MisTokens(props) {
         let nftsArr = await getContract()
           .methods.tokensOfPaginav1(account, nfts.tokensPerPage, nfts.page)
           .call();
-          console.log('32432',nftsArr);
         let balance = await getContract().methods.balanceOf(account).call();
         //console.log(nftsArr);
 
@@ -284,8 +271,6 @@ function MisTokens(props) {
         
         let contract = await getNearContract();
         let account = await getNearAccount();
-        console.log('sdas',contract);
-        console.log('23as',account);
 
         let payload = {
           account_id: account,
@@ -293,19 +278,16 @@ function MisTokens(props) {
           limit: nfts.tokensPerPage,
         };
         let nftsPerOwnerArr = await contract.nft_tokens_for_owner(payload);
-        console.log('32432',contract);
-        console.log('account',account);
-        console.log('payload',nftsPerOwnerArr);
+
         let toks;
-        console.log('statePage',statePage);
   
         // //convertir los datos al formato esperado por la vista
         let nftsArr = nftsPerOwnerArr.map((tok, i) => {
-          console.log('insidetok',tok);
+
           //console.log("X->",  tok  )
           imgs.push(false);
           fetch("https://ipfs.io/ipfs/" + tok.media).then(request => request.blob()).then(() => {
-            console.log("entro " + imgs.length);
+
             imgs[i] = true;
           });
           return {
