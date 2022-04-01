@@ -25,4 +25,3 @@ applications:
       cache:
         paths:
           - node_modules/**/*
-    appRoot: frontend
