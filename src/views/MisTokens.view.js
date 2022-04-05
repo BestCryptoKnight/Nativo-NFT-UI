@@ -12,6 +12,7 @@ import {
 import { useHistory } from "react-router";
 import ModalSubasta from '../components/modalSubasta.component'
 import Modal from "../components/modalRevender.component";
+import TransferModal from "../components/transferModal.component"
 import load from "../assets/landingSlider/img/loader.gif";
 import Pagination from '@mui/material/Pagination';
 import { currencys } from "../utils/constraint";
@@ -58,10 +59,29 @@ function MisTokens(props) {
     //state para la ventana modal
     show: false,
   });
+
+  const [transferModal, setTransferModal] = useState({
+    show: false,
+  });
   // const [imgs, setImgs] = useState([]);
   let imgs = [];
 
   const APIURL = process.env.REACT_APP_API_TG
+
+  async function makeATransfer(tokenID) {
+    setTransferModal({
+      ...state,
+      show: true,
+      title: t("MyNFTs.modalTransTitle"),
+      message: t("MyNFTs.modalTransMsg"),
+      loading: false,
+      disabled: false,
+      tokenID: tokenID,
+      change: setTransferModal,
+      buttonName: 'X',
+      tokenId: 'hardcoded'
+    })
+  }
 
   const handleChangePage = (e, value) => {
     console.log(value)
@@ -467,7 +487,16 @@ function MisTokens(props) {
                           href={"/detail/" + nft.tokenID}
                           className={`mt-12 w-full text-white bg-${props.theme}-500 border-0 py-2 px-4 focus:outline-none hover:bg-${props.theme}-600 rounded text-lg`}
                         >{t("MyNFTs.detail")}</a>
+                        <button
+                          className={`mt-6 w-full text-white bg-${props.theme}-500 border-0 py-2 px-4 focus:outline-none hover:bg-${props.theme}-600 rounded text-lg`}
+                          onClick={async () =>{
+                            makeATransfer(nft.tokenID);
+                          }}
+                        >
+                          {t("MyNFTs.transferButton")}
+                        </button>
                       </div>
+                      
                       {/* Mostramos la opción de revender o quitar del marketplace */}
                       {nft.status == "S" ? (<>      <button
                         className={` mt-6 w-full text-white bg-${props.theme}-500 border-0 py-2 px-6 focus:outline-none hover:bg-${props.theme}-600 rounded text-lg`}
@@ -548,6 +577,7 @@ function MisTokens(props) {
         {/* Mandamos a llamar al modal con el state como props*/}
         <ModalSubasta {...modalSub} />
         <Modal {...modal} />
+        <TransferModal {...transferModal}/>
       </section>
     </>
   );

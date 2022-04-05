@@ -100,7 +100,10 @@
         "load-1" : "Cargando, por favor espere",
         "load-2" : "Aún no tienes NFTs... Crea o adquiere uno para comenzar",
         "putSale" : "Poner en venta",
-        "cost" : "Costo"
+        "cost" : "Costo",
+        "transferButton": "Transferir NFT",
+        "modalTransTitle": "Transferir NFT",
+        "modalTransMsg" : "Escribe la cuenta a la cual deseas transferir tu NFT"
     },
     "CreateCol" : {
         "title" : "Nueva Colección",
