@@ -83,6 +83,7 @@ export const methodOptions = {
     "market_bid_generic",
     "market_close_bid_generic",
     "nft_mint",
+    "nft_transfer",
   ],
 };
 /**
