@@ -83,11 +83,11 @@ function LightHeroE(props) {
         .required(t("MintNFT.required"))
         .min(5, t("MintNFT.minDesc")),
 
-      price: Yup.number()
-        .required(t("MintNFT.required"))
-        .positive(t("MintNFT.posPrice"))
-        .moreThan(0.09999999999999, t("MintNFT.morePrice"))
-        .min(0.1, t("MintNFT.minPrice")),
+      // price: Yup.number()
+      //   .required(t("MintNFT.required"))
+      //   .positive(t("MintNFT.posPrice"))
+      //   .moreThan(0.09999999999999, t("MintNFT.morePrice"))
+      //   .min(0.1, t("MintNFT.minPrice")),
 
 
       image: Yup.string().required(t("MintNFT.required")),
@@ -306,7 +306,7 @@ function LightHeroE(props) {
                 className={`  w-full bg-gray-100 bg-opacity-50 rounded   focus:bg-transparent  text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out `}
               />
 
-              <div className="flex justify-between ">
+              {/* <div className="flex justify-between ">
                 <label
                   htmlFor="price"
                   className="leading-7 text-sm text-gray-600"
@@ -331,7 +331,7 @@ function LightHeroE(props) {
                 step="0.1"
                 className={`border-none w-full bg-gray-100 bg-opacity-50 rounded   focus:bg-transparent  text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out-${props.theme}-500 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out`}
                 {...formik.getFieldProps("price")}
-              />
+              /> */}
               <div className="flex justify-between ">
                 <label
                   htmlFor="description"
