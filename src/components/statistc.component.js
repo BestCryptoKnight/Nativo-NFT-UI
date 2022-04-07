@@ -7,19 +7,6 @@ function LightStatisicC(props) {
   const [t, i18n] = useTranslation("global")
   return (
     <div>
-      <section className="text-gray-600 body-font bg-white">
-        <div className="container px-5 lg:py-10 py:12 mx-auto mb-10 lg:mb-0 ">
-          <div className="grid lg:grid-cols-2 grid-cols-1 w-full  place-items-center text-center">
-            <div className="w-full">
-              <img className="p-[50px]  w-[300px] lg:w-[500px] h-[220px]  lg:h-[350px]  m-auto" src={nativoLogo} />
-            </div>
-            <div className="w-full grid-cols-1 lg:px-10 px-4">
-              <h1 className="lg:text-3xl text-2xl font-medium text-gray-900 w-full mb-4">{t("Landing.aboutUs")}</h1>
-              <p className="lg:text-xl text-base w-full text-justify">{t("Landing.aboutUs-txt")}</p>
-            </div>
-          </div>
-          </div>
-      </section>
       <section className="text-gray-600 body-font bg-gray-100">
         <div className="grid lg:grid-cols-2 grid-cols-1 w-full place-items-center text-center place-content-around">
           <div className="w-full grid-cols-1 lg:px-10 px-4 ">
