@@ -18,7 +18,12 @@
         "aboutUs" : "Acerca de nosotros",
         "aboutUs-txt" : "Nativo NFT es un mercado de NFT's montado sobre NEAR protocol. Actualmente se encuentra en beta pública",
         "dao" : "Nativo DAO... Muy pronto",
-        "dao-txt-1" : "Nuestro roadmap tiene contemplado el lanzamiento de un DAO para gobernanza el cual pueda utilizar los tokens de gobernanza $NTV para el manejo del protocolo de Nativo NFT. En un primer momento este DAO estará controlado por miembros del equipo fundador, y desde donde se podrán realizar actualizaciones al smart contract..."
+        "dao-txt-1" : "Nuestro roadmap tiene contemplado el lanzamiento de un DAO para gobernanza el cual pueda utilizar los tokens de gobernanza $NTV para el manejo del protocolo de Nativo NFT. En un primer momento este DAO estará controlado por miembros del equipo fundador, y desde donde se podrán realizar actualizaciones al smart contract...",
+        "steps-connect": "Conecta tu NEAR wallet",
+        "steps-create": "Crea tu colección",
+        "steps-createn": "Crea tus NFTs",
+        "steps-sell": "Vende tus NFTs",
+        "steps-title" : "Crea tus NFTs"
     },
     "Navbar" : {
         "collections" : "Colecciones",
@@ -30,11 +35,25 @@
     },
     "Footer" : {
         "made" : "Hecho con:",
-        "resources" : "RECURSOS",
+        "resources" : "recursos",
         "roadmap" : "Mapa de ruta",
         "followUs" : "SÍGUENOS",
         "thanks" : "Agradecemos tu visita y preferencia",
-        "language" : "LENGUAJE"
+        "language" : "LENGUAJE",
+        "community" : "comunidad",
+        "aboutUs" : "nosotros",
+        "twitter" : "twitter",
+        "telegram" : "telegram",
+        "discord" : "discord",
+        "medium" : "medium",
+        "github" : "github",
+        "whitepaper" : "whitepaper",
+        "tokenomics" : "tokenomics",
+        "docs" : "docs",
+        "terms" : "términos y condiciones",
+        "aboutNativo" : "acerca de nativo nft",
+        "theTeam" : "el equipo",
+        "tribu" : "Nativo NFT 2002 - Mantenido por la tribu de CloudMex Analytics"
     },
     "Collections" : {
         "creator" : "Creador",

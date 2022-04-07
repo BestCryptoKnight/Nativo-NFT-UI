@@ -18,7 +18,12 @@
         "aboutUs" : "About us",
         "aboutUs-txt" : "Nativo NFT is a market for NFT's built on the NEAR protocol. It is currently in public beta",
         "dao" : "Nativo DAO... Coming Soon",
-        "dao-txt-1" : "Our roadmap contemplates the launch of a DAO for governance which can use the $NTV governance tokens to manage the Nativo NFT protocol. At first, this DAO will be controlled by members of the founding team, and from where updates to the smart contract can be made..."
+        "dao-txt-1" : "Our roadmap contemplates the launch of a DAO for governance which can use the $NTV governance tokens to manage the Nativo NFT protocol. At first, this DAO will be controlled by members of the founding team, and from where updates to the smart contract can be made...",
+        "steps-connect": "Connect your NEAR wallet",
+        "steps-create": "Create your collection",
+        "steps-createn": "Create your NFTs",
+        "steps-sell": "Sell your NFTs",
+        "steps-title" : "Create your NFTs"
     },
     "Navbar" : {
         "collections" : "Collections",
@@ -30,11 +35,25 @@
     },
     "Footer" : {
         "made" : "Made with:",
-        "resources" : "RESOURCES",
+        "resources" : "Resources",
         "roadmap" : "Roadmap",
         "followUs" : "FOLLOW US",
         "thanks" : "We appreciate your visit and preference",
-        "language" : "LANGUAGE"
+        "language" : "LANGUAGE",
+        "community" : "Community",
+        "aboutUs" : "About us",
+        "twitter" : "Twitter",
+        "telegram" : "Telegram",
+        "discord" : "Discord",
+        "medium" : "Medium",
+        "github" : "Github",
+        "whitepaper" : "Whitepaper",
+        "tokenomics" : "Tokenomics",
+        "docs" : "Docs",
+        "terms" : "Terms and conditions",
+        "aboutNativo" : "About NativoNFT",
+        "theTeam" : "The Team",
+        "tribu" : "Nativo NFT 2002 - Mantained by CloudMex Analytics community"
     },
     "Collections" : {
         "creator" : "Creator",

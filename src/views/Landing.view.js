@@ -4,6 +4,7 @@ import React from "react";
 import Team from "../components/teamMembers.component";
 import Hero from "../components/Hero.component";
 import Steps from "../components/steps.component";
+import NftSteps from "../components/NftSteps.component";
 import Statisct from "../components/statistc.component";
 
 export default function Landing() {
@@ -14,6 +15,7 @@ export default function Landing() {
   return (
     <>
       <Hero />
+      <NftSteps/>
       <Steps theme={Landing.theme} />
       <Statisct theme={Landing.theme} />
     </>
