@@ -481,18 +481,18 @@ function MisTokens(props) {
                   </div> */}
                         <br></br>
                         <h2
-                          className={`tracking-widest text-sm title-font font-medium text-${props.theme}-500 mb-1`}
+                          className={`tracking-widest text-sm title-font font-medium text-darkgray mb-1`}
                         >{`Token id: ${nft.tokenID}  `}</h2>
                         <h2
-                          className={`tracking-widest text-sm title-font font-medium text-${props.theme}-500 mb-6 invisible`}
+                          className={`tracking-widest text-sm title-font font-medium text-darkgray mb-6 invisible`}
                         >{`${t("MyNFTs.cost")}: ${nft.price} ${nfts.currency}`}</h2>
                         <div className="text-center">
                           <a
                             href={"/detail/" + nft.tokenID}
-                            className={`mt-12 w-full text-white bg-${props.theme}-500 border-0 py-2 px-4 focus:outline-none hover:bg-${props.theme}-600 rounded text-lg`}
+                            className={`mt-12 w-full text-white bg-yellow2 border-0 py-2 px-4 focus:outline-none hover:bg-brown rounded text-lg`}
                           >{t("MyNFTs.detail")}</a>
                           <button
-                            className={`mt-6 w-full text-white bg-${props.theme}-500 border-0 py-2 px-4 focus:outline-none hover:bg-${props.theme}-600 rounded text-lg`}
+                            className={`mt-6 w-full text-white bg-yellow2 border-0 py-2 px-4 focus:outline-none hover:bg-brown rounded text-lg`}
                             onClick={async () =>{
                               makeATransfer(nft.tokenID);
                             }}
@@ -516,7 +516,7 @@ function MisTokens(props) {
                         ) : (
                           <>
                             {nft.status != "S" && <>  <button
-                              className={` mt-12 w-full text-white bg-${props.theme}-500 border-0 py-2 px-6 focus:outline-none hover:bg-${props.theme}-600 rounded text-lg invisible`}
+                              className={` mt-12 w-full text-white bg-yellow border-0 py-2 px-6 focus:outline-none hover:bg-brown rounded text-lg invisible`}
                               onClick={() => {
                                 setModal({
                                   ...modal,

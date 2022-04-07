@@ -132,7 +132,7 @@ export default function OfferModal(props) {
               {/*header*/}
 
               <div
-                className={`flex flex-row justify-between bg-yellow-500 flex items-start justify-center font-bold uppercase p-5 border-b border-solid border-yellowGray-200 rounded text-white`}>
+                className={`flex flex-row justify-between bg-yellow2 flex items-start justify-center font-bold uppercase p-5 border-b border-solid border-yellowGray-200 rounded text-white`}>
                 <div>{props.title} </div>
                 <div><button
                   className={`  text-white  font-bold uppercase px-[20px]  `}
@@ -190,7 +190,7 @@ export default function OfferModal(props) {
                     {props.tokenId && (
                       <div className="w-full flex justify-end">
                         <button
-                          className={`bg-yellow-500 w- mt-3  text-white active:bg-yellow-600 font-bold uppercase text-sm px-6 py-3 rounded-full shadow hover:shadow-lg outline-none focus:outline-none  ease-linear transition-all duration-150 `}
+                          className={`bg-yellow2 w- mt-3  text-white active:bg-brown font-bold uppercase text-sm px-6 py-3 rounded-full shadow hover:shadow-lg outline-none focus:outline-none  ease-linear transition-all duration-150 `}
                           type="submit"
                           disabled={state.disabled}
                         >

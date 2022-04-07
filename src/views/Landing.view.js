@@ -16,7 +16,6 @@ export default function Landing() {
     <>
       <Hero />
       <NftSteps/>
-      <Steps theme={Landing.theme} />
       <Statisct theme={Landing.theme} />
     </>
   );
