@@ -17,6 +17,7 @@ import { Account } from "near-api-js";
 import { ApolloClient, InMemoryCache, gql } from '@apollo/client'
 import { useTranslation } from "react-i18next";
 import InfiniteScroll from "react-infinite-scroll-component";
+import { inputUnstyledClasses } from "@mui/material";
 
 function LightEcommerceA() {
   const [Landing, setLanding] = React.useState({
@@ -44,6 +45,8 @@ function LightEcommerceA() {
   const [loadMsg,setLoadMsg] = React.useState(true)
   const [trigger, settrigger] = React.useState(true);
   const [hasData,setHasData] = React.useState(false)
+  const [index,setIndex] = React.useState(0)
+  const [firstIndex, setFirstIndex] = React.useState(true)
   const [t, i18n] = useTranslation("global")
   let [tokens,setTokens] = React.useState({
     items:[],
@@ -80,29 +83,40 @@ function LightEcommerceA() {
     settrigger(!trigger)
   }
 
-
-  
+  var totalTokens=0
 
   let fetchMoreData = async () => {
-    
+    let limit=true
+    if(index<=Landing.tokensPerPageNear){
+      setIndex(0)
+    }
+    else{
+      setIndex(index-Landing.tokensPerPageNear)
+    }
     setini(true)
     let contract = await getNearContract();
-    let nft_total_supply = await contract.nft_total_supply()
-    if (tokens.items.length >= nft_total_supply) {
+    let indexQuery = index-Landing.tokensPerPageNear
+    let lastLimit
+    if(indexQuery<=Landing.tokensPerPageNear){
+      lastLimit = index-Landing.tokensPerPageNear
+      indexQuery=0
+      limit=false
+    }
+    if (lastLimit<=0) {
       setTokens({...tokens, hasMore: false });
       return;
     }
     let payload = {
-      from_index: (pagCount*Landing.tokensPerPageNear).toString(),
-      limit: Landing.tokensPerPageNear,
+      from_index: indexQuery.toString(),
+      limit: (limit ? Landing.tokensPerPageNear : lastLimit),
     }
+    console.log(payload)
     let toks = await contract.nft_tokens(
       payload,
     )
     setTokens({...tokens,
-      items: tokens.items.concat(toks)
+      items: tokens.items.concat(toks.reverse())
     });
-    setpagCount(pagCount+1)
   };
 
   const modificarFiltro = (v) => {
@@ -136,6 +150,7 @@ function LightEcommerceA() {
   //   console.log((tokens.length+toks.length))
     
   // }
+  
 
   React.useEffect(() => {
     // console.log("esto ---> ",owner);
@@ -182,6 +197,8 @@ function LightEcommerceA() {
         let contract = await getNearContract();
         let account = await getNearAccount();
         let nft_total_supply = await contract.nft_total_supply()
+        setIndex(nft_total_supply)
+        console.log(index)
         if(nft_total_supply>0){
           setHasData(true)
           window.scroll(0,100)
@@ -539,7 +556,6 @@ function LightEcommerceA() {
                 className={"flex flex-wrap px-[40px]"}
               >
                 {tokens.items.map((i, index) => {
-                  console.log(i)
                   return(
                     <div className="w-full md:w-1/2 lg:w-1/3 p-4" key={index}>
                       <a
