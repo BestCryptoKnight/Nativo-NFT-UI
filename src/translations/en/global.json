@@ -195,6 +195,15 @@
         "noColBtn" : "Create collection"
     },
     "Modal" : {
-        "accept" : "I accept the terms and conditions of service"
+        "accept" : "I accept the terms and conditions of service",
+        "transAlert1" : "Error writing account",
+        "transAlert1Txt" : "In order to transfer an NFT it is necessary that the account includes ",
+        "transAlert2" : "Terms and conditions not accepted",
+        "transAlert2Txt" : "In order to transfer an NFT you need to accept the terms and conditions",
+        "transAlert3" : "Be careful, transfer token",
+        "transAlert3Txt-1" : "Are you sure to transfer your token to: ",
+        "transAlert3Txt-2" : " Check the account very well if it is wrong or does not exist there is no way to recover your NFT",
+        "transAlert3Btn" : "Transfer",
+        "account" : "Account"
     }
 }

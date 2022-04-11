@@ -52,8 +52,8 @@ export default function OfferModal(props) {
         if(!values.account.includes(process.env.REACT_APP_NEAR_ENV == "mainnet" ? ".near" : ".testnet"))
         {
           Swal.fire({
-            title: 'Error al escribir la cuenta',
-            text: 'Para poder transferir un NFT es necesario que la cuenta incluya '+(process.env.REACT_APP_NEAR_ENV == "mainnet" ? ".near" : ".testnet"),
+            title: t("Modal.transAlert1"),
+            text: t("Modal.transAlert1Txt")+(process.env.REACT_APP_NEAR_ENV == "mainnet" ? ".near" : ".testnet"),
             icon: 'error',
             confirmButtonColor: '#E79211'
           })
@@ -61,21 +61,21 @@ export default function OfferModal(props) {
         }
         if(!values.terms){
           Swal.fire({
-            title: 'Terminos y condiciones no aceptados',
-            text: 'Para poder ofertar en NFT es necesario que aceptes los terminos y condiciones',
+            title: t("Modal.transAlert2"),
+            text: t("Modal.transAlert2Txt"),
             icon: 'error',
             confirmButtonColor: '#E79211'
           })
           return
         }
         Swal.fire({
-          title: 'Cuidado transferencia de token',
-          text: "Estas seguro de transferir tu token a: "+values.account + " Revisa muy bien la cuenta si es erronea o no existe no hay manera de recuperar tu NFT",
+          title: t("Modal.transAlert3"),
+          text: t("Modal.transAlert3Txt-1")+values.account + t("Modal.transAlert3Txt-2"),
           icon: 'warning',
           showCancelButton: true,
           confirmButtonColor: '#E79211',
           cancelButtonColor: '#d33',
-          confirmButtonText: 'Transferir'
+          confirmButtonText: t("Modal.transAlert3Btn")
         }).then(async (result) => {
           if (result.isConfirmed) {
             let transferir = await contract.nft_transfer(
@@ -165,7 +165,7 @@ export default function OfferModal(props) {
                         htmlFor="account"
                         className="leading-7 text-sm text-gray-600"
                       >
-                        Cuenta
+                        {t("Modal.account")}
                       </label>
                       {formik.touched.price && formik.errors.price ? (
                         <div className="leading-7 text-sm text-red-600">
