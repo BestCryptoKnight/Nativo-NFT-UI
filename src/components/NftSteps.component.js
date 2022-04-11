@@ -12,7 +12,7 @@ function NftSteps(props) {
     <section className="text-gray-600 body-font bg-gray-100 dark:bg-darkgray">
       <div className="container w-full px-5 py-20 dark:bg-darkgray mx-auto flex flex-row flex-wrap justify-center  ">
         <div className="w-full">
-          <h2 className="dark:text-white text-5xl text-center">{t("Landing.steps-title")}</h2>
+          <h2 className="dark:text-white md:text-4xl text-2xl text-center font-semibold uppercase">{t("Landing.steps-title")}</h2>
           <div className="h-[30px] w-1/2 bg-brown2 mt-[-10px] mx-auto " />
         </div>
         <div className="w-full flex flex-row flex-wrap mt-[50px]">

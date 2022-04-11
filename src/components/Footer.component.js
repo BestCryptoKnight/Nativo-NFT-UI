@@ -18,8 +18,8 @@ function LightFooterB(props) {
     }
   }
   return (
-    <footer className="pb-12 text-gray-600 body-font bg-gray-100 border-t border-grey-darkest  dark:bg-gradient-to-t dark:from-[#5e3b13] dark:to-[#1d1d1b]">
-      <div className="container px-10 pt-20 pb-12 mx-auto mt-8 flex md:items-center lg:items-start md:flex-row md:flex-nowrap flex-wrap flex-col border border-[#f9650b] rounded-[35px] dark:bg-gradient-to-t dark:from-[#5e3b13] dark:to-[#1d1d1b] dark:shadow-s">
+    <footer className="pb-12 text-gray-600 body-font dark:bg-darkgray border-grey-darkest  dark:bg-gradient-to-t dark:from-[#5e3b13] dark:to-[#1d1d1b]">
+      <div className="container px-10 pt-20 pb-12 mx-auto pt-8 flex md:items-center lg:items-start md:flex-row md:flex-nowrap flex-wrap flex-col border border-[#f9650b] rounded-[35px] dark:bg-gradient-to-t dark:from-[#5e3b13] dark:to-[#1d1d1b] dark:shadow-s">
         <div className="w-64 flex-shrink-0 mx-auto text-center md:text-left   self-center ">
           <a
             href="./"
