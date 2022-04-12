@@ -201,8 +201,8 @@ function LightEcommerceA() {
           setHasData(true)
           if(nft_total_supply<=Landing.tokensPerPageNear){
             let payload = {
-              from_index: 0,
-              limit: nft_total_supply,
+              from_index: (0).toString(),
+              limit: parseInt(nft_total_supply),
             }
             setIndex(0)
             let toks = await contract.nft_tokens(
