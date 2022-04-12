@@ -193,7 +193,19 @@
         "sweetTxt" : "Para crear un NFT es necesario seleccionar una colección, selecciona una e intentalo de nuevo",
         "noColTit" : "No tienes colecciones",
         "noColTxt" : "Para poder minar un token en necesario crear una colección antes",
-        "noColBtn" : "Crear colección"
+        "noColBtn" : "Crear colección",
+        "swVoid" : "Verificar campos vacios en las regalias",
+        "swVoidTxt" : "Tienes un campo de cuenta o porcentaje vacio, llena ese campo antes de volver a intentarlo",
+        "swNet" : "Error al escribir la cuenta",
+        "swNetTxt" : "Para poder agregar regalias a un NFT es necesario que la cuenta incluya ",
+        "swPer" : "Porcentaje de las regalias mayor al 50%",
+        "swPerTxt" : "No se puede definir un porcentaje de regalias mayor al 50%, revisa tus porcentajes",
+        "swVer" : "Verifica la informacion de las regalias",
+        "lblRoyalties" : "Regalias",
+        "placeAccount" : "Cuenta",
+        "placePercent" : "Porcentaje",
+        "btnRemove" : "Quitar",
+        "btnRoyalties" : "Agregar regalias"
     },
     "Modal" : {
         "accept" : "Acepto los terminos y condiciones del servicio",

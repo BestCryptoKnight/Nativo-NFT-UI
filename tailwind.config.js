@@ -20,7 +20,8 @@ module.exports = {
       'hotpink': '#ff0f47',
       'lightpink': '#ffab96',
       'blue': '#3c65aa',
-      'purple': '#c6379c'
+      'purple': '#c6379c',
+      'slate': '#F1F5F9'
     },
     extend: {
     }

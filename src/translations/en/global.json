@@ -193,7 +193,19 @@
         "sweetTxt" : "To create an NFT it is necessary to select a collection, select one and try again",
         "noColTit" : "You don't have collections",
         "noColTxt" : "To be able to mine a token, it's necessary to create a collection before",
-        "noColBtn" : "Create collection"
+        "noColBtn" : "Create collection",
+        "swVoid" : "Verify empty fields in royalties",
+        "swVoidTxt" : "You have an empty account or percentage field, fill in that field before trying again",
+        "swNet" : "Error writing account",
+        "swNetTxt" : "In order to add royalties to an NFT it is necessary that the account includes ",
+        "swPer" : "Percentage of royalties greater than 50%",
+        "swPerTxt" : "You cannot define a royalty percentage greater than 50%, check your percentages",
+        "swVer" : "Check the royalty information",
+        "lblRoyalties" : "Royalties",
+        "placeAccount" : "Account",
+        "placePercent" : "Percentage",
+        "btnRemove" : "Remove",
+        "btnRoyalties" : "Add royalties"
     },
     "Modal" : {
         "accept" : "I accept the terms and conditions of service",
