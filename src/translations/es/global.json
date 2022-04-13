@@ -1,8 +1,10 @@
 {
     "Landing": {
-        "title" : "Crecemos junto a la comunidad de artistas NFT.",
+        "title" : "Colecciona NFTs ",
+        "title-2" : "en NEAR Protocol",
         "subtitle" : "¡Nos actualizamos! Ahora puedes recibir pagos de regalías de tus NFT’s.",
         "btnCollections" : "Colecciones",
+        "gallery" : "Galería",
         "useNear" : "Utiliza tu Near wallet",
         "useNear-sub" : "Con ellas podrás comprar tus NFTs e ingresa a tu panel",
         "artist" : "Como artista crea nuevos NFT",
