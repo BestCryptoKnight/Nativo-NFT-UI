@@ -89,6 +89,7 @@
         "contract" : "Contract",
         "available-1" : "Available",
         "available-2" : "Not available",
+        "royalty" : "Royalties",
         "buy" : "Buy",
         "login" : "Login to Buy",
         "swTitOffer-1" : "The bid is accepted",

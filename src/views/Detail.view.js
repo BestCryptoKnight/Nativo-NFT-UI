@@ -38,6 +38,7 @@ function LightEcommerceB(props) {
   });
   //Esta logeado
   const [stateLogin, setStateLogin] = useState(false);
+  const [hasRoyalty, setHasRoyalty] = useState(false)
   //es el parametro de tokenid
   const { data } = useParams();
   //es el historial de busqueda
@@ -91,6 +92,9 @@ function LightEcommerceB(props) {
           token_id: tokenId, 
         };
         let nft = await contract.nft_token(payload);
+        if(Object.keys(nft.royalty).length!=0){
+          setHasRoyalty(true)
+        }
         setstate({
           ...state,
           tokens: {
@@ -101,6 +105,8 @@ function LightEcommerceB(props) {
             image: nft.metadata.media,
             title: nft.metadata.title,
             description: nft.metadata.description,
+            royalty: Object.entries(nft.royalty),
+            creator: nft.creator_id
           },
           owner: nft.owner_id
         });
@@ -292,7 +298,7 @@ function LightEcommerceB(props) {
               <div
                 className={`flex border-l-4 border-${props.theme}-500 py-2 px-2 my-2 bg-gray-50`}
               >
-                <span className="text-gray-500">TokenId</span>
+                <span className="text-gray-500">Token Id</span>
                 <span className="ml-auto text-gray-900">
                   {state?.tokens.tokenID}
                 </span>
@@ -327,11 +333,39 @@ function LightEcommerceB(props) {
               <div
                 className={`flex border-l-4 border-${props.theme}-500 py-2 px-2 my-2 bg-gray-50`}
               >
-                <span className="text-gray-500">Propietario</span>
+                <span className="text-gray-500">{t("Detail.owner")}</span>
                 <span className="ml-auto text-gray-900 text-xs self-center">
                   {state?.owner}
                 </span>
               </div>
+
+              <div
+                className={`flex border-l-4 border-${props.theme}-500 py-2 px-2 my-2 bg-gray-50`}
+              >
+                <span className="text-gray-500">{t("Detail.creator")}</span>
+                <span className="ml-auto text-gray-900 text-xs self-center">
+                  {state?.jdata.creator}
+                </span>
+              </div>
+
+              {(hasRoyalty ?
+                <div
+                  className={`flex border-l-4 border-${props.theme}-500 py-2 px-2 my-2 bg-gray-50`}
+                >
+                  <span className="text-gray-500">{t("Detail.royalty")}</span>
+                  <span className="ml-auto text-gray-900 text-xs self-center text-right">
+                    <ol>
+                      {state?.jdata.royalty.map((data,i) => {
+                        return(
+                          <li key={i}><b>{data[0]}</b> : {(data[1]/100)}%</li>
+                        )
+                      })}
+                    </ol>
+                  </span>
+                </div>
+                : "")
+              }
+              
 
    
               <div
