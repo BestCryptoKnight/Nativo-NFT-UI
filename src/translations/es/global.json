@@ -89,6 +89,7 @@
         "contract" : "Contrato",
         "available-1" : "Disponible",
         "available-2" : "No disponible",
+        "royalty" : "Regalias",
         "buy" : "Comprar",
         "login" : "Iniciar Sesión para Comprar",
         "swTitOffer-1" : "Se acepto la oferta",
