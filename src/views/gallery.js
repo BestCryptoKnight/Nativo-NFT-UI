@@ -87,7 +87,6 @@ function LightEcommerceA() {
 
   let fetchMoreData = async () => {
     let limit=true
-    setini(true)
     let contract = await getNearContract();
     let indexQuery
     let lastLimit
@@ -198,8 +197,34 @@ function LightEcommerceA() {
         let nft_total_supply = await contract.nft_total_supply()
         setIndex(nft_total_supply)
         if(nft_total_supply>0){
+          setini(true)
           setHasData(true)
-          window.scroll(0,100)
+          if(nft_total_supply<=Landing.tokensPerPageNear){
+            let payload = {
+              from_index: (0).toString(),
+              limit: parseInt(nft_total_supply),
+            }
+            setIndex(0)
+            let toks = await contract.nft_tokens(
+              payload,
+            )
+            setTokens({...tokens,
+              items: tokens.items.concat(toks.reverse())
+            });
+          }
+          else{
+            let payload = {
+              from_index: (nft_total_supply-Landing.tokensPerPageNear).toString(),
+              limit: Landing.tokensPerPageNear,
+            }
+            setIndex(nft_total_supply-Landing.tokensPerPageNear)
+            let toks = await contract.nft_tokens(
+              payload,
+            )
+            setTokens({...tokens,
+              items: tokens.items.concat(toks.reverse())
+            });
+          }
         }
         
         //console.log("Page",Landing.page)

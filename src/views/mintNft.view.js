@@ -52,6 +52,37 @@ function LightHeroE(props) {
 
   const [actualDate, setactualDate] = useState("");
   let collectionData
+  
+  const [formFields, setFormFields] = useState([])
+
+  const handleFormChange = (event, index) => {
+    let data = [...formFields];
+    data[index][event.target.name] = event.target.value;
+    setFormFields(data);
+  }
+
+  const submit = (e) => {
+    e.preventDefault();
+    console.log(formFields)
+  }
+
+  const addFields = () => {
+    let object = {
+      account: '',
+      percent: ''
+    }
+    if(formFields.length==6){
+      return
+    }
+    setFormFields([...formFields, object])
+  }
+
+  const removeFields = (index) => {
+    let data = [...formFields];
+    data.splice(index, 1)
+    setFormFields(data)
+  }
+  
   const APIURL = process.env.REACT_APP_API_TG
   //guardara todos los valores del formulario
   const pru = (parseInt(Math.random() * 100000) + 1);
@@ -106,8 +137,6 @@ function LightHeroE(props) {
       }
 
       //cargamos el modal
-      
-
       // console.log(JSON.stringify(values))
       const fecha = values.date.split('-')
       let dateSTR = fecha[1] + '-' + fecha[2] + '-' + fecha[0]
@@ -135,6 +164,59 @@ function LightHeroE(props) {
             return err;
           });
       } else {
+        let percentage=0
+        let royalties = {}
+        let success=true
+        let royalText = ""
+        console.log(formFields)
+        if(formFields.length>0){
+          formFields.map(async (data,index)=> {
+            if(data.account==""||data.percent==""){
+              Swal.fire({
+                title: t("MintNFT.swVoid"),
+                text: t("MintNFT.swVoidTxt"),
+                icon: 'error',
+                confirmButtonColor: '#E79211'
+              })
+              setmint({ ...mint, onSubmitDisabled: false });
+              success=false
+              return
+            }
+            if(!data.account.includes(process.env.REACT_APP_NEAR_ENV == "mainnet" ? ".near" : ".testnet"))
+            {
+              Swal.fire({
+                title: t("MintNFT.swNet"),
+                text: t("MintNFT.swNetTxt")+(process.env.REACT_APP_NEAR_ENV == "mainnet" ? ".near" : ".testnet"),
+                icon: 'error',
+                confirmButtonColor: '#E79211'
+              })
+              setmint({ ...mint, onSubmitDisabled: false });
+              success=false
+              return
+            }
+            let account=data.account
+            let percent=data.percent
+            percentage=percentage+parseFloat(percent)
+            console.log(index)
+            let info = JSON.parse('{"'+account+'" : '+(percent*100)+'}')
+            royalText= royalText+account+" : "+percent+"%<br>"
+            royalties = {...royalties,...info}
+          })
+          console.log(royalties)
+          console.log(percentage)
+          if(percentage>50){
+            Swal.fire({
+              title: t("MintNFT.swPer"),
+              text: t("MintNFT.swPerTxt"),
+              icon: 'error',
+              confirmButtonColor: '#E79211'
+            })
+            success=false
+            setmint({ ...mint, onSubmitDisabled: false });
+            return
+          }
+        }
+        
         let contract = await getNearContract();
         const data = await contract.account.connection.provider.block({
           finality: "final",
@@ -150,27 +232,47 @@ function LightHeroE(props) {
           },
           receiver_id : owner
         }
-        // let newPayload = {
-        //   address_contract: process.env.REACT_APP_MINTER_CONTRACT,//(comboCol? values.contractCol : contData),
-        //   token_owner_id: owner,
-        //   collection_id: colID,
-        //   collection: collTitle,
-        //   token_metadata: {
-        //     title: values.title,
-        //     description: values.description,
-        //     media: values.image,
-        //     media_hash: "hashhashhashhashhashhashhashhash",
-        //     extra: "{'tags':'" + values.culture  + "','creator':'" + owner + "','price':'" + (fromNearToYocto(values.price))+ "','status': 'S" + "','on_sale':" + combo + ",'on_auction':" + (!combo) + ",'adressbidder':'accountbidder','highestbidder':'" + (!combo ? 0 : "notienealtos") + "','lowestbidder':'" + (!combo ? fromNearToYocto(values.price) : "notienebajos") + "','expires_at':'" + date.getTime() + "','starts_at':'" + dateActual + "'}"
-        //     //extra: "{'culture':'Azteca','country':'Mexico','creator':'joehank.testnet','price':'10','on_sale':true,'on_auction':false,'adressbidder':'accountbidder','highestbidder':'notienealtos','lowestbidder':'notienebajos','expires_at':'noexpira','starts_at':'noinicia'}"
-        //   },
-        // }
         let amount = fromNearToYocto(process.env.REACT_APP_FEE_CREATE_NFT);
-        console.log(payload)
-        let tokenres = await contract.nft_mint(
-          payload,
-          300000000000000,
-          amount,
-        )
+        console.log(royalText)
+        if(success){
+          if(Object.keys(royalties)!=0){
+            payload = {...payload,...{perpetual_royalties:royalties}}
+            Swal.fire({
+              title: t("MintNFT.swVer"),
+              html: royalText,
+              icon: 'warning',
+              showCancelButton: true,
+              confirmButtonColor: '#E79211',
+              cancelButtonColor: '#d33',
+              confirmButtonText: "Crear NFT"
+            }).then(async (result) => {
+              if (result.isConfirmed) {
+                console.log("Creando NFT")
+                let tokenres = await contract.nft_mint(
+                  payload,
+                  300000000000000,
+                  amount,
+                )
+              }
+              else if(result.isDismissed){
+                setmint({ ...mint, onSubmitDisabled: false });
+              }
+            })
+          }
+          else{
+            let tokenres = await contract.nft_mint(
+              payload,
+              300000000000000,
+              amount,
+            )
+          }
+          console.log(payload)
+        }
+        // let tokenres = await contract.nft_mint(
+        //   payload,
+        //   300000000000000,
+        //   amount,
+        // )
       }
       //if de error
      
@@ -303,7 +405,7 @@ function LightHeroE(props) {
                 id="title"
                 name="title"
                 {...formik.getFieldProps("title")}
-                className={`  w-full bg-gray-100 bg-opacity-50 rounded   focus:bg-transparent  text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out `}
+                className={`w-full dark:bg-slate rounded     text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out `}
               />
 
               {/* <div className="flex justify-between ">
@@ -352,8 +454,52 @@ function LightHeroE(props) {
                 name="description"
                 rows="2"
                 {...formik.getFieldProps("description")}
-                className={` resize-none border-none w-full bg-gray-100 bg-opacity-50 rounded   focus:bg-transparent  text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out-yellow-500 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out`}
+                className={` resize-none border-none w-full dark:bg-slate bg-opacity-50 rounded   focus:bg-transparent  text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out-yellow-500 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out`}
               />
+
+
+              <div className="flex justify-between ">
+                <label
+                  htmlFor="royalties"
+                  className="leading-7 text-sm text-gray-600"
+                >
+                  {t("MintNFT.lblRoyalties")}
+                </label>
+              </div>
+
+              <div>
+                <div>
+                  {formFields.map((form, index) => {
+                    return (
+                      <div key={index} className="grid grid-cols-1 lg:grid-cols-5 gap-4 mt-1">
+                        <input
+                          name='account'
+                          placeholder={t("MintNFT.placeAccount")}
+                          className="lg:col-span-2 dark:bg-slate px-2 rounded"
+                          onChange={event => handleFormChange(event, index)}
+                          value={form.name}
+                        />
+                        <input
+                          type="number"
+                          min="0.1"
+                          step="0.1"
+                          name='percent'
+                          placeholder={t("MintNFT.placePercent")}
+                          className="lg:col-span-2 dark:bg-slate px-2 rounded"
+                          onChange={event => handleFormChange(event, index)}
+                          value={form.age}
+                         />
+                        <button type="button" onClick={() => removeFields(index)} className="lg:col-span-1 w-full text-white bg-yellow2 border-0 py-2 focus:outline-none hover:bg-brown rounded text-sm">{t("MintNFT.btnRemove")}</button>
+                      </div>
+                    )
+                  })}
+                </div>
+                  
+                <button type="button" onClick={addFields} className="mt-6 w-full text-white bg-yellow2 border-0 py-2 px-6 focus:outline-none hover:bg-brown rounded text-base">{t("MintNFT.btnRoyalties")}</button>
+              </div>
+
+
+
               <button
                 type="submit"
                 className={` mt-12 w-full text-white bg-yellow2 border-0 py-2 px-6 focus:outline-none hover:bg-brown rounded text-lg`}
