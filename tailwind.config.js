@@ -7,6 +7,7 @@ module.exports = {
     extend: {
       boxShadow: {
         's': '4px 1px 17px rgba(253, 252, 252, 0.05)',
+        'brown-s': '0 0 20px rgba(158, 009, 004, 1)'
       },
       colors: {
         'white': '#fff',
@@ -27,6 +28,12 @@ module.exports = {
       borderRadius: {
         'xlarge': '15px',
       },
+      backgroundImage: {
+        'hero-rocket': "url('./assets/img/Rocket.png')"
+      },
+      backgroundSize: {
+        '40': '40%'
+      }
     }
   },
   plugins: [],
