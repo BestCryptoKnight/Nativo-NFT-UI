@@ -1,8 +1,10 @@
 {
     "Landing": {
-        "title" : "We grow together with the community of NFT artists.",
+        "title" : "Collect NTFs ",
+        "title-2" : "in NEAR Protocol",
         "subtitle" : "We update! You can now receive royalty payments from your NFT's.",
         "btnCollections" : "Collections",
+        "gallery" : "Explore Gallery",
         "useNear" : "Use your Near wallet",
         "useNear-sub" : "With them you can buy your NFT's and enter your panel",
         "artist" : "As an artist create new NFT",
@@ -17,23 +19,44 @@
         "resell-sub" : "Don't want your NFT anymore? you can resell it in your panel at the price you decide.",
         "aboutUs" : "About us",
         "aboutUs-txt" : "Nativo NFT is a market for NFT's built on the NEAR protocol. It is currently in public beta",
-        "dao" : "Nativo DAO... Coming Soon",
-        "dao-txt-1" : "Our roadmap contemplates the launch of a DAO for governance which can use the $NTV governance tokens to manage the Nativo NFT protocol. At first, this DAO will be controlled by members of the founding team, and from where updates to the smart contract can be made..."
+        "dao" : "Participate on Nativo DAO",
+        "dao-txt-1" : "Our roadmap contemplates the launch of a DAO for governance which can use the $NTV governance tokens to manage the Nativo NFT protocol. At first, this DAO will be controlled by members of the founding team, and from where updates to the smart contract can be made...",
+        "dao-txt-2" : "Be part of the governance with $NTV token",
+        "steps-connect": "Connect your NEAR wallet",
+        "steps-create": "Create your collection",
+        "steps-createn": "Create your NFTs",
+        "steps-sell": "Sell your NFTs",
+        "steps-title" : "Create your NFTs"
     },
     "Navbar" : {
         "collections" : "Collections",
         "create" : "Create",
         "myNFTs" : "My NFTs",
         "warning" : "This is a public beta version - Use at your own risk - Unaudited code",
-        "language" : "English"
+        "language" : "English",
+        "gallery" : "Gallery"
     },
     "Footer" : {
         "made" : "Made with:",
-        "resources" : "RESOURCES",
+        "resources" : "Resources",
         "roadmap" : "Roadmap",
         "followUs" : "FOLLOW US",
         "thanks" : "We appreciate your visit and preference",
-        "language" : "LANGUAGE"
+        "language" : "LANGUAGE",
+        "community" : "Community",
+        "aboutUs" : "About us",
+        "twitter" : "Twitter",
+        "telegram" : "Telegram",
+        "discord" : "Discord",
+        "medium" : "Medium",
+        "github" : "Github",
+        "whitepaper" : "Whitepaper",
+        "tokenomics" : "Tokenomics",
+        "docs" : "Docs",
+        "terms" : "Terms and conditions",
+        "aboutNativo" : "About NativoNFT",
+        "theTeam" : "The Team",
+        "tribu" : "Nativo NFT 2002 - Mantained by CloudMex Analytics community"
     },
     "Collections" : {
         "creator" : "Creator",
@@ -54,7 +77,10 @@
         "owner" : "Owner",
         "load-1" : "Loading Please wait",
         "load-2" : "There are no NFTs in this collection yet",
-        "descrip" : "This collection doesn't have a description"
+        "descrip" : "This collection doesn't have a description",
+        "loading" : "Loading...",
+        "end" : "There are no more NFTs",
+        "noData" : "No NFTs Currently"
     },
     "Detail" : {
         "collection" : "Collection",
@@ -65,6 +91,7 @@
         "contract" : "Contract",
         "available-1" : "Available",
         "available-2" : "Not available",
+        "royalty" : "Royalties",
         "buy" : "Buy",
         "login" : "Login to Buy",
         "swTitOffer-1" : "The bid is accepted",
@@ -96,7 +123,10 @@
         "load-1" : "Loading Please wait",
         "load-2" : "You don't have NFTs yet... Create or acquire one to get started",
         "putSale" : "Put on sale",
-        "cost" : "Cost"
+        "cost" : "Cost",
+        "transferButton": "Transfer NFT",
+        "modalTransTitle": "Transfer NFT",
+        "modalTransMsg" : "Write the account to which you want to transfer your NFT"
     },
     "CreateCol" : {
         "title" : "New collection",
@@ -163,9 +193,33 @@
         "errCol-3" : "Create collection",
         "createNFT" : "Create NFT",
         "sweetTitle" : "Select a collection",
-        "sweetTxt" : "To create an NFT it is necessary to select a collection, select one and try again"
+        "sweetTxt" : "To create an NFT it is necessary to select a collection, select one and try again",
+        "noColTit" : "You don't have collections",
+        "noColTxt" : "To be able to mine a token, it's necessary to create a collection before",
+        "noColBtn" : "Create collection",
+        "swVoid" : "Verify empty fields in royalties",
+        "swVoidTxt" : "You have an empty account or percentage field, fill in that field before trying again",
+        "swNet" : "Error writing account",
+        "swNetTxt" : "In order to add royalties to an NFT it is necessary that the account includes ",
+        "swPer" : "Percentage of royalties greater than 50%",
+        "swPerTxt" : "You cannot define a royalty percentage greater than 50%, check your percentages",
+        "swVer" : "Check the royalty information",
+        "lblRoyalties" : "Royalties",
+        "placeAccount" : "Account",
+        "placePercent" : "Percentage",
+        "btnRemove" : "Remove",
+        "btnRoyalties" : "Add royalties"
     },
     "Modal" : {
-        "accept" : "I accept the terms and conditions of service"
+        "accept" : "I accept the terms and conditions of service",
+        "transAlert1" : "Error writing account",
+        "transAlert1Txt" : "In order to transfer an NFT it is necessary that the account includes ",
+        "transAlert2" : "Terms and conditions not accepted",
+        "transAlert2Txt" : "In order to transfer an NFT you need to accept the terms and conditions",
+        "transAlert3" : "Be careful, transfer token",
+        "transAlert3Txt-1" : "Are you sure to transfer your token to: ",
+        "transAlert3Txt-2" : " Check the account very well if it is wrong or does not exist there is no way to recover your NFT",
+        "transAlert3Btn" : "Transfer",
+        "account" : "Account"
     }
 }

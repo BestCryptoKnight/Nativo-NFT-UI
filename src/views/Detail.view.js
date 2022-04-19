@@ -38,6 +38,7 @@ function LightEcommerceB(props) {
   });
   //Esta logeado
   const [stateLogin, setStateLogin] = useState(false);
+  const [hasRoyalty, setHasRoyalty] = useState(false)
   //es el parametro de tokenid
   const { data } = useParams();
   //es el historial de busqueda
@@ -79,160 +80,36 @@ function LightEcommerceB(props) {
         //   //console.log(toks.data);
         // }
       } else {
-        //Funciones y variables necesarias para the graph
-        let info = data.split(":");
-        let toksData
-        const queryData = `
-          query($tokenId: String, $collectionID: String){
-            tokens(where: {tokenId: $tokenId, collectionID: $collectionID}) {
-              id
-              collection
-              collectionID
-              contract
-              tokenId
-              owner_id
-              title
-              description
-              media
-              creator
-              price
-              status
-              adressbidder
-              highestbidder
-              lowestbidder
-              expires_at
-              starts_at
-              extra
-            }
-          }
-        `
-        //Declaramos el cliente
-        const client = new ApolloClient({
-          uri: APIURL,
-          cache: new InMemoryCache(),
-        })
 
-        await client
-          .query({
-            query: gql(queryData),
-            variables: {
-              tokenId: info[0],
-              collectionID: info[1],
-            }
-          })
-          .then((data) => {
-            console.log("tokens data: ", data.data.tokens[0])
-            toksData = data.data.tokens[0]
-          })
-          .catch((err) => {
-            console.log('Error ferching data: ', err)
-          })
-
-        /* Retrieve offers on this token*/
-        let toknOffersData;
-        const queryDataOffers = `
-          query($tokenId: Int, $collectionID: Int){
-            offers(orderBy: offerID, where: {tokenId: $tokenId, collectionID: $collectionID}, orderDirection: desc) {
-              offerID
-              tokenId
-              contract
-              price
-              collectionID
-              owner_id
-            }
-          }
-        `
-        //Declaramos el cliente
-        const Offers = new ApolloClient({
-          uri: APIURL,
-          cache: new InMemoryCache(),
-        })
-
-        await Offers
-          .query({
-            query: gql(queryDataOffers),
-            variables: {
-              tokenId: parseInt(info[0]),
-              collectionID: parseInt(info[1])
-            }
-          })
-          .then((data) => {
-            console.log("offer tokens: ", data.data.offers)
-            toknOffersData = data.data.offers
-
-          })
-          .catch((err) => {
-            console.log('Error ferching data: ', err)
-          })
- 
-
-
-        //instanciar contracto
+        
         let contract = await getNearContract();
-        // totalSupply = await contract.nft_total_supply();
-        //console.log(totalSupply);
+        let account = await getNearAccount();
+        let tokenId = data;
 
-        //si es mayor que el total de tokens
-        // if (parseInt(tokenid) >= parseInt(totalSupply)) {
-        //   window.location.href = "/galeria";
-        // } else {
-        // let toks = await contract.get_token({ token_id: tokenid });
-        // //console.log("Token")
-        // //console.log(toks)
-        // if(toks.on_auction){
-        //   window.location.href = "/auction/"+tokenid;
-        // }
-        let saleState
-        if (toksData.status != 'S') {
-          saleState = false
-        }
-        else {
-          saleState = true
-        }
-        setbtn(!saleState);
-        // console.log({
-        //   tokenID: toks.token_id,
-        //   onSale: toks.metadata.on_sale,
-        //   price: toks.metadata.price,
-        //   culture:toks.metadata.culture,
-        //   country:toks.metadata.country,
-        //   creator:toks.metadata.creator,
-        // });
 
-        let extra = toksData.extra.split(":")
+        let payload = {
+          account_id: account,
+          token_id: tokenId, 
+        };
+        let nft = await contract.nft_token(payload);
+        if(Object.keys(nft.royalty).length!=0){
+          setHasRoyalty(true)
+        }
         setstate({
           ...state,
           tokens: {
-            tokenID: toksData.tokenId,
+            tokenID: nft.token_id,
             //chunk: parseInt(toks.token_id/2400),
-            onSale: saleState,
-            price: fromYoctoToNear(toksData.price),
-            contract: toksData.contract,
-            collection: toksData.collection,
-            collectionID: toksData.collectionID,
-            addressbidder: toksData.adressbidder, //default value accountbidder
-            highestbidder: toksData.highestbidder, //default value notienealtos
-            lowestbidder: toksData.lowestbidder, //default value notienebajos
-            // culture:toks.culture,
-            // country:toks.country,
-            // creator:toks.metadata.creator,
           },
           jdata: {
-            image: toksData.media,
-            title: toksData.title,
-            description: toksData.description,
-            tags: extra[0].split(' '),
-            creator: toksData.creator,
-            collection: toksData.collection,
-            contract: toksData.contract,
-            collectionID: toksData.collectionID
+            image: nft.metadata.media,
+            title: nft.metadata.title,
+            description: nft.metadata.description,
+            royalty: Object.entries(nft.royalty),
+            creator: nft.creator_id
           },
-          owner: toksData.owner_id,
-          ownerAccount: ownerAccount,
-          toknOffersData: toknOffersData
+          owner: nft.owner_id
         });
-        //console.log("state", state)
-
 
 
       }
@@ -394,7 +271,7 @@ function LightEcommerceB(props) {
           <div
             className="regresar"
           >
-            <a href={'/collection/' + state?.jdata.collectionID} >
+            <a href={'/mynfts'} >
               <img
                 className="hover:cursor-pointer h-[50px] "
                 src={flechaiz}
@@ -416,44 +293,19 @@ function LightEcommerceB(props) {
                 {state?.jdata.description}
               </p>
 
-              <div
-                className={`flex border-l-4 border-${props.theme}-500 py-2 px-2 my-2 bg-gray-50`}
-              >
-                <span className="text-gray-500">{t("Detail.collection")}</span>
-                <span className="ml-auto text-gray-900">
-                  <span
-                    className={`transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-110 duration-300 inline-flex items-center justify-center px-2 py-1 text-sm font-bold leading-none text-white bg-yellow-500 rounded-full`}
-                  >
-                    <a href={'/collection/' + state?.jdata.collectionID}>{state?.jdata.collection}</a>
-                  </span>
-                </span>
-              </div>
+
 
               <div
                 className={`flex border-l-4 border-${props.theme}-500 py-2 px-2 my-2 bg-gray-50`}
               >
-                <span className="text-gray-500">TokenId</span>
+                <span className="text-gray-500">Token Id</span>
                 <span className="ml-auto text-gray-900">
                   {state?.tokens.tokenID}
                 </span>
               </div>
 
-              <div
-                className={`flex border-l-4 border-${props.theme}-500 py-2 px-2 my-2 bg-gray-50`}
-              >
-                <span className="text-gray-500">{t("Detail.sale")}</span>
-                <span className="ml-auto text-gray-900">
-                  <span
-                    className={`inline-flex items-center justify-center px-2 py-1  text-xs font-bold leading-none ${state?.tokens.onSale
-                      ? "text-green-100 bg-green-500"
-                      : "text-red-100 bg-red-500"
-                      } rounded-full`}
-                  >
-                    {state?.tokens.onSale ? t("Detail.available-1") : t("Detail.available-2")}
-                  </span>
-                </span>
-              </div>
-              <div
+
+              {/*<div
                 className={`flex border-l-4 border-${props.theme}-500 py-2 px-2 my-2 bg-gray-50`}
               >
                 <span className="text-gray-500">Tags</span>
@@ -474,21 +326,21 @@ function LightEcommerceB(props) {
                   }
 
                 </span>
-              </div>
+              </div>*/}
 
 
 
               <div
                 className={`flex border-l-4 border-${props.theme}-500 py-2 px-2 my-2 bg-gray-50`}
               >
-                <span className="text-gray-500">Propietario</span>
+                <span className="text-gray-500">{t("Detail.owner")}</span>
                 <span className="ml-auto text-gray-900 text-xs self-center">
                   {state?.owner}
                 </span>
               </div>
 
               <div
-                className={`flex border-l-4 border-${props.theme}-500 py-2 px-2 bg-gray-50`}
+                className={`flex border-l-4 border-${props.theme}-500 py-2 px-2 my-2 bg-gray-50`}
               >
                 <span className="text-gray-500">{t("Detail.creator")}</span>
                 <span className="ml-auto text-gray-900 text-xs self-center">
@@ -496,8 +348,28 @@ function LightEcommerceB(props) {
                 </span>
               </div>
 
+              {(hasRoyalty ?
+                <div
+                  className={`flex border-l-4 border-${props.theme}-500 py-2 px-2 my-2 bg-gray-50`}
+                >
+                  <span className="text-gray-500">{t("Detail.royalty")}</span>
+                  <span className="ml-auto text-gray-900 text-xs self-center text-right">
+                    <ol>
+                      {state?.jdata.royalty.map((data,i) => {
+                        return(
+                          <li key={i}><b>{data[0]}</b> : {(data[1]/100)}%</li>
+                        )
+                      })}
+                    </ol>
+                  </span>
+                </div>
+                : "")
+              }
+              
+
+   
               <div
-                className={`flex border-l-4 border-${props.theme}-500 py-2 px-2 my-2 bg-gray-50`}
+                className={`flex border-l-4 border-${props.theme}-500 py-2 px-2 my-2 bg-gray-50 invisible`}
               >
                 <span className="text-gray-500">Contrato</span>
                 <span className="ml-auto text-gray-900 text-xs">
@@ -571,7 +443,7 @@ function LightEcommerceB(props) {
               </div>
             </div>
 
-            {//CURRENT OFFER TO i 
+            {/*//CURRENT OFFER TO i 
             state  && state.tokens && state.tokens.addressbidder != 'accountbidder' &&  state.tokens.highestbidder != "notienealtos" ?
             <div className="w-full">
               <div className="w-full border-4 rounded-lg border-[#eab308] border-white-500 mt-10">
@@ -618,8 +490,8 @@ function LightEcommerceB(props) {
               </div>
             </div>
             : ""
-            }
-            {state && state.toknOffersData != 0 ?
+            */}
+            {/*state && state.toknOffersData != 0 ?
               <div className="w-full border-4 rounded-lg border-[#eab308] border-white-500 mt-10">
                 <div className="text-center p-2 bg-[#eab308] text-white font-bold text-xl">{t("Detail.bidsMade")}</div>
                 <div className="w-full flex flex-row py-1 justify-between text-gray-500 bg-gray-50">
@@ -639,7 +511,7 @@ function LightEcommerceB(props) {
                 </div>
               </div>
               : ""
-            }
+                */}
           </div>
 
 

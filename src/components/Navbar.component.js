@@ -6,6 +6,7 @@ import { config, signOut } from "../utils/near_interaction";
 import * as nearAPI from "near-api-js";
 import { blockchains } from "../utils/constraint";
 import nativoLogo from '../assets/img/nativologocrop.png'
+import nativoLogoWhite from '../assets/img/LogoBlanco.png'
 import lupa from '../assets/landingSlider/img/lupa1.png'
 import menu from '../assets/landingSlider/img/menu.png'
 import { useTranslation } from "react-i18next";
@@ -96,36 +97,39 @@ function LightHeaderB(props) {
     <>
     
     <header className="text-gray-600 body-font shadow-sm sticky top-0 z-50 bg-[#ffffff]">
-      <div className=" flex flex-wrap px-5 py-2 flex-col md:flex-row items-center movil-header">
-        <a
-          href="/"
-          className="movil-logo"
-        >
-         <img  src={nativoLogo} className="d-inline-block align-top " alt="logo"   width="120px"/>
+      <div className=" flex flex-wrap px-5 py-2 flex-col md:flex-row items-center movil-header dark:bg-[#1d1d1b]">
+          <div className="w-full flex flex-row justify-between md:w-auto">
+            <a
+              href="/"
+              className="movil-logo flex flex-row"
+            >
+              <img src={nativoLogoWhite} className="d-inline-block align-top " alt="logo" width="120px" />
+              <div className="w-[2px] h-[50px] ml-[25px] self-center bg-[#f6c930]"></div>
 
-         
-        </a>
-        <div className={"menu "+(menu ? "" : "sx")} onClick={ e => {
-            setmenu(m => !m);
-        }} ></div>
+            </a>
+            <div className={"menu " + (menu ? "" : "sx") + "m-2"} onClick={e => {
+              setmenu(m => !m);
+            }} >
+            </div>
+        </div>
         <nav className={"movil-nav md:mr-auto md:ml-4 md:py-1 md:pl-4 md:border-l md:border-gray-400	flex flex-wrap items-center text-base justify-center "+(menu ? "esconder-nav" : "")}>
           {/* <a href="/galeria" className="mr-5 hover:text-gray-900">
             Galeria
           </a> */}
 
-          <a href="/collections" className="mr-5 hover:text-[#ec8b01] hover:text-lg hover:font-bold">
-            {t("Navbar.collections")}
+          <a href="/gallery" className="mr-5 hover:text-[#ec8b01] hover:text-lg hover:font-bold dark:text-white">
+            {t("Navbar.gallery")}
           </a>
           {/* <a href="https://v1.nativonft.app/galeria" className="mr-5 hover:text-gray-900">
             Galeria V1
           </a> */}
-          <a href="/create" className="mr-5 hover:text-[#ec8b01] hover:text-lg hover:font-bold">
+          <a href="/create" className="mr-5 hover:text-[#ec8b01] hover:text-lg hover:font-bold dark:text-white">
             {t("Navbar.create")}
           </a>
           {/* <a href="/auctions" className="mr-5 hover:text-gray-900">
             Subastas
           </a> */}
-          <a href="/mynfts" className="mr-5 hover:text-[#ec8b01] hover:text-lg hover:font-bold">
+          <a href="/mynfts" className="mr-5 hover:text-[#ec8b01] hover:text-lg hover:font-bold dark:text-white">
             {t("Navbar.myNFTs")}
           </a>
         </nav>
