@@ -19,7 +19,16 @@ function Trendings() {
     autoplaySpeed: 3000,
     autoplay: false,
     useTransform: true,
-    useCSS: true
+    useCSS: true,
+    responsive: [
+      {
+        breakpoint: 1024,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1
+        }
+      }
+    ]
   };
 
   React.useEffect(() => {
@@ -53,19 +62,19 @@ function Trendings() {
           <h2 className="dark:text-white md:text-4xl text-2xl text-center font-semibold uppercase">{t("Landing.trending-title")}</h2>
           <div className="h-[30px] w-2/3 bg-yellow3 mt-[-10px] mx-auto " />
         </div>
-        <div className="w-full trending">
+        <div className="w-full trending lg:px-20">
           <Slider {...settings} >
             {tokens.items.map((item, key) => {
               return (
                 <div className="flex flex-row md:w-1/3 w-5/6 mb-10 md:mb-0  justify-center" key={key}>
-                  <div class="trending-token max-w-xs bg-white rounded-xlarge border border-gray-200   dark:border-gray-700 mx-auto">
+                  <div class="trending-token max-w-xs w-72 bg-white rounded-xlarge border border-gray-200   dark:border-gray-700 mx-auto">
                     <div className="w-full m-5 mb-0 flex relative ">
                       <div className="w-[50px] h-[50px]  bg-circle rounded-full bg-pink-2 relative">
-                        <img className="w-[25px] h-[25px] bg-white rounded-full top-0  absolute " src={verifyImage}></img>
+                        <img className="w-[25px] h-[25px] bg-white rounded-full top-0 -right-3 absolute  " src={verifyImage}></img>
                       </div>
 
                     </div>
-                    <div className="p-6 pt-3 ">
+                    <div className="p-6 pt-3 pb-3">
                       <a href="#" >
                         <img
                           className="object-cover object-center rounded-xlarge h-60 "
@@ -75,7 +84,14 @@ function Trendings() {
                         />
                       </a>
                     </div>
-                    <div className="p-5">
+                    <div className="p-6 pt-3">
+                      <div className="font-bold text-black text-sm">#{item.token_id}</div>
+                      <div className="capitalize text-black text-ellipsis overflow-hidden whitespace-nowrap">{item.metadata.title}</div>
+                      <a href={'detail/'+item.token_id} >
+                        <div >
+                          <p className="text-orange text-sm font-bold">{t("Landing.trending-buy")}</p>
+                          </div>
+                      </a>
                     </div>
                   </div>
                 </div>
