@@ -27,7 +27,8 @@
         "steps-createn": "Create your NFTs",
         "steps-sell": "Sell your NFTs",
         "steps-title" : "Create your NFTs",
-        "trending-title" : "Trends on nativo"
+        "trending-title" : "Trends on nativo",
+        "trending-buy" : "Buy Now"
     },
     "Navbar" : {
         "collections" : "Collections",
