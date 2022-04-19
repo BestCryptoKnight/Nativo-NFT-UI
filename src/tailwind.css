@@ -1,3 +1,9 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+
+
+.trending  .slick-track .slick-current + .slick-slide  .trending-token{
+    @apply rounded-b-lg shadow-brown-s scale-150 !important;
+}
