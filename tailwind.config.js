@@ -24,7 +24,8 @@ module.exports = {
         'lightpink': '#ffab96',
         'blue': '#3c65aa',
         'purple': '#c6379c',
-        "yellow4": '#f5bc25'
+        "yellow4": '#f5bc25',
+        "orange": "#f9650b"
       },
       borderRadius: {
         'xlarge': '15px',
