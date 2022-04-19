@@ -23,7 +23,8 @@ module.exports = {
         'hotpink': '#ff0f47',
         'lightpink': '#ffab96',
         'blue': '#3c65aa',
-        'purple': '#c6379c'
+        'purple': '#c6379c',
+        "yellow4": '#f5bc25'
       },
       borderRadius: {
         'xlarge': '15px',
