@@ -9,7 +9,7 @@ function LightHeroE(props) {
   const [t, i18n] = useTranslation("global")
   return (
     <section className="text-gray-600 body-font dark:bg-darkgray">
-      <div className="container mx-auto flex px-5 pt-10 pb-24 md:flex-row flex-col items-center md:items-start ">
+      <div className="container mx-auto flex px-5 pt-10 pb-10 md:flex-row flex-col items-center md:items-start ">
 
         <div className="lg:max-w-lg lg:w-full md:w-1/2 w-5/6 mb-10 md:mb-0 flex flex-row md:flex-row-reverse justify-center">
 
@@ -42,7 +42,7 @@ function LightHeroE(props) {
           <div className="flex  justify-between z-20">
             <Link to="/gallery">
               <button className="flex inline-flex rounded-xlarge  w-full h-[45px] mx-0  lg:mx-8   mt-10 bg-gradient-to-b p-[3px] from-yellow  to-brown shadow-brown-s">
-                <div className="flex inline-flex  w-full text-white  text-center rounded-xlarge justify-center shadow-s">
+                <div className="flex inline-flex  w-full h-full text-white  text-center rounded-xlarge justify-center shadow-s">
                   <div className="flex flex-col font-bold h-full dark:bg-white text-white  text-center rounded-xlarge justify-center shadow-s w-full">
                     <span className="title-font font-medium dark:text-black">{t("Landing.gallery")}</span>
                   </div>
