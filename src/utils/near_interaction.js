@@ -172,6 +172,7 @@ export async function signOut() {
   const wallet = new WalletConnection(near);
   wallet.signOut();
 }
+
 export async function ext_call(contract,method,args,gas,amount){
   // conectarse a near
   const near = (process.env.REACT_APP_NEAR_ENV == "mainnet" ? await connect(config.mainnet) : await connect(config.testnet))
@@ -180,4 +181,14 @@ export async function ext_call(contract,method,args,gas,amount){
   //Realizar la ejecucion de la llamada
   const result = await wallet.account().functionCall(contract, method, args, gas, amount)
   console.log(result)
+}
+
+export async function ext_view(contract,method,args){
+  // conectarse a near
+  const near = (process.env.REACT_APP_NEAR_ENV == "mainnet" ? await connect(config.mainnet) : await connect(config.testnet))
+  // crear una wallet de NEAR
+  const wallet = new WalletConnection(near);
+  //Realizar la ejecucion de la llamada
+  const result = await wallet.account().viewFunction(contract,method,args)
+  return result
 }

@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 import { useParams, useHistory } from "react-router-dom";
 // import { Helmet } from "react-helmet";
 import { isNearReady } from "../utils/near_interaction";
-import { nearSignIn } from "../utils/near_interaction";
+import { nearSignIn, ext_view, ext_call } from "../utils/near_interaction";
 import { ApolloClient, InMemoryCache, gql } from '@apollo/client'
 import {
   syncNets,
@@ -91,14 +91,29 @@ function LightEcommerceB(props) {
           account_id: account,
           token_id: tokenId, 
         };
+        let onSale = false
+        let priceData = ""
         let nft = await contract.nft_token(payload);
+        
         if(Object.keys(nft.royalty).length!=0){
           setHasRoyalty(true)
+        }        
+        if(nft.approved_account_ids.length!=0){
+          Object.entries(nft.approved_account_ids).map((approval,i) => {
+            if(approval.includes(process.env.REACT_APP_CONTRACT_MARKET)){
+              onSale=true
+            }
+          })
+        }
+        if(onSale){
+          priceData = await getPrice(tokenId)  
         }
         setstate({
           ...state,
           tokens: {
             tokenID: nft.token_id,
+            sale: onSale,
+            price: priceData,
             //chunk: parseInt(toks.token_id/2400),
           },
           jdata: {
@@ -108,13 +123,22 @@ function LightEcommerceB(props) {
             royalty: Object.entries(nft.royalty),
             creator: nft.creator_id
           },
-          owner: nft.owner_id
+          owner: nft.owner_id,
+          ownerAccount: ownerAccount,
         });
 
 
       }
     })();
   }, []);
+
+  async function getPrice(tokenID){
+    let extPayload={
+      nft_contract_token : process.env.REACT_APP_CONTRACT+"."+tokenID
+    }
+    let extData = await ext_view(process.env.REACT_APP_CONTRACT_MARKET,"get_sale",extPayload)
+    return fromYoctoToNear(extData.sale_conditions)
+  }
 
   async function manageOffer(option){
 
@@ -203,18 +227,23 @@ function LightEcommerceB(props) {
       //console.log("amount", amount)
 
       //instanciar contracto
-      let contract = await getNearContract();
+      let payload = {
+        nft_contract_id: process.env.REACT_APP_CONTRACT,
+        token_id: state.tokens.tokenID
+      }
+      let toks = await ext_call(process.env.REACT_APP_CONTRACT_MARKET,"offer",payload,300000000000000,fromNearToYocto(amount))
+      // let contract = await getNearContract();
       //obtener tokens a la venta
-      toks = await contract.market_buy_generic(
-        {
-          address_contract: state.tokens.contract,
-          token_id: state.tokens.tokenID,
-          collection: state.tokens.collection,
-          collection_id: state.tokens.collectionID
-        },
-        300000000000000,
-        fromNearToYocto(amount)
-      );
+      // toks = await contract.market_buy_generic(
+      //   {
+      //     address_contract: state.tokens.contract,
+      //     token_id: state.tokens.tokenID,
+      //     collection: state.tokens.collection,
+      //     collection_id: state.tokens.collectionID
+      //   },
+      //   300000000000000,
+      //   fromNearToYocto(amount)
+      // );
 
       //console.log(toks);
     }
@@ -295,16 +324,35 @@ function LightEcommerceB(props) {
 
 
 
-              <div
-                className={`flex border-l-4 border-${props.theme}-500 py-2 px-2 my-2 bg-gray-50`}
-              >
-                <span className="text-gray-500">Token Id</span>
-                <span className="ml-auto text-gray-900">
-                  {state?.tokens.tokenID}
-                </span>
-              </div>
+              {state?.tokens.sale?
+                <>
+                  <div
+                    className={`flex border-l-4 border-${props.theme}-500 py-2 px-2 my-2 bg-gray-50`}
+                  >
+                    <span className="text-gray-500">Token Id</span>
+                    <span className="ml-auto text-gray-900">
+                      {state?.tokens.tokenID}
+                    </span>
+                  </div>
 
-
+                  <div
+                    className={`flex border-l-4 border-${props.theme}-500 py-2 px-2 my-2 bg-gray-50`}
+                  >
+                      <span className="text-gray-500">{t("Detail.sale")}</span>
+                      <span className="ml-auto text-gray-900">
+                        <span
+                          className={`inline-flex items-center justify-center px-2 py-1  text-xs font-bold leading-none ${state?.tokens.sale
+                            ? "text-green-100 bg-green-500"
+                            : "text-red-100 bg-red-500"
+                            } rounded-full`}
+                        >
+                          {state?.tokens.sale ? t("Detail.available-1") : t("Detail.available-2")}
+                        </span>
+                      </span>
+                    </div>
+                </>
+              :
+                ""}
               {/*<div
                 className={`flex border-l-4 border-${props.theme}-500 py-2 px-2 my-2 bg-gray-50`}
               >
@@ -380,37 +428,32 @@ function LightEcommerceB(props) {
 
 
 
-              <meta property="og:url" content={`https://develop.nativonft.app/detail/${state?.tokens.tokenID}`} />
-              <meta property="og:type" content="article" />
-              <meta property="og:title" content={`${state?.jdata.title}`} />
-              <meta property="og:description" content={`${state?.jdata.description}`} />
-              <meta property="og:image" content={`https://ipfs.io/ipfs/${state?.jdata.image}`} />
+              
 
               <div className="flex mt-6 items-center pb-5 border-b-2 border-gray-100 mb-5"></div>
+
               <div className="flex flex-col">
                 <span className="title-font font-medium text-2xl text-gray-900 text-center w-full">
-                  {
-                    btn ?
+                  { 
+                    !state?.tokens.sale ?
                       ""
                       :
                       "$ " + state?.tokens.price + " " + currencys[parseInt(localStorage.getItem("blockchain"))]
                   }
                 </span>
-                {stateLogin ?
-                  btn ?
-                    ""
-                    :
+                {stateLogin?
+                  !state?.tokens.sale ? "" :
+                  state?.owner == state?.ownerAccount ? "" :
                     <div className="flex flex-row flex-wrap justify-around mt-3 text-center">
                       <button
-                        className={`w-full m-2 lg:w-40 content-center justify-center text-center font-bold text-white bg-${props.theme}-500 border-0 py-2 px-6 focus:outline-none hover:bg-yellow-600 rounded`}
-                        disabled={btn}
+                        className={`w-full m-2 lg:w-40 content-center justify-center text-center font-bold text-white bg-yellow2 border-0 py-2 px-6 focus:outline-none hover:bg-yellow rounded`}
                         onClick={async () => {
                           comprar();
                         }}
                       >
                         {t("Detail.buy")}
-                      </button>
-                      {state?.owner != state?.ownerAccount ?
+                      </button> 
+                      {/* {state?.owner != state?.ownerAccount ?
                         <button
                           className={`w-full m-2 lg:w-40 justify-center flex  text-center font-bold text-${props.theme}-500 bg-white-500 border-2 border-${props.theme}-500 py-2 px-6  hover:text-white hover:bg-yellow-500 border-0 rounded`}
                           disabled={btn}
@@ -420,11 +463,11 @@ function LightEcommerceB(props) {
                         >
                           {t("Detail.bid")}
                         </button>
-                        : "" }
+                        : "" } */}
                     </div>
                   :
                   <button
-                    className={`flex ml-auto mt-2 text-white bg-${props.theme}-500 border-0 py-2 px-6 focus:outline-none hover:bg-${props.theme}-600 rounded`}
+                    className={`flex ml-auto mt-2 text-white bg-yellow2 border-0 py-2 px-6 focus:outline-none font-bold rounded`}
                     style={
                       btn
                         ?

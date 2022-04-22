@@ -36,7 +36,8 @@
         "myNFTs" : "My NFTs",
         "warning" : "This is a public beta version - Use at your own risk - Unaudited code",
         "language" : "English",
-        "gallery" : "Gallery"
+        "gallery" : "Gallery",
+        "onSale" : "On sale"
     },
     "Footer" : {
         "made" : "Made with:",

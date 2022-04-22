@@ -36,7 +36,8 @@
         "myNFTs" : "Mis NFTs",
         "warning" : "Esta es una versión beta pública - Úselo bajo su propio riesgo - Código no auditado",
         "language" : "Español",
-        "gallery" : "Galeria"
+        "gallery" : "Galeria",
+        "onSale" : "En venta"
     },
     "Footer" : {
         "made" : "Hecho con:",
