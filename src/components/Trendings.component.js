@@ -59,7 +59,7 @@ function Trendings() {
     <section className="text-gray-600 body-font bg-gray-100 dark:bg-darkgray">
       <div className="container w-full mx-auto py-20 dark:bg-darkgray  flex flex-row flex-wrap justify-center  ">
         <div className="w-full py-10">
-          <h2 className="dark:text-white md:text-4xl text-2xl text-center font-semibold uppercase">{t("Landing.trending-title")}</h2>
+          <h2 className="dark:text-white  text-center  uppercase  font-raleway font-bold text-3xl  lg:text-5xl">{t("Landing.trending-title")}</h2>
           <div className="h-[30px] w-2/3 bg-yellow3 mt-[-10px] mx-auto " />
         </div>
         <div className="w-full trending lg:px-20">
@@ -85,11 +85,11 @@ function Trendings() {
                       </a>
                     </div>
                     <div className="p-6 pt-3">
-                      <div className="font-bold text-black text-sm">#{item.token_id}</div>
-                      <div className="capitalize text-black text-ellipsis overflow-hidden whitespace-nowrap">{item.metadata.title}</div>
+                      <div className="text-black text-sm font-raleway font-bold">#{item.token_id}</div>
+                      <div className="capitalize text-black text-ellipsis overflow-hidden whitespace-nowrap font-raleway font-normal">{item.metadata.title}</div>
                       <a href={'detail/'+item.token_id} >
                         <div >
-                          <p className="text-orange text-sm font-bold">{t("Landing.trending-buy")}</p>
+                          <p className="text-orange text-sm font-raleway font-bold">{t("Landing.trending-buy")}</p>
                           </div>
                       </a>
                     </div>
