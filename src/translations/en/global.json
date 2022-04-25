@@ -36,7 +36,8 @@
         "myNFTs" : "My NFTs",
         "warning" : "This is a public beta version - Use at your own risk - Unaudited code",
         "language" : "English",
-        "gallery" : "Gallery"
+        "gallery" : "Gallery",
+        "onSale" : "Market"
     },
     "Footer" : {
         "made" : "Made with:",
@@ -113,7 +114,7 @@
     "MyNFTs" : {
         "title" : "My NFTs",
         "subtitle" : "In this section, the NFT tokens that you have created or acquired appear.",
-        "sale" : "On sale",
+        "sale" : "On sale at Nativo NFT",
         "available-1" : "Available",
         "available-2" : "Not available",
         "creator" : "Creator:",
@@ -128,7 +129,12 @@
         "cost" : "Cost",
         "transferButton": "Transfer NFT",
         "modalTransTitle": "Transfer NFT",
-        "modalTransMsg" : "Write the account to which you want to transfer your NFT"
+        "modalTransMsg" : "Write the account to which you want to transfer your NFT",
+        "modalAppTitle": "Put NFT up for sale",
+        "modalAppMsg" : "Write the price at which you want to put the NFT up for sale",
+        "modalPriTitle": "Change the price of an NFT",
+        "modalPriMsg" : "Write the price you want to upgrade to",
+        "btnPrice" : "Change price"
     },
     "CreateCol" : {
         "title" : "New collection",
@@ -222,6 +228,9 @@
         "transAlert3Txt-1" : "Are you sure to transfer your token to: ",
         "transAlert3Txt-2" : " Check the account very well if it is wrong or does not exist there is no way to recover your NFT",
         "transAlert3Btn" : "Transfer",
-        "account" : "Account"
+        "account" : "Account",
+        "price" : "Price",
+        "changePrice" : "Change price",
+        "putSale" : "Put on sale"
     }
 }

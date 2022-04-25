@@ -36,7 +36,8 @@
         "myNFTs" : "Mis NFTs",
         "warning" : "Esta es una versión beta pública - Úselo bajo su propio riesgo - Código no auditado",
         "language" : "Español",
-        "gallery" : "Galeria"
+        "gallery" : "Galeria",
+        "onSale" : "Mercado"
     },
     "Footer" : {
         "made" : "Hecho con:",
@@ -113,7 +114,7 @@
     "MyNFTs" : {
         "title" : "Mis NFTs",
         "subtitle" : "En esta sección aparecen los token NFTs que has creado o adquirido.",
-        "sale" : "En venta",
+        "sale" : "En venta en Nativo NFT",
         "available-1" : "Disponible",
         "available-2" : "No disponible",
         "creator" : "Creador:",
@@ -128,7 +129,12 @@
         "cost" : "Costo",
         "transferButton": "Transferir NFT",
         "modalTransTitle": "Transferir NFT",
-        "modalTransMsg" : "Escribe la cuenta a la cual deseas transferir tu NFT"
+        "modalTransMsg" : "Escribe la cuenta a la cual deseas transferir tu NFT",
+        "modalAppTitle": "Poner NFT en venta",
+        "modalAppMsg" : "Escribe el precio al que desea poner en venta el NFT",
+        "modalPriTitle": "Cambiar el precio de un NFT",
+        "modalPriMsg" : "Escribe el precio al que desea actualizar",
+        "btnPrice" : "Cambiar precio"
     },
     "CreateCol" : {
         "title" : "Nueva Colección",
@@ -222,6 +228,9 @@
         "transAlert3Txt-1" : "Estas seguro de transferir tu token a: ",
         "transAlert3Txt-2" : " Revisa muy bien la cuenta si es erronea o no existe no hay manera de recuperar tu NFT",
         "transAlert3Btn" : "Transferir",
-        "account" : "Cuenta"
+        "account" : "Cuenta",
+        "price" : "Precio",
+        "changePrice" : "Cambiar precio",
+        "putSale" : "Poner en venta"
     }
 }

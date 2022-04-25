@@ -19,6 +19,7 @@ import Perfil from "./views/Perfil.view";
 import creCol from "./views/createColl"
 import Collections from "./views/collectionGallery"
 import TokensCollection from "./views/tokensCollection"
+import SalesGallery from "./views/salesGallery"
 
 import notFound from "./views/notFound.view";
 
@@ -70,6 +71,7 @@ class App extends Component {
             <BlockchainProtectedRoute path="/create" component={Mint} />
             <BlockchainProtectedRoute path="/createcollection" component={creCol} />
             <Route path="/gallery" component={Gallery} />
+            <Route path="/nftOnSale" component={SalesGallery} />
             <Route path="/collections" component={Collections} />
             <Route path="/collection/:data" component={TokensCollection} />
             <Route path="/perfil/:tokenid" component={Perfil} />
