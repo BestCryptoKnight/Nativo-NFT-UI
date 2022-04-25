@@ -35,6 +35,10 @@ module.exports = {
       },
       backgroundSize: {
         '40': '40%'
+      },
+      fontFamily: {
+        'raleway': ['raleway', 'sans-serif'], 
+        'open-sans': ['Open Sans', 'sans-serif']
       }
     }
   },
