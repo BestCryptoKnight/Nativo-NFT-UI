@@ -94,7 +94,7 @@ function MisTokens(props) {
     })
   }
 
-  async function makeAApproval(tokenID) {
+  async function makeAApproval(tokenID,title,media,creator) {
     setApprovalModal({
       ...state,
       show: true,
@@ -103,6 +103,9 @@ function MisTokens(props) {
       loading: false,
       disabled: false,
       tokenID: tokenID,
+      title: title,
+      media: media,
+      creator: creator,
       change: setTransferModal,
       buttonName: 'X',
       tokenId: 'hardcoded'
@@ -616,7 +619,7 @@ function MisTokens(props) {
                             <button
                               className={` mt-12 w-full text-white bg-yellow2 border-0 py-2 px-6 focus:outline-none hover:bg-brown rounded text-lg`}
                               onClick={() => {
-                                makeAApproval(nft.tokenID);
+                                makeAApproval(nft.tokenID,nftData.title,nftData.image,nftData.creator);
                               }}
                             >
                               {t("MyNFTs.putSale")}
