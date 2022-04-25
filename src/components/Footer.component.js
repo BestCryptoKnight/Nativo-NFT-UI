@@ -18,7 +18,7 @@ function LightFooterB(props) {
     }
   }
   return (
-    <footer className="pb-12 text-gray-600 body-font dark:bg-darkgray border-grey-darkest  dark:bg-gradient-to-t dark:from-[#5e3b13] dark:to-[#1d1d1b]">
+    <footer className="p-3 pb-12 pt-12 text-gray-600 body-font dark:bg-darkgray border-grey-darkest  dark:bg-gradient-to-t dark:from-[#5e3b13] dark:to-[#1d1d1b]">
       <div className="container px-10 pt-20 pb-12 mx-auto pt-8 flex md:items-center lg:items-start md:flex-row md:flex-nowrap flex-wrap flex-col border border-[#f9650b] rounded-[35px] dark:bg-gradient-to-t dark:from-[#5e3b13] dark:to-[#1d1d1b] dark:shadow-s">
         <div className="w-64 flex-shrink-0 mx-auto text-center md:text-left   self-center ">
           <a
@@ -31,32 +31,32 @@ function LightFooterB(props) {
         </div>
         <div className="flex-grow flex flex-wrap md:pr-20 -mb-10 md:text-left text-center order-first">
           <div className="lg:w-1/4 md:w-1/2 w-full px-4">
-            <h2 className="title-font font-bold text-gray-900 tracking-widest text-sm mb-3 dark:text-white capitalize">
+            <h2 className="title-font  text-gray-900 tracking-widest text-sm mb-3 dark:text-white capitalize font-raleway font-bold">
               {t("Footer.community")}
             </h2>
             <nav className="list-none mb-10">
               <li className="pt-4">
-                <a href="https://twitter.com/nativonft" target="_blank" rel="noopener noreferrer" className="text-gray-600  hover:text-[#ec8b01] hover:font-bold dark:text-white capitalize">
+                <a href="https://twitter.com/nativonft" target="_blank" rel="noopener noreferrer" className="text-gray-600  hover:text-[#ec8b01] hover:font-bold dark:text-white capitalize font-raleway font-normal text-sm">
                   {t("Footer.twitter")}
                 </a>
               </li>
               <li className="">
-                <a href="/" target="_blank" rel="noopener noreferrer" className="text-gray-600  hover:text-[#ec8b01] hover:font-bold dark:text-white capitalize">
+                <a href="/" target="_blank" rel="noopener noreferrer" className="text-gray-600  hover:text-[#ec8b01] hover:font-bold dark:text-white capitalize font-raleway font-normal text-sm">
                   {t("Footer.telegram")}
                 </a>
               </li>
               <li className="">
-                <a href="https://discord.com/invite/7usKw4Dk" target="_blank" rel="noopener noreferrer" className="text-gray-600  hover:text-[#ec8b01] hover:font-bold dark:text-white capitalize">
+                <a href="https://discord.com/invite/7usKw4Dk" target="_blank" rel="noopener noreferrer" className="text-gray-600  hover:text-[#ec8b01] hover:font-bold dark:text-white capitalize font-raleway font-normal text-sm">
                   {t("Footer.discord")}
                 </a>
               </li>
               <li className="">
-                <a href="https://nativonft.medium.com/" target="_blank" rel="noopener noreferrer" className="text-gray-600  hover:text-[#ec8b01] hover:font-bold dark:text-white capitalize">
+                <a href="https://nativonft.medium.com/" target="_blank" rel="noopener noreferrer" className="text-gray-600  hover:text-[#ec8b01] hover:font-bold dark:text-white capitalize font-raleway font-normal text-sm">
                   {t("Footer.medium")}
                 </a>
               </li>
               <li className="pb-4">
-                <a href="https://github.com/cloudmex/Nativo-NFT" target="_blank" rel="noopener noreferrer" className="text-gray-600  hover:text-[#ec8b01] hover:font-bold dark:text-white capitalize">
+                <a href="https://github.com/cloudmex/Nativo-NFT" target="_blank" rel="noopener noreferrer" className="text-gray-600  hover:text-[#ec8b01] hover:font-bold dark:text-white capitalize font-raleway font-normal text-sm">
                   {t("Footer.github")}
                 </a>
               </li>
@@ -65,27 +65,27 @@ function LightFooterB(props) {
             </nav>
           </div>
           <div className="lg:w-1/4 md:w-1/2 w-full px-4 items-center">
-            <h2 className="title-font font-bold text-gray-900 tracking-widest text-sm mb-3 dark:text-white capitalize">
+            <h2 className="title-font  text-gray-900 tracking-widest text-sm mb-3 dark:text-white capitalize font-raleway font-bold">
               {t("Footer.resources")}
             </h2>
             <nav className="list-none mb-10">
             <li className="pt-4">
-                <a href="" target="_blank" rel="noopener noreferrer" className="text-gray-600  hover:text-[#ec8b01] hover:font-bold dark:text-white capitalize">
+                <a href="" target="_blank" rel="noopener noreferrer" className="text-gray-600  hover:text-[#ec8b01] hover:font-bold dark:text-white capitalize font-raleway font-normal text-sm">
                   {t("Footer.whitepaper")}
                 </a>
               </li>
               <li className="">
-              <a href="" target="_blank" rel="noopener noreferrer" className="text-gray-600  hover:text-[#ec8b01] hover:font-bold dark:text-white capitalize">
+              <a href="" target="_blank" rel="noopener noreferrer" className="text-gray-600  hover:text-[#ec8b01] hover:font-bold dark:text-white capitalize font-raleway font-normal text-sm">
                   {t("Footer.tokenomics")}
                 </a>
               </li>
               <li className="">
-                <a href="" target="_blank" rel="noopener noreferrer" className="text-gray-600  hover:text-[#ec8b01] hover:font-bold dark:text-white capitalize">
+                <a href="" target="_blank" rel="noopener noreferrer" className="text-gray-600  hover:text-[#ec8b01] hover:font-bold dark:text-white capitalize font-raleway font-normal text-sm">
                   {t("Footer.docs")}
                 </a>
               </li>
               <li className="pb-4">
-                <a href="" target="_blank" rel="noopener noreferrer" className="text-gray-600  hover:text-[#ec8b01] hover:font-bold dark:text-white capitalize">
+                <a href="" target="_blank" rel="noopener noreferrer" className="text-gray-600  hover:text-[#ec8b01] hover:font-bold dark:text-white capitalize font-raleway font-normal text-sm">
                   {t("Footer.terms")}
                 </a>
               </li>
@@ -94,17 +94,17 @@ function LightFooterB(props) {
           
 
           <div className="lg:w-1/4 md:w-1/2 w-full px-4">
-            <h2 className="title-font font-bold text-gray-900 tracking-widest text-sm mb-3 dark:text-white capitalize">
+            <h2 className="title-font  text-gray-900 tracking-widest text-sm mb-3 dark:text-white capitalize font-raleway font-bold">
               {t("Footer.aboutUs")}  
             </h2>
             <nav className="list-none mb-10">
             <li className="pt-4">
-                <a href="https://cloudmex.io/" target="_blank" rel="noopener noreferrer" className="text-gray-600  hover:text-[#ec8b01] hover:font-bold dark:text-white capitalize">
+                <a href="https://cloudmex.io/" target="_blank" rel="noopener noreferrer" className="text-gray-600  hover:text-[#ec8b01] hover:font-bold dark:text-white capitalize font-raleway font-normal text-sm">
                 {t("Footer.aboutNativo")}  
                 </a>
               </li>
               <li className="pb-4">
-                <a href="https://cloudmex.io/" target="_blank" rel="noopener noreferrer" className="text-gray-600  hover:text-[#ec8b01] hover:font-bold dark:text-white capitalize">
+                <a href="https://cloudmex.io/" target="_blank" rel="noopener noreferrer" className="text-gray-600  hover:text-[#ec8b01] hover:font-bold dark:text-white capitalize font-raleway font-normal text-sm">
                 {t("Footer.theTeam")}  
                 </a>
               </li>
@@ -112,7 +112,7 @@ function LightFooterB(props) {
           </div>
           <div className="bg-transparent ">
         <div className="container mx-auto py-4 px-5 flex flex-wrap flex-col md:flex-row justify-center md:justify-between">
-          <p className="text-gray-500 text-sm text-center md:text-left dark:text-white">
+          <p className="text-gray-500 text-xs text-center md:text-left dark:text-white font-open-sans font-semibold">
           {t("Footer.tribu")}
           </p>
 
