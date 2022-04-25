@@ -9,7 +9,7 @@ function LightStatisicC(props) {
     <div>
       <section className="text-gray-600 body-font dark:bg-darkgray">
         <div className="w-full">
-          <h2 className="dark:text-white md:text-4xl text-2xl text-center font-semibold uppercase">{t("Landing.dao")}</h2>
+          <h2 className="dark:text-white  text-center  uppercase font-raleway font-bold text-3xl  lg:text-5xl">{t("Landing.dao")}</h2>
           <div className="h-[30px] w-2/3 bg-brown2 mt-[-10px] mx-auto " />
         </div>
         <div className="w-full mt-10 flex flex-row flex-wrap place-items-center text-center place-content-around pb-28">
@@ -17,8 +17,8 @@ function LightStatisicC(props) {
             <div class="w-60 h-60  bg-circle rounded-full bg-gradient-to-r  from-[#f6c930] to-[#b62f02]  "></div>
           </div>
           <div className="w-full lg:w-2/3 lg:px-0 lg:pr-52 lg:pl-24 px-14">
-            <h1 className="lg:text-3xl text-2xl font-medium text-gray-900 w-full mb-4 mt-10 lg:mt-2 dark:text-white font-semibold">{t("Landing.dao-txt-2")}</h1>
-            <p className="lg:text-xl text-base w-full text-justify dark:text-white">{t("Landing.dao-txt-1")}
+            <h1 className="text-gray-900 w-full mb-4 mt-10 lg:mt-2 dark:text-white font-raleway font-bold text-3xl  lg:text-4xl ">{t("Landing.dao-txt-2")}</h1>
+            <p className="w-full text-justify dark:text-white font-raleway font-normal text-lg ">{t("Landing.dao-txt-1")}
             </p>
           </div>
         </div>
