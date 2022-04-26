@@ -16,7 +16,7 @@ function LightHeroE(props) {
           <div class="max-w-xs bg-white rounded-xlarge border border-gray-200 shadow-md  dark:border-gray-700">
             <div className="w-full m-5 mb-0 flex relative ">
               <div className="w-[50px] h-[50px]  bg-circle rounded-full bg-pink-2 relative">
-                <img className="w-[25px] h-[25px] fixed bg-white rounded-full top-0 -right-3 absolute " src={verifyImage}></img>
+                <img className="w-[25px] h-[25px] fixed bg-transparent rounded-full top-0 -right-3 absolute" src={verifyImage}></img>
               </div>
 
             </div>

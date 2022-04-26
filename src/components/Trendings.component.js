@@ -57,7 +57,7 @@ function Trendings() {
 
   return (
     <section className="text-gray-600 body-font bg-gray-100 dark:bg-darkgray">
-      <div className="container w-full mx-auto py-20 dark:bg-darkgray  flex flex-row flex-wrap justify-center  ">
+      <div className="container w-full mx-auto py-8 dark:bg-darkgray  flex flex-row flex-wrap justify-center  ">
         <div className="w-full py-10">
           <h2 className="dark:text-white  text-center  uppercase  font-raleway font-bold text-3xl  lg:text-5xl">{t("Landing.trending-title")}</h2>
           <div className="h-[30px] w-2/3 bg-yellow3 mt-[-10px] mx-auto " />
@@ -67,10 +67,11 @@ function Trendings() {
             {tokens.items.map((item, key) => {
               return (
                 <div className="flex flex-row md:w-1/3 w-5/6 mb-10 md:mb-0  justify-center" key={key}>
-                  <div class="trending-token max-w-xs w-72 bg-white rounded-xlarge border border-gray-200   dark:border-gray-700 mx-auto">
+                  <div class="trending-token rounded-xlarge">
+                  <div class="max-w-xs w-72 bg-white rounded-xlarge border">
                     <div className="w-full m-5 mb-0 flex relative ">
                       <div className="w-[50px] h-[50px]  bg-circle rounded-full bg-pink-2 relative">
-                        <img className="w-[25px] h-[25px] bg-white rounded-full top-0 -right-3 absolute  " src={verifyImage}></img>
+                        <img className="w-[25px] h-[25px] bg-transparent rounded-full top-0 -right-3 absolute  " src={verifyImage}></img>
                       </div>
 
                     </div>
@@ -93,6 +94,7 @@ function Trendings() {
                           </div>
                       </a>
                     </div>
+                  </div>
                   </div>
                 </div>
               );
