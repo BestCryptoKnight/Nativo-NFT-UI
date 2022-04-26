@@ -77,7 +77,7 @@ function Trendings() {
                     <div className="p-6 pt-3 pb-3">
                       <a href="#" >
                         <img
-                          className="object-cover object-center rounded-xlarge h-60 "
+                          className="object-cover object-center rounded-xlarge h-60 w-full "
                           src={`https://ipfs.io/ipfs/${item.metadata.media}`}
                           key={key}
                           alt={item.description}
