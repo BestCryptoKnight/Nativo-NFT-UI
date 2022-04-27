@@ -117,24 +117,24 @@ function LightHeaderB(props) {
             Galeria
           </a> */}
 
-          <a href="/gallery" className="mr-5 hover:text-[#ec8b01] hover:text-lg hover:font-bold dark:text-white">
+          <a href="/gallery" className="mr-5 hover:text-[#ec8b01] hover:text-lg hover:font-bold dark:text-white font-raleway font-normal">
             {t("Navbar.gallery")}
           </a>
 
-          <a href="/nftOnSale" className="mr-5 hover:text-[#ec8b01] hover:text-lg hover:font-bold dark:text-white">
+          <a href="/nftOnSale" className="mr-5 hover:text-[#ec8b01] hover:text-lg hover:font-bold dark:text-white font-raleway font-normal">
             {t("Navbar.onSale")}
           </a>
 
           {/* <a href="https://v1.nativonft.app/galeria" className="mr-5 hover:text-gray-900">
             Galeria V1
           </a> */}
-          <a href="/create" className="mr-5 hover:text-[#ec8b01] hover:text-lg hover:font-bold dark:text-white">
+          <a href="/create" className="mr-5 hover:text-[#ec8b01] hover:text-lg hover:font-bold dark:text-white font-raleway font-normal">
             {t("Navbar.create")}
           </a>
           {/* <a href="/auctions" className="mr-5 hover:text-gray-900">
             Subastas
           </a> */}
-          <a href="/mynfts" className="mr-5 hover:text-[#ec8b01] hover:text-lg hover:font-bold dark:text-white">
+          <a href="/mynfts" className="mr-5 hover:text-[#ec8b01] hover:text-lg hover:font-bold dark:text-white font-raleway font-normal">
             {t("Navbar.myNFTs")}
           </a>
         </nav>
@@ -162,7 +162,7 @@ function LightHeaderB(props) {
                 </form>
 
         <button 
-          className="mb-2 md:mb-0 mx-0 lg:mx-6 bg-yellow-500 rounded-2xl px-4 text-white font-semibold text-sm"
+          className="mb-2 md:mb-0 mx-0 lg:mx-6 bg-yellow-500 rounded-2xl px-4 text-white  text-sm font-raleway font-semibold"
           onClick={handleLanguage}
           >{t("Navbar.language")}
         </button> 
@@ -174,7 +174,7 @@ function LightHeaderB(props) {
             
               <div className="flex flex-nowrap ">
                
-                <Menu.Button className="w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-100 focus:ring-yellow-500">
+                <Menu.Button className="w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-sm  text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-100 focus:ring-yellow-500 font-raleway font-normal">
                   {state.dropdown}
                   <ChevronDownIcon
                     className="-mr-1 ml-2 h-5 w-5"
@@ -217,7 +217,7 @@ function LightHeaderB(props) {
                             active
                               ? "bg-gray-100 text-gray-900 hidden"
                               : "text-gray-700 -ml-[25px] hidden",
-                            "block px-2 py-2 text-sm text-center"
+                            "block px-2 py-2 text-sm text-center font-raleway font-normal"
                           )}
                         >
                           {blockchains[0]}
@@ -236,7 +236,7 @@ function LightHeaderB(props) {
                             active
                               ? "bg-gray-100 text-gray-900"
                               : "text-gray-700 -ml-[25px]",
-                            "block px-2 py-2 text-sm text-center"
+                            "block px-2 py-2 text-sm text-center font-raleway font-normal"
                           )}
                         >
                           {blockchains[1]}
@@ -255,7 +255,7 @@ function LightHeaderB(props) {
                             active
                               ? "bg-gray-100 text-gray-900"
                               : "text-gray-700 -ml-[25px]",
-                            "block px-2 py-2 text-sm text-center"
+                            "block px-2 py-2 text-sm text-center font-raleway font-normal"
                           )}
                         >
                           {blockchains[2]}

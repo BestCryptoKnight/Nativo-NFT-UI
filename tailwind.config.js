@@ -7,7 +7,8 @@ module.exports = {
     extend: {
       boxShadow: {
         's': '4px 1px 17px rgba(253, 252, 252, 0.05)',
-        'brown-s': '0 0 20px rgba(158, 009, 004, 1)'
+        'brown-s': '0 0 20px rgba(158, 009, 004, 1)',
+        'yellow1' : '0 0 20px rgb(209, 131, 40)'
       },
       colors: {
         'white': '#fff',
@@ -31,10 +32,15 @@ module.exports = {
         'xlarge': '15px',
       },
       backgroundImage: {
-        'hero-rocket': "url('./assets/img/Rocket.png')"
+        'hero-rocket': "url('./assets/img/Rocket.png')",
+        'trendings-background': "url('./assets/img/Trending.png')"
       },
       backgroundSize: {
         '40': '40%'
+      },
+      fontFamily: {
+        'raleway': ['raleway', 'sans-serif'], 
+        'open-sans': ['Open Sans', 'sans-serif']
       }
     }
   },
