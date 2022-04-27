@@ -32,7 +32,8 @@ module.exports = {
         'xlarge': '15px',
       },
       backgroundImage: {
-        'hero-rocket': "url('./assets/img/Rocket.png')"
+        'hero-rocket': "url('./assets/img/Rocket.png')",
+        'trendings-background': "url('./assets/img/Trending.png')"
       },
       backgroundSize: {
         '40': '40%'

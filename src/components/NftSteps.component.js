@@ -10,7 +10,7 @@ function NftSteps(props) {
   const [t, i18n] = useTranslation("global")
   return (
     <section className="text-gray-600 body-font bg-gray-100 dark:bg-darkgray">
-      <div className="container w-full px-5 py-14 dark:bg-darkgray mx-auto flex flex-row flex-wrap justify-center  ">
+      <div className="container w-full px-5 pt-14 pb-28 dark:bg-darkgray mx-auto flex flex-row flex-wrap justify-center  ">
         <div className="w-full">
           <h2 className="dark:text-white  text-center  uppercase font-raleway font-bold text-3xl  lg:text-5xl">{t("Landing.steps-title")}</h2>
           <div className="h-[30px] w-1/2 bg-brown2 mt-[-10px] mx-auto " />

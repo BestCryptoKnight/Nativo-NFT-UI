@@ -34,6 +34,7 @@
     .trending  .slick-track {
         height: 727px;
         top: 125px;
+        margin-top: -80px;
     }
   }
   
