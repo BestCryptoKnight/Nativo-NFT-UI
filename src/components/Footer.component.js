@@ -23,7 +23,7 @@ function LightFooterB(props) {
         <div className="w-64 flex-shrink-0 mx-auto text-center md:text-left   self-center ">
           <a
             href="./"
-            className="flex title-font font-medium items-center  justify-center text-gray-900"
+            className="flex title-font font-medium items-center  justify-center text-gray-900 pt-8 lg:pt-0"
           >
             <img  src={nativoLogo} className="d-inline-block align-top " alt="logo"   width="300px"/>
              
