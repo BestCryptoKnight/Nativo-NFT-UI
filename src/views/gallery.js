@@ -629,12 +629,6 @@ function LightEcommerceA() {
                                   >{i.token_id}</span>
                                 </div>
 
-                                <div className="col-span-4 flex mx-auto">
-                                  <span
-                                    className="inline-flex items-center justify-center px-2 py-1 text-lg font-bold leading-none text-white bg-[#fbbf24] rounded-full"
-                                  >                            {Landing.blockchain != 0 &&
-                                    fromYoctoToNear("10000000000000000000000") + " " + Landing.currency}</span>
-                                </div>
                               </div>
                             </div>
                             <div className="flex items-center mt-2">
