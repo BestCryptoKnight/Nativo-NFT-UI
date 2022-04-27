@@ -137,7 +137,7 @@ function LightEcommerceB(props) {
       nft_contract_token : process.env.REACT_APP_CONTRACT+"."+tokenID
     }
     let extData = await ext_view(process.env.REACT_APP_CONTRACT_MARKET,"get_sale",extPayload)
-    return fromYoctoToNear(extData.sale_conditions)
+    return fromYoctoToNear(extData.price)
   }
 
   async function manageOffer(option){

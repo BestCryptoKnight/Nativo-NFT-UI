@@ -590,7 +590,7 @@ function LightEcommerceA() {
                                         hover:shadow-xl
                                         rounded-lg
                                         overflow-hidden">
-                          {/* <img
+                          <img
                             alt="ecommerce"
                             className="lg:h-60
                               xl:h-56
@@ -602,8 +602,8 @@ function LightEcommerceA() {
                               w-full
                               object-cover object-center
                               mb-4"
-                            src={`https://ipfs.io/ipfs/${i.metadata.media}`}
-                          /> */}
+                            src={`https://ipfs.io/ipfs/${i.media}`}
+                          />
 
 
 
@@ -615,7 +615,7 @@ function LightEcommerceA() {
                                           whitespace-nowrap
                                           truncate
                                           ...">
-                              {t("tokCollection.contract")+" "+i.nft_contract_id}
+                              {i.title}
                             </h2>
                             <div className="py-4 border-t border-b text-xs text-gray-700">
                               <div className="grid grid-cols-6 gap-1">
@@ -632,7 +632,7 @@ function LightEcommerceA() {
                                   <span
                                     className="inline-flex items-center justify-center px-2 py-1 text-lg font-bold leading-none text-white bg-[#fbbf24] rounded-full"
                                   >                            {Landing.blockchain != 0 &&
-                                    fromYoctoToNear(i.sale_conditions) + " " + Landing.currency}</span>
+                                    fromYoctoToNear(i.price) + " " + Landing.currency}</span>
                                 </div>
                               </div>
                             </div>
