@@ -6,7 +6,6 @@ import { sliderData } from "../assets/landingSlider/sliderData";
 import Slider from "react-slick";
 import { getNearContract, fromYoctoToNear, getNearAccount } from "../utils/near_interaction";
 import verifyImage from '../assets/img/Check.png';
-import background from '../assets/img/Trending.png';
 
 function Trendings() {
   const [t, i18n] = useTranslation("global")
@@ -58,7 +57,7 @@ function Trendings() {
 
   return (
     <section className="text-gray-600 body-font bg-gray-100 dark:bg-darkgray" >
-      <div className="bg-trendings-background bg-contain bg-no-repeat bg-top container w-full mx-auto pt-0 md:pt-4 md:pb-24 dark:bg-darkgray  flex flex-row flex-wrap justify-center" style={{backgroundImage: background}}>
+      <div className="bg-trendings-background bg-contain bg-no-repeat bg-top container w-full mx-auto pt-0 md:pt-4 md:pb-24 dark:bg-darkgray  flex flex-row flex-wrap justify-center" >
         <div className="w-full pb-10 pt-0">
           <h2 className="dark:text-white  text-center  uppercase  font-raleway font-bold text-3xl  lg:text-6xl">{t("Landing.trending-title")}</h2>
           <div className="h-[30px] w-2/3 bg-yellow3 mt-[-10px] mx-auto " />
