@@ -56,7 +56,7 @@ function LightFooterB(props) {
                 </a>
               </li>
               <li className="pb-4">
-                <a href="https://github.com/cloudmex/Nativo-NFT" target="_blank" rel="noopener noreferrer" className="text-gray-600  hover:text-[#ec8b01] hover:font-bold dark:text-white capitalize font-raleway font-normal text-sm">
+                <a href="https://github.com/cloudmex/Nativo-NFT-UI" target="_blank" rel="noopener noreferrer" className="text-gray-600  hover:text-[#ec8b01] hover:font-bold dark:text-white capitalize font-raleway font-normal text-sm">
                   {t("Footer.github")}
                 </a>
               </li>
@@ -75,7 +75,7 @@ function LightFooterB(props) {
                 </a>
               </li>
               <li className="">
-              <a href="" target="_blank" rel="noopener noreferrer" className="text-gray-600  hover:text-[#ec8b01] hover:font-bold dark:text-white capitalize font-raleway font-normal text-sm">
+              <a href="https://docs.google.com/document/d/1PP5FHzvaFQUiimJlgPyRkxLqyFAi6WCauccN9sgdcas/edit?usp=sharing" target="_blank" rel="noopener noreferrer" className="text-gray-600  hover:text-[#ec8b01] hover:font-bold dark:text-white capitalize font-raleway font-normal text-sm">
                   {t("Footer.tokenomics")}
                 </a>
               </li>
@@ -113,7 +113,7 @@ function LightFooterB(props) {
           <div className="bg-transparent ">
         <div className="container mx-auto py-4 px-5 flex flex-wrap flex-col md:flex-row justify-center md:justify-between">
           <p className="text-gray-500 text-xs text-center md:text-left dark:text-white font-open-sans font-semibold">
-          {t("Footer.tribu")}
+          {t("Footer.tribu")} <a href="https://cloudmex.io/"> {t("Footer.cloudMx")}</a>
           </p>
 
         </div>
