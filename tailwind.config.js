@@ -33,7 +33,7 @@ module.exports = {
       },
       backgroundImage: {
         'hero-rocket': "url('./assets/img/Rocket.png')",
-        'trendings-background': "url('./assets/img/Trending.png')"
+        'trendings-background': "url('./assets/img/Trending2.png')"
       },
       backgroundSize: {
         '40': '40%'
