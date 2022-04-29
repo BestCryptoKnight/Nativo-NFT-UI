@@ -17,7 +17,7 @@ function Trendings() {
     focusOnSelect: true,
     arrows: false,
     autoplaySpeed: 3000,
-    autoplay: false,
+    autoplay: true,
     useTransform: true,
     useCSS: true,
     responsive: [
