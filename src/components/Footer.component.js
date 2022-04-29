@@ -41,12 +41,12 @@ function LightFooterB(props) {
                 </a>
               </li>
               <li className="">
-                <a href="/" target="_blank" rel="noopener noreferrer" className="text-gray-600  hover:text-[#ec8b01] hover:font-bold dark:text-white capitalize font-raleway font-normal text-sm">
+                <a href="https://t.me/+TFdhJmJzwmkwNDQx" target="_blank" rel="noopener noreferrer" className="text-gray-600  hover:text-[#ec8b01] hover:font-bold dark:text-white capitalize font-raleway font-normal text-sm">
                   {t("Footer.telegram")}
                 </a>
               </li>
               <li className="">
-                <a href="https://discord.com/invite/7usKw4Dk" target="_blank" rel="noopener noreferrer" className="text-gray-600  hover:text-[#ec8b01] hover:font-bold dark:text-white capitalize font-raleway font-normal text-sm">
+                <a href="https://discord.gg/q2R6rtY4ks" target="_blank" rel="noopener noreferrer" className="text-gray-600  hover:text-[#ec8b01] hover:font-bold dark:text-white capitalize font-raleway font-normal text-sm">
                   {t("Footer.discord")}
                 </a>
               </li>
