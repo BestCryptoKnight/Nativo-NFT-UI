@@ -49,7 +49,7 @@ export default function OfferModal(props) {
         let contract = await getNearContract();
         let amount = fromNearToYocto(process.env.REACT_APP_FEE_CREATE_NFT);
         let price = fromNearToYocto(values.price)
-        let msgData = JSON.stringify({market_type:"on_sale", price: price, title: props.title, media: props.media, creator_id: props.creator})
+        let msgData = JSON.stringify({market_type:"on_sale", price: price, title: props.title, media: props.media, creator_id: props.creator, description: props.description})
         let payload = {
           token_id: props.tokenID,
           account_id: process.env.REACT_APP_CONTRACT_MARKET,
