@@ -94,7 +94,7 @@ function MisTokens(props) {
     })
   }
 
-  async function makeAApproval(tokenID,title,media,creator) {
+  async function makeAApproval(tokenID,title,media,creator,description) {
     setApprovalModal({
       ...state,
       show: true,
@@ -106,6 +106,7 @@ function MisTokens(props) {
       title: title,
       media: media,
       creator: creator,
+      description: description,
       change: setTransferModal,
       buttonName: 'X',
       tokenId: 'hardcoded'
@@ -207,6 +208,7 @@ function MisTokens(props) {
         tokenID: tok.token_id,
         approval: tok.approved_account_ids,
         onSale: onSale,
+        description: tok.metadata.description,
         // onSale: tok.on_sale,// tok.metadata.on_sale,
         // onAuction: tok.on_auction,
         data: JSON.stringify({
@@ -294,6 +296,7 @@ function MisTokens(props) {
           tokenID: tok.token_id,
           price: fromYoctoToNear(tok.metadata.price),
           onSale: tok.metadata.on_sale,
+          description: tok.metadata.description,
           data: JSON.stringify({
             title: tok.metadata.title,
             image: tok.metadata.media,
@@ -380,6 +383,7 @@ function MisTokens(props) {
             tokenID: tok.token_id,
             approval: tok.approved_account_ids,
             onSale: onSale,
+            description: tok.metadata.description,
             // onSale: tok.on_sale,// tok.metadata.on_sale,
             // onAuction: tok.on_auction,
             data: JSON.stringify({
@@ -619,7 +623,7 @@ function MisTokens(props) {
                             <button
                               className={` mt-12 w-full text-white bg-yellow2 border-0 py-2 px-6 focus:outline-none hover:bg-brown rounded text-lg`}
                               onClick={() => {
-                                makeAApproval(nft.tokenID,nftData.title,nftData.image,nftData.creator);
+                                makeAApproval(nft.tokenID,nftData.title,nftData.image,nftData.creator,nftData.description);
                               }}
                             >
                               {t("MyNFTs.putSale")}
