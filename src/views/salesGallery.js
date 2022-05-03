@@ -18,6 +18,7 @@ import { ApolloClient, InMemoryCache, gql } from '@apollo/client'
 import { useTranslation } from "react-i18next";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { inputUnstyledClasses } from "@mui/material";
+import verifyImage from '../assets/img/Check.png';
 
 function LightEcommerceA() {
   const [Landing, setLanding] = React.useState({
@@ -554,7 +555,7 @@ function LightEcommerceA() {
           }
         </select>
       </div> */}
-      <div className={"pt-3 mx-auto "+(ini&&hasData ? "bg-[#f3f4f6]" : "bg-white") }>
+      <div className={"pt-3 mx-auto dark:bg-darkgray" }>
 
      
 
@@ -569,79 +570,56 @@ function LightEcommerceA() {
                 dataLength={tokens.items.length}
                 next={fetchMoreData}
                 hasMore={tokens.hasMore}
-                loader={<h1 className="text-center w-full py-10 text-xl font-bold">{t("tokCollection.loading")}</h1>}
+                loader={<h1 className="text-center w-full py-10 text-xl font-bold text-yellow2">{t("tokCollection.loading")}</h1>}
                 endMessage={
-                  <p className="text-center w-full py-10 text-xl">
+                  <p className="text-center w-full py-10 text-xl text-yellow2">
                     <b>{t("tokCollection.end")}</b>
                   </p>
                 }
-                className={"flex flex-wrap px-[40px]"}
+                className={"flex flex-wrap px-[40px] mt-1"}
               >
                 {tokens.items.map((i, index) => {
                   return(
-                    <div className="w-full md:w-1/2 lg:w-1/3 p-4" key={index}>
+                    <div className="w-full md:w-1/2 lg:w-1/3 p-4 " key={index}>
                       <a
                         href={"/detail/" + i.token_id}
                       >
-                        <div className="c-card
-                                        block
-                                        bg-white
-                                        shadow-md
-                                        hover:shadow-xl
-                                        rounded-lg
-                                        overflow-hidden">
-                          <img
-                            alt="ecommerce"
-                            className="lg:h-60
-                              xl:h-56
-                              md:h-64
-                              sm:h-72
-                              xs:h-72
-                              h-72
-                              rounded
-                              w-full
-                              object-cover object-center
-                              mb-4"
-                            src={`https://ipfs.io/ipfs/${i.media}`}
-                          />
-
-
-
-                          <div className="p-4">
-                            <h2 className="text-lg text-gray-900
-                                          font-medium
-                                          title-font
-                                          mb-4
-                                          whitespace-nowrap
-                                          truncate
-                                          ...">
-                              {i.title}
-                            </h2>
-                            <div className="py-4 border-t border-b text-xs text-gray-700">
-                              <div className="grid grid-cols-6 gap-1">
-
-
-                                <div className="col-span-2">
-                                  <span className="text-sm">Token ID:</span>
-                                  <span
-                                    className="inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none text-white bg-[#fbbf24] rounded-full ml-2"
-                                  >{i.token_id}</span>
+                        <div className="flex flex-row  mb-10 md:mb-0  justify-center " >
+                          <div className="trending-token w-64 md:w-80 rounded-20 hover:shadow-yellow1   hover:scale-105 ">
+                            <div className=" bg-white rounded-20">
+                              <div className="w-full p-6 pb-0 flex relative ">
+                                <div className="w-[40px] h-[40px]  bg-circle rounded-full bg-pink-2 relative">
+                                  <img className="w-[25px] h-[25px]  bg-transparent rounded-full top-0 -right-3 absolute" src={verifyImage}></img>
+                                </div>
+                                <div className="font-raleway font-bold text-black text-sm flex items-center ml-3">
+                                  {i.owner_id}
                                 </div>
 
-                                <div className="col-span-4 flex mx-auto">
-                                  <span
-                                    className="inline-flex items-center justify-center px-2 py-1 text-lg font-bold leading-none text-white bg-[#fbbf24] rounded-full"
-                                  >                            {Landing.blockchain != 0 &&
-                                    fromYoctoToNear(i.price) + " " + Landing.currency}</span>
-                                </div>
+                              </div>
+                              <div className="p-6 pt-3 pb-3">
+                                  <img
+                                    className="object-cover object-center rounded-xlarge h-48 md:h-72 w-full "
+                                    src={`https://ipfs.io/ipfs/${i.media}`}
+                            
+                                    alt={i.description}
+                                  />
+                              </div>
+                              <div className="p-6 pt-3">
+                                
+                                <div className="capitalize text-black text-sm  text-ellipsis overflow-hidden whitespace-nowrap  font-raleway font-bold">{i.title}</div>
+                                <div className="flex justify-between">
+                                  <div className="text-black text-sm font-raleway font-normal w-1/2">token id: {i.token_id}</div> 
+                                  <div className="price w-1/2 text-lg text-right text-orange  font-raleway font-bold rounded-full">
+                                    {Landing.blockchain != 0 && fromYoctoToNear(i.price) + " " + Landing.currency}</div> 
+                                  </div>
+                               
+                                  <div >
+                                    <p className="text-orange text-sm font-raleway font-bold">{t("Landing.trending-buy")}</p>
+                                  </div>
+                                  
+                                
                               </div>
                             </div>
-                            <div className="flex items-center mt-2">
-                                  <div className="pl-3">
-                                    <div className="font-medium">{i.owner_id}  </div>
-                                    <div className="text-gray-600 text-sm">{t("tokCollection.owner")}</div>
-                                  </div>
-                                </div>
                           </div>
                         </div>
                       </a>
@@ -742,8 +720,6 @@ function LightEcommerceA() {
                 </div>
               </div>
           } */}
-        </div>
-        <div className={"bg-white flex items-center justify-center border-t border-gray-200  mt-16"+(ini&&hasData ? "" : "hidden border-white")}>
           {/* <Pagination count={Landing.nPages} page={page} onChange={handleChangePage} color="warning" theme="light" /> */}
           {/* <button className="bg-transparent hover:bg-slate-200 text-slate-500 hover:text-slate-700 font-extrabold text-center items-center rounded-full py-2 px-4 mx-4"
           onClick={() => handleBackPage()}
