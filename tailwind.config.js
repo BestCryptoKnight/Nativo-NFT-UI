@@ -30,6 +30,7 @@ module.exports = {
       },
       borderRadius: {
         'xlarge': '15px',
+        '20': '20px',
       },
       backgroundImage: {
         'hero-rocket': "url('./assets/img/Rocket.png')",
