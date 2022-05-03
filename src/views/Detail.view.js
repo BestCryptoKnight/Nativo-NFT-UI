@@ -39,6 +39,7 @@ function LightEcommerceB(props) {
   //Esta logeado
   const [stateLogin, setStateLogin] = useState(false);
   const [hasRoyalty, setHasRoyalty] = useState(false)
+  const [hasBids, setHasBids] = useState(false)
   //es el parametro de tokenid
   const { data } = useParams();
   //es el historial de busqueda
@@ -93,6 +94,9 @@ function LightEcommerceB(props) {
         };
         let onSale = false
         let priceData = ""
+        let bids = []
+        let bidder = ""
+        let bidPrice = ""
         let nft = await contract.nft_token(payload);
         
         if(Object.keys(nft.royalty).length!=0){
@@ -106,7 +110,17 @@ function LightEcommerceB(props) {
           })
         }
         if(onSale){
-          priceData = await getPrice(tokenId)  
+          let data = await getSaleData(tokenId)
+          priceData = fromYoctoToNear(data.price)
+          if(data.bids!= null){
+            bids= data.bids
+          }
+          console.log(data)
+          if(bids.length>0){
+            setHasBids(true)
+            bidder = data.bids[0].bidder_id
+            bidPrice = fromYoctoToNear(data.bids[0].price)
+          }
         }
         setstate({
           ...state,
@@ -114,6 +128,9 @@ function LightEcommerceB(props) {
             tokenID: nft.token_id,
             sale: onSale,
             price: priceData,
+            bidder: bidder,
+            bidPrice: bidPrice,
+            account: account,
             //chunk: parseInt(toks.token_id/2400),
           },
           jdata: {
@@ -132,12 +149,12 @@ function LightEcommerceB(props) {
     })();
   }, []);
 
-  async function getPrice(tokenID){
+  async function getSaleData(tokenID){
     let extPayload={
       nft_contract_token : process.env.REACT_APP_CONTRACT+"."+tokenID
     }
     let extData = await ext_view(process.env.REACT_APP_CONTRACT_MARKET,"get_sale",extPayload)
-    return fromYoctoToNear(extData.price)
+    return extData
   }
 
   async function manageOffer(option){
@@ -274,7 +291,17 @@ function LightEcommerceB(props) {
     }
   }
 
+  async function processOffer(state,tokenID){
+    let payload = {
+      nft_contract_id: process.env.REACT_APP_CONTRACT,
+      token_id: tokenID,
+      response: state
+    }
+    ext_call(process.env.REACT_APP_CONTRACT_MARKET,"process_bid",payload,300000000000000,1)
+  }
+
   async function makeAnOffer() {
+    console.log("Make a offer")
     setOfferModal({
       ...state,
       show: true,
@@ -413,17 +440,53 @@ function LightEcommerceB(props) {
                 </div>
                 : "")
               }
+              {(hasBids ?
+                <>
+                <div className="grid grid-rows-2 bg-gray-50 border-l-4 py-2 px-2">
+                  <div className="grid grid-cols-2">
+                    <span className="text-gray-500">Oferta actual: <b>{state?.tokens.bidPrice} NEAR</b></span>
+                    <span className="ml-auto text-gray-900 text-xs">{state?.tokens.bidder}</span>
+                  </div>
+                  {(state?.tokens.bidder == state?.tokens.account ? 
+                    <div className="w-full pt-2">
+                      <button 
+                        className="w-full content-center justify-center text-center font-bold text-white bg-yellow2 border-0 py-1 px-6 focus:outline-none hover:bg-yellow rounded ml-auto"
+                        onClick={async () => {processOffer(false,state?.tokens.tokenID)}}>
+                          Cancelar oferta
+                      </button>
+                    </div>
+                    : state?.tokens.account == state?.owner ?
+                      <>
+                        <div className="grid grid-cols-2 gap-4 place-items-center ">
+                          <button 
+                            className="w-full  content-center justify-center text-center font-bold text-white bg-green-500 border-0 py-1 px-6 focus:outline-none hover:bg-green-300 rounded"
+                            onClick={async () => {processOffer(true,state?.tokens.tokenID)}}>
+                            Aceptar
+                          </button>
+                          <button 
+                            className="w-full  content-center justify-center text-center font-bold text-white bg-red-500 border-0 py-1 px-6 focus:outline-none hover:bg-red-300 rounded"
+                            onClick={async () => {processOffer(false,state?.tokens.tokenID)}}>
+                            Rechazar
+                          </button>
+                        </div>
+                      </>
+                    : "")
+                    }
+                </div>
+                </> 
+                : "")
+              }
               
 
    
-              <div
+              {/* <div
                 className={`flex border-l-4 border-${props.theme}-500 py-2 px-2 my-2 bg-gray-50 invisible`}
               >
                 <span className="text-gray-500">Contrato</span>
                 <span className="ml-auto text-gray-900 text-xs">
                   {state?.jdata.contract}
                 </span>
-              </div>
+              </div> */}
 
 
 
@@ -453,6 +516,14 @@ function LightEcommerceB(props) {
                       >
                         {t("Detail.buy")}
                       </button> 
+                      <button
+                        className={`w-full m-2 lg:w-40 content-center justify-center text-center font-bold text-white bg-yellow2 border-0 py-2 px-6 focus:outline-none hover:bg-yellow rounded`}
+                        onClick={async () => {
+                          makeAnOffer();
+                        }}
+                      >
+                        {t("Detail.bid")}
+                      </button>
                       {/* {state?.owner != state?.ownerAccount ?
                         <button
                           className={`w-full m-2 lg:w-40 justify-center flex  text-center font-bold text-${props.theme}-500 bg-white-500 border-2 border-${props.theme}-500 py-2 px-6  hover:text-white hover:bg-yellow-500 border-0 rounded`}

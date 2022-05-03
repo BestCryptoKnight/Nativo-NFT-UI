@@ -11,7 +11,7 @@ import {
   fromETHtoWei,
 } from "../utils/blockchain_interaction";
 
-import { getNearContract, fromNearToYocto } from "../utils/near_interaction";
+import { getNearContract, fromNearToYocto, ext_call } from "../utils/near_interaction";
 import { useTranslation } from "react-i18next";
 
 //import { useHistory } from "react-router";
@@ -48,11 +48,11 @@ export default function OfferModal(props) {
       let ofertar;
         let contract = await getNearContract();
         let payload = {
-          address_contract: props.tokens.contract,
+          nft_contract_id: process.env.REACT_APP_CONTRACT,
           token_id: props.tokens.tokenID,
-          collection: props.tokens.collection,
-          collection_id: props.tokens.collectionID,
         };
+        console.log(props.tokens)
+        
         let amountVal = values.price;
         let amount = fromNearToYocto(amountVal);
         let bigAmount = BigInt(amount);
@@ -65,31 +65,49 @@ export default function OfferModal(props) {
           })
           return
         }
-
-   
-        
-      if (highestbidder != 'notienealtos') {
-        if (bigAmount <= BigInt(highestbidder)) {
+        if(props.tokens.bidPrice!="" && values.price<=props.tokens.bidPrice){
           Swal.fire({
-            title: 'El Precio es menor a la ultima oferta',
-            text: 'Para poder ofertar por este NFT es necesario que el precio mayor a la ultima oferta',
+            title: 'Oferta no valida',
+            text: 'Para poder ofertar por un NFT es necesario superar la oferta anterior',
             icon: 'error',
             confirmButtonColor: '#E79211'
           })
           return
         }
-      }
+        if(values.price>=props.tokens.price){
+          Swal.fire({
+            title: 'Oferta no valida',
+            text: 'Para poder ofertar por un NFT es necesario que la oferta sea menor al precio de venta',
+            icon: 'error',
+            confirmButtonColor: '#E79211'
+          })
+          return
+        }
+        ext_call(process.env.REACT_APP_CONTRACT_MARKET,'add_bid',payload,300000000000000,amount)
+   
+        
+      // if (highestbidder != 'notienealtos') {
+      //   if (bigAmount <= BigInt(highestbidder)) {
+      //     Swal.fire({
+      //       title: 'El Precio es menor a la ultima oferta',
+      //       text: 'Para poder ofertar por este NFT es necesario que el precio mayor a la ultima oferta',
+      //       icon: 'error',
+      //       confirmButtonColor: '#E79211'
+      //     })
+      //     return
+      //   }
+      // }
         
 
         
-        ofertar = await contract.market_bid_generic(
-          payload,
-          300000000000000, // attached GAS (optional)
-          bigAmount.toString()//amount
-        ).
-        catch(e=>{
-          console.log('error',e);
-        });
+      //   ofertar = await contract.market_bid_generic(
+      //     payload,
+      //     300000000000000, // attached GAS (optional)
+      //     bigAmount.toString()//amount
+      //   ).
+      //   catch(e=>{
+      //     console.log('error',e);
+      //   });
       
 
       setState({ disabled: false });
@@ -106,7 +124,7 @@ export default function OfferModal(props) {
               {/*header*/}
 
               <div
-                className={`flex flex-row justify-between bg-yellow-500 flex items-start justify-center font-bold uppercase p-5 border-b border-solid border-yellowGray-200 rounded text-white`}>
+                className={`flex flex-row justify-between bg-yellow2 flex items-start justify-center font-bold uppercase p-5 border-b border-solid border-yellowGray-200 rounded text-white`}>
                 <div>{props.title} </div>
                 <div><button
                   className={`  text-white  font-bold uppercase px-[20px]  `}
@@ -169,7 +187,7 @@ export default function OfferModal(props) {
                     {props.tokenId && (
                       <div className="w-full flex justify-end">
                         <button
-                          className={`bg-yellow-500 w- mt-3  text-white active:bg-yellow-600 font-bold uppercase text-sm px-6 py-3 rounded-full shadow hover:shadow-lg outline-none focus:outline-none  ease-linear transition-all duration-150 `}
+                          className={`bg-yellow2 w- mt-3  text-white active:bg-brown font-bold uppercase text-sm px-6 py-3 rounded-full shadow hover:shadow-lg outline-none focus:outline-none  ease-linear transition-all duration-150 `}
                           type="submit"
                           disabled={state.disabled}
                         >
