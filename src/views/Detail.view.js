@@ -318,7 +318,7 @@ function LightEcommerceB(props) {
     else{
       let contract = await getNearContract();
       let amount = fromNearToYocto(0.01);
-      let price = "1000000000000000000000000"
+      let price = "1"
       console.log(state)
       let msgData = JSON.stringify({market_type:"accept_offer", price: price, title: state.jdata.title, media: state.jdata.image, creator_id: state.jdata.creator, description: state.jdata.description})
       let payload = {
