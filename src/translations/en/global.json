@@ -110,7 +110,9 @@
         "decline" : "Decline",
         "bidsMade" : "Bids Made",
         "modalMakeBid" : "Make a bid",
-        "modalMsg" : "Make an attractive bid to get this token"
+        "modalMsg" : "Make an attractive bid to get this token",
+        "actualBid" : "Current bid:",
+        "cancelBid" : "Cancel bid"
     },
     "MyNFTs" : {
         "title" : "My NFTs",
@@ -232,6 +234,10 @@
         "account" : "Account",
         "price" : "Price",
         "changePrice" : "Change price",
-        "putSale" : "Put on sale"
+        "putSale" : "Put on sale",
+        "offerAlert1Txt" : "To be able to bid on NFT you must accept the terms and conditions",
+        "offerAlert2" : "Bid not valid",
+        "offerAlert2Txt-1" : "To be able to bid on an NFT it is necessary to exceed the previous offer",
+        "offerAlert2Txt-2" : "To be able to bid on an NFT it is necessary that the offer is less than the sale price"
     }
 }

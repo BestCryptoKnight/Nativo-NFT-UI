@@ -47,7 +47,7 @@ export default function OfferModal(props) {
     onSubmit: async (values) => {
       let ofertar;
         let contract = await getNearContract();
-        let amount = fromNearToYocto(process.env.REACT_APP_FEE_CREATE_NFT);
+        let amount = fromNearToYocto(0.01);
         let price = fromNearToYocto(values.price)
         let msgData = JSON.stringify({market_type:"on_sale", price: price, title: props.title, media: props.media, creator_id: props.creator, description: props.description})
         let payload = {
@@ -160,6 +160,7 @@ export default function OfferModal(props) {
                         id="price"
                         name="price"
                         min="0.1"
+                        max="100000000000000"
                         step="0.1"
                         className={`border-none w-full bg-gray-100 bg-opacity-50 rounded   focus:bg-transparent  text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out-${props.theme}-500 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out`}
                         {...formik.getFieldProps("price")}
