@@ -479,7 +479,7 @@ function LightEcommerceB(props) {
                 <>
                 <div className="grid grid-rows-2 bg-gray-50 border-l-4 py-2 px-2">
                   <div className="grid grid-cols-2">
-                    <span className="text-gray-500">Oferta actual: <b>{state?.tokens.bidPrice} NEAR</b></span>
+                    <span className="text-gray-500">{t("Detail.actualBid")} <b>{state?.tokens.bidPrice} NEAR</b></span>
                     <span className="ml-auto text-gray-900 text-xs">{state?.tokens.bidder}</span>
                   </div>
                   {(state?.tokens.bidder == state?.tokens.account ? 
@@ -487,7 +487,7 @@ function LightEcommerceB(props) {
                       <button 
                         className="w-full content-center justify-center text-center font-bold text-white bg-yellow2 border-0 py-1 px-6 focus:outline-none hover:bg-yellow rounded ml-auto"
                         onClick={async () => {processCancelOffer(state?.tokens.tokenID)}}>
-                          Cancelar oferta
+                          {t("Detail.cancelBid")}
                       </button>
                     </div>
                     : state?.tokens.account == state?.owner ?
@@ -496,12 +496,12 @@ function LightEcommerceB(props) {
                           <button 
                             className="w-full  content-center justify-center text-center font-bold text-white bg-green-500 border-0 py-1 px-6 focus:outline-none hover:bg-green-300 rounded"
                             onClick={async () => {processAcceptOffer(state?.tokens.sale,state?.tokens.tokenID)}}>
-                            Aceptar
+                            {t("Detail.accept")}
                           </button>
                           <button 
                             className="w-full  content-center justify-center text-center font-bold text-white bg-red-500 border-0 py-1 px-6 focus:outline-none hover:bg-red-300 rounded"
                             onClick={async () => {processCancelOffer(state?.tokens.tokenID)}}>
-                            Rechazar
+                            {t("Detail.decline")}
                           </button>
                         </div>
                       </>

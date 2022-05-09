@@ -59,8 +59,8 @@ export default function OfferModal(props) {
         let bigAmount = BigInt(amount);
         if(!values.terms){
           Swal.fire({
-            title: 'Terminos y condiciones no aceptados',
-            text: 'Para poder ofertar en NFT es necesario que aceptes los terminos y condiciones',
+            title: t("Modal.transAlert2"),
+            text: t("Modal.offerAlert1Txt"),
             icon: 'error',
             confirmButtonColor: '#E79211'
           })
@@ -69,8 +69,8 @@ export default function OfferModal(props) {
         if(props.tokens.sale){
           if(props.tokens.bidPrice!="" && values.price<=props.tokens.bidPrice){
             Swal.fire({
-              title: 'Oferta no valida',
-              text: 'Para poder ofertar por un NFT es necesario superar la oferta anterior',
+              title: t("Modal.offerAlert2"),
+              text: t("Modal.offerAlert2Txt-1"),
               icon: 'error',
               confirmButtonColor: '#E79211'
             })
@@ -78,8 +78,8 @@ export default function OfferModal(props) {
           }
           if(values.price>=props.tokens.price){
             Swal.fire({
-              title: 'Oferta no valida',
-              text: 'Para poder ofertar por un NFT es necesario que la oferta sea menor al precio de venta',
+              title: t("Modal.offerAlert2"),
+              text: t("Modal.offerAlert2Txt-2"),
               icon: 'error',
               confirmButtonColor: '#E79211'
             })

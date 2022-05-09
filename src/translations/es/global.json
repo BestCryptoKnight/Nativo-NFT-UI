@@ -110,7 +110,9 @@
         "decline" : "Declinar",
         "bidsMade" : "Ofertas Realizadas",
         "modalMakeBid" : "Hacer una oferta",
-        "modalMsg" : "Haz una oferta atractiva para obtener este token"
+        "modalMsg" : "Haz una oferta atractiva para obtener este token",
+        "actualBid" : "Oferta actual:",
+        "cancelBid" : "Cancelar oferta"
     },
     "MyNFTs" : {
         "title" : "Mis NFTs",
@@ -232,6 +234,10 @@
         "account" : "Cuenta",
         "price" : "Precio",
         "changePrice" : "Cambiar precio",
-        "putSale" : "Poner en venta"
+        "putSale" : "Poner en venta",
+        "offerAlert1Txt" : "Para poder ofertar en NFT es necesario que aceptes los terminos y condiciones",
+        "offerAlert2" : "Oferta no valida",
+        "offerAlert2Txt-1" : "Para poder ofertar por un NFT es necesario superar la oferta anterior",
+        "offerAlert2Txt-2" : "Para poder ofertar por un NFT es necesario que la oferta sea menor al precio de venta"
     }
 }
