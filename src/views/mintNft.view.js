@@ -357,7 +357,8 @@ function LightHeroE(props) {
               <div className=" md:w-1/2 lg:w-3/4 w-5/6 mb-10 md:mb-0 items-center relative ">
                 {mint?.file && (
                   <img
-                    className="bg-cover bg-center rounded "
+                    className="rounded m-auto "
+                    width="50%"
                     alt="hero"
                     src={mint?.file}
                   />
