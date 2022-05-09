@@ -160,6 +160,7 @@ export default function OfferModal(props) {
                         id="price"
                         name="price"
                         min="0.1"
+                        max="100000000000000"
                         step="0.1"
                         className={`border-none w-full bg-gray-100 bg-opacity-50 rounded   focus:bg-transparent  text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out-${props.theme}-500 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out`}
                         {...formik.getFieldProps("price")}

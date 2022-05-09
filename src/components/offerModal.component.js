@@ -50,6 +50,7 @@ export default function OfferModal(props) {
         let payload = {
           nft_contract_id: process.env.REACT_APP_CONTRACT,
           token_id: props.tokens.tokenID,
+          owner_id: props.tokens.owner
         };
         console.log(props.tokens)
         
@@ -65,25 +66,27 @@ export default function OfferModal(props) {
           })
           return
         }
-        if(props.tokens.bidPrice!="" && values.price<=props.tokens.bidPrice){
-          Swal.fire({
-            title: 'Oferta no valida',
-            text: 'Para poder ofertar por un NFT es necesario superar la oferta anterior',
-            icon: 'error',
-            confirmButtonColor: '#E79211'
-          })
-          return
+        if(props.tokens.sale){
+          if(props.tokens.bidPrice!="" && values.price<=props.tokens.bidPrice){
+            Swal.fire({
+              title: 'Oferta no valida',
+              text: 'Para poder ofertar por un NFT es necesario superar la oferta anterior',
+              icon: 'error',
+              confirmButtonColor: '#E79211'
+            })
+            return
+          }
+          if(values.price>=props.tokens.price){
+            Swal.fire({
+              title: 'Oferta no valida',
+              text: 'Para poder ofertar por un NFT es necesario que la oferta sea menor al precio de venta',
+              icon: 'error',
+              confirmButtonColor: '#E79211'
+            })
+            return
+          }
         }
-        if(values.price>=props.tokens.price){
-          Swal.fire({
-            title: 'Oferta no valida',
-            text: 'Para poder ofertar por un NFT es necesario que la oferta sea menor al precio de venta',
-            icon: 'error',
-            confirmButtonColor: '#E79211'
-          })
-          return
-        }
-        ext_call(process.env.REACT_APP_CONTRACT_MARKET,'add_bid',payload,300000000000000,amount)
+        ext_call(process.env.REACT_APP_CONTRACT_MARKET,'add_offer',payload,300000000000000,amount)
    
         
       // if (highestbidder != 'notienealtos') {
@@ -172,6 +175,7 @@ export default function OfferModal(props) {
                         id="price"
                         name="price"
                         min="0.1"
+                        max="100000000000000"
                         step="0.1"
                         className={`border-none w-full bg-gray-100 bg-opacity-50 rounded   focus:bg-transparent  text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out-${props.theme}-500 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out`}
                         {...formik.getFieldProps("price")}

@@ -121,7 +121,7 @@ function LightHeaderB(props) {
             {t("Navbar.gallery")}
           </a>
 
-          <a href="/nftOnSale" className="mr-5 hover:text-[#ec8b01] hover:text-lg hover:font-bold dark:text-white font-raleway font-normal">
+          <a href="/market" className="mr-5 hover:text-[#ec8b01] hover:text-lg hover:font-bold dark:text-white font-raleway font-normal">
             {t("Navbar.onSale")}
           </a>
 
