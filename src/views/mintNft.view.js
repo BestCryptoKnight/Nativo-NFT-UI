@@ -174,9 +174,13 @@ function LightHeroE(props) {
           formFields.map(async (data, index) => {
             if (data.account == "" || data.percent == "") {
               Swal.fire({
-                title: t("MintNFT.swVoid"),
-                text: t("MintNFT.swVoidTxt"),
+  
                 icon: 'error',
+                html:
+                '<div>'+
+                '<div class="font-open-sans dark:text-darkgray text-xl font-bold">' + t("MintNFT.swVoid") + '</div>'+ 
+                '<div class="font-open-sans dark:text-darkgray  text-sm">' +  t("MintNFT.swVoidTxt") + '</div>'+
+                '</div>',
                 confirmButtonColor: '#E79211'
               })
               setmint({ ...mint, onSubmitDisabled: false });
@@ -185,8 +189,11 @@ function LightHeroE(props) {
             }
             if (!data.account.includes(process.env.REACT_APP_NEAR_ENV == "mainnet" ? ".near" : ".testnet")) {
               Swal.fire({
-                title: t("MintNFT.swNet"),
-                text: t("MintNFT.swNetTxt") + (process.env.REACT_APP_NEAR_ENV == "mainnet" ? ".near" : ".testnet"),
+                html:
+                '<div>'+
+                '<div class="font-open-sans dark:text-darkgray text-xl font-bold">' + t("MintNFT.swNet")  + '</div>'+ 
+                '<div class="font-open-sans dark:text-darkgray  text-sm">' + t("MintNFT.swNetTxt") + (process.env.REACT_APP_NEAR_ENV == "mainnet" ? ".near" : ".testnet") + '</div>'+
+                '</div>',
                 icon: 'error',
                 confirmButtonColor: '#E79211'
               })
@@ -206,8 +213,11 @@ function LightHeroE(props) {
           console.log(percentage)
           if (percentage > 50) {
             Swal.fire({
-              title: t("MintNFT.swPer"),
-              text: t("MintNFT.swPerTxt"),
+              html:
+              '<div>'+
+              '<div class="font-open-sans dark:text-darkgray text-xl font-bold">' + t("MintNFT.swPer")  + '</div>'+ 
+              '<div class="font-open-sans dark:text-darkgray  text-sm">' + t("MintNFT.swPerTxt") + '</div>'+
+              '</div>',
               icon: 'error',
               confirmButtonColor: '#E79211'
             })
@@ -238,8 +248,11 @@ function LightHeroE(props) {
           if (Object.keys(royalties) != 0) {
             payload = { ...payload, ...{ perpetual_royalties: royalties } }
             Swal.fire({
-              title: t("MintNFT.swVer"),
-              html: royalText,
+              html:                
+              '<div>'+
+              '<div class="font-open-sans dark:text-darkgray text-xl font-bold">' + t("MintNFT.swVer") + '</div>'+ 
+              '<div class="font-open-sans dark:text-darkgray  text-sm">' + royalText + '</div>'+
+              '</div>',
               icon: 'warning',
               showCancelButton: true,
               confirmButtonColor: '#E79211',
