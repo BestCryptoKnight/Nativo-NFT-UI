@@ -66,25 +66,14 @@ export default function OfferModal(props) {
           })
           return
         }
-        if(props.tokens.sale){
-          if(props.tokens.bidPrice!="" && values.price<=props.tokens.bidPrice){
-            Swal.fire({
-              title: t("Modal.offerAlert2"),
-              text: t("Modal.offerAlert2Txt-1"),
-              icon: 'error',
-              confirmButtonColor: '#E79211'
-            })
-            return
-          }
-          if(values.price>=props.tokens.price){
-            Swal.fire({
-              title: t("Modal.offerAlert2"),
-              text: t("Modal.offerAlert2Txt-2"),
-              icon: 'error',
-              confirmButtonColor: '#E79211'
-            })
-            return
-          }
+        if(props.tokens.bidPrice!="" && values.price<=props.tokens.bidPrice){
+          Swal.fire({
+            title: t("Modal.offerAlert2"),
+            text: t("Modal.offerAlert2Txt-1"),
+            icon: 'error',
+            confirmButtonColor: '#E79211'
+          })
+          return
         }
         ext_call(process.env.REACT_APP_CONTRACT_MARKET,'add_offer',payload,300000000000000,amount)
    
