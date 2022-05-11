@@ -13,7 +13,7 @@ import { useHistory } from "react-router";
 import ModalSubasta from '../components/modalSubasta.component'
 import ModalRevender from "../components/modalRevender.component";
 import TransferModal from "../components/transferModal.component"
-import ApprovalModal from "../components/ApprovalModal.component"
+import ApprovalModal from "../components/approvalModal.component"
 import PriceModal from "../components/priceModal.component"
 import load from "../assets/landingSlider/img/loader.gif";
 import Pagination from '@mui/material/Pagination';
