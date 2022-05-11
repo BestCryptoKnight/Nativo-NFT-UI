@@ -32,7 +32,7 @@ export default function ApprovalModal(props) {
   const formik = useFormik({
     initialValues: {
       terms: false,
-      account: 0
+      price: 0
     },
     validationSchema: Yup.object({
       price: Yup.number()
@@ -119,7 +119,6 @@ export default function ApprovalModal(props) {
                   type="button"
                   disabled={props.disabled}
                   onClick={() => {
-                    console.log("cerrar")
                     props.change({ show: false });
                   }}
                 >

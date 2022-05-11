@@ -32,7 +32,7 @@ export default function PriceModal(props) {
   const formik = useFormik({
     initialValues: {
       terms: false,
-      account: 0
+      price: 0
     },
     validationSchema: Yup.object({
       price: Yup.number()
