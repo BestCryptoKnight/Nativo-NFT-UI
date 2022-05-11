@@ -42,7 +42,7 @@ function MisTokens(props) {
   const [lastID, setLastID] = React.useState(-1);
   const [statePage, setStatePage] = React.useState(true)
   const [firstLoad, setFirstLoad] = React.useState(true)
-  const [loadMsg,setLoadMsg] = React.useState(true)
+  const [loadMsg, setLoadMsg] = React.useState(true)
   const [t, i18n] = useTranslation("global")
   const [nfts, setNfts] = useState({
     nfts: [],
@@ -94,7 +94,7 @@ function MisTokens(props) {
     })
   }
 
-  async function makeAApproval(tokenID,title,media,creator,description) {
+  async function makeAApproval(tokenID, title, media, creator, description) {
     setApprovalModal({
       ...state,
       show: true,
@@ -159,9 +159,9 @@ function MisTokens(props) {
     hasMore: true
   });
 
-  
+
   const fetchMoreData = async () => {
-    setpage(page+1);
+    setpage(page + 1);
 
     let contract = await getNearContract();
     let account = await getNearAccount();
@@ -169,34 +169,34 @@ function MisTokens(props) {
       account_id: account
     };
     let totalTokensByOwner = await contract.nft_supply_for_owner(paramsSupplyForOwner);
-    
+
 
     if (nfts.nfts.length >= totalTokensByOwner) {
       setState({ hasMore: false });
       return;
     }
 
-    
-    
+
+
 
     let payload = {
       account_id: account,
-      from_index: (page*3).toString(),
+      from_index: (page * 3).toString(),
       limit: nfts.tokensPerPage,
     };
-    
+
     let nftsPerOwnerArr = await contract.nft_tokens_for_owner(payload);
 
 
 
     // //convertir los datos al formato esperado por la vista
     let nftsArr = nftsPerOwnerArr.map((tok, i) => {
-      let onSale=false
+      let onSale = false
       imgs.push(false);
       let data = Object.entries(tok.approved_account_ids)
-      data.map((approval,i) => {
-        if(approval.includes(process.env.REACT_APP_CONTRACT_MARKET)){
-          onSale=true
+      data.map((approval, i) => {
+        if (approval.includes(process.env.REACT_APP_CONTRACT_MARKET)) {
+          onSale = true
           console.log("Esta a la venta en nativo")
         }
       })
@@ -223,8 +223,8 @@ function MisTokens(props) {
 
 
     let newValue = nfts.nfts.concat(nftsArr);
-    setNfts({nfts: newValue });
-    
+    setNfts({ nfts: newValue });
+
   };
 
 
@@ -317,7 +317,7 @@ function MisTokens(props) {
     (async () => {
       window.localStorage.setItem("Mypage", 0);
 
- 
+
 
       if (nfts.blockchain == "0") {
         //Comparamos la red en el combo de metamask con la red de aurora
@@ -348,30 +348,30 @@ function MisTokens(props) {
       } else {
         let contract = await getNearContract();
         let account = await getNearAccount();
-        let numNFT = await contract.nft_supply_for_owner({account_id: account})
+        let numNFT = await contract.nft_supply_for_owner({ account_id: account })
         console.log(numNFT)
-        if(numNFT==0){
+        if (numNFT == 0) {
           setLoadMsg(false)
         }
         let payload = {
           account_id: account,
-          from_index: "0", 
+          from_index: "0",
           limit: nfts.tokensPerPage,
         };
         let nftsPerOwnerArr = await contract.nft_tokens_for_owner(payload);
 
         let toks;
-  
+
         // //convertir los datos al formato esperado por la vista
         let nftsArr = nftsPerOwnerArr.map((tok, i) => {
           console.log(tok)
-          let onSale=false
+          let onSale = false
           //console.log("X->",  tok  )
           imgs.push(false);
           let data = Object.entries(tok.approved_account_ids)
-          data.map((approval,i) => {
-            if(approval.includes(process.env.REACT_APP_CONTRACT_MARKET)){
-              onSale=true
+          data.map((approval, i) => {
+            if (approval.includes(process.env.REACT_APP_CONTRACT_MARKET)) {
+              onSale = true
               console.log("Esta a la venta en nativo")
             }
           })
@@ -403,10 +403,10 @@ function MisTokens(props) {
           owner: account,
         });
 
-        
+
       }
 
-      
+
     })();
   }, [trigger]);
 
@@ -416,11 +416,11 @@ function MisTokens(props) {
    * @return void
    */
 
-  async function removeSale(tokenID){
+  async function removeSale(tokenID) {
     let contract = await getNearContract();
     let payload = {
       token_id: tokenID,
-      account_id: process.env.REACT_APP_CONTRACT_MARKET 
+      account_id: process.env.REACT_APP_CONTRACT_MARKET
     }
     let revoke = contract.nft_revoke(
       payload,
@@ -484,16 +484,20 @@ function MisTokens(props) {
 
   return (
     <>
-      <section className="text-gray-600 body-font">
-        <div className="container px-5 pt-5 mx-auto asda">
-
-          <div className="flex flex-col text-center w-full mb-20">
-            <h1 className="sm:text-3xl text-2xl font-medium title-font mb-4 text-gray-900 mt-8">
+      <section className="text-gray-600 body-font  dark:bg-darkgray ">
+        <div className="flex flex-col text-center w-full">
+          <div className="lg:w-full bg-yellow5 h-[30px] flex my-8 justify-center">
+            <h1 className="sm:text-3xl text-2xl font-medium title-font  dark:text-white  bg-darkgray m-0 px-10">
               {t("MyNFTs.title")}
             </h1>
-            <p className="lg:w-2/3 mx-auto leading-relaxed text-base ">
-              {t("MyNFTs.subtitle")}
-            </p>
+          </div>
+          <p className="lg:w-full mx-auto leading-relaxed text-base bg-white text-darkgray">
+            {t("MyNFTs.subtitle")}
+          </p>
+
+        </div>
+        <div className="container px-5 pt-5 mx-auto asda">
+          <div className="flex flex-col text-center w-full">
             <div className="">
               {/* <button
                 className={`sp-4 mt-5 text-white bg-${props.theme}-500 border-0 py-2 font-bold px-7 focus:outline-none hover:bg-${props.theme}-600 rounded text-md `}
@@ -514,41 +518,41 @@ function MisTokens(props) {
               </div>
             )}
           </div>
-          {loadMsg? 
+          {loadMsg ?
             <InfiniteScroll
-            dataLength={nfts.nfts.length}
-            next={fetchMoreData}
-            hasMore={state.hasMore}
-            loader={<h4>Loading...</h4>}
-            endMessage={
-              <p style={{ textAlign: "center" }}>
-                <b>Yay! You have seen it all</b>
-              </p>
-            }
-          >
-            <div className="flex flex-wrap m-9 mb-6">
-              {nfts.nfts.map((nft, key) => {
-                //obtenemos la data del token nft
-                console.log(nft)
-                const nftData = JSON.parse(nft.data);
-                return (
-                  <div className="lg:w-1/3 md:w-1/2 sm:w-1/2 ssmw-1  px-6 my-5 border-gray-200" key={key}>
-                    <div className="flex relative ">
-                      <img
-                        alt="gallery"
-                        className="ring ring-gray-200 absolute inset-0 z-0 w-full h-full object-cover object-center "
-                        src={imgs[key] ? load : "https://ipfs.io/ipfs/" + nftData.image}
-                      />
-                      <h1 className="absolute justify-center px-2 py-1 text-sm font-bold leading-none text-white dark:bg-yellow rounded-full top-4 left-3 ">{nftData.title}</h1>
-                      <div className="px-8 py-10 relative z-10 w-full border-4 border-gray-200 bg-white opacity-0 hover:opacity-100 ">
-                        <h1 className="title-font text-lg font-medium text-gray-900 mb-3">
-                          {nftData.title}
-                        </h1>
-  
-  
-                        <p className="leading-relaxed"><b>{t("MyNFTs.creator")}</b> {nftData.creator}</p>
-                        {/* Etiqueta de token en subasta */}
-                        {/* <div
+              dataLength={nfts.nfts.length}
+              next={fetchMoreData}
+              hasMore={state.hasMore}
+              loader={<h4>Loading...</h4>}
+              endMessage={
+                <p style={{ textAlign: "center" }}>
+                  <b>Yay! You have seen it all</b>
+                </p>
+              }
+            >
+              <div className="flex flex-wrap m-9 mb-6">
+                {nfts.nfts.map((nft, key) => {
+                  //obtenemos la data del token nft
+                  console.log(nft)
+                  const nftData = JSON.parse(nft.data);
+                  return (
+                    <div className="lg:w-1/3 md:w-1/2 sm:w-1/2 ssmw-1  px-6 my-5  xlarge" key={key}>
+                      <div className="flex relative xlarge">
+                        <img
+                          alt="gallery"
+                          className=" absolute inset-0 z-0 w-full h-full object-cover object-center rounded-xlarge"
+                          src={imgs[key] ? load : "https://ipfs.io/ipfs/" + nftData.image}
+                        />
+                        <h1 className="absolute justify-center px-2 py-1 text-sm font-bold leading-none text-white dark:bg-yellow2 rounded-xlarge top-4 left-3 ">{nftData.title}</h1>
+                        <div className="px-8 py-6 relative z-10 w-full  bg-darkgray opacity-0 hover:opacity-100 hover:shadow-yellow1  rounded-xlarge ">
+                          <h1 className="title-font text-lg font-medium text-gray-900 mb-3 dark:text-white dark:font-bold">
+                            {nftData.title}
+                          </h1>
+
+
+                          <p className="leading-relaxed rounded-xlarge dark:text-white"><b className="dark:font-bold">{t("MyNFTs.creator")}</b > {nftData.creator}</p>
+                          {/* Etiqueta de token en subasta */}
+                          {/* <div
                     className={`flex border-l-4 border-${props.theme}-500 py-2 px-2 my-2 bg-gray-50`}
                   >
                     <span className="text-gray-500">OnAuction</span>
@@ -564,90 +568,92 @@ function MisTokens(props) {
                       </span>
                     </span>
                   </div> */}
-                        <div
-                          className={`flex border-l-4 border-${props.theme}-500 py-2 px-2 my-2 dark:bg-gray-50`}
-                        >
-                          <span className="text-gray-500">{t("MyNFTs.sale")}</span>
-                          <span className="ml-auto text-gray-900">
-                            <span
-                              className={`inline-flex items-center justify-center px-2 py-1  text-xs font-bold leading-none ${
-                                nft.onSale
+                          <div
+                            className={`flex  py-2 px-2 my-2 dark:bg-white rounded-xlarge h-[45px]`}
+                          >
+                            <span className="text-gray-500">{t("MyNFTs.sale")}</span>
+                            <span className="ml-auto text-gray-900">
+                              <span
+                                className={`inline-flex items-center justify-center px-2 py-1  text-xs font-bold leading-none ${nft.onSale
                                   ? "text-green-100 bg-green-500"
                                   : "text-red-100 bg-red-500"
-                              } rounded-full`}
-                            >
-                              {nft.onSale ? t("MyNFTs.available-1") : t("MyNFTs.available-2")}
+                                  } rounded-full`}
+                              >
+                                {nft.onSale ? t("MyNFTs.available-1") : t("MyNFTs.available-2")}
+                              </span>
                             </span>
-                          </span>
-                        </div>
-                        <br></br>
-                        <h2
-                          className={`tracking-widest text-sm title-font font-medium text-darkgray mb-1`}
-                        >{`Token id: ${nft.tokenID}  `}</h2>
-                        <h2
-                          className={`tracking-widest text-sm title-font font-medium text-darkgray mb-6 invisible`}
-                        >{`${t("MyNFTs.cost")}: ${nft.price} ${nfts.currency}`}</h2>
-                        <div className="text-center">
-                          <a
-                            href={"/detail/" + nft.tokenID}
-                            className={`mt-12 w-full text-white bg-yellow2 border-0 py-2 px-4 focus:outline-none hover:bg-brown rounded text-lg`}
-                          >{t("MyNFTs.detail")}</a>
-                          <button
-                            className={`mt-6 w-full text-white bg-yellow2 border-0 py-2 px-4 focus:outline-none hover:bg-brown rounded text-lg`}
-                            onClick={async () =>{
-                              makeATransfer(nft.tokenID);
-                            }}
-                          >
-                            {t("MyNFTs.transferButton")}
-                          </button>
-                          {nft.onSale? 
-                            <>
-                              <button
-                                className={` mt-12 w-full text-white bg-yellow2 border-0 py-2 px-6 focus:outline-none hover:bg-brown rounded text-lg`}
-                                onClick={() => {
-                                  makeChangePrice(nft.tokenID);
-                                }}
-                              >
-                                {t("MyNFTs.btnPrice")}
-                              </button>
-                              <button
-                                className={` mt-6 w-full text-white bg-yellow2 border-0 py-2 px-6 focus:outline-none hover:bg-brown rounded text-lg`}
-                                onClick={() => {
-                                  removeSale(nft.tokenID)
-                                }}
-                              >
-                                {t("MyNFTs.remove")}
-                              </button>
-                            </>
-                          : 
+                          </div>
+                          <h2
+                            className={`tracking-widest text-sm title-font font-medium text-white `}
+                          >{`Token id: ${nft.tokenID}  `}</h2>
+                          <h2
+                            className={`tracking-widest text-sm title-font font-medium text-darkgray  invisible`}
+                          >{`${t("MyNFTs.cost")}+${':'}`}<span className="font-bold">{`${nft.price} ${nfts.currency}`}</span></h2>
+                          <div className="text-center">
+                            <a
+                              href={"/detail/" + nft.tokenID}
+                              className={`inline-block w-full lg:w-3/4 text-brown bg-white border-0 py-2 px-4 focus:outline-none hover:bg-yellow2 2 hover:text-white rounded-xlarge text-lg`}
+                            >{t("MyNFTs.detail")}</a>
                             <button
-                              className={` mt-12 w-full text-white bg-yellow2 border-0 py-2 px-6 focus:outline-none hover:bg-brown rounded text-lg`}
-                              onClick={() => {
-                                makeAApproval(nft.tokenID,nftData.title,nftData.image,nftData.creator,nftData.description);
+                              className={`mt-6 w-full lg:w-3/4 text-brown bg-white border-0 py-2 px-4 focus:outline-none hover:bg-yellow2  text-lg rounded-xlarge hover:text-white`}
+                              onClick={async () => {
+                                makeATransfer(nft.tokenID);
                               }}
                             >
-                              {t("MyNFTs.putSale")}
+                              {t("MyNFTs.transferButton")}
                             </button>
-                          }
-                          
-                        </div>
-                        
-                        {/* Mostramos la opción de revender o quitar del marketplace */}
-                        {nft.status == "S" ? (<>      <button
-                          className={` mt-6 w-full text-white bg-${props.theme}-500 border-0 py-2 px-6 focus:outline-none hover:bg-${props.theme}-600 rounded text-lg`}
-                          disabled={nfts.disabled}
-                          onClick={async () => {
-                            await quitarDelMarketplace(nft.tokenID, nft.collection, nft.contract, nft.collectionID);
-                          }}
-                        >
-                          {t("MyNFTs.remove")}
-                        </button>
-                        </>
-  
-                        ) : (
-                          <>
-                            {nft.status != "S" && <>  
-                              {/* <button
+                            {nft.onSale ?
+                              <>
+                                <button
+                                  className={` mt-6 w-full lg:w-3/4 text-brown bg-white border-0 py-2 px-6 focus:outline-none hover:bg-yellow2 2 hover:text-white  text-lg rounded-xlarge hover:text-white`}
+                                  onClick={() => {
+                                    makeChangePrice(nft.tokenID);
+                                  }}
+                                >
+                                  {t("MyNFTs.btnPrice")}
+                                </button>
+                                <button
+                                  className={` mt-6 w-full lg:w-3/4 text-brown bg-white border-0 py-2 px-6 focus:outline-none hover:bg-yellow2 2 hover:text-white  text-lg rounded-xlarge hover:text-white`}
+                                  onClick={() => {
+                                    removeSale(nft.tokenID)
+                                  }}
+                                >
+                                  {t("MyNFTs.remove")}
+                                </button>
+                              </>
+                              :
+                              <div>
+                              <button
+                                className={` mt-6 w-full lg:w-3/4 text-brown bg-white border-0 py-2 px-6 focus:outline-none hover:bg-yellow2 2 hover:text-white  text-lg rounded-xlarge hover:text-white`}
+                                onClick={() => {
+                                  makeAApproval(nft.tokenID, nftData.title, nftData.image, nftData.creator, nftData.description);
+                                }}
+                              >
+                                {t("MyNFTs.putSale")}
+                              </button>
+                              <div className=" mt-6 w-full lg:w-3/4 bg-transparent py-2 px-6 h-[45px]"></div>
+                              </div>
+                            }
+
+                          </div>
+
+                          {/* Mostramos la opción de revender o quitar del marketplace */}
+                          {nft.status == "S" ? (<>      <button
+                            className={` mt-6 w-full lg:w-3/4 text-brown bg-${props.theme}-500 border-0 py-2 px-6 focus:outline-none hover:bg-${props.theme}-600  text-lg`}
+                            disabled={nfts.disabled}
+                            onClick={async () => {
+                              await quitarDelMarketplace(nft.tokenID, nft.collection, nft.contract, nft.collectionID);
+                            }}
+                          >
+                            {t("MyNFTs.remove")}
+                          </button>
+                          <div className=" mt-6 w-full lg:w-3/4 bg-transparent py-2 px-6"></div>
+                          </>
+
+                          ) : (
+                            <>
+                              {nft.status != "S" && <>
+                                {/* <button
                       className={` mt-2 w-full text-white bg-${props.theme}-500 border-0 py-2 px-6 focus:outline-none hover:bg-${props.theme}-600 rounded text-lg`}
                       onClick={() => {
                         setModalSub({
@@ -667,36 +673,36 @@ function MisTokens(props) {
                     >
                       Poner en subasta
                     </button> */}
-  
-  
-                            </>}
-  
-                          </>
-  
-  
-                        )}
+
+
+                              </>}
+
+                            </>
+
+
+                          )}
+                        </div>
                       </div>
+
                     </div>
-  
-                  </div>
-                );
-              })}
-            </div>
+                  );
+                })}
+              </div>
             </InfiniteScroll>
-          : 
+            :
             ""}
-              
+
 
         </div>
 
-        
+
 
         {/* Mandamos a llamar al modal con el state como props*/}
         <ModalSubasta {...modalSub} />
         <Modal {...modal} />
-        <TransferModal {...transferModal}/>
-        <ApprovalModal {...approvalModal}/>
-        <PriceModal  {...priceModal}/>
+        <TransferModal {...transferModal} />
+        <ApprovalModal {...approvalModal} />
+        <PriceModal  {...priceModal} />
       </section>
     </>
   );
