@@ -39,10 +39,21 @@ function Trendings() {
       let contract = await getNearContract();
       let nft_total_supply = await contract.nft_total_supply()
 
-      let payload = {
-        from_index: (nft_total_supply - (tokens.totalTokens)).toString(),
-        limit: parseInt(tokens.totalTokens),
+      let payload = {};
+
+      if(nft_total_supply < tokens.totalTokens ) {
+         payload = {
+          from_index: "0",
+          limit: parseInt(tokens.totalTokens),
+        }
+      } else {
+         payload = {
+          from_index: (nft_total_supply - (tokens.totalTokens)).toString(),
+          limit: parseInt(tokens.totalTokens),
+        }
       }
+
+      
       let toks = await contract.nft_tokens(
         payload,
       )
