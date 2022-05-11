@@ -11,7 +11,7 @@ import {
 
 import { useHistory } from "react-router";
 import ModalSubasta from '../components/modalSubasta.component'
-import Modal from "../components/modalRevender.component";
+import ModalRevender from "../components/modalRevender.component";
 import TransferModal from "../components/transferModal.component"
 import ApprovalModal from "../components/approvalModal.component"
 import PriceModal from "../components/priceModal.component"
@@ -107,7 +107,7 @@ function MisTokens(props) {
       media: media,
       creator: creator,
       description: description,
-      change: setTransferModal,
+      change: setApprovalModal,
       buttonName: 'X',
       tokenId: 'hardcoded'
     })
@@ -122,7 +122,7 @@ function MisTokens(props) {
       loading: false,
       disabled: false,
       tokenID: tokenID,
-      change: setTransferModal,
+      change: setPriceModal,
       buttonName: 'X',
       tokenId: 'hardcoded'
     })
@@ -692,10 +692,11 @@ function MisTokens(props) {
         
 
         {/* Mandamos a llamar al modal con el state como props*/}
+        <ApprovalModal {...approvalModal} />
         <ModalSubasta {...modalSub} />
-        <Modal {...modal} />
+        <ModalRevender {...modal} />
         <TransferModal {...transferModal}/>
-        <ApprovalModal {...approvalModal}/>
+        
         <PriceModal  {...priceModal}/>
       </section>
     </>

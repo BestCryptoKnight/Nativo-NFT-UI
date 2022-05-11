@@ -480,7 +480,7 @@ function LightEcommerceA() {
   }, [trigger]);
 
   return (
-    <section className={"text-gray-600 body-font "+(ini&&hasData ? "" : "py-64 bg-white")}>
+    <section className={"text-gray-600 body-font "+(ini&&hasData ? "" : "py-64 dark:bg-darkgray")}>
       
       {/* <div className="bg-white px-4 py-3 flex items-center justify-center border-b border-gray-200 sm:px-6 mt-1">
         <button className="bg-transparent hover:bg-slate-200 text-slate-500 hover:text-slate-700 font-extrabold text-center items-center rounded-full py-2 px-4 mx-4"
@@ -625,7 +625,7 @@ function LightEcommerceA() {
               </InfiniteScroll>
             </div> 
             :
-            <div className="container mx-auto flex  my- md:flex-row flex-col  justify-center h-96 items-center text-4xl font-bold">
+            <div className="container mx-auto flex  my- md:flex-row flex-col text-yellow2 justify-center h-96 items-center text-4xl font-bold">
               <div className="flex flex-col justify-center">
                 <h1 className="text-center">{t("tokCollection.noData")}</h1>
               </div>
@@ -717,7 +717,7 @@ function LightEcommerceA() {
               </div>
           } */}
         </div>
-        <div className={"bg-white flex items-center justify-center border-t border-gray-200  mt-16"+(ini&&hasData ? "" : "hidden border-white")}>
+        {/* <div className={"dark:bg-darkgray flex items-center justify-center mt-16"+(ini&&hasData ? "" : "hidden")}> */}
           {/* <Pagination count={Landing.nPages} page={page} onChange={handleChangePage} color="warning" theme="light" /> */}
           {/* <button className="bg-transparent hover:bg-slate-200 text-slate-500 hover:text-slate-700 font-extrabold text-center items-center rounded-full py-2 px-4 mx-4"
           onClick={() => handleBackPage()}
@@ -779,7 +779,7 @@ function LightEcommerceA() {
               );
             })}
           </nav> */}
-        </div>
+        {/* </div> */}
     </section>
   );
 }
