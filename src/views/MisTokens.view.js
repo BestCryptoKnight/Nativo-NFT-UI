@@ -11,9 +11,9 @@ import {
 
 import { useHistory } from "react-router";
 import ModalSubasta from '../components/modalSubasta.component'
-import Modal from "../components/modalRevender.component";
+import ModalRevender from "../components/modalRevender.component";
 import TransferModal from "../components/transferModal.component"
-import ApprovalModal from "../components/approvalModal.component"
+import ApprovalModal from "../components/ApprovalModal.component"
 import PriceModal from "../components/priceModal.component"
 import load from "../assets/landingSlider/img/loader.gif";
 import Pagination from '@mui/material/Pagination';
@@ -693,7 +693,7 @@ function MisTokens(props) {
 
         {/* Mandamos a llamar al modal con el state como props*/}
         <ModalSubasta {...modalSub} />
-        <Modal {...modal} />
+        <ModalRevender {...modal} />
         <TransferModal {...transferModal}/>
         <ApprovalModal {...approvalModal}/>
         <PriceModal  {...priceModal}/>

@@ -16,7 +16,7 @@ import { useTranslation } from "react-i18next";
 
 //import { useHistory } from "react-router";
 
-export default function Transfermodal(props) {
+export default function TransferModal(props) {
   //const history = useHistory();
   const [state, setState] = useState({ disabled: false});
   const [t, i18n] = useTranslation("global")

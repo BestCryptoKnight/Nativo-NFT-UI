@@ -16,7 +16,7 @@ import { useTranslation } from "react-i18next";
 
 //import { useHistory } from "react-router";
 
-export default function OfferModal(props) {
+export default function PriceModal(props) {
   //const history = useHistory();
   const [state, setState] = useState({ disabled: false});
   const [t, i18n] = useTranslation("global")
