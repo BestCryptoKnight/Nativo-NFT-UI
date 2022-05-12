@@ -101,14 +101,14 @@ export default function PriceModal(props) {
   return (
     props.show && (
       <>
-        <div className="  justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none ">
-          <div className="w-9/12 md:w-6/12 my-6  rounded ">
+        <div className="  justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none rounded-xlarge">
+          <div className="w-9/12 md:w-6/12 my-6  rounded-xlarge">
             {/*content*/}
-            <div className=" rounded-lg shadow-lg  flex flex-col  bg-white outline-none focus:outline-none">
+            <div className=" rounded-xlarge shadow-lg  flex flex-col  bg-white outline-none focus:outline-none">
               {/*header*/}
 
               <div
-                className={`flex flex-row justify-between bg-yellow2 flex items-start justify-center font-bold uppercase p-5 border-b border-solid border-yellowGray-200 rounded text-white`}>
+                className={`flex flex-row justify-between bg-yellow2 flex items-start justify-center font-bold uppercase p-5 border-b border-solid border-yellowGray-200 rounded-t-xlarge text-white`}>
                 <div>{props.title} </div>
                 <div><button
                   className={`  text-white  font-bold uppercase px-[20px]  `}
@@ -125,7 +125,7 @@ export default function PriceModal(props) {
 
               <div className="relative p-6 flex flex-col ">
                 <div className="flex justify-center">
-                  <p className=" my-4 text-center text-2xl leading-relaxed">
+                  <p className=" my-4 text-center text-2xl leading-relaxed text-darkgray">
                     {props.message}
                   </p>
                 </div>
@@ -139,7 +139,7 @@ export default function PriceModal(props) {
                     <div className="flex justify-between ">
                       <label
                         htmlFor="price"
-                        className="leading-7 text-sm text-gray-600"
+                        className="leading-7 text-sm text-darkgray"
                       >
                         {t("Modal.price")}
                       </label>
@@ -162,7 +162,7 @@ export default function PriceModal(props) {
                       />
                     </div>
                     <div className="mt-3">
-                      <input type="checkbox" className="" name="terms" id="terms" {...formik.getFieldProps("terms")}/> <label className="text-sm text-gray-600">{t("Modal.accept")}</label>
+                      <input type="checkbox" className="" name="terms" id="terms" {...formik.getFieldProps("terms")}/> <label className="text-sm text-darkgray">{t("Modal.accept")}</label>
                     </div>
                     {/* Ofertar */}
                     {props.tokenId && (
