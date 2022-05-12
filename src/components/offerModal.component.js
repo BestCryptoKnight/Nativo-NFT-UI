@@ -133,7 +133,7 @@ export default function OfferModal(props) {
 
               <div className="relative p-6 flex flex-col ">
                 <div className="flex justify-center">
-                  <p className=" my-4 text-center text-2xl leading-relaxed">
+                  <p className=" my-4 text-center text-2xl leading-relaxed text-gray-600">
                     {props.message}
                   </p>
                 </div>
