@@ -370,10 +370,10 @@ function LightEcommerceB(props) {
             </a>
           </div>
           <div className="lg:w-4/5 mx-auto flex flex-wrap">
-            <div className="lg:w-1/2 w-full lg:h-auto h-64">
+            <div className="lg:w-1/2 w-full lg:h-auto h-64 flex">
               <img
                 alt="ecommerce"
-                className=" object-contain md:object-scale-down rounded-xlarge shadow-yellow2"
+                className=" object-contain md:object-scale-down rounded-xlarge shadow-yellow2 lg:h-auto h-64 w-auto m-auto"
                 src={`https://ipfs.io/ipfs/${state?.jdata.image}`}
               />
             </div>
