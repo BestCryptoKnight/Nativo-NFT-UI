@@ -16,7 +16,7 @@ import { useTranslation } from "react-i18next";
 
 //import { useHistory } from "react-router";
 
-export default function OfferModal(props) {
+export default function ApprovalModal(props) {
   //const history = useHistory();
   const [state, setState] = useState({ disabled: false});
   const [t, i18n] = useTranslation("global")
@@ -32,7 +32,7 @@ export default function OfferModal(props) {
   const formik = useFormik({
     initialValues: {
       terms: false,
-      account: 0
+      price: 0
     },
     validationSchema: Yup.object({
       price: Yup.number()
@@ -105,7 +105,7 @@ export default function OfferModal(props) {
   return (
     props.show && (
       <>
-        <div className="  justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none ">
+        <div className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none ">
           <div className="w-9/12 md:w-6/12 my-6  rounded ">
             {/*content*/}
             <div className=" rounded-lg shadow-lg  flex flex-col  bg-white outline-none focus:outline-none">

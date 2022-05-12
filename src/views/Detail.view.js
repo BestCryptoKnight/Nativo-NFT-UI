@@ -357,7 +357,7 @@ function LightEcommerceB(props) {
   });
   return (
     <>
-      <section className="text-gray-600 body-font overflow-hidden">
+      <section className="text-white body-font overflow-hidden dark:bg-darkgray font-open-sans">
         <div className="container px-5 py-8 mx-auto">
           <div
             className="regresar"
@@ -370,42 +370,43 @@ function LightEcommerceB(props) {
             </a>
           </div>
           <div className="lg:w-4/5 mx-auto flex flex-wrap">
-            <img
-              alt="ecommerce"
-              className="lg:w-1/2 w-full lg:h-auto h-64 object-fill  object-fill md:object-scale-down  rounded"
-              src={`https://ipfs.io/ipfs/${state?.jdata.image}`}
-            />
+            <div className="lg:w-1/2 w-full lg:h-auto h-64">
+              <img
+                alt="ecommerce"
+                className=" object-contain md:object-scale-down rounded-xlarge shadow-yellow2"
+                src={`https://ipfs.io/ipfs/${state?.jdata.image}`}
+              />
+            </div>
+            
             <div className="lg:w-1/2 w-full lg:pl-10 lg:mt-0">
 
-              <h1 className="text-gray-900 text-3xl title-font font-medium mb-1 mb-6">
+              <h1 className="text-white text-3xl title-font font-bold mb-3">
                 {state?.jdata.title}
               </h1>
-              <p className="leading-relaxed mt-2 mb-6 font-mono ">
+              <p className="leading-relaxed mt-2 mb-3 ">
                 {state?.jdata.description}
               </p>
 
-
+              <div
+                className={`flex py-2 px-2 my-2 bg-gray-50 rounded-xlarge`}
+                >
+                <span className="text-black pl-3 font-bold uppercase">Token Id</span>
+                <span className="ml-auto text-gray-900 font-semibold pr-3">
+                  {state?.tokens.tokenID}
+                </span>
+              </div>
 
               {state?.tokens.sale?
                 <>
                   <div
-                    className={`flex border-l-4 border-${props.theme}-500 py-2 px-2 my-2 bg-gray-50`}
+                    className={`flex py-2 px-2 my-2 bg-gray-50 rounded-xlarge`}
                   >
-                    <span className="text-gray-500">Token Id</span>
-                    <span className="ml-auto text-gray-900">
-                      {state?.tokens.tokenID}
-                    </span>
-                  </div>
-
-                  <div
-                    className={`flex border-l-4 border-${props.theme}-500 py-2 px-2 my-2 bg-gray-50`}
-                  >
-                      <span className="text-gray-500">{t("Detail.sale")}</span>
-                      <span className="ml-auto text-gray-900">
+                      <span className="text-black pl-3 font-bold uppercase">{t("Detail.sale")}</span>
+                      <span className="ml-auto text-gray-900 pr-3">
                         <span
                           className={`inline-flex items-center justify-center px-2 py-1  text-xs font-bold leading-none ${state?.tokens.sale
-                            ? "text-green-100 bg-green-500"
-                            : "text-red-100 bg-red-500"
+                            ? "text-green-100 bg-green-600"
+                            : "text-red-100 bg-red-600"
                             } rounded-full`}
                         >
                           {state?.tokens.sale ? t("Detail.available-1") : t("Detail.available-2")}
@@ -441,33 +442,33 @@ function LightEcommerceB(props) {
 
 
               <div
-                className={`flex border-l-4 border-${props.theme}-500 py-2 px-2 my-2 bg-gray-50`}
+                className={`flex py-2 px-2 my-2 bg-gray-50 rounded-xlarge`}
               >
-                <span className="text-gray-500">{t("Detail.owner")}</span>
-                <span className="ml-auto text-gray-900 text-xs self-center">
+                <span className="text-black pl-3 font-bold uppercase">{t("Detail.owner")}</span>
+                <span className="ml-auto text-gray-900 font-semibold pr-3">
                   {state?.owner}
                 </span>
               </div>
 
               <div
-                className={`flex border-l-4 border-${props.theme}-500 py-2 px-2 my-2 bg-gray-50`}
+                className={`flex py-2 px-2 my-2 bg-gray-50 rounded-xlarge`}
               >
-                <span className="text-gray-500">{t("Detail.creator")}</span>
-                <span className="ml-auto text-gray-900 text-xs self-center">
+                <span className="text-black pl-3 font-bold uppercase">{t("Detail.creator")}</span>
+                <span className="ml-auto text-gray-900 font-semibold pr-3">
                   {state?.jdata.creator}
                 </span>
               </div>
 
               {(hasRoyalty ?
                 <div
-                  className={`flex border-l-4 border-${props.theme}-500 py-2 px-2 my-2 bg-gray-50`}
+                  className={`flex py-2 px-2 my-2 bg-gray-50 rounded-xlarge`}
                 >
-                  <span className="text-gray-500">{t("Detail.royalty")}</span>
-                  <span className="ml-auto text-gray-900 text-xs self-center text-right">
+                  <span className="text-black pl-3 font-bold uppercase">{t("Detail.royalty")}</span>
+                  <span className="ml-auto text-gray-900 font-semibold pr-3 text-right">
                     <ol>
                       {state?.jdata.royalty.map((data,i) => {
                         return(
-                          <li key={i}><b>{data[0]}</b> : {(data[1]/100)}%</li>
+                          <li key={i}>{data[0]} : {(data[1]/100)}%</li>
                         )
                       })}
                     </ol>
@@ -477,10 +478,10 @@ function LightEcommerceB(props) {
               }
               {(hasBids ?
                 <>
-                <div className="grid grid-rows-2 bg-gray-50 border-l-4 py-2 px-2">
+                <div className="grid grid-rows-2 py-2 px-2 bg-gray-50 rounded-xlarge">
                   <div className="grid grid-cols-2">
-                    <span className="text-gray-500">{t("Detail.actualBid")} <b>{state?.tokens.bidPrice} NEAR</b></span>
-                    <span className="ml-auto text-gray-900 text-xs">{state?.tokens.bidder}</span>
+                    <span className="text-black pl-3 font-bold uppercase">{t("Detail.actualBid")} {state?.tokens.bidPrice} NEAR</span>
+                    <span className="ml-auto text-gray-900 font-semibold pr-3">{state?.tokens.bidder}</span>
                   </div>
                   {(state?.tokens.bidder == state?.tokens.account ? 
                     <div className="w-full pt-2">
@@ -531,7 +532,7 @@ function LightEcommerceB(props) {
               <div className="flex mt-6 items-center pb-5 border-b-2 border-gray-100 mb-5"></div>
 
               <div className="flex flex-col">
-                <span className="title-font font-medium text-2xl text-gray-900 text-center w-full">
+                <span className="title-font font-medium text-2xl text-white text-center w-full">
                   { 
                     !state?.tokens.sale ?
                       ""
@@ -545,7 +546,7 @@ function LightEcommerceB(props) {
                     state?.owner != state?.ownerAccount? 
                       <>
                         <button
-                          className={`w-full m-2 lg:w-40 content-center justify-center text-center font-bold text-white bg-yellow2 border-0 py-2 px-6 focus:outline-none hover:bg-yellow rounded`}
+                          className={`w-full m-2 lg:w-40 content-center justify-center text-center font-bold text-white bg-yellow2 border-0 py-2 px-6 focus:outline-none hover:bg-yellow rounded-xlarge`}
                           onClick={async () => {
                             makeAnOffer();
                           }}
@@ -555,7 +556,7 @@ function LightEcommerceB(props) {
                         {state?.tokens.sale ? 
                         <>
                         <button
-                          className={`w-full m-2 lg:w-40 content-center justify-center text-center font-bold text-white bg-yellow2 border-0 py-2 px-6 focus:outline-none hover:bg-yellow rounded`}
+                          className={`w-full m-2 lg:w-40 content-center justify-center text-center font-bold text-white bg-yellow2 border-0 py-2 px-6 focus:outline-none hover:bg-yellow rounded-xlarge`}
                           onClick={async () => {
                             comprar();
                           }}
@@ -567,7 +568,7 @@ function LightEcommerceB(props) {
                       : "" 
                       : 
                       <button
-                        className={`flex ml-auto mt-2 text-white bg-yellow2 border-0 py-2 px-6 focus:outline-none font-bold rounded`}
+                        className={`flex ml-auto mt-2 text-white bg-yellow2 border-0 py-2 px-6 focus:outline-none font-bold rounded-xlarge`}
                         style={
                           btn
                             ?
