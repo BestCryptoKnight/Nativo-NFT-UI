@@ -491,7 +491,7 @@ function MisTokens(props) {
               {t("MyNFTs.title")}
             </h1>
           </div>
-          <p className="lg:w-full mx-auto leading-relaxed text-base bg-white text-darkgray">
+          <p className="lg:w-full leading-relaxed text-base bg-white text-darkgray">
             {t("MyNFTs.subtitle")}
           </p>
 
@@ -571,7 +571,7 @@ function MisTokens(props) {
                           <div
                             className={`flex  py-2 px-2 my-2 dark:bg-white rounded-xlarge h-[45px]`}
                           >
-                            <span className="text-gray-500">{t("MyNFTs.sale")}</span>
+                            <span className="text-darkgray text-sm self-center">{t("MyNFTs.sale")}</span>
                             <span className="ml-auto text-gray-900">
                               <span
                                 className={`inline-flex items-center justify-center px-2 py-1  text-xs font-bold leading-none ${nft.onSale
