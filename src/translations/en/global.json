@@ -137,7 +137,10 @@
         "modalAppMsg" : "Write the price at which you want to put the NFT up for sale",
         "modalPriTitle": "Change the price of an NFT",
         "modalPriMsg" : "Write the price you want to upgrade to",
-        "btnPrice" : "Change price"
+        "btnPrice" : "Change price",
+        "loading" : "Loading",
+        "youseenit" : "Yay! You have seen it all"
+
     },
     "CreateCol" : {
         "title" : "New collection",

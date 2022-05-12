@@ -137,7 +137,9 @@
         "modalAppMsg" : "Escribe el precio al que desea poner en venta el NFT",
         "modalPriTitle": "Cambiar el precio de un NFT",
         "modalPriMsg" : "Escribe el precio al que desea actualizar",
-        "btnPrice" : "Cambiar precio"
+        "btnPrice" : "Cambiar precio",
+        "loading" : "Cargando",
+        "youseenit" : "Bien! Ya has visto todo"
     },
     "CreateCol" : {
         "title" : "Nueva Colección",
