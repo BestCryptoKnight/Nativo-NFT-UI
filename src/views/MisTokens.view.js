@@ -533,7 +533,7 @@ function MisTokens(props) {
               <div className="flex flex-wrap md:m-9 mb-6">
                 {nfts.nfts.map((nft, key) => {
                   //obtenemos la data del token nft
-                  console.log(nft)
+                  //console.log(nft)
                   const nftData = JSON.parse(nft.data);
                   return (
                     <div className="lg:w-1/3 md:w-1/2 w-full ssmw-1  px-2 lg:px-6 my-5  xlarge" key={key}>

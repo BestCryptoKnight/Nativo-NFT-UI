@@ -11,7 +11,7 @@ import {
   fromETHtoWei,
 } from "../utils/blockchain_interaction";
 
-import { getNearContract, fromNearToYocto, ext_call } from "../utils/near_interaction";
+import { getNearContract, fromNearToYocto, ext_call, ext_view, fromYoctoToNear } from "../utils/near_interaction";
 import { useTranslation } from "react-i18next";
 
 //import { useHistory } from "react-router";
@@ -54,7 +54,18 @@ export default function PriceModal(props) {
           token_id: props.tokenID,
           price: priceChange
         }
-        console.log(payload)
+        //console.log(payload)
+        let data = await getSaleData(props.tokenID)
+        let price = fromYoctoToNear(data.price)
+        if(price == values.price){
+          Swal.fire({
+            title: t("Modal.priceAlert"),
+            text: t("Modal.priceAlertTxt"),
+            icon: 'error',
+            confirmButtonColor: '#E79211'
+          })
+          return
+        }
         if(!values.terms){
           Swal.fire({
             title: t("Modal.transAlert2"),
@@ -98,6 +109,13 @@ export default function PriceModal(props) {
     },
   });
 
+  async function getSaleData(tokenID){
+    let extPayload={
+      nft_contract_token : process.env.REACT_APP_CONTRACT+"."+tokenID
+    }
+    let extData = await ext_view(process.env.REACT_APP_CONTRACT_MARKET,'get_sale',extPayload)
+    return extData
+  }
   return (
     props.show && (
       <>
