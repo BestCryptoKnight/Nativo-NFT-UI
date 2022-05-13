@@ -241,6 +241,8 @@
         "offerAlert1Txt" : "To be able to bid on NFT you must accept the terms and conditions",
         "offerAlert2" : "Bid not valid",
         "offerAlert2Txt-1" : "To be able to bid on an NFT it is necessary to exceed the previous offer",
-        "offerAlert2Txt-2" : "To be able to bid on an NFT it is necessary that the offer is less than the sale price"
+        "offerAlert2Txt-2" : "To be able to bid on an NFT it is necessary that the offer is less than the sale price",
+        "priceAlert" : "Invalid price",
+        "priceAlertTxt" : "The price you want to change must be lower or higher than the current one"
     }
 }
