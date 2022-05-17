@@ -6,6 +6,7 @@ import { ApolloClient, InMemoryCache, gql } from '@apollo/client'
 import { acceptedFormats, currencys } from "../utils/constraint";
 import Modal from "../components/modal.component";
 import load from "../assets/landingSlider/img/loader.gif";
+import uploadImg from "../assets/img/UPLOAD.png";
 import {
   addNetwork,
   fromETHtoWei,
@@ -364,17 +365,17 @@ function LightHeroE(props) {
                   />
                 )}
                 <label
-                  className={` title-font sm:text-4xl text-3xl  font-medium absolute inset-0  w-full flex flex-col items-center   rounded-lg  tracking-wide uppercase  cursor-pointer justify-center`}
+                  className={` title-font sm:text-4xl text-3xl  font-medium absolute inset-0  w-full lg:w-3/4 mx-auto flex flex-col items-center   rounded-lg  tracking-wide uppercase  cursor-pointer justify-center`}
                 >
                   <div
-                    className={`flex  rounded-xlarge  w-full md:3/4  mx-0     mb-2 bg-gradient-to-b p-[2px] from-yellow  to-brown "
+                    className={`flex  rounded-xlarge  w-full   mx-0     mb-2 bg-gradient-to-b p-[2px] from-yellow  to-brown font-open-sans  flex-col leading-7 "
                       }
               `}
                   >
                     {mint?.file ? 
                     <div className="font-open-sans flex flex-col leading-7 text-sm h-[45px] dark:bg-white dark:text-darkgray   rounded-xlarge justify-center focus-visible:outline-none text-center  shadow-brown-s w-full font-bold">{t("MintNFT.changeImg")}</div> : 
-                    <div className="font-open-sans flex flex-col leading-7 text-sm h-[45px] dark:bg-white dark:text-darkgray   rounded-xlarge justify-center focus-visible:outline-none text-center  shadow-brown-s w-full font-bold">
-                    {t("MintNFT.upImg")}</div>}
+                    <div className="font-open-sans flex flex-col leading-7 text-sm h-[170px] lg:h-[300px] dark:bg-white dark:text-darkgray   rounded-xlarge justify-center focus-visible:outline-none text-center  shadow-brown-s w-full font-bold">
+                    <img src={uploadImg} className="h-[150px] lg:h-[250px] object-contain"></img><span className="text-sm">{t("MintNFT.upImg")}</span></div>}
                   </div>
                   <input
                     onChange={imageChange}
@@ -387,12 +388,12 @@ function LightHeroE(props) {
                   />
                 </label>
                 {formik.touched.image && formik.errors.image ? (
-                  <div className="flex leading-7 text-sm text-red-600 text-center mb-20 justify-center">
+                  <div className="flex leading-7 text-sm text-red-600 text-center mb-10 justify-center">
                     {formik.errors.image}
                   </div>
                 ) : null}
               </div>
-              <div className=" lg:w-full md:w-1/2 w-full lg:pl-24 md:pl-16 flex flex-col md:items-start md:text-left items-center text-center pb-4">
+              <div className=" lg:w-full md:w-1/2 w-full lg:pl-24 md:pl-16 flex flex-col md:items-start md:text-left items-center text-center pb-4 mt-12 md:mt-0">
                 <div className="flex flex-row w-full md:justify-start justify-center items-end">
                   <div className="relative mr-4  w-3/4">
                     <div className="flex justify-between ">
@@ -409,7 +410,7 @@ function LightHeroE(props) {
                       ) : null}
                     </div>
 
-                    <div className="flex  rounded-xlarge  w-full h-[45px] mx-0     mb-2 bg-gradient-to-b p-[2px] from-yellow  to-brown ">
+                    <div className="flex  rounded-xlarge  w-full  h-[45px] mx-0   mb-2 bg-gradient-to-b p-[2px] from-yellow  to-brown ">
                       <input
                         type="text"
                         id="title"
