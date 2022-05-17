@@ -537,7 +537,7 @@ function LightEcommerceB(props) {
                     !state?.tokens.sale ?
                       ""
                       :
-                      "$ " + state?.tokens.price + " " + currencys[parseInt(localStorage.getItem("blockchain"))]
+                       + state?.tokens.price + " " + currencys[parseInt(localStorage.getItem("blockchain"))]
                   }
                 </span>
                 <div className="flex flex-row flex-wrap justify-around mt-3 text-center">
