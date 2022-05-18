@@ -6,7 +6,7 @@ import {
   syncNets,
 } from "../utils/blockchain_interaction";
 import { currencys } from "../utils/constraint";
-import { getNearContract, fromYoctoToNear, getNearAccount } from "../utils/near_interaction";
+import { getNearContract, fromYoctoToNear, getNearAccount, ext_call, ext_view } from "../utils/near_interaction";
 import { useParams, useHistory } from "react-router-dom";
 
 import filtroimg from '../assets/landingSlider/img/filtro.png'
@@ -106,13 +106,12 @@ function LightEcommerceA() {
       return;
     }
     let payload = {
+      nft_contract_id: process.env.REACT_APP_CONTRACT,
       from_index: indexQuery.toString(),
       limit: (limit ? Landing.tokensPerPageNear : lastLimit),
     }
     console.log(payload)
-    let toks = await contract.nft_tokens(
-      payload,
-    )
+    let toks = await ext_view(process.env.REACT_APP_CONTRACT_MARKET,"get_sales_by_nft_contract_id",payload)
     setTokens({...tokens,
       items: tokens.items.concat(toks.reverse())
     });
@@ -154,7 +153,7 @@ function LightEcommerceA() {
   React.useEffect(() => {
     // console.log("esto ---> ",owner);
     let tokData
-    let colData
+    let colData  
     setload(c => true);
     (async () => {
       let toks, onSaleToks;
@@ -191,37 +190,37 @@ function LightEcommerceA() {
 
       } else {
         window.contr = await getNearContract();
-
+        let supplyPayload={
+          nft_contract_id: process.env.REACT_APP_CONTRACT
+        }
         //instanciar contracto
         let contract = await getNearContract();
         let account = await getNearAccount();
-        let nft_total_supply = await contract.nft_total_supply()
+        let nft_total_supply = await ext_view(process.env.REACT_APP_CONTRACT_MARKET,"get_supply_by_nft_contract_id",supplyPayload)
         setIndex(nft_total_supply)
         if(nft_total_supply>0){
           setini(true)
           setHasData(true)
           if(nft_total_supply<=Landing.tokensPerPageNear){
             let payload = {
+              nft_contract_id: process.env.REACT_APP_CONTRACT,
               from_index: (0).toString(),
               limit: parseInt(nft_total_supply),
             }
             setIndex(0)
-            let toks = await contract.nft_tokens(
-              payload,
-            )
+            let toks = await ext_view(process.env.REACT_APP_CONTRACT_MARKET,"get_sales_by_nft_contract_id",payload)
             setTokens({...tokens,
               items: tokens.items.concat(toks.reverse())
             });
           }
           else{
             let payload = {
+              nft_contract_id: process.env.REACT_APP_CONTRACT,
               from_index: (nft_total_supply-Landing.tokensPerPageNear).toString(),
               limit: Landing.tokensPerPageNear,
             }
             setIndex(nft_total_supply-Landing.tokensPerPageNear)
-            let toks = await contract.nft_tokens(
-              payload,
-            )
+            let toks = await ext_view(process.env.REACT_APP_CONTRACT_MARKET,"get_sales_by_nft_contract_id",payload)
             setTokens({...tokens,
               items: tokens.items.concat(toks.reverse())
             });
@@ -577,7 +576,7 @@ function LightEcommerceA() {
                     <b>{t("tokCollection.end")}</b>
                   </p>
                 }
-                className={"flex flex-wrap px-[40px]"}
+                className={"flex flex-wrap px-[40px] mt-1"}
               >
                 {tokens.items.map((i, index) => {
                   return(
@@ -598,26 +597,31 @@ function LightEcommerceA() {
 
                               </div>
                               <div className="p-6 pt-3 pb-3">
-                                <img
-                                  className="object-cover object-center rounded-xlarge h-48 md:h-72 w-full "
-                                  src={`https://ipfs.io/ipfs/${i.metadata.media}`}
-
-                                  alt={i.description}
-                                />
+                                  <img
+                                    className="object-cover object-center rounded-xlarge h-48 md:h-72 w-full "
+                                    src={`https://ipfs.io/ipfs/${i.media}`}
+                            
+                                    alt={i.description}
+                                  />
                               </div>
                               <div className="p-6 pt-3">
-
-                                <div className="capitalize text-black text-sm  text-ellipsis overflow-hidden whitespace-nowrap  font-raleway font-bold">{i.metadata.title}</div>
+                                
+                                <div className="capitalize text-black text-sm  text-ellipsis overflow-hidden whitespace-nowrap  font-raleway font-bold">{i.title}</div>
                                 <div className="flex justify-between">
-                                  <div className="text-black text-sm font-raleway font-normal w-1/2">token id: {i.token_id}</div>
-
-
-
-                                </div>
+                                  <div className="text-black text-sm font-raleway font-normal w-1/2">token id: {i.token_id}</div> 
+                                  <div className="price w-1/2 text-lg text-right text-orange  font-raleway font-bold rounded-full">
+                                    {Landing.blockchain != 0 && fromYoctoToNear(i.price) + " " + Landing.currency}</div> 
+                                  </div>
+                               
+                                  <div >
+                                    <p className="text-orange text-sm font-raleway font-bold">{t("Landing.trending-buy")}</p>
+                                  </div>
+                                  
+                                
                               </div>
                             </div>
                           </div>
-                          </div>
+                        </div>
                       </a>
                     </div>
                   )
@@ -716,8 +720,6 @@ function LightEcommerceA() {
                 </div>
               </div>
           } */}
-        </div>
-        {/* <div className={"dark:bg-darkgray flex items-center justify-center mt-16"+(ini&&hasData ? "" : "hidden")}> */}
           {/* <Pagination count={Landing.nPages} page={page} onChange={handleChangePage} color="warning" theme="light" /> */}
           {/* <button className="bg-transparent hover:bg-slate-200 text-slate-500 hover:text-slate-700 font-extrabold text-center items-center rounded-full py-2 px-4 mx-4"
           onClick={() => handleBackPage()}
@@ -779,7 +781,7 @@ function LightEcommerceA() {
               );
             })}
           </nav> */}
-        {/* </div> */}
+        </div>
     </section>
   );
 }

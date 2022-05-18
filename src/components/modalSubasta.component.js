@@ -13,7 +13,7 @@ import { getNearContract, fromNearToYocto } from "../utils/near_interaction";
 
 //import { useHistory } from "react-router";
 
-export default function ModalRevender(props) {
+export default function ModalSubasta(props) {
  // const history = useHistory();
   const [state, setstate] = useState({ disabled: false });
   //Configuramos el formulario para revender un token

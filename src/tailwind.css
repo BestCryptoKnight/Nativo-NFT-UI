@@ -1,3 +1,40 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+
+
+.trending  .slick-track .slick-active .trending-token {
+    @apply rounded-xlarge w-[295px] p-2  bg-gradient-to-b  from-yellow  to-brown  shadow-yellow1 m-auto ;
+}
+.trending  .slick-track {
+    height: 485px;
+    top: 20px;
+}
+.trending  .slick-track .slick-active .trending-token > div {
+    @apply -m-[5px]   !important;
+}
+
+@media (min-width: 1024px) {
+    .trending  .slick-track .slick-active .trending-token {
+        @apply shadow-none bg-none ;
+    }
+
+    .trending  .slick-track .slick-current + .slick-slide  .trending-token{
+        @apply rounded-xlarge shadow-yellow1  scale-110  !important;
+        @apply w-[295px] p-2 rounded-xlarge bg-gradient-to-b  from-yellow  to-brown relative z-30  ;
+    }
+
+    .trending  .slick-track  .trending-token > div {
+        @apply -m-[5px];
+    }
+    .trending  .slick-track  .trending-token  {
+        @apply m-[5px] rounded-xlarge;
+    }
+    .trending  .slick-track {
+        height: 727px;
+        top: 125px;
+        margin-top: -80px;
+    }
+  }
+  

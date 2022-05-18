@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 import { useParams, useHistory } from "react-router-dom";
 // import { Helmet } from "react-helmet";
 import { isNearReady } from "../utils/near_interaction";
-import { nearSignIn } from "../utils/near_interaction";
+import { nearSignIn, ext_view, ext_call } from "../utils/near_interaction";
 import { ApolloClient, InMemoryCache, gql } from '@apollo/client'
 import {
   syncNets,
@@ -39,6 +39,7 @@ function LightEcommerceB(props) {
   //Esta logeado
   const [stateLogin, setStateLogin] = useState(false);
   const [hasRoyalty, setHasRoyalty] = useState(false)
+  const [hasBids, setHasBids] = useState(false)
   //es el parametro de tokenid
   const { data } = useParams();
   //es el historial de busqueda
@@ -91,14 +92,45 @@ function LightEcommerceB(props) {
           account_id: account,
           token_id: tokenId, 
         };
+        let onSale = false
+        let priceData = ""
+        let bids = []
+        let bidder = ""
+        let bidPrice = ""
         let nft = await contract.nft_token(payload);
+        let bidsData = await getBids(tokenId)
+          console.log(bidsData)
         if(Object.keys(nft.royalty).length!=0){
           setHasRoyalty(true)
+        }        
+        if(nft.approved_account_ids.length!=0){
+          Object.entries(nft.approved_account_ids).map((approval,i) => {
+            if(approval.includes(process.env.REACT_APP_CONTRACT_MARKET)){
+              onSale=true
+            }
+          })
+        }
+        if(onSale){
+          let data = await getSaleData(tokenId)
+          priceData = fromYoctoToNear(data.price)
+        }
+        console.log(bidsData.buyer_id)
+        if(bidsData.buyer_id != "null"){
+          console.log("Hay oferta :D")
+          setHasBids(true)
+          bidder = bidsData.buyer_id
+          bidPrice = fromYoctoToNear(bidsData.price)
         }
         setstate({
           ...state,
           tokens: {
             tokenID: nft.token_id,
+            sale: onSale,
+            price: priceData,
+            bidder: bidder,
+            bidPrice: bidPrice,
+            account: account,
+            owner: nft.owner_id,
             //chunk: parseInt(toks.token_id/2400),
           },
           jdata: {
@@ -108,13 +140,30 @@ function LightEcommerceB(props) {
             royalty: Object.entries(nft.royalty),
             creator: nft.creator_id
           },
-          owner: nft.owner_id
+          owner: nft.owner_id,
+          ownerAccount: ownerAccount,
         });
 
 
       }
     })();
   }, []);
+
+  async function getSaleData(tokenID){
+    let extPayload={
+      nft_contract_token : process.env.REACT_APP_CONTRACT+"."+tokenID
+    }
+    let extData = await ext_view(process.env.REACT_APP_CONTRACT_MARKET,"get_sale",extPayload)
+    return extData
+  }
+  async function getBids(tokenID){
+    let extPayload={
+      nft_contract_id : process.env.REACT_APP_CONTRACT,
+      token_id : tokenID
+    }
+    let extData = await ext_view(process.env.REACT_APP_CONTRACT_MARKET,"get_offer",extPayload)
+    return extData
+  }
 
   async function manageOffer(option){
 
@@ -203,18 +252,23 @@ function LightEcommerceB(props) {
       //console.log("amount", amount)
 
       //instanciar contracto
-      let contract = await getNearContract();
+      let payload = {
+        nft_contract_id: process.env.REACT_APP_CONTRACT,
+        token_id: state.tokens.tokenID
+      }
+      let toks = await ext_call(process.env.REACT_APP_CONTRACT_MARKET,"offer",payload,300000000000000,fromNearToYocto(amount))
+      // let contract = await getNearContract();
       //obtener tokens a la venta
-      toks = await contract.market_buy_generic(
-        {
-          address_contract: state.tokens.contract,
-          token_id: state.tokens.tokenID,
-          collection: state.tokens.collection,
-          collection_id: state.tokens.collectionID
-        },
-        300000000000000,
-        fromNearToYocto(amount)
-      );
+      // toks = await contract.market_buy_generic(
+      //   {
+      //     address_contract: state.tokens.contract,
+      //     token_id: state.tokens.tokenID,
+      //     collection: state.tokens.collection,
+      //     collection_id: state.tokens.collectionID
+      //   },
+      //   300000000000000,
+      //   fromNearToYocto(amount)
+      // );
 
       //console.log(toks);
     }
@@ -245,7 +299,44 @@ function LightEcommerceB(props) {
     }
   }
 
+  async function processCancelOffer(tokenID){
+    let payload = {
+      nft_contract_id: process.env.REACT_APP_CONTRACT,
+      token_id: tokenID,
+    }
+    ext_call(process.env.REACT_APP_CONTRACT_MARKET,"delete_offer",payload,300000000000000,1)
+  }
+
+  async function processAcceptOffer(listed,tokenID){
+    if(listed){
+      let payload = {
+        nft_contract_id: process.env.REACT_APP_CONTRACT,
+        token_id: tokenID,
+      }
+      ext_call(process.env.REACT_APP_CONTRACT_MARKET,"accept_offer",payload,300000000000000,1)
+    }
+    else{
+      let contract = await getNearContract();
+      let amount = fromNearToYocto(0.01);
+      let price = "1"
+      console.log(state)
+      let msgData = JSON.stringify({market_type:"accept_offer", price: price, title: state.jdata.title, media: state.jdata.image, creator_id: state.jdata.creator, description: state.jdata.description})
+      let payload = {
+        token_id: state.tokens.tokenID,
+        account_id: process.env.REACT_APP_CONTRACT_MARKET,
+        msg: msgData
+      }
+      console.log(payload)
+      let acceptOffer = contract.nft_approve(
+        payload,
+        300000000000000,
+        amount
+      )
+    }
+  }
+
   async function makeAnOffer() {
+    console.log("Make a offer")
     setOfferModal({
       ...state,
       show: true,
@@ -266,7 +357,7 @@ function LightEcommerceB(props) {
   });
   return (
     <>
-      <section className="text-gray-600 body-font overflow-hidden">
+      <section className="text-white body-font overflow-hidden dark:bg-darkgray font-open-sans">
         <div className="container px-5 py-8 mx-auto">
           <div
             className="regresar"
@@ -279,32 +370,52 @@ function LightEcommerceB(props) {
             </a>
           </div>
           <div className="lg:w-4/5 mx-auto flex flex-wrap">
-            <img
-              alt="ecommerce"
-              className="lg:w-1/2 w-full lg:h-auto h-64 object-fill  object-fill md:object-scale-down  rounded"
-              src={`https://ipfs.io/ipfs/${state?.jdata.image}`}
-            />
+            <div className="lg:w-1/2 w-full lg:h-auto h-64 flex">
+              <img
+                alt="ecommerce"
+                className=" object-contain md:object-scale-down rounded-xlarge shadow-yellow2 lg:h-auto h-64 w-auto m-auto"
+                src={`https://ipfs.io/ipfs/${state?.jdata.image}`}
+              />
+            </div>
+            
             <div className="lg:w-1/2 w-full lg:pl-10 lg:mt-0">
 
-              <h1 className="text-gray-900 text-3xl title-font font-medium mb-1 mb-6">
+              <h1 className="text-white text-3xl title-font font-bold mb-3">
                 {state?.jdata.title}
               </h1>
-              <p className="leading-relaxed mt-2 mb-6 font-mono ">
+              <p className="leading-relaxed mt-2 mb-3 ">
                 {state?.jdata.description}
               </p>
 
-
-
               <div
-                className={`flex border-l-4 border-${props.theme}-500 py-2 px-2 my-2 bg-gray-50`}
-              >
-                <span className="text-gray-500">Token Id</span>
-                <span className="ml-auto text-gray-900">
+                className={`flex py-2 px-2 my-2 bg-gray-50 rounded-xlarge`}
+                >
+                <span className="text-black pl-3 font-bold uppercase">Token Id</span>
+                <span className="ml-auto text-gray-900 font-semibold pr-3">
                   {state?.tokens.tokenID}
                 </span>
               </div>
 
-
+              {state?.tokens.sale?
+                <>
+                  <div
+                    className={`flex py-2 px-2 my-2 bg-gray-50 rounded-xlarge`}
+                  >
+                      <span className="text-black pl-3 font-bold uppercase">{t("Detail.sale")}</span>
+                      <span className="ml-auto text-gray-900 pr-3">
+                        <span
+                          className={`inline-flex items-center justify-center px-2 py-1  text-xs font-bold leading-none ${state?.tokens.sale
+                            ? "text-green-100 bg-green-600"
+                            : "text-red-100 bg-red-600"
+                            } rounded-full`}
+                        >
+                          {state?.tokens.sale ? t("Detail.available-1") : t("Detail.available-2")}
+                        </span>
+                      </span>
+                    </div>
+                </>
+              :
+                ""}
               {/*<div
                 className={`flex border-l-4 border-${props.theme}-500 py-2 px-2 my-2 bg-gray-50`}
               >
@@ -331,33 +442,33 @@ function LightEcommerceB(props) {
 
 
               <div
-                className={`flex border-l-4 border-${props.theme}-500 py-2 px-2 my-2 bg-gray-50`}
+                className={`flex py-2 px-2 my-2 bg-gray-50 rounded-xlarge`}
               >
-                <span className="text-gray-500">{t("Detail.owner")}</span>
-                <span className="ml-auto text-gray-900 text-xs self-center">
+                <span className="text-black pl-3 font-bold uppercase">{t("Detail.owner")}</span>
+                <span className="ml-auto text-gray-900 font-semibold pr-3">
                   {state?.owner}
                 </span>
               </div>
 
               <div
-                className={`flex border-l-4 border-${props.theme}-500 py-2 px-2 my-2 bg-gray-50`}
+                className={`flex py-2 px-2 my-2 bg-gray-50 rounded-xlarge`}
               >
-                <span className="text-gray-500">{t("Detail.creator")}</span>
-                <span className="ml-auto text-gray-900 text-xs self-center">
+                <span className="text-black pl-3 font-bold uppercase">{t("Detail.creator")}</span>
+                <span className="ml-auto text-gray-900 font-semibold pr-3">
                   {state?.jdata.creator}
                 </span>
               </div>
 
               {(hasRoyalty ?
                 <div
-                  className={`flex border-l-4 border-${props.theme}-500 py-2 px-2 my-2 bg-gray-50`}
+                  className={`flex py-2 px-2 my-2 bg-gray-50 rounded-xlarge`}
                 >
-                  <span className="text-gray-500">{t("Detail.royalty")}</span>
-                  <span className="ml-auto text-gray-900 text-xs self-center text-right">
+                  <span className="text-black pl-3 font-bold uppercase">{t("Detail.royalty")}</span>
+                  <span className="ml-auto text-gray-900 font-semibold pr-3 text-right">
                     <ol>
                       {state?.jdata.royalty.map((data,i) => {
                         return(
-                          <li key={i}><b>{data[0]}</b> : {(data[1]/100)}%</li>
+                          <li key={i}>{data[0]} : {(data[1]/100)}%</li>
                         )
                       })}
                     </ol>
@@ -365,81 +476,117 @@ function LightEcommerceB(props) {
                 </div>
                 : "")
               }
+              {(hasBids ?
+                <>
+                <div className="grid grid-rows-2 py-2 px-2 bg-gray-50 rounded-xlarge">
+                  <div className="grid grid-cols-2">
+                    <span className="text-black pl-3 font-bold uppercase">{t("Detail.actualBid")} {state?.tokens.bidPrice} NEAR</span>
+                    <span className="ml-auto text-gray-900 font-semibold pr-3">{state?.tokens.bidder}</span>
+                  </div>
+                  {(state?.tokens.bidder == state?.tokens.account ? 
+                    <div className="w-full pt-2">
+                      <button 
+                        className="w-full content-center justify-center text-center font-bold text-white bg-yellow2 border-0 py-1 px-6 focus:outline-none hover:bg-yellow rounded ml-auto"
+                        onClick={async () => {processCancelOffer(state?.tokens.tokenID)}}>
+                          {t("Detail.cancelBid")}
+                      </button>
+                    </div>
+                    : state?.tokens.account == state?.owner ?
+                      <>
+                        <div className="grid grid-cols-2 gap-4 place-items-center ">
+                          <button 
+                            className="w-full  content-center justify-center text-center font-bold text-white bg-green-500 border-0 py-1 px-6 focus:outline-none hover:bg-green-300 rounded"
+                            onClick={async () => {processAcceptOffer(state?.tokens.sale,state?.tokens.tokenID)}}>
+                            {t("Detail.accept")}
+                          </button>
+                          <button 
+                            className="w-full  content-center justify-center text-center font-bold text-white bg-red-500 border-0 py-1 px-6 focus:outline-none hover:bg-red-300 rounded"
+                            onClick={async () => {processCancelOffer(state?.tokens.tokenID)}}>
+                            {t("Detail.decline")}
+                          </button>
+                        </div>
+                      </>
+                    : "")
+                    }
+                </div>
+                </> 
+                : "")
+              }
               
 
    
-              <div
+              {/* <div
                 className={`flex border-l-4 border-${props.theme}-500 py-2 px-2 my-2 bg-gray-50 invisible`}
               >
                 <span className="text-gray-500">Contrato</span>
                 <span className="ml-auto text-gray-900 text-xs">
                   {state?.jdata.contract}
                 </span>
-              </div>
+              </div> */}
 
 
 
 
-              <meta property="og:url" content={`https://develop.nativonft.app/detail/${state?.tokens.tokenID}`} />
-              <meta property="og:type" content="article" />
-              <meta property="og:title" content={`${state?.jdata.title}`} />
-              <meta property="og:description" content={`${state?.jdata.description}`} />
-              <meta property="og:image" content={`https://ipfs.io/ipfs/${state?.jdata.image}`} />
+              
 
               <div className="flex mt-6 items-center pb-5 border-b-2 border-gray-100 mb-5"></div>
+
               <div className="flex flex-col">
-                <span className="title-font font-medium text-2xl text-gray-900 text-center w-full">
-                  {
-                    btn ?
+                <span className="title-font font-medium text-2xl text-white text-center w-full">
+                  { 
+                    !state?.tokens.sale ?
                       ""
                       :
-                      "$ " + state?.tokens.price + " " + currencys[parseInt(localStorage.getItem("blockchain"))]
+                       + state?.tokens.price + " " + currencys[parseInt(localStorage.getItem("blockchain"))]
                   }
                 </span>
-                {stateLogin ?
-                  btn ?
-                    ""
-                    :
-                    <div className="flex flex-row flex-wrap justify-around mt-3 text-center">
-                      <button
-                        className={`w-full m-2 lg:w-40 content-center justify-center text-center font-bold text-white bg-${props.theme}-500 border-0 py-2 px-6 focus:outline-none hover:bg-yellow-600 rounded`}
-                        disabled={btn}
-                        onClick={async () => {
-                          comprar();
-                        }}
-                      >
-                        {t("Detail.buy")}
-                      </button>
-                      {state?.owner != state?.ownerAccount ?
+                <div className="flex flex-row flex-wrap justify-around mt-3 text-center">
+                  {
+                    stateLogin? 
+                    state?.owner != state?.ownerAccount? 
+                      <>
                         <button
-                          className={`w-full m-2 lg:w-40 justify-center flex  text-center font-bold text-${props.theme}-500 bg-white-500 border-2 border-${props.theme}-500 py-2 px-6  hover:text-white hover:bg-yellow-500 border-0 rounded`}
-                          disabled={btn}
+                          className={`w-full m-2 lg:w-40 content-center justify-center text-center font-bold text-white bg-yellow2 border-0 py-2 px-6 focus:outline-none hover:bg-yellow rounded-xlarge`}
                           onClick={async () => {
                             makeAnOffer();
                           }}
                         >
                           {t("Detail.bid")}
                         </button>
-                        : "" }
-                    </div>
-                  :
-                  <button
-                    className={`flex ml-auto mt-2 text-white bg-${props.theme}-500 border-0 py-2 px-6 focus:outline-none hover:bg-${props.theme}-600 rounded`}
-                    style={
-                      btn
-                        ?
-                        { width: "100%", justifyContent: "center" }
-                        :
-                        {}
-                    }
-                    // disabled={state?.tokens.onSale}
-                    onClick={async () => {
-                      nearSignIn(window.location.href);
-                    }}
-                  >
-                    {t("Detail.login")}
-                  </button>
-                }
+                        {state?.tokens.sale ? 
+                        <>
+                        <button
+                          className={`w-full m-2 lg:w-40 content-center justify-center text-center font-bold text-white bg-yellow2 border-0 py-2 px-6 focus:outline-none hover:bg-yellow rounded-xlarge`}
+                          onClick={async () => {
+                            comprar();
+                          }}
+                        >
+                          {t("Detail.buy")}
+                        </button>
+                        </> : ""}
+                      </>
+                      : "" 
+                      : 
+                      <button
+                        className={`flex ml-auto mt-2 text-white bg-yellow2 border-0 py-2 px-6 focus:outline-none font-bold rounded-xlarge`}
+                        style={
+                          btn
+                            ?
+                            { width: "100%", justifyContent: "center" }
+                            :
+                            {}
+                        }
+                        // disabled={state?.tokens.onSale}
+                        onClick={async () => {
+                          nearSignIn(window.location.href);
+                        }}
+                      >
+                        {t("Detail.login")}
+                      </button>
+                  }
+
+                
+                </div>
               </div>
             </div>
 

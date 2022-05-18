@@ -7,7 +7,9 @@ module.exports = {
     extend: {
       boxShadow: {
         's': '4px 1px 17px rgba(253, 252, 252, 0.05)',
-        'brown-s': '0 0 20px rgba(158, 009, 004, 1)'
+        'brown-s': '0 0 20px rgba(158, 009, 004, 1)',
+        'yellow2': '0 0 20px rgba(235, 138, 006, 1)',
+        'yellow1' : '0 0 20px rgb(209, 131, 40, 1)'
       },
       colors: {
         'white': '#fff',
@@ -23,16 +25,25 @@ module.exports = {
         'hotpink': '#ff0f47',
         'lightpink': '#ffab96',
         'blue': '#3c65aa',
-        'purple': '#c6379c'
+        'purple': '#c6379c',
+        "yellow4": '#f5bc25',
+        "orange": "#f9650b",
+        "yellow5" : "#f6c930"
       },
       borderRadius: {
         'xlarge': '15px',
+        '20': '20px',
       },
       backgroundImage: {
-        'hero-rocket': "url('./assets/img/Rocket.png')"
+        'hero-rocket': "url('./assets/img/Rocket.png')",
+        'trendings-background': "url('./assets/img/Trending2.png')"
       },
       backgroundSize: {
         '40': '40%'
+      },
+      fontFamily: {
+        'raleway': ['raleway', 'sans-serif'], 
+        'open-sans': ['Open Sans', 'sans-serif']
       }
     }
   },

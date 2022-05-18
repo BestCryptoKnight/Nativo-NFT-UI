@@ -26,7 +26,9 @@
         "steps-create": "Crea tu colección",
         "steps-createn": "Crea tus NFTs",
         "steps-sell": "Vende tus NFTs",
-        "steps-title" : "Crea tus NFTs"
+        "steps-title" : "Crea tus NFTs",
+        "trending-title" : "Tendencias en nativo",
+        "trending-buy" : "Comprar"
     },
     "Navbar" : {
         "collections" : "Colecciones",
@@ -34,7 +36,8 @@
         "myNFTs" : "Mis NFTs",
         "warning" : "Esta es una versión beta pública - Úselo bajo su propio riesgo - Código no auditado",
         "language" : "Español",
-        "gallery" : "Galeria"
+        "gallery" : "Galeria",
+        "onSale" : "Mercado"
     },
     "Footer" : {
         "made" : "Hecho con:",
@@ -56,7 +59,8 @@
         "terms" : "términos y condiciones",
         "aboutNativo" : "acerca de nativo nft",
         "theTeam" : "el equipo",
-        "tribu" : "Nativo NFT 2002 - Mantenido por la tribu de CloudMex Analytics"
+        "tribu" : "Nativo NFT 2022 - Mantenido por la tribu de",
+        "cloudMx": "CloudMex Analytics"
     },
     "Collections" : {
         "creator" : "Creador",
@@ -106,12 +110,14 @@
         "decline" : "Declinar",
         "bidsMade" : "Ofertas Realizadas",
         "modalMakeBid" : "Hacer una oferta",
-        "modalMsg" : "Haz una oferta atractiva para obtener este token"
+        "modalMsg" : "Haz una oferta atractiva para obtener este token",
+        "actualBid" : "Oferta actual:",
+        "cancelBid" : "Cancelar oferta"
     },
     "MyNFTs" : {
         "title" : "Mis NFTs",
         "subtitle" : "En esta sección aparecen los token NFTs que has creado o adquirido.",
-        "sale" : "En venta",
+        "sale" : "En venta en Nativo NFT",
         "available-1" : "Disponible",
         "available-2" : "No disponible",
         "creator" : "Creador:",
@@ -126,7 +132,14 @@
         "cost" : "Costo",
         "transferButton": "Transferir NFT",
         "modalTransTitle": "Transferir NFT",
-        "modalTransMsg" : "Escribe la cuenta a la cual deseas transferir tu NFT"
+        "modalTransMsg" : "Escribe la cuenta a la cual deseas transferir tu NFT",
+        "modalAppTitle": "Poner NFT en venta",
+        "modalAppMsg" : "Escribe el precio al que desea poner en venta el NFT",
+        "modalPriTitle": "Cambiar el precio de un NFT",
+        "modalPriMsg" : "Escribe el precio al que desea actualizar",
+        "btnPrice" : "Cambiar precio",
+        "loading" : "Cargando",
+        "youseenit" : "¡Bien! Ya has visto todo"
     },
     "CreateCol" : {
         "title" : "Nueva Colección",
@@ -220,6 +233,15 @@
         "transAlert3Txt-1" : "Estas seguro de transferir tu token a: ",
         "transAlert3Txt-2" : " Revisa muy bien la cuenta si es erronea o no existe no hay manera de recuperar tu NFT",
         "transAlert3Btn" : "Transferir",
-        "account" : "Cuenta"
+        "account" : "Cuenta",
+        "price" : "Precio",
+        "changePrice" : "Cambiar precio",
+        "putSale" : "Poner en venta",
+        "offerAlert1Txt" : "Para poder ofertar en NFT es necesario que aceptes los terminos y condiciones",
+        "offerAlert2" : "Oferta no valida",
+        "offerAlert2Txt-1" : "Para poder ofertar por un NFT es necesario superar la oferta anterior",
+        "offerAlert2Txt-2" : "Para poder ofertar por un NFT es necesario que la oferta sea menor al precio de venta",
+        "priceAlert" : "Precio no valido",
+        "priceAlertTxt" : "El precio que deseas cambiar debe ser menor o mayor al actual"
     }
 }

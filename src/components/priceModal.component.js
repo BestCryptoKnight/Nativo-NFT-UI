@@ -11,12 +11,12 @@ import {
   fromETHtoWei,
 } from "../utils/blockchain_interaction";
 
-import { getNearContract, fromNearToYocto } from "../utils/near_interaction";
+import { getNearContract, fromNearToYocto, ext_call, ext_view, fromYoctoToNear } from "../utils/near_interaction";
 import { useTranslation } from "react-i18next";
 
 //import { useHistory } from "react-router";
 
-export default function TransferModal(props) {
+export default function PriceModal(props) {
   //const history = useHistory();
   const [state, setState] = useState({ disabled: false});
   const [t, i18n] = useTranslation("global")
@@ -32,11 +32,14 @@ export default function TransferModal(props) {
   const formik = useFormik({
     initialValues: {
       terms: false,
-      account: ""
+      price: 0
     },
     validationSchema: Yup.object({
-      account: Yup.string()
-        .required("Requerido"),
+      price: Yup.number()
+        .required("Requerido")
+        .positive("El precio debe ser positivo")
+        .moreThan(0.09999999999999, "El precio minimo para el NFT es de 0.1")
+        .min(0.1, "El precio no debe de ser menor 0.1"),
       terms: Yup.bool()
         .required("Requerido")
     }),
@@ -44,16 +47,20 @@ export default function TransferModal(props) {
     onSubmit: async (values) => {
       let ofertar;
         let contract = await getNearContract();
+        let amount = fromNearToYocto(process.env.REACT_APP_FEE_CREATE_NFT);
+        let priceChange = fromNearToYocto(values.price)
         let payload = {
-          receiver_id: values.account,
+          nft_contract_id: process.env.REACT_APP_CONTRACT,
           token_id: props.tokenID,
-          "approval-token": 0
+          price: priceChange
         }
-        if(!values.account.includes(process.env.REACT_APP_NEAR_ENV == "mainnet" ? ".near" : ".testnet"))
-        {
+        //console.log(payload)
+        let data = await getSaleData(props.tokenID)
+        let price = fromYoctoToNear(data.price)
+        if(price == values.price){
           Swal.fire({
-            title: t("Modal.transAlert1"),
-            text: t("Modal.transAlert1Txt")+(process.env.REACT_APP_NEAR_ENV == "mainnet" ? ".near" : ".testnet"),
+            title: t("Modal.priceAlert"),
+            text: t("Modal.priceAlertTxt"),
             icon: 'error',
             confirmButtonColor: '#E79211'
           })
@@ -68,29 +75,9 @@ export default function TransferModal(props) {
           })
           return
         }
-        Swal.fire({
-          title: t("Modal.transAlert3"),
-          text: t("Modal.transAlert3Txt-1")+values.account + t("Modal.transAlert3Txt-2"),
-          icon: 'warning',
-          showCancelButton: true,
-          confirmButtonColor: '#E79211',
-          cancelButtonColor: '#d33',
-          confirmButtonText: t("Modal.transAlert3Btn")
-        }).then(async (result) => {
-          if (result.isConfirmed) {
-            let transferir = await contract.nft_transfer(
-              payload,
-              300000000000000,
-              1
-            )
-            Swal.fire({
-              title: 'NFT transferido',
-              test: 'Has transferido tu NFT a: '+values.account,
-              icon: 'success',
-              confirmButtonColor: '#E79211',
-          })
-          }
-        })
+        ext_call(process.env.REACT_APP_CONTRACT_MARKET,"update_price",payload,300000000000000,1)
+        // 
+        
 
    
         
@@ -122,13 +109,20 @@ export default function TransferModal(props) {
     },
   });
 
+  async function getSaleData(tokenID){
+    let extPayload={
+      nft_contract_token : process.env.REACT_APP_CONTRACT+"."+tokenID
+    }
+    let extData = await ext_view(process.env.REACT_APP_CONTRACT_MARKET,'get_sale',extPayload)
+    return extData
+  }
   return (
     props.show && (
       <>
         <div className="  justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none rounded-xlarge">
-          <div className="w-9/12 md:w-6/12 my-6  rounded-xlarge ">
+          <div className="w-9/12 md:w-6/12 my-6  rounded-xlarge">
             {/*content*/}
-            <div className="rounded-xlarge shadow-lg  flex flex-col  bg-white outline-none focus:outline-none">
+            <div className=" rounded-xlarge shadow-lg  flex flex-col  bg-white outline-none focus:outline-none">
               {/*header*/}
 
               <div
@@ -162,25 +156,27 @@ export default function TransferModal(props) {
                   <div>
                     <div className="flex justify-between ">
                       <label
-                        htmlFor="account"
+                        htmlFor="price"
                         className="leading-7 text-sm text-darkgray"
                       >
-                        {t("Modal.account")}
+                        {t("Modal.price")}
                       </label>
-                      {formik.touched.account && formik.errors.account ? (
+                      {formik.touched.price && formik.errors.price ? (
                         <div className="leading-7 text-sm text-red-600">
-                          {formik.errors.account}
+                          {formik.errors.price}
                         </div>
                       ) : null}
                     </div>
 
                     <div className="flex flex-row">
                       <input
-                        type="text"
-                        id="account"
-                        name="account"
+                        type="number"
+                        id="price"
+                        name="price"
+                        min="0.1"
+                        step="0.1"
                         className={`border-none w-full bg-gray-100 bg-opacity-50 rounded   focus:bg-transparent  text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out-${props.theme}-500 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out`}
-                        {...formik.getFieldProps("account")}
+                        {...formik.getFieldProps("price")}
                       />
                     </div>
                     <div className="mt-3">
@@ -194,7 +190,7 @@ export default function TransferModal(props) {
                           type="submit"
                           disabled={state.disabled}
                         >
-                          Transferir
+                          {t("Modal.changePrice")}
                         </button>
                       </div>
                     )}

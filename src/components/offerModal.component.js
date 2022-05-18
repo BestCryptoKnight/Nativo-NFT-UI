@@ -11,7 +11,7 @@ import {
   fromETHtoWei,
 } from "../utils/blockchain_interaction";
 
-import { getNearContract, fromNearToYocto } from "../utils/near_interaction";
+import { getNearContract, fromNearToYocto, ext_call } from "../utils/near_interaction";
 import { useTranslation } from "react-i18next";
 
 //import { useHistory } from "react-router";
@@ -48,48 +48,58 @@ export default function OfferModal(props) {
       let ofertar;
         let contract = await getNearContract();
         let payload = {
-          address_contract: props.tokens.contract,
+          nft_contract_id: process.env.REACT_APP_CONTRACT,
           token_id: props.tokens.tokenID,
-          collection: props.tokens.collection,
-          collection_id: props.tokens.collectionID,
+          owner_id: props.tokens.owner
         };
+        console.log(props.tokens)
+        
         let amountVal = values.price;
         let amount = fromNearToYocto(amountVal);
         let bigAmount = BigInt(amount);
         if(!values.terms){
           Swal.fire({
-            title: 'Terminos y condiciones no aceptados',
-            text: 'Para poder ofertar en NFT es necesario que aceptes los terminos y condiciones',
+            title: t("Modal.transAlert2"),
+            text: t("Modal.offerAlert1Txt"),
             icon: 'error',
             confirmButtonColor: '#E79211'
           })
           return
         }
-
+        if(props.tokens.bidPrice!="" && values.price<=props.tokens.bidPrice){
+          Swal.fire({
+            title: t("Modal.offerAlert2"),
+            text: t("Modal.offerAlert2Txt-1"),
+            icon: 'error',
+            confirmButtonColor: '#E79211'
+          })
+          return
+        }
+        ext_call(process.env.REACT_APP_CONTRACT_MARKET,'add_offer',payload,300000000000000,amount)
    
         
-      if (highestbidder != 'notienealtos') {
-        if (bigAmount <= BigInt(highestbidder)) {
-          Swal.fire({
-            title: 'El Precio es menor a la ultima oferta',
-            text: 'Para poder ofertar por este NFT es necesario que el precio mayor a la ultima oferta',
-            icon: 'error',
-            confirmButtonColor: '#E79211'
-          })
-          return
-        }
-      }
+      // if (highestbidder != 'notienealtos') {
+      //   if (bigAmount <= BigInt(highestbidder)) {
+      //     Swal.fire({
+      //       title: 'El Precio es menor a la ultima oferta',
+      //       text: 'Para poder ofertar por este NFT es necesario que el precio mayor a la ultima oferta',
+      //       icon: 'error',
+      //       confirmButtonColor: '#E79211'
+      //     })
+      //     return
+      //   }
+      // }
         
 
         
-        ofertar = await contract.market_bid_generic(
-          payload,
-          300000000000000, // attached GAS (optional)
-          bigAmount.toString()//amount
-        ).
-        catch(e=>{
-          console.log('error',e);
-        });
+      //   ofertar = await contract.market_bid_generic(
+      //     payload,
+      //     300000000000000, // attached GAS (optional)
+      //     bigAmount.toString()//amount
+      //   ).
+      //   catch(e=>{
+      //     console.log('error',e);
+      //   });
       
 
       setState({ disabled: false });
@@ -106,7 +116,7 @@ export default function OfferModal(props) {
               {/*header*/}
 
               <div
-                className={`flex flex-row justify-between bg-yellow-500 flex items-start justify-center font-bold uppercase p-5 border-b border-solid border-yellowGray-200 rounded text-white`}>
+                className={`flex flex-row justify-between bg-yellow2 flex items-start justify-center font-bold uppercase p-5 border-b border-solid border-yellowGray-200 rounded text-white`}>
                 <div>{props.title} </div>
                 <div><button
                   className={`  text-white  font-bold uppercase px-[20px]  `}
@@ -123,7 +133,7 @@ export default function OfferModal(props) {
 
               <div className="relative p-6 flex flex-col ">
                 <div className="flex justify-center">
-                  <p className=" my-4 text-center text-2xl leading-relaxed">
+                  <p className=" my-4 text-center text-2xl leading-relaxed text-gray-600">
                     {props.message}
                   </p>
                 </div>
@@ -154,6 +164,7 @@ export default function OfferModal(props) {
                         id="price"
                         name="price"
                         min="0.1"
+                        max="100000000000000"
                         step="0.1"
                         className={`border-none w-full bg-gray-100 bg-opacity-50 rounded   focus:bg-transparent  text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out-${props.theme}-500 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out`}
                         {...formik.getFieldProps("price")}
@@ -169,7 +180,7 @@ export default function OfferModal(props) {
                     {props.tokenId && (
                       <div className="w-full flex justify-end">
                         <button
-                          className={`bg-yellow-500 w- mt-3  text-white active:bg-yellow-600 font-bold uppercase text-sm px-6 py-3 rounded-full shadow hover:shadow-lg outline-none focus:outline-none  ease-linear transition-all duration-150 `}
+                          className={`bg-yellow2 w- mt-3  text-white active:bg-brown font-bold uppercase text-sm px-6 py-3 rounded-full shadow hover:shadow-lg outline-none focus:outline-none  ease-linear transition-all duration-150 `}
                           type="submit"
                           disabled={state.disabled}
                         >
