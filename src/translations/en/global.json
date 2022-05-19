@@ -222,7 +222,8 @@
         "placeAccount" : "Account",
         "placePercent" : "Percentage",
         "btnRemove" : "Remove",
-        "btnRoyalties" : "Add royalties"
+        "btnRoyalties" : "Add royalties",
+        "new" : "New NFT"
     },
     "Modal" : {
         "accept" : "I accept the terms and conditions of service",

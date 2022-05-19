@@ -221,7 +221,8 @@
         "placeAccount" : "Cuenta",
         "placePercent" : "Porcentaje",
         "btnRemove" : "Quitar",
-        "btnRoyalties" : "Agregar regalias"
+        "btnRoyalties" : "Agregar regalias",
+        "new" : "Nuevo NFT"
     },
     "Modal" : {
         "accept" : "Acepto los terminos y condiciones del servicio",
