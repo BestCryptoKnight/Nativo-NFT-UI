@@ -133,9 +133,9 @@ export default function TransferModal(props) {
 
               <div
                 className={`flex flex-row justify-between bg-yellow2 flex items-start justify-center font-bold uppercase p-5 border-b border-solid border-yellowGray-200 rounded-t-xlarge text-white`}>
-                <div>{props.title} </div>
+                <div className="font-raleway">{props.title} </div>
                 <div><button
-                  className={`  text-white  font-bold uppercase px-[20px]  `}
+                  className={`  text-white  font-bold uppercase px-[20px]  font-raleway`}
                   type="button"
                   disabled={props.disabled}
                   onClick={() => {
@@ -149,7 +149,7 @@ export default function TransferModal(props) {
 
               <div className="relative p-6 flex flex-col ">
                 <div className="flex justify-center">
-                  <p className=" my-4 text-center text-2xl leading-relaxed text-darkgray">
+                  <p className=" my-4 text-center text-2xl leading-relaxed text-darkgray font-raleway">
                     {props.message}
                   </p>
                 </div>
@@ -163,12 +163,12 @@ export default function TransferModal(props) {
                     <div className="flex justify-between ">
                       <label
                         htmlFor="account"
-                        className="leading-7 text-sm text-darkgray"
+                        className="leading-7 text-sm text-darkgray font-raleway"
                       >
                         {t("Modal.account")}
                       </label>
                       {formik.touched.account && formik.errors.account ? (
-                        <div className="leading-7 text-sm text-red-600">
+                        <div className="leading-7 text-sm text-red-600 font-open-sans">
                           {formik.errors.account}
                         </div>
                       ) : null}
@@ -179,22 +179,22 @@ export default function TransferModal(props) {
                         type="text"
                         id="account"
                         name="account"
-                        className={`border-none w-full bg-gray-100 bg-opacity-50 rounded   focus:bg-transparent  text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out-${props.theme}-500 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out`}
+                        className={`border-none w-full bg-gray-100 bg-opacity-50 rounded   focus:bg-transparent  text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out-${props.theme}-500 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out font-raleway`}
                         {...formik.getFieldProps("account")}
                       />
                     </div>
                     <div className="mt-3">
-                      <input type="checkbox" className="" name="terms" id="terms" {...formik.getFieldProps("terms")}/> <label className="text-sm text-darkgray">{t("Modal.accept")}</label>
+                      <input type="checkbox" className="" name="terms" id="terms" {...formik.getFieldProps("terms")}/> <label className="text-sm text-darkgray font-raleway">{t("Modal.accept")}</label>
                     </div>
                     {/* Ofertar */}
                     {props.tokenId && (
                       <div className="w-full flex justify-end">
                         <button
-                          className={`bg-yellow2 w- mt-3  text-white active:bg-brown font-bold uppercase text-sm px-6 py-3 rounded-full shadow hover:shadow-lg outline-none focus:outline-none  ease-linear transition-all duration-150 `}
+                          className={`bg-yellow2 w- mt-3  text-white active:bg-brown font-bold uppercase text-sm px-6 py-3 rounded-full shadow hover:shadow-lg outline-none focus:outline-none  ease-linear transition-all duration-150  `}
                           type="submit"
                           disabled={state.disabled}
                         >
-                          Transferir
+                          <span className="font-raleway">{t("Modal.transfer")}</span>
                         </button>
                       </div>
                     )}
