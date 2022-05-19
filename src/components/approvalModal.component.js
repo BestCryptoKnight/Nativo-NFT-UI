@@ -108,28 +108,28 @@ export default function ApprovalModal(props) {
         <div className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none  rounded-xlarge">
           <div className="w-9/12 md:w-6/12 my-6  rounded-xlarge ">
             {/*content*/}
-            <div className="rounded-xlarge shadow-lg  flex flex-col  bg-white outline-none focus:outline-none">
+            <div className="rounded-xlarge shadow-lg  flex flex-col  bg-white outline-none focus:outline-none font-raleway">
               {/*header*/}
 
               <div
-                className={`flex flex-row justify-between bg-yellow2 flex items-start justify-center font-bold uppercase p-5 border-b border-solid border-yellowGray-200  text-white rounded-t-xlarge`}>
-                <div>{props.title} </div>
+                className={`flex flex-row justify-between bg-yellow2 flex items-start justify-center font-bold uppercase p-5 border-b border-solid border-yellowGray-200  text-white rounded-t-xlarge font-raleway`}>
+                <div className="font-raleway">{props.title} </div>
                 <div><button
-                  className={`  text-white  font-bold uppercase px-[20px]  `}
+                  className={`  text-white  font-bold uppercase px-[20px]  text-sm font-raleway`}
                   type="button"
                   disabled={props.disabled}
                   onClick={() => {
                     props.change({ show: false });
                   }}
                 >
-                  {props.buttonName}
+                  <span className="font-raleway">{props.buttonName}</span>
                 </button>
                 </div>
               </div>
 
               <div className="relative p-6 flex flex-col ">
                 <div className="flex justify-center">
-                  <p className=" my-4 text-center text-2xl leading-relaxed text-darkgray">
+                  <p className=" my-4 text-center  leading-relaxed text-darkgray text-xl font-raleway">
                     {props.message}
                   </p>
                 </div>
@@ -137,18 +137,18 @@ export default function ApprovalModal(props) {
                 {/* Formulario para ofertar */}
                 <form
                   onSubmit={formik.handleSubmit}
-                  className="grid grid-cols-1 divide-y flex px-5 py-15 md:flex-row flex-col items-center"
+                  className="grid grid-cols-1 divide-y flex px-5 py-15 md:flex-row flex-col items-center text-sm font-raleway"
                 >
                   <div>
                     <div className="flex justify-between ">
                       <label
                         htmlFor="price"
-                        className="leading-7 text-sm text-darkgray"
+                        className="leading-7  text-darkgray text-sm font-raleway"
                       >
                         {t("Modal.price")}
                       </label>
                       {formik.touched.price && formik.errors.price ? (
-                        <div className="leading-7 text-sm text-red-600">
+                        <div className="leading-7 text-sm text-red-600 font-open-sans">
                           {formik.errors.price}
                         </div>
                       ) : null}
@@ -162,7 +162,7 @@ export default function ApprovalModal(props) {
                         min="0.1"
                         max="100000000000000"
                         step="0.1"
-                        className={`border-none w-full bg-gray-100 bg-opacity-50 rounded   focus:bg-transparent  text-base outline-none text-darkgray py-1 px-3 leading-8 transition-colors duration-200 ease-in-out-${props.theme}-500 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out`}
+                        className={`text-sm font-raleway border-none w-full bg-gray-100 bg-opacity-50 rounded   focus:bg-transparent  text-base outline-none text-darkgray py-1 px-3 leading-8 transition-colors duration-200 ease-in-out-${props.theme}-500 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out`}
                         {...formik.getFieldProps("price")}
                       />
                     </div>
@@ -171,13 +171,14 @@ export default function ApprovalModal(props) {
                     </div>
                     {/* Ofertar */}
                     {props.tokenId && (
-                      <div className="w-full flex justify-end">
+                      <div className="w-full flex justify-end font-raleway">
                         <button
-                          className={`bg-yellow2 w- mt-3  text-darkgray active:bg-brown font-bold uppercase text-sm px-6 py-3 rounded-full shadow hover:shadow-lg outline-none focus:outline-none  ease-linear transition-all duration-150 `}
+                          className={`bg-yellow2 w- mt-3  text-white active:bg-brown font-bold uppercase text-sm px-6 py-3 rounded-full shadow hover:shadow-lg outline-none focus:outline-none  ease-linear transition-all duration-150 font-raleway`}
                           type="submit"
                           disabled={state.disabled}
                         >
-                          {t("Modal.putSale")}
+                          <span className="font-raleway">{t("Modal.putSale")}</span>
+                          
                         </button>
                       </div>
                     )}

@@ -222,7 +222,8 @@
         "placeAccount" : "Account",
         "placePercent" : "Percentage",
         "btnRemove" : "Remove",
-        "btnRoyalties" : "Add royalties"
+        "btnRoyalties" : "Add royalties",
+        "new" : "New NFT"
     },
     "Modal" : {
         "accept" : "I accept the terms and conditions of service",
@@ -243,6 +244,7 @@
         "offerAlert2Txt-1" : "To be able to bid on an NFT it is necessary to exceed the previous offer",
         "offerAlert2Txt-2" : "To be able to bid on an NFT it is necessary that the offer is less than the sale price",
         "priceAlert" : "Invalid price",
-        "priceAlertTxt" : "The price you want to change must be lower or higher than the current one"
+        "priceAlertTxt" : "The price you want to change must be lower or higher than the current one",
+        "transfer": "Transfer"
     }
 }
