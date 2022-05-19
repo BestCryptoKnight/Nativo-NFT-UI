@@ -487,11 +487,11 @@ function MisTokens(props) {
       <section className="text-gray-600 body-font  dark:bg-darkgray ">
         <div className="flex flex-col text-center w-full">
           <div className="lg:w-full bg-yellow5 h-[30px] flex my-8 justify-center">
-            <h1 className="sm:text-3xl text-2xl font-medium title-font  dark:text-white  bg-darkgray m-0 px-10">
+            <h1 className="sm:text-3xl lg:text-6xl font-black title-font  dark:text-white  bg-darkgray m-0 px-10 font-raleway uppercase self-center">
               {t("MyNFTs.title")}
             </h1>
           </div>
-          <p className="lg:w-full leading-relaxed text-base bg-white text-darkgray">
+          <p className="lg:w-full leading-relaxed text-base bg-white text-darkgray font-raleway">
             {t("MyNFTs.subtitle")}
           </p>
 
@@ -543,14 +543,14 @@ function MisTokens(props) {
                           className=" absolute inset-0 z-0 w-full h-full object-cover object-center rounded-xlarge"
                           src={imgs[key] ? load : "https://ipfs.io/ipfs/" + nftData.image}
                         />
-                        <h1 className="absolute justify-center px-2 py-1 text-sm font-bold leading-none text-white dark:bg-yellow2 rounded-xlarge top-4 left-3 ">{nftData.title}</h1>
+                        <h1 className="absolute justify-center px-2 py-1 text-sm font-bold leading-none text-white dark:bg-yellow2 rounded-xlarge top-4 left-3 font-raleway">{nftData.title}</h1>
                         <div className="px-8 py-6 relative z-10 w-full  bg-darkgray opacity-0 hover:opacity-100 hover:shadow-yellow1  rounded-xlarge ">
-                          <h1 className="title-font text-lg font-medium text-gray-900 mb-3 dark:text-white dark:font-bold">
+                          <h1 className="title-font text-lg  text-gray-900 mb-3 dark:text-white dark:font-bold font-raleway font-bold">
                             {nftData.title}
                           </h1>
 
 
-                          <p className="leading-relaxed rounded-xlarge dark:text-white"><b className="dark:font-bold">{t("MyNFTs.creator")}</b > {nftData.creator}</p>
+                          <p className="leading-relaxed rounded-xlarge dark:text-white"><b className="dark:font-bold font-raleway">{t("MyNFTs.creator")}</b > {nftData.creator}</p>
                           {/* Etiqueta de token en subasta */}
                           {/* <div
                     className={`flex border-l-4 border-${props.theme}-500 py-2 px-2 my-2 bg-gray-50`}
@@ -571,10 +571,10 @@ function MisTokens(props) {
                           <div
                             className={`flex  py-2 px-2 my-2 dark:bg-white rounded-xlarge h-[45px]`}
                           >
-                            <span className="text-darkgray text-sm self-center">{t("MyNFTs.sale")}</span>
+                            <span className="text-darkgray text-sm self-center font-raleway font-normal">{t("MyNFTs.sale")}</span>
                             <span className="ml-auto text-gray-900">
                               <span
-                                className={`inline-flex items-center justify-center px-2 py-1  text-xs font-bold leading-none ${nft.onSale
+                                className={`inline-flex items-center justify-center px-2 py-1  text-xs font-bold leading-none font-raleway ${nft.onSale
                                   ? "text-green-100 bg-green-500"
                                   : "text-red-100 bg-red-500"
                                   } rounded-full`}
@@ -584,7 +584,7 @@ function MisTokens(props) {
                             </span>
                           </div>
                           <h2
-                            className={`tracking-widest text-sm title-font font-medium text-white `}
+                            className={`tracking-widest text-sm title-font font-medium text-white font-raleway`}
                           >{`Token id: ${nft.tokenID}  `}</h2>
                           <h2
                             className={`tracking-widest text-sm title-font font-medium text-darkgray  invisible`}
@@ -592,10 +592,10 @@ function MisTokens(props) {
                           <div className="text-center">
                             <a
                               href={"/detail/" + nft.tokenID}
-                              className={`inline-block w-full text-md text-brown bg-white border-0 py-2 px-4 focus:outline-none hover:bg-yellow2 2 hover:text-white rounded-xlarge `}
+                              className={`inline-block w-full text-md text-brown bg-white border-0 py-2 px-4 focus:outline-none hover:bg-yellow2 2 hover:text-white rounded-xlarge font-raleway font-medium `}
                             >{t("MyNFTs.detail")}</a>
                             <button
-                              className={`mt-6 w-full text-md  text-brown bg-white border-0 py-2 px-4 focus:outline-none hover:bg-yellow2   rounded-xlarge hover:text-white`}
+                              className={`mt-6 w-full text-md  text-brown bg-white border-0 py-2 px-4 focus:outline-none hover:bg-yellow2   rounded-xlarge hover:text-white font-raleway`}
                               onClick={async () => {
                                 makeATransfer(nft.tokenID);
                               }}
@@ -605,7 +605,7 @@ function MisTokens(props) {
                             {nft.onSale ?
                               <>
                                 <button
-                                  className={` mt-6 w-full text-md  text-brown bg-white border-0 py-2 px-6 focus:outline-none hover:bg-yellow2 2 hover:text-white   rounded-xlarge hover:text-white`}
+                                  className={` mt-6 w-full text-md  text-brown bg-white border-0 py-2 px-6 focus:outline-none hover:bg-yellow2 2 hover:text-white   rounded-xlarge hover:text-white font-raleway`}
                                   onClick={() => {
                                     makeChangePrice(nft.tokenID);
                                   }}
@@ -613,7 +613,7 @@ function MisTokens(props) {
                                   {t("MyNFTs.btnPrice")}
                                 </button>
                                 <button
-                                  className={` mt-6 w-full text-md   text-brown bg-white border-0 py-2 px-6 focus:outline-none hover:bg-yellow2 2 hover:text-white   rounded-xlarge hover:text-white`}
+                                  className={` mt-6 w-full text-md   text-brown bg-white border-0 py-2 px-6 focus:outline-none hover:bg-yellow2 2 hover:text-white   rounded-xlarge hover:text-white font-raleway`}
                                   onClick={() => {
                                     removeSale(nft.tokenID)
                                   }}
@@ -624,7 +624,7 @@ function MisTokens(props) {
                               :
                               <div>
                               <button
-                                className={` mt-6 w-full text-md  text-brown bg-white border-0 py-2 px-6 focus:outline-none hover:bg-yellow2 2 hover:text-white  rounded-xlarge hover:text-white`}
+                                className={` mt-6 w-full text-md  text-brown bg-white border-0 py-2 px-6 focus:outline-none hover:bg-yellow2 2 hover:text-white  rounded-xlarge hover:text-white font-raleway`}
                                 onClick={() => {
                                   makeAApproval(nft.tokenID, nftData.title, nftData.image, nftData.creator, nftData.description);
                                 }}
@@ -639,7 +639,7 @@ function MisTokens(props) {
 
                           {/* Mostramos la opción de revender o quitar del marketplace */}
                           {nft.status == "S" ? (<>      <button
-                            className={` mt-6 w-full text-md text-brown bg-${props.theme}-500 border-0 py-2 px-6 focus:outline-none hover:bg-${props.theme}-600  `}
+                            className={` mt-6 w-full text-md text-brown bg-${props.theme}-500 border-0 py-2 px-6 focus:outline-none hover:bg-${props.theme}-600 font-raleway `}
                             disabled={nfts.disabled}
                             onClick={async () => {
                               await quitarDelMarketplace(nft.tokenID, nft.collection, nft.contract, nft.collectionID);
