@@ -380,18 +380,18 @@ function LightEcommerceB(props) {
             
             <div className="lg:w-1/2 w-full lg:pl-10 lg:mt-0">
 
-              <h1 className="text-white text-3xl title-font font-bold mb-3">
+              <h1 className="text-white text-3xl title-font font-bold mb-3 font-raleway">
                 {state?.jdata.title}
               </h1>
-              <p className="leading-relaxed mt-2 mb-3 ">
+              <p className="leading-relaxed mt-2 mb-3 font-raleway font-medium ">
                 {state?.jdata.description}
               </p>
 
               <div
                 className={`flex py-2 px-2 my-2 bg-gray-50 rounded-xlarge`}
                 >
-                <span className="text-black pl-3 font-bold uppercase">Token Id</span>
-                <span className="ml-auto text-gray-900 font-semibold pr-3">
+                <span className="text-black pl-3 font-bold text-sm uppercase font-raleway ">Token Id</span>
+                <span className="ml-auto text-gray-900  text-sm pr-3 font-raleway font-medium">
                   {state?.tokens.tokenID}
                 </span>
               </div>
@@ -401,10 +401,10 @@ function LightEcommerceB(props) {
                   <div
                     className={`flex py-2 px-2 my-2 bg-gray-50 rounded-xlarge`}
                   >
-                      <span className="text-black pl-3 font-bold uppercase">{t("Detail.sale")}</span>
+                      <span className="text-black pl-3 font-bold uppercase font-raleway  text-sm">{t("Detail.sale")}</span>
                       <span className="ml-auto text-gray-900 pr-3">
                         <span
-                          className={`inline-flex items-center justify-center px-2 py-1  text-xs font-bold leading-none ${state?.tokens.sale
+                          className={`inline-flex items-center justify-center px-2 py-1  font-raleway font-medium text-xs leading-none ${state?.tokens.sale
                             ? "text-green-100 bg-green-600"
                             : "text-red-100 bg-red-600"
                             } rounded-full`}
@@ -444,8 +444,8 @@ function LightEcommerceB(props) {
               <div
                 className={`flex py-2 px-2 my-2 bg-gray-50 rounded-xlarge`}
               >
-                <span className="text-black pl-3 font-bold uppercase">{t("Detail.owner")}</span>
-                <span className="ml-auto text-gray-900 font-semibold pr-3">
+                <span className="text-black pl-3 font-bold uppercase font-raleway text-sm">{t("Detail.owner")}</span>
+                <span className="ml-auto text-gray-900 font-semibold pr-3 font-raleway text-sm">
                   {state?.owner}
                 </span>
               </div>
@@ -453,8 +453,8 @@ function LightEcommerceB(props) {
               <div
                 className={`flex py-2 px-2 my-2 bg-gray-50 rounded-xlarge`}
               >
-                <span className="text-black pl-3 font-bold uppercase">{t("Detail.creator")}</span>
-                <span className="ml-auto text-gray-900 font-semibold pr-3">
+                <span className="text-black pl-3 font-bold uppercase font-raleway text-sm">{t("Detail.creator")}</span>
+                <span className="ml-auto text-gray-900 font-semibold pr-3 font-raleway text-sm">
                   {state?.jdata.creator}
                 </span>
               </div>
@@ -463,8 +463,8 @@ function LightEcommerceB(props) {
                 <div
                   className={`flex py-2 px-2 my-2 bg-gray-50 rounded-xlarge`}
                 >
-                  <span className="text-black pl-3 font-bold uppercase">{t("Detail.royalty")}</span>
-                  <span className="ml-auto text-gray-900 font-semibold pr-3 text-right">
+                  <span className="text-black pl-3 font-bold uppercase font-raleway text-sm">{t("Detail.royalty")}</span>
+                  <span className="ml-auto text-gray-900 font-semibold pr-3 text-right font-raleway text-sm">
                     <ol>
                       {state?.jdata.royalty.map((data,i) => {
                         return(
@@ -480,29 +480,29 @@ function LightEcommerceB(props) {
                 <>
                 <div className="grid grid-rows-2 py-2 px-2 bg-gray-50 rounded-xlarge">
                   <div className="grid grid-cols-2">
-                    <span className="text-black pl-3 font-bold uppercase">{t("Detail.actualBid")} {state?.tokens.bidPrice} NEAR</span>
-                    <span className="ml-auto text-gray-900 font-semibold pr-3">{state?.tokens.bidder}</span>
+                    <span className="text-black pl-3 font-bold uppercase font-raleway text-sm">{t("Detail.actualBid")} {state?.tokens.bidPrice} NEAR</span>
+                    <span className="ml-auto text-gray-900 font-semibold pr-3 font-raleway text-sm">{state?.tokens.bidder}</span>
                   </div>
                   {(state?.tokens.bidder == state?.tokens.account ? 
                     <div className="w-full pt-2">
                       <button 
-                        className="w-full content-center justify-center text-center font-bold text-white bg-yellow2 border-0 py-1 px-6 focus:outline-none hover:bg-yellow rounded ml-auto"
+                        className="w-full content-center justify-center text-center font-bold text-white bg-yellow2 border-0 py-1 px-6 focus:outline-none hover:bg-yellow  ml-auto font-raleway text-sm rounded-xlarge"
                         onClick={async () => {processCancelOffer(state?.tokens.tokenID)}}>
-                          {t("Detail.cancelBid")}
+                          <span className="font-raleway">{t("Detail.cancelBid")}</span>
                       </button>
                     </div>
                     : state?.tokens.account == state?.owner ?
                       <>
                         <div className="grid grid-cols-2 gap-4 place-items-center ">
                           <button 
-                            className="w-full  content-center justify-center text-center font-bold text-white bg-green-500 border-0 py-1 px-6 focus:outline-none hover:bg-green-300 rounded"
+                            className="w-full  content-center justify-center text-center font-bold text-white bg-green-500 border-0 py-1 px-6 focus:outline-none hover:bg-green-300 rounded-xlarge font-raleway text-sm"
                             onClick={async () => {processAcceptOffer(state?.tokens.sale,state?.tokens.tokenID)}}>
-                            {t("Detail.accept")}
+                            <span className="font-raleway">{t("Detail.accept")}</span>
                           </button>
                           <button 
-                            className="w-full  content-center justify-center text-center font-bold text-white bg-red-500 border-0 py-1 px-6 focus:outline-none hover:bg-red-300 rounded"
+                            className="w-full  content-center justify-center text-center font-bold text-white bg-red-500 border-0 py-1 px-6 focus:outline-none hover:bg-red-300 rounded-xlarge font-raleway text-sm"
                             onClick={async () => {processCancelOffer(state?.tokens.tokenID)}}>
-                            {t("Detail.decline")}
+                            <span className="font-raleway">{t("Detail.decline")}</span>
                           </button>
                         </div>
                       </>
@@ -532,7 +532,7 @@ function LightEcommerceB(props) {
               <div className="flex mt-6 items-center pb-5 border-b-2 border-gray-100 mb-5"></div>
 
               <div className="flex flex-col">
-                <span className="title-font font-medium text-2xl text-white text-center w-full">
+                <span className="title-font font-medium text-2xl text-white text-center w-full font-open-sans ">
                   { 
                     !state?.tokens.sale ?
                       ""
@@ -546,7 +546,7 @@ function LightEcommerceB(props) {
                     state?.owner != state?.ownerAccount? 
                       <>
                         <button
-                          className={`w-full m-2 lg:w-40 content-center justify-center text-center font-bold text-white bg-yellow2 border-0 py-2 px-6 focus:outline-none hover:bg-yellow rounded-xlarge`}
+                          className={`w-full m-2 lg:w-40 content-center justify-center text-center  text-white bg-yellow2 border-0 py-2 px-6 focus:outline-none hover:bg-yellow rounded-xlarge font-raleway font-medium`}
                           onClick={async () => {
                             makeAnOffer();
                           }}
@@ -556,7 +556,7 @@ function LightEcommerceB(props) {
                         {state?.tokens.sale ? 
                         <>
                         <button
-                          className={`w-full m-2 lg:w-40 content-center justify-center text-center font-bold text-white bg-yellow2 border-0 py-2 px-6 focus:outline-none hover:bg-yellow rounded-xlarge`}
+                          className={`w-full m-2 lg:w-40 content-center justify-center text-center  text-white bg-yellow2 border-0 py-2 px-6 focus:outline-none hover:bg-yellow rounded-xlarge font-raleway font-medium`}
                           onClick={async () => {
                             comprar();
                           }}
@@ -568,7 +568,7 @@ function LightEcommerceB(props) {
                       : "" 
                       : 
                       <button
-                        className={`flex ml-auto mt-2 text-white bg-yellow2 border-0 py-2 px-6 focus:outline-none font-bold rounded-xlarge`}
+                        className={`flex ml-auto mt-2 text-white bg-yellow2 border-0 py-2 px-6 focus:outline-none  rounded-xlarge font-raleway font-medium`}
                         style={
                           btn
                             ?
