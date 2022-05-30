@@ -37,7 +37,10 @@
         "warning" : "Esta es una versión beta pública - Úselo bajo su propio riesgo - Código no auditado",
         "language" : "Español",
         "gallery" : "Galeria",
-        "onSale" : "Mercado"
+        "onSale" : "Mercado",
+        "login" : "Iniciar sesión",
+        "profile" : "Perfil",
+        "logout" : "Salir"
     },
     "Footer" : {
         "made" : "Hecho con:",
