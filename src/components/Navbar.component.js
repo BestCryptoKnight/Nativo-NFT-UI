@@ -387,7 +387,7 @@ function LightHeaderB(props) {
               :
               <>
                 <button
-                  className={`flex ml-auto mt-2 text-white bg-yellow2 border-0 py-2 px-6 focus:outline-none  rounded-xlarge font-raleway font-medium`}
+                  className={`flex ml-auto mt-2 text-white bg-yellow2 border-0 py-2 px-6 focus:outline-none w-[320px] md:w-auto rounded-xlarge font-raleway font-medium`}
                   style={{ justifyContent: "center" }}
                   // disabled={state?.tokens.onSale}
                   onClick={async () => {
