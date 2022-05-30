@@ -127,7 +127,7 @@ export default function PriceModal(props) {
 
               <div
                 className={`flex flex-row justify-between bg-yellow2 flex items-start justify-center font-bold uppercase p-5 border-b border-solid border-yellowGray-200 rounded-t-xlarge text-white`}>
-                <div>{props.title} </div>
+                <div className="font-raleway">{props.title} </div>
                 <div><button
                   className={`  text-white  font-bold uppercase px-[20px]  `}
                   type="button"
@@ -143,7 +143,7 @@ export default function PriceModal(props) {
 
               <div className="relative p-6 flex flex-col ">
                 <div className="flex justify-center">
-                  <p className=" my-4 text-center text-2xl leading-relaxed text-darkgray">
+                  <p className=" my-4 text-center text-2xl leading-relaxed text-darkgray font-raleway">
                     {props.message}
                   </p>
                 </div>
@@ -157,12 +157,12 @@ export default function PriceModal(props) {
                     <div className="flex justify-between ">
                       <label
                         htmlFor="price"
-                        className="leading-7 text-sm text-darkgray"
+                        className="leading-7 text-sm text-darkgray font-raleway"
                       >
                         {t("Modal.price")}
                       </label>
                       {formik.touched.price && formik.errors.price ? (
-                        <div className="leading-7 text-sm text-red-600">
+                        <div className="leading-7 text-sm text-red-600 font-open-sans">
                           {formik.errors.price}
                         </div>
                       ) : null}
@@ -175,12 +175,12 @@ export default function PriceModal(props) {
                         name="price"
                         min="0.1"
                         step="0.1"
-                        className={`border-none w-full bg-gray-100 bg-opacity-50 rounded   focus:bg-transparent  text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out-${props.theme}-500 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out`}
+                        className={`border-none w-full bg-gray-100 bg-opacity-50 rounded   focus:bg-transparent  text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out-${props.theme}-500 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out font-raleway`}
                         {...formik.getFieldProps("price")}
                       />
                     </div>
                     <div className="mt-3">
-                      <input type="checkbox" className="" name="terms" id="terms" {...formik.getFieldProps("terms")}/> <label className="text-sm text-darkgray">{t("Modal.accept")}</label>
+                      <input type="checkbox" className="" name="terms" id="terms" {...formik.getFieldProps("terms")}/> <label className="text-sm text-darkgray font-raleway">{t("Modal.accept")}</label>
                     </div>
                     {/* Ofertar */}
                     {props.tokenId && (
@@ -190,7 +190,7 @@ export default function PriceModal(props) {
                           type="submit"
                           disabled={state.disabled}
                         >
-                          {t("Modal.changePrice")}
+                          <span className="font-raleway">{t("Modal.changePrice")}</span>
                         </button>
                       </div>
                     )}

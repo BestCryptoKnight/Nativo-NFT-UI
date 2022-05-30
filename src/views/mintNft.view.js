@@ -338,7 +338,7 @@ function LightHeroE(props) {
   }
 
   return (
-    <section className="text-gray-600 body-font">
+    <section className="text-gray-600 body-font bg-crear-background bg-cover bg-no-repeat">
       {loading ?
         <>
           <div className="grid grid-cols-1 gap-4 place-content-center items-center">
@@ -351,11 +351,12 @@ function LightHeroE(props) {
         <>
           {/* {collection ? */}
           <>
+          <div className="font-raleway font-bold text-center py-10 text-3xl md:text-6xl text-darkgray uppercase">{t("MintNFT.new")}</div>
             <form
               onSubmit={formik.handleSubmit}
-              className="container mx-auto flex px-5 py-24 md:flex-row flex-col items-center"
+              className="container mx-auto flex px-5 py-10 md:pt-0 lg:pt-5 lg:pb-24 md:flex-row flex-col items-center"
             >
-              <div className=" md:w-1/2 lg:w-3/4 w-5/6 mb-10 md:mb-0 items-center relative ">
+              <div className=" md:w-1/2 lg:w-3/4 w-5/6 mb-10 md:mb-0 items-center relative pt-10 md:pt-0">
                 {mint?.file && (
                   <img
                     className="rounded m-auto "
@@ -373,8 +374,8 @@ function LightHeroE(props) {
               `}
                   >
                     {mint?.file ? 
-                    <div className="font-open-sans flex flex-col leading-7 text-sm h-[45px] dark:bg-white dark:text-darkgray   rounded-xlarge justify-center focus-visible:outline-none text-center  shadow-brown-s w-full font-bold">{t("MintNFT.changeImg")}</div> : 
-                    <div className="font-open-sans flex flex-col leading-7 text-sm h-[170px] lg:h-[300px] dark:bg-white dark:text-darkgray   rounded-xlarge justify-center focus-visible:outline-none text-center  shadow-brown-s w-full font-bold">
+                    <div className="flex flex-col leading-7 text-sm h-[45px] dark:bg-white dark:text-darkgray   rounded-xlarge justify-center focus-visible:outline-none text-center  shadow-brown-s w-full font-semibold font-raleway">{t("MintNFT.changeImg")}</div> : 
+                    <div className="flex flex-col leading-7 text-sm h-[170px] lg:h-[300px] dark:bg-white dark:text-darkgray   rounded-xlarge justify-center focus-visible:outline-none text-center  shadow-brown-s w-full font-semibold font-raleway">
                     <img src={uploadImg} className="h-[150px] lg:h-[250px] object-contain"></img><span className="text-sm">{t("MintNFT.upImg")}</span></div>}
                   </div>
                   <input
@@ -388,7 +389,7 @@ function LightHeroE(props) {
                   />
                 </label>
                 {formik.touched.image && formik.errors.image ? (
-                  <div className="flex leading-7 text-sm text-red-600 text-center mb-10 justify-center">
+                  <div className="flex leading-7 text-sm text-red-600 text-center mb-10 justify-center  font-open-sans">
                     {formik.errors.image}
                   </div>
                 ) : null}
@@ -399,12 +400,12 @@ function LightHeroE(props) {
                     <div className="flex justify-between ">
                       <label
                         htmlFor="title"
-                        className=" font-open-sans leading-7 text-sm font-bold dark:text-darkgray  uppercase"
+                        className=" leading-7 text-sm  dark:text-darkgray  uppercase font-semibold font-raleway"
                       >
                         {t("MintNFT.titleTxt")}
                       </label>
                       {formik.touched.title && formik.errors.title ? (
-                        <div className="leading-7 text-sm text-red-600">
+                        <div className="leading-7 text-sm text-red-600 font-open-sans">
                           {formik.errors.title}
                         </div>
                       ) : null}
@@ -449,12 +450,12 @@ function LightHeroE(props) {
                     <div className="flex justify-between ">
                       <label
                         htmlFor="description"
-                        className="leading-7 text-sm dark:text-darkgray font-bold  font-open-sans uppercase "
+                        className="leading-7 text-sm dark:text-darkgray  uppercase font-semibold font-raleway"
                       >
                         {t("MintNFT.descTxt")}
                       </label>
                       {formik.touched.description && formik.errors.description ? (
-                        <div className="leading-7 text-sm text-red-600">
+                        <div className="leading-7 text-sm text-red-600 font-open-sans">
                           {formik.errors.description}
                         </div>
                       ) : null}
@@ -475,7 +476,7 @@ function LightHeroE(props) {
                     <div className="flex justify-between ">
                       <label
                         htmlFor="royalties"
-                        className="leading-7 text-sm font-bold dark:text-darkgray  font-open-sans uppercase"
+                        className="leading-7 text-sm  dark:text-darkgray   uppercase font-semibold font-raleway"
                       >
                         {t("MintNFT.lblRoyalties")}
                       </label>

@@ -3,9 +3,31 @@ import PropTypes from "prop-types";
 import nearicon from "../icons/near.svg";
 import nativoLogo from '../assets/img/nativologocrop.png'
 import { useTranslation } from "react-i18next";
-
+import { ext_call, getNearAccount } from "../utils/near_interaction";
+import Swal from 'sweetalert2'
 function LightFooterB(props) {
   const [t, i18n] = useTranslation("global")
+
+  async function addNTVToken() {
+    let account = await getNearAccount()
+    let payload = {
+      receiver_id: account,
+      amount: "0",
+      memo: ":"
+    }
+    Swal.fire({
+      title: "Advertencia",
+      text: "La transaccion que estas por ejecutar fallara, no te preocupes no hay ningun problema, ejecuta la transaccion, una vez esta falle presiona cancelar para volver a la pagina.",
+      icon: 'warning',
+      confirmButtonColor: '#E79211',
+      confirmButtonText: "Continuar"
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        console.log("Transfer NTV")
+        ext_call(process.env.REACT_APP_CONTRACT_TOKEN,'ft_transfer', payload, 300000000000000,1)
+      }
+    })
+  }
 
   const handleLanguage = () =>{
     if(window.localStorage.getItem("LanguageState")=="en"){
@@ -55,10 +77,15 @@ function LightFooterB(props) {
                   {t("Footer.medium")}
                 </a>
               </li>
-              <li className="pb-4">
+              <li className="">
                 <a href="https://github.com/cloudmex/Nativo-NFT-UI" target="_blank" rel="noopener noreferrer" className="text-gray-600  hover:text-[#ec8b01] hover:font-bold dark:text-white capitalize font-raleway font-normal text-sm">
                   {t("Footer.github")}
                 </a>
+              </li>
+              <li className="pb-4">
+                <button 
+                  className="bg-yellow2 text-white py-1 px-2 text-sm rounded-xlarge"
+                  onClick={async () => {addNTVToken()}}>Agregar mis NTVs a mi wallet</button>
               </li>
 
               
