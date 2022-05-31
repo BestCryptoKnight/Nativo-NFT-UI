@@ -20,6 +20,8 @@ import creCol from "./views/createColl"
 import Collections from "./views/collectionGallery"
 import TokensCollection from "./views/tokensCollection"
 import SalesGallery from "./views/salesGallery"
+import ProfileData from "./views/profileData"
+import Profile from "./views/profile"
 
 import notFound from "./views/notFound.view";
 
@@ -69,7 +71,9 @@ class App extends Component {
           <Switch>
             <Route exact path="/" component={Landing} />
             <BlockchainProtectedRoute path="/create" component={Mint} />
+            <BlockchainProtectedRoute path="/profileData/:state" component={ProfileData} />
             <BlockchainProtectedRoute path="/createcollection" component={creCol} />
+            <Route path="/profile" component={Profile} />
             <Route path="/gallery" component={Gallery} />
             <Route path="/market" component={SalesGallery} />
             <Route path="/collections" component={Collections} />
