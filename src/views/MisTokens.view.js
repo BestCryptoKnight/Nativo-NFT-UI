@@ -659,8 +659,7 @@ function MisTokens(props) {
                   <Tab.Panel
                     key={"Creaciones"}
                     className={classNames(
-                      'rounded-xl  bg-darkgray',
-                      ' ring-opacity-60 ring-offset-2 ring-offset-blue-400 focus:outline-none focus:ring-2'
+                      'rounded-xl  bg-darkgray'
                     )}
                   >
                     <ul>
@@ -828,8 +827,7 @@ function MisTokens(props) {
                   <Tab.Panel
                     key={"Colecciones"}
                     className={classNames(
-                      'rounded-xl   bg-darkgray',
-                      ' ring-opacity-60 ring-offset-2 ring-offset-blue-400 focus:outline-none focus:ring-2'
+                      'rounded-xl   bg-darkgray'
                     )}
                   >
                     <ul>
