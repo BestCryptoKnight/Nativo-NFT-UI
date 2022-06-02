@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import Tooltip from '@mui/material/Tooltip';
+import { Tab  } from "@headlessui/react";
 //Importamos metodos de interacción con el smartcontract
 import {
   fromWEItoEth,
   getContract,
   getSelectedAccount,
   syncNets,
-} from "../utils/blockchain_interaction";
+} from "../utils/blockchain_interaction"; 
 
 import { useHistory } from "react-router";
 import ModalSubasta from '../components/modalSubasta.component'
@@ -36,6 +37,7 @@ function MisTokens(props) {
   const [pagCount, setpagCount] = React.useState("");
   const [chunksale, setchunksale] = React.useState(0);
   const [page, setpage] = React.useState(1);
+  const [pageCreations, setpageCreations] = React.useState(1);
   const [trigger, settrigger] = React.useState(true);
   const [ini, setini] = React.useState(true);
   const [firstID, setFirstID] = React.useState(-1);
@@ -43,9 +45,11 @@ function MisTokens(props) {
   const [statePage, setStatePage] = React.useState(true)
   const [firstLoad, setFirstLoad] = React.useState(true)
   const [loadMsg, setLoadMsg] = React.useState(true)
+  const [loadMsgCreations, setLoadMsgCreations] = React.useState(true)
   const [t, i18n] = useTranslation("global")
   const [nfts, setNfts] = useState({
     nfts: [],
+    nftsCreations: [],
     page: parseInt(window.localStorage.getItem("Mypage")),
     tokensPerPage: 3,
     tokensPerPageNear: 6,
@@ -156,7 +160,8 @@ function MisTokens(props) {
 
   const [state, setState] = React.useState({
     items: Array.from({ length: 400 }),
-    hasMore: true
+    hasMore: true,
+    hasMoreCreations: true
   });
 
 
@@ -172,7 +177,7 @@ function MisTokens(props) {
 
 
     if (nfts.nfts.length >= totalTokensByOwner) {
-      setState({ hasMore: false });
+      setState({...state, hasMore: false });
       return;
     }
 
@@ -223,7 +228,75 @@ function MisTokens(props) {
 
 
     let newValue = nfts.nfts.concat(nftsArr);
-    setNfts({ nfts: newValue });
+    setNfts({...nfts, nfts: newValue });
+
+  };
+
+  const fetchMoreDataCreator = async () => {
+    setpageCreations(pageCreations + 1);
+
+    let contract = await getNearContract();
+    console.log('contract',contract);
+    let account = await getNearAccount();
+    let paramsSupplyForOwner = {
+      account_id: account
+    };
+    let totalTokensByOwner = await contract.nft_supply_for_creator(paramsSupplyForOwner);
+
+
+    if (nfts.nftsCreations.length >= totalTokensByOwner) {
+      setState({...state, hasMoreCreations: false });
+      return;
+    }
+
+
+
+
+    let payload = {
+      account_id: account,
+      from_index: (pageCreations * 3).toString(),
+      limit: nfts.tokensPerPage,
+    };
+
+    let nftsPerOwnerArr = await contract.nft_tokens_for_creator(payload);
+
+
+
+    // //convertir los datos al formato esperado por la vista
+    let nftsArr = nftsPerOwnerArr.map((tok, i) => {
+      let onSale = false
+      imgs.push(false);
+      let data = Object.entries(tok.approved_account_ids)
+      data.map((approval, i) => {
+        if (approval.includes(process.env.REACT_APP_CONTRACT_MARKET)) {
+          onSale = true
+          console.log("Esta a la venta en nativo")
+        }
+      })
+      fetch("https://ipfs.io/ipfs/" + tok.media).then(request => request.blob()).then(() => {
+
+        imgs[i] = true;
+      });
+      return {
+        tokenID: tok.token_id,
+        approval: tok.approved_account_ids,
+        onSale: onSale,
+        description: tok.metadata.description,
+        // onSale: tok.on_sale,// tok.metadata.on_sale,
+        // onAuction: tok.on_auction,
+        data: JSON.stringify({
+          title: tok.metadata.title,//"2sdfeds",// tok.metadata.title,
+          image: tok.metadata.media,//"vvvvvvvvvvvvvv",//tok.metadata.media,
+          description: tok.metadata.description,
+          creator: tok.creator_id
+        }),
+      };
+
+    });
+
+
+    let newValue = nfts.nftsCreations.concat(nftsArr);
+    setNfts({...nfts, nftsCreations: newValue });
 
   };
 
@@ -349,9 +422,14 @@ function MisTokens(props) {
         let contract = await getNearContract();
         let account = await getNearAccount();
         let numNFT = await contract.nft_supply_for_owner({ account_id: account })
-        console.log(numNFT)
+        let numNFTCreations = await contract.nft_supply_for_creator({ account_id: account })
+
         if (numNFT == 0) {
           setLoadMsg(false)
+        }
+
+        if (numNFTCreations == 0) {
+          setLoadMsgCreations(false)
         }
         let payload = {
           account_id: account,
@@ -396,9 +474,52 @@ function MisTokens(props) {
         });
 
 
+        //ARR for Creators 
+        
+        let payloadCreations = {
+          account_id: account,
+          from_index: "0",
+          limit: nfts.tokensPerPage,
+        };
+        let nftsPerOwnerArrCreations = await contract.nft_tokens_for_creator(payloadCreations);
+
+        // //convertir los datos al formato esperado por la vista
+        let nftsArrCreations = nftsPerOwnerArrCreations.map((tok, i) => {
+          console.log(tok)
+          let onSale = false
+          //console.log("X->",  tok  )
+          imgs.push(false);
+          let data = Object.entries(tok.approved_account_ids)
+          data.map((approval, i) => {
+            if (approval.includes(process.env.REACT_APP_CONTRACT_MARKET)) {
+              onSale = true
+              console.log("Esta a la venta en nativo")
+            }
+          })
+          fetch("https://ipfs.io/ipfs/" + tok.media).then(request => request.blob()).then(() => {
+
+            imgs[i] = true;
+          });
+          return {
+            tokenID: tok.token_id,
+            approval: tok.approved_account_ids,
+            onSale: onSale,
+            description: tok.metadata.description,
+            // onSale: tok.on_sale,// tok.metadata.on_sale,
+            // onAuction: tok.on_auction,
+            data: JSON.stringify({
+              title: tok.metadata.title,//"2sdfeds",// tok.metadata.title,
+              image: tok.metadata.media,//"vvvvvvvvvvvvvv",//tok.metadata.media,
+              description: tok.metadata.description,
+              creator: tok.creator_id
+            }),
+          };
+        });
+
 
         setNfts({
           ...nfts,
+          nftsCreations: nftsArrCreations, 
           nfts: nftsArr,
           owner: account,
         });
@@ -408,7 +529,7 @@ function MisTokens(props) {
 
 
     })();
-  }, [trigger]);
+  }, []);
 
   /**
    * Función que cambia a "no disponible" un token nft que esta a la venta siempre que se sea el owner
@@ -479,8 +600,11 @@ function MisTokens(props) {
     setNfts({ ...nfts, disabled: false });
   }
 
+  
 
-
+  function classNames(...classes) {
+    return classes.filter(Boolean).join(" ");
+  }
 
   return (
     <>
@@ -498,162 +622,166 @@ function MisTokens(props) {
         </div>
         <div className="container px-5 pt-5 mx-auto asda">
           <div className="flex flex-col text-center w-full">
-            <div className="">
-              {/* <button
-                className={`sp-4 mt-5 text-white bg-${props.theme}-500 border-0 py-2 font-bold px-7 focus:outline-none hover:bg-${props.theme}-600 rounded text-md `}
-                onClick={() => {
-                  sendtonearwallet(nfts.tokenID)
-                }}
-
-              >
-                Mostrar tokens en NEAR Wallet
-              </button> */}
-            </div>
-            {/* Arroj un mensaje si no hay tokens en mi pertenencia*/}
-            {nfts.nfts.length > 0 ? null : (
-              <div className="container mx-auto flex  my- md:flex-row flex-col  justify-center h-96 items-center text-3xl ">
-                <div className="flex flex-col justify-center">
-                  <h1 className="text-center dark:text-yellow2">{loadMsg ? t("MyNFTs.load-1") : t("MyNFTs.load-2")}</h1>
-                </div>
-              </div>
-            )}
-          </div>
-          {loadMsg ?
-            <InfiniteScroll
-              dataLength={nfts.nfts.length}
-              next={fetchMoreData}
-              hasMore={state.hasMore}
-              loader={<h4 className="dark:text-yellow2">{t("MyNFTs.loading")}</h4>}
-              endMessage={
-                <p style={{ textAlign: "center" }} className="dark:text-yellow2">
-                  <b>{t("MyNFTs.youseenit")}</b>
-                </p>
-              }
-            >
-              <div className="flex flex-wrap md:m-9 mb-6">
-                {nfts.nfts.map((nft, key) => {
-                  //obtenemos la data del token nft
-                  //console.log(nft)
-                  const nftData = JSON.parse(nft.data);
-                  return (
-                    <div className="lg:w-1/3 md:w-1/2 w-full ssmw-1  px-2 lg:px-6 my-5  xlarge" key={key}>
-                      <div className="flex relative xlarge">
-                        <img
-                          alt="gallery"
-                          className=" absolute inset-0 z-0 w-full h-full object-cover object-center rounded-xlarge"
-                          src={imgs[key] ? load : "https://ipfs.io/ipfs/" + nftData.image}
-                        />
-                        <h1 className="absolute justify-center px-2 py-1 text-sm font-bold leading-none text-white dark:bg-yellow2 rounded-xlarge top-4 left-3 font-raleway">{nftData.title}</h1>
-                        <div className="px-8 py-6 relative z-10 w-full  bg-darkgray opacity-0 hover:opacity-100 hover:shadow-yellow1  rounded-xlarge ">
-                          <h1 className="title-font text-lg  text-gray-900 mb-3 dark:text-white dark:font-bold font-raleway font-bold">
-                            {nftData.title}
-                          </h1>
-
-
-                          <p className="leading-relaxed rounded-xlarge dark:text-white"><b className="dark:font-bold font-raleway">{t("MyNFTs.creator")}</b > {nftData.creator}</p>
-                          {/* Etiqueta de token en subasta */}
-                          {/* <div
-                    className={`flex border-l-4 border-${props.theme}-500 py-2 px-2 my-2 bg-gray-50`}
+            <div className="w-full  px-2 py-16 sm:px-0">
+              <Tab.Group>
+                <Tab.List className="flex space-x-1 rounded-xl bg-blue-900/20 p-1">
+                  <Tab
+                    key={"Creaciones"}
+                    className={({ selected }) =>
+                      classNames(
+                        'w-full rounded-lg py-2.5 text-sm font-medium leading-5 ',
+                        'ring-white ring-opacity-60 ring-offset-2 ring-offset-blue-400 focus:outline-none focus:ring-2 font-raleway  font-bold text-lg',
+                        selected
+                          ? 'bg-white shadow text-darkgray'
+                          : 'text-blue-100 hover:bg-white/[0.12] text-white '
+                      )
+                    }
                   >
-                    <span className="text-gray-500">OnAuction</span>
-                    <span className="ml-auto text-gray-900">
-                      <span
-                        className={`inline-flex items-center justify-center px-2 py-1  text-xs font-bold leading-none ${
-                          nft.onAuction
-                            ? "text-green-100 bg-green-500"
-                            : "text-red-100 bg-red-500"
-                        } rounded-full`}
-                      >
-                        {nft.onAuction ? "Disponible" : "No disponible"}
-                      </span>
-                    </span>
-                  </div> */}
-                          <div
-                            className={`flex  py-2 px-2 my-2 dark:bg-white rounded-xlarge h-[45px]`}
-                          >
-                            <span className="text-darkgray text-sm self-center font-raleway font-normal">{t("MyNFTs.sale")}</span>
-                            <span className="ml-auto text-gray-900">
-                              <span
-                                className={`inline-flex items-center justify-center px-2 py-1  text-xs font-bold leading-none font-raleway ${nft.onSale
-                                  ? "text-green-100 bg-green-500"
-                                  : "text-red-100 bg-red-500"
-                                  } rounded-full`}
-                              >
-                                {nft.onSale ? t("MyNFTs.available-1") : t("MyNFTs.available-2")}
-                              </span>
-                            </span>
-                          </div>
-                          <h2
-                            className={`tracking-widest text-sm title-font font-medium text-white font-raleway`}
-                          >{`Token id: ${nft.tokenID}  `}</h2>
-                          <h2
-                            className={`tracking-widest text-sm title-font font-medium text-darkgray  invisible`}
-                          >{`${t("MyNFTs.cost")}+${':'}`}<span className="font-bold">{`${nft.price} ${nfts.currency}`}</span></h2>
-                          <div className="text-center">
-                            <a
-                              href={"/detail/" + nft.tokenID}
-                              className={`inline-block w-full text-md text-brown bg-white border-0 py-2 px-4 focus:outline-none hover:bg-yellow2 2 hover:text-white rounded-xlarge font-raleway font-medium `}
-                            >{t("MyNFTs.detail")}</a>
-                            <button
-                              className={`mt-6 w-full text-md  text-brown bg-white border-0 py-2 px-4 focus:outline-none hover:bg-yellow2   rounded-xlarge hover:text-white font-raleway`}
-                              onClick={async () => {
-                                makeATransfer(nft.tokenID);
-                              }}
-                            >
-                              {t("MyNFTs.transferButton")}
-                            </button>
-                            {nft.onSale ?
-                              <>
-                                <button
-                                  className={` mt-6 w-full text-md  text-brown bg-white border-0 py-2 px-6 focus:outline-none hover:bg-yellow2 2 hover:text-white   rounded-xlarge hover:text-white font-raleway`}
-                                  onClick={() => {
-                                    makeChangePrice(nft.tokenID);
-                                  }}
-                                >
-                                  {t("MyNFTs.btnPrice")}
-                                </button>
-                                <button
-                                  className={` mt-6 w-full text-md   text-brown bg-white border-0 py-2 px-6 focus:outline-none hover:bg-yellow2 2 hover:text-white   rounded-xlarge hover:text-white font-raleway`}
-                                  onClick={() => {
-                                    removeSale(nft.tokenID)
-                                  }}
-                                >
-                                  {t("MyNFTs.remove")}
-                                </button>
-                              </>
-                              :
-                              <div>
-                              <button
-                                className={` mt-6 w-full text-md  text-brown bg-white border-0 py-2 px-6 focus:outline-none hover:bg-yellow2 2 hover:text-white  rounded-xlarge hover:text-white font-raleway`}
-                                onClick={() => {
-                                  makeAApproval(nft.tokenID, nftData.title, nftData.image, nftData.creator, nftData.description);
-                                }}
-                              >
-                                {t("MyNFTs.putSale")}
-                              </button>
-                              <div className=" mt-6 w-full text-md  bg-transparent py-2 px-6 h-[45px]"></div>
-                              </div>
-                            }
+                   {t("MyNFTs.myTokens")}
+                   
+                  </Tab>
+                  <Tab
+                    key={"Colecciones"}
+                    className={({ selected }) =>
+                      classNames(
+                        'w-full rounded-lg py-2.5 text-sm font-medium leading-5 ',
+                        'ring-white ring-opacity-60 ring-offset-2 ring-offset-blue-400 focus:outline-none focus:ring-2 font-raleway font-bold text-lg',
+                        selected
+                          ? 'bg-white shadow text-darkgray'
+                          : 'text-blue-100 hover:bg-white/[0.12]  text-white'
+                      )
+                    }
+                  >
+                    {t("MyNFTs.myCreations")}
+                  </Tab>
+                </Tab.List>
+                <Tab.Panels className="mt-2 bg-darkgray">
+                  <Tab.Panel
+                    key={"Creaciones"}
+                    className={classNames(
+                      'rounded-xl  bg-darkgray'
+                    )}
+                  >
+                    <ul>
+                      {loadMsg ?
+                        <li><InfiniteScroll
+                          dataLength={nfts.nfts.length}
+                          next={fetchMoreData}
+                          hasMore={state.hasMore}
+                          loader={<h4 className="dark:text-yellow2 font-raleway">{t("MyNFTs.loading")}</h4>}
+                          endMessage={
+                            <p style={{ textAlign: "center" }} className="dark:text-yellow2 font-raleway">
+                              <b>{t("MyNFTs.youseenit")}</b>
+                            </p>
+                          }
+                        >
+                          <div className="flex flex-wrap md:m-9 mb-6">
+                            {nfts.nfts.map((nft, key) => {
+                              //obtenemos la data del token nft
+                              //console.log(nft)
+                              const nftData = JSON.parse(nft.data);
+                              return (
+                                <div className="lg:w-1/3 md:w-1/2 w-full ssmw-1  px-2 lg:px-6 my-5  xlarge" key={key}>
+                                  <div className="flex relative xlarge">
+                                    <img
+                                      alt="gallery"
+                                      className=" absolute inset-0 z-0 w-full h-full object-cover object-center rounded-xlarge"
+                                      src={imgs[key] ? load : "https://ipfs.io/ipfs/" + nftData.image}
+                                    />
+                                    <h1 className="absolute justify-center px-2 py-1 text-sm font-bold leading-none text-white dark:bg-yellow2 rounded-xlarge top-4 left-3 font-raleway">{nftData.title}</h1>
+                                    <div className="px-8 py-6 relative z-10 w-full  bg-darkgray opacity-0 hover:opacity-100 hover:shadow-yellow1  rounded-xlarge ">
+                                      <h1 className="title-font text-lg  text-gray-900 mb-3 dark:text-white dark:font-bold font-raleway font-bold">
+                                        {nftData.title}
+                                      </h1>
 
-                          </div>
 
-                          {/* Mostramos la opción de revender o quitar del marketplace */}
-                          {nft.status == "S" ? (<>      <button
-                            className={` mt-6 w-full text-md text-brown bg-${props.theme}-500 border-0 py-2 px-6 focus:outline-none hover:bg-${props.theme}-600 font-raleway `}
-                            disabled={nfts.disabled}
-                            onClick={async () => {
-                              await quitarDelMarketplace(nft.tokenID, nft.collection, nft.contract, nft.collectionID);
-                            }}
-                          >
-                            {t("MyNFTs.remove")}
-                          </button>
-                          <div className=" mt-6 w-full text-md bg-transparent py-2 px-6"></div>
-                          </>
+                                      <p className="leading-relaxed rounded-xlarge dark:text-white"><b className="dark:font-bold font-raleway">{t("MyNFTs.creator")}</b > {nftData.creator}</p>
+                                      <div
+                                        className={`flex  py-2 px-2 my-2 dark:bg-white rounded-xlarge h-[45px]`}
+                                      >
+                                        <span className="text-darkgray text-sm self-center font-raleway font-normal">{t("MyNFTs.sale")}</span>
+                                        <span className="ml-auto text-gray-900">
+                                          <span
+                                            className={`inline-flex items-center justify-center px-2 py-1  text-xs font-bold leading-none font-raleway ${nft.onSale
+                                              ? "text-green-100 bg-green-500"
+                                              : "text-red-100 bg-red-500"
+                                              } rounded-full`}
+                                          >
+                                            {nft.onSale ? t("MyNFTs.available-1") : t("MyNFTs.available-2")}
+                                          </span>
+                                        </span>
+                                      </div>
+                                      <h2
+                                        className={`tracking-widest text-sm title-font font-medium text-white font-raleway`}
+                                      >{`Token id: ${nft.tokenID}  `}</h2>
+                                      <h2
+                                        className={`tracking-widest text-sm title-font font-medium text-darkgray  invisible`}
+                                      >{`${t("MyNFTs.cost")}+${':'}`}<span className="font-bold">{`${nft.price} ${nfts.currency}`}</span></h2>
+                                      <div className="text-center">
+                                        <a
+                                          href={"/detail/" + nft.tokenID}
+                                          className={`inline-block w-full text-md text-brown bg-white border-0 py-2 px-4 focus:outline-none hover:bg-yellow2 2 hover:text-white rounded-xlarge font-raleway font-medium `}
+                                        >{t("MyNFTs.detail")}</a>
+                                        <button
+                                          className={`mt-6 w-full text-md  text-brown bg-white border-0 py-2 px-4 focus:outline-none hover:bg-yellow2   rounded-xlarge hover:text-white font-raleway`}
+                                          onClick={async () => {
+                                            makeATransfer(nft.tokenID);
+                                          }}
+                                        >
+                                          {t("MyNFTs.transferButton")}
+                                        </button>
+                                        {nft.onSale ?
+                                          <>
+                                            <button
+                                              className={` mt-6 w-full text-md  text-brown bg-white border-0 py-2 px-6 focus:outline-none hover:bg-yellow2 2 hover:text-white   rounded-xlarge hover:text-white font-raleway`}
+                                              onClick={() => {
+                                                makeChangePrice(nft.tokenID);
+                                              }}
+                                            >
+                                              {t("MyNFTs.btnPrice")}
+                                            </button>
+                                            <button
+                                              className={` mt-6 w-full text-md   text-brown bg-white border-0 py-2 px-6 focus:outline-none hover:bg-yellow2 2 hover:text-white   rounded-xlarge hover:text-white font-raleway`}
+                                              onClick={() => {
+                                                removeSale(nft.tokenID)
+                                              }}
+                                            >
+                                              {t("MyNFTs.remove")}
+                                            </button>
+                                          </>
+                                          :
+                                          <div>
+                                            <button
+                                              className={` mt-6 w-full text-md  text-brown bg-white border-0 py-2 px-6 focus:outline-none hover:bg-yellow2 2 hover:text-white  rounded-xlarge hover:text-white font-raleway`}
+                                              onClick={() => {
+                                                makeAApproval(nft.tokenID, nftData.title, nftData.image, nftData.creator, nftData.description);
+                                              }}
+                                            >
+                                              {t("MyNFTs.putSale")}
+                                            </button>
+                                            <div className=" mt-6 w-full text-md  bg-transparent py-2 px-6 h-[45px]"></div>
+                                          </div>
+                                        }
 
-                          ) : (
-                            <>
-                              {nft.status != "S" && <>
-                                {/* <button
+                                      </div>
+
+                                      {/* Mostramos la opción de revender o quitar del marketplace */}
+                                      {nft.status == "S" ? (<>      <button
+                                        className={` mt-6 w-full text-md text-brown bg-${props.theme}-500 border-0 py-2 px-6 focus:outline-none hover:bg-${props.theme}-600 font-raleway `}
+                                        disabled={nfts.disabled}
+                                        onClick={async () => {
+                                          await quitarDelMarketplace(nft.tokenID, nft.collection, nft.contract, nft.collectionID);
+                                        }}
+                                      >
+                                        {t("MyNFTs.remove")}
+                                      </button>
+                                        <div className=" mt-6 w-full text-md bg-transparent py-2 px-6"></div>
+                                      </>
+
+                                      ) : (
+                                        <>
+                                          {nft.status != "S" && <>
+                                            {/* <button
                       className={` mt-2 w-full text-white bg-${props.theme}-500 border-0 py-2 px-6 focus:outline-none hover:bg-${props.theme}-600 rounded text-lg`}
                       onClick={() => {
                         setModalSub({
@@ -675,22 +803,132 @@ function MisTokens(props) {
                     </button> */}
 
 
-                              </>}
+                                          </>}
 
-                            </>
+                                        </>
 
 
-                          )}
+                                      )}
+                                    </div>
+                                  </div>
+
+                                </div>
+                              );
+                            })}
+                          </div>
+                        </InfiniteScroll>
+                        </li>
+                        :
+                        ""}
+
+                    </ul>
+                  </Tab.Panel>
+
+                  <Tab.Panel
+                    key={"Colecciones"}
+                    className={classNames(
+                      'rounded-xl   bg-darkgray'
+                    )}
+                  >
+                    <ul>
+                      {loadMsgCreations ? <li><InfiniteScroll
+                        dataLength={nfts.nftsCreations.length}
+                        next={fetchMoreDataCreator}
+                        hasMore={state.hasMoreCreations}
+                        loader={<h4 className="dark:text-yellow2 font-raleway">{t("MyNFTs.loading")}</h4>}
+                        endMessage={
+                          <p style={{ textAlign: "center" }} className="dark:text-yellow2 font-raleway">
+                            <b>{t("MyNFTs.youseenit")}</b>
+                          </p>
+                        }
+                      >
+                        <div className="flex flex-wrap md:m-9 mb-6">
+                          {nfts.nftsCreations.map((nft, key) => {
+                            //obtenemos la data del token nft
+                            //console.log(nft)
+                            const nftData = JSON.parse(nft.data);
+                            return (
+                              <div className="lg:w-1/3 md:w-1/2 w-full ssmw-1  px-2 lg:px-6 my-5  xlarge" key={key}>
+                                <div className="flex relative xlarge  h-[450px]">
+                                  <img
+                                    alt="gallery"
+                                    className=" absolute inset-0 z-0 w-full h-full object-cover object-center rounded-xlarge"
+                                    src={imgs[key] ? load : "https://ipfs.io/ipfs/" + nftData.image}
+                                  />
+                                  <h1 className="absolute justify-center px-2 py-1 text-sm font-bold leading-none text-white dark:bg-yellow2 rounded-xlarge top-4 left-3 font-raleway">{nftData.title}</h1>
+                                  <div className="px-8 py-6 relative z-10 w-full  bg-darkgray opacity-0 hover:opacity-100 hover:shadow-yellow1  rounded-xlarge ">
+                                    <h1 className="title-font text-lg  text-gray-900 mb-3 dark:text-white dark:font-bold font-raleway font-bold">
+                                      {nftData.title}
+                                    </h1>
+
+
+                                    <p className="leading-relaxed rounded-xlarge dark:text-white"><b className="dark:font-bold font-raleway">{t("MyNFTs.creator")}</b > {nftData.creator}</p>
+                                    <div
+                                      className={`flex  py-2 px-2 my-2 dark:bg-white rounded-xlarge h-[45px]`}
+                                    >
+                                      <span className="text-darkgray text-sm self-center font-raleway font-normal">{t("MyNFTs.sale")}</span>
+                                      <span className="ml-auto text-gray-900">
+                                        <span
+                                          className={`inline-flex items-center justify-center px-2 py-1  text-xs font-bold leading-none font-raleway ${nft.onSale
+                                            ? "text-green-100 bg-green-500"
+                                            : "text-red-100 bg-red-500"
+                                            } rounded-full`}
+                                        >
+                                          {nft.onSale ? t("MyNFTs.available-1") : t("MyNFTs.available-2")}
+                                        </span>
+                                      </span>
+                                    </div>
+                                    <h2
+                                      className={`tracking-widest text-sm title-font font-medium text-white font-raleway`}
+                                    >{`Token id: ${nft.tokenID}  `}</h2>
+                                    <h2
+                                      className={`tracking-widest text-sm title-font font-medium text-darkgray  invisible`}
+                                    >{`${t("MyNFTs.cost")}+${':'}`}<span className="font-bold">{`${nft.price} ${nfts.currency}`}</span></h2>
+                                    <div className="text-center">
+                                      <a
+                                        href={"/detail/" + nft.tokenID}
+                                        className={`inline-block w-full text-md text-brown bg-white border-0 py-2 px-4 focus:outline-none hover:bg-yellow2 2 hover:text-white rounded-xlarge font-raleway font-medium `}
+                                      >{t("MyNFTs.detail")}</a>
+                                      
+
+                                    </div>
+
+                                    
+                                  </div>
+                                </div>
+
+                              </div>
+                            );
+                          })}
                         </div>
-                      </div>
+                      </InfiniteScroll>
+                      </li> : ""}
+                    </ul>
+                  </Tab.Panel>
+                </Tab.Panels>
+              </Tab.Group>
+            </div>
+            <div className="">
+              {/* <button
+                className={`sp-4 mt-5 text-white bg-${props.theme}-500 border-0 py-2 font-bold px-7 focus:outline-none hover:bg-${props.theme}-600 rounded text-md `}
+                onClick={() => {
+                  sendtonearwallet(nfts.tokenID)
+                }}
 
-                    </div>
-                  );
-                })}
+              >
+                Mostrar tokens en NEAR Wallet
+              </button> */}
+            </div>
+            {/* Arroj un mensaje si no hay tokens en mi pertenencia*/}
+            {nfts.nftsCreations.length > 0 ? null : (
+              <div className="container mx-auto flex  my- md:flex-row flex-col  justify-center h-96 items-center text-3xl ">
+                <div className="flex flex-col justify-center">
+                  <h1 className="text-center dark:text-yellow2 font-raleway">{loadMsgCreations ? t("MyNFTs.load-1") : t("MyNFTs.load-2")}</h1>
+                </div>
               </div>
-            </InfiniteScroll>
-            :
-            ""}
+            )}
+          </div>
+
 
 
         </div>
@@ -701,9 +939,9 @@ function MisTokens(props) {
         <ApprovalModal {...approvalModal} />
         <ModalSubasta {...modalSub} />
         <ModalRevender {...modal} />
-        <TransferModal {...transferModal}/>
-        
-        <PriceModal  {...priceModal}/>
+        <TransferModal {...transferModal} />
+
+        <PriceModal  {...priceModal} />
       </section>
     </>
   );

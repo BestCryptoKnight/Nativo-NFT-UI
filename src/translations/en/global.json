@@ -143,7 +143,9 @@
         "modalPriMsg" : "Write the price you want to upgrade to",
         "btnPrice" : "Change price",
         "loading" : "Loading",
-        "youseenit" : "Yay! You have seen it all"
+        "youseenit" : "Yay! You have seen it all",
+        "myTokens": "My Tokens",
+        "myCreations": "My Creations"
 
     },
     "CreateCol" : {

@@ -59,6 +59,8 @@ export const methodOptions = {
     "obtener_pagina_creator",
     "get_pagination_owner_filters",
     "obtener_pagina_owner",
+     "nft_supply_for_creator",
+     "nft_tokens_for_creator"
     
    
   ],
