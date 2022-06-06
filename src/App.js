@@ -73,7 +73,7 @@ class App extends Component {
             <BlockchainProtectedRoute path="/create" component={Mint} />
             <BlockchainProtectedRoute path="/profileData/:state" component={ProfileData} />
             <BlockchainProtectedRoute path="/createcollection" component={creCol} />
-            <Route path="/profile" component={Profile} />
+            <Route path="/profile/:user" component={Profile} />
             <Route path="/gallery" component={Gallery} />
             <Route path="/market" component={SalesGallery} />
             <Route path="/collections" component={Collections} />
