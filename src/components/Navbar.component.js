@@ -262,7 +262,7 @@ function LightHeaderB(props) {
                           <Menu.Item
                           >
                             {({ active }) => (
-                              <a href="/profile" className={classNames(
+                              <a href={"/profile/"+state.owner.split('.')[0]} className={classNames(
                                 active
                                   ? "bg-yellow text-darkgray "
                                   : "text-darkgray ml-2 ",
