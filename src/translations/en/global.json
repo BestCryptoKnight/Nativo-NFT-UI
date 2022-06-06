@@ -37,7 +37,11 @@
         "warning" : "This is a public beta version - Use at your own risk - Unaudited code",
         "language" : "English",
         "gallery" : "Gallery",
-        "onSale" : "Market"
+        "onSale" : "Market",
+        "login" : "Login",
+        "profile" : "profile",
+        "logout" : "Logout"
+
     },
     "Footer" : {
         "made" : "Made with:",
@@ -139,7 +143,9 @@
         "modalPriMsg" : "Write the price you want to upgrade to",
         "btnPrice" : "Change price",
         "loading" : "Loading",
-        "youseenit" : "Yay! You have seen it all"
+        "youseenit" : "Yay! You have seen it all",
+        "myTokens": "My Tokens",
+        "myCreations": "My Creations"
 
     },
     "CreateCol" : {
@@ -246,5 +252,23 @@
         "priceAlert" : "Invalid price",
         "priceAlertTxt" : "The price you want to change must be lower or higher than the current one",
         "transfer": "Transfer"
+    },
+    "Profile" : {
+        "title" : "Create profile",
+        "title2" : "Edit profile",
+        "biography" : "Biography",
+        "twitter" : "Twitter profile",
+        "upImg" : "Upload profile image",
+        "createProfile" : "Create profile",
+        "editProfile" : "Edit profile",
+        "minBio" : "The biography must be longer than 5 characters",
+        "minSocial" : "The username must exceed 4 characters",
+        "maxSocial" : "User cannot exceed 15 characters",
+        "tokCreated" : "No. of tokens created",
+        "tokOwned" : "No. of tokens owned",
+        "since" : "Joined Nativo NFT in:",
+        "prefUsr" : "User preferences",
+        "language" : "Language",
+        "addNTV" : "Add my NTVs to my wallet"
     }
 }

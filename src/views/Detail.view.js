@@ -308,31 +308,22 @@ function LightEcommerceB(props) {
   }
 
   async function processAcceptOffer(listed,tokenID){
-    if(listed){
-      let payload = {
-        nft_contract_id: process.env.REACT_APP_CONTRACT,
-        token_id: tokenID,
-      }
-      ext_call(process.env.REACT_APP_CONTRACT_MARKET,"accept_offer",payload,300000000000000,1)
+    let contract = await getNearContract();
+    let amount = fromNearToYocto(0.01);
+    let price = "1"
+    console.log(state)
+    let msgData = JSON.stringify({market_type:"accept_offer", price: price, title: state.jdata.title, media: state.jdata.image, creator_id: state.jdata.creator, description: state.jdata.description})
+    let payload = {
+      token_id: state.tokens.tokenID,
+      account_id: process.env.REACT_APP_CONTRACT_MARKET,
+      msg: msgData
     }
-    else{
-      let contract = await getNearContract();
-      let amount = fromNearToYocto(0.01);
-      let price = "1"
-      console.log(state)
-      let msgData = JSON.stringify({market_type:"accept_offer", price: price, title: state.jdata.title, media: state.jdata.image, creator_id: state.jdata.creator, description: state.jdata.description})
-      let payload = {
-        token_id: state.tokens.tokenID,
-        account_id: process.env.REACT_APP_CONTRACT_MARKET,
-        msg: msgData
-      }
-      console.log(payload)
-      let acceptOffer = contract.nft_approve(
-        payload,
-        300000000000000,
-        amount
-      )
-    }
+    console.log(payload)
+    let acceptOffer = contract.nft_approve(
+      payload,
+      300000000000000,
+      amount
+    )
   }
 
   async function makeAnOffer() {
@@ -493,16 +484,11 @@ function LightEcommerceB(props) {
                     </div>
                     : state?.tokens.account == state?.owner ?
                       <>
-                        <div className="grid grid-cols-2 gap-4 place-items-center ">
+                        <div className="grid grid-cols-1 gap-4 place-items-center ">
                           <button 
                             className="w-full  content-center justify-center text-center font-bold text-white bg-green-500 border-0 py-1 px-6 focus:outline-none hover:bg-green-300 rounded-xlarge font-raleway text-sm"
                             onClick={async () => {processAcceptOffer(state?.tokens.sale,state?.tokens.tokenID)}}>
                             <span className="font-raleway">{t("Detail.accept")}</span>
-                          </button>
-                          <button 
-                            className="w-full  content-center justify-center text-center font-bold text-white bg-red-500 border-0 py-1 px-6 focus:outline-none hover:bg-red-300 rounded-xlarge font-raleway text-sm"
-                            onClick={async () => {processCancelOffer(state?.tokens.tokenID)}}>
-                            <span className="font-raleway">{t("Detail.decline")}</span>
                           </button>
                         </div>
                       </>

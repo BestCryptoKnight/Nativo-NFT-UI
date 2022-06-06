@@ -37,7 +37,10 @@
         "warning" : "Esta es una versión beta pública - Úselo bajo su propio riesgo - Código no auditado",
         "language" : "Español",
         "gallery" : "Galeria",
-        "onSale" : "Mercado"
+        "onSale" : "Mercado",
+        "login" : "Iniciar sesión",
+        "profile" : "Perfil",
+        "logout" : "Salir"
     },
     "Footer" : {
         "made" : "Hecho con:",
@@ -139,7 +142,9 @@
         "modalPriMsg" : "Escribe el precio al que desea actualizar",
         "btnPrice" : "Cambiar precio",
         "loading" : "Cargando",
-        "youseenit" : "¡Bien! Ya has visto todo"
+        "youseenit" : "¡Bien! Ya has visto todo",
+        "myTokens": "Mis Tokens",
+        "myCreations": "Mis Creaciones"
     },
     "CreateCol" : {
         "title" : "Nueva Colección",
@@ -245,5 +250,23 @@
         "priceAlert" : "Precio no valido",
         "priceAlertTxt" : "El precio que deseas cambiar debe ser menor o mayor al actual",
         "transfer": "Transferir"
+    },
+    "Profile" : {
+        "title" : "Crear perfil",
+        "title2" : "Editar perfil",
+        "biography" : "Biografía",
+        "twitter" : "Perfil de Twitter",
+        "upImg" : "Subir imagen de perfil",
+        "createProfile" : "Crear perfil",
+        "editProfile" : "Editar perfil",
+        "minBio" : "La biografía debe tener longitud mayor a 5 caracteres",
+        "minSocial" : "El usuario debe de superar 4 caracteres",
+        "maxSocial" : "El usuario no puede superar 15 caracteres",
+        "tokCreated" : "No. de tokens creados",
+        "tokOwned" : "No. de tokens en propiedad",
+        "since" : "Se unio a Nativo NFT en:",
+        "prefUsr" : "Preferencias del usuario",
+        "language" : "Idioma",
+        "addNTV" : "Agregar mis NTVs a mi wallet"
     }
 }
