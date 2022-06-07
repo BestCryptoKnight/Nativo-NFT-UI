@@ -136,7 +136,7 @@ function LightEcommerceB(props) {
           .then((data) => {
             console.log('profile: ', data.data.profiles.length)
             if(data.data.profiles.length <= 0){
-              window.location.href = 'profileData/create'
+              window.location.href = '/profileData/create'
             }
             else{
               userData = data.data.profiles[0]
