@@ -40,9 +40,10 @@ function LightEcommerceB(props) {
   //Esta logeado
   const [stateLogin, setStateLogin] = useState(false);
   const [hasRoyalty, setHasRoyalty] = useState(false)
+  const [myProfile, setMyProfile] = useState(false)
   const [hasBids, setHasBids] = useState(false)
   //es el parametro de tokenid
-  const { data } = useParams();
+  const { user } = useParams();
 
   const handleLanguage = () => {
     if (window.localStorage.getItem("LanguageState") == "en") {
@@ -83,7 +84,6 @@ function LightEcommerceB(props) {
   //es el historial de busqueda
   //let history = useHistory();
   const APIURL = process.env.REACT_APP_API_TG
-  const { accountUsr } = useParams();
 
   React.useEffect(() => {
     (async () => {
@@ -96,10 +96,18 @@ function LightEcommerceB(props) {
       if (localStorage.getItem("blockchain") == "0") {
         
       } else {
-        let account = await getNearAccount();
         let userData
-
-
+        let account
+        if(process.env.REACT_APP_NEAR_ENV == 'mainnet'){
+          account=user+'.near'
+        }
+        else{
+          account=user+'.testnet'
+        }
+        console.log(account)
+        if(account == await getNearAccount()){
+          setMyProfile(true)
+        }
         const query = `
           query ($account: String){
             profiles (where : {id : $account}){
@@ -244,7 +252,7 @@ function LightEcommerceB(props) {
               </div>
             </div>
           </div>
-
+          {myProfile ? 
           <div className="w-full border-2 rounded-lg border-[#eab308] border-white-500 mt-10">
             <div className="text-center p-2 bg-[#eab308] text-white font-bold text-xl">{t("Profile.prefUsr")}</div>
             <div className="w-full flex flex-col lg:flex-row py-1 justify-between text-darkgray bg-gray-50 rounded-b">
@@ -271,7 +279,11 @@ function LightEcommerceB(props) {
                 </button>
               </div>
             </div>
-          </div>
+          </div> 
+          : 
+          ""
+          }
+          
 
         </div>
         <Modal {...modal} />
