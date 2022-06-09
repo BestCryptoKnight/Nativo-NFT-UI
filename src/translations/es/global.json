@@ -32,7 +32,7 @@
     },
     "Navbar" : {
         "collections" : "Colecciones",
-        "create" : "Crear",
+        "create" : "Crear NFT",
         "myNFTs" : "Mis NFTs",
         "warning" : "Esta es una versión beta pública - Úselo bajo su propio riesgo - Código no auditado",
         "language" : "Español",
@@ -40,7 +40,8 @@
         "onSale" : "Mercado",
         "login" : "Iniciar sesión",
         "profile" : "Perfil",
-        "logout" : "Salir"
+        "logout" : "Salir",
+        "createCollection" : "Crear Colección"
     },
     "Footer" : {
         "made" : "Hecho con:",
@@ -157,11 +158,11 @@
         "msg-2" : "Tu imagen puede durar un poco de tiempo en mostrarse",
         "demoTitle" : "Titulo de la coleccion",
         "demoDescrip" : "Escribe la descripcion de tu coleccion",
-        "creator" : "Creador:",
-        "contract" : "Contrato:",
-        "noTokens" : "No. de tokens:",
-        "noSale" : "No. de ventas:",
-        "volSale" : "Vol. de venta:",
+        "creator" : "Creador",
+        "contract" : "Contrato",
+        "noTokens" : "No. de token:",
+        "noSale" : "No. de ventas",
+        "volSale" : "Vol. de venta",
         "btnImg-1" : "Seleccionar imagen",
         "btnImg-2" : "Cargando",
         "btnImg-3" : "Cambiar imagen",
