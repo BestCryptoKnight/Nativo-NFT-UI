@@ -182,8 +182,8 @@ function LightHeaderB(props) {
             {/* <a href="https://v1.nativonft.app/galeria" className="mr-5 hover:text-gray-900">
             Galeria V1
           </a> */}
-            <a href="/collections" className="mr-5 hover:text-[#ec8b01] hover:text-lg hover:font-bold dark:text-white font-raleway font-normal">
-              {t("Navbar.collections")}
+            <a href="/create" className="mr-5 hover:text-[#ec8b01] hover:text-lg hover:font-bold dark:text-white font-raleway font-normal">
+              {t("Navbar.create")}
             </a>
           </nav>
 
@@ -256,7 +256,7 @@ function LightHeaderB(props) {
 
                       <Menu.Items
                         static
-                        className="w-[180px]  md:w-full origin-top-right absolute right-0 mt-2 divide-y rounded-md shadow-lg bg-white outline-none"
+                        className="w-[145px]  md:w-full origin-top-right absolute right-0 mt-2 divide-y rounded-md shadow-lg bg-white outline-none"
                       >
                         <div className="py-1">
                           <Menu.Item
@@ -290,28 +290,9 @@ function LightHeaderB(props) {
                               )}>
                                 <div className="flex justify-start">
                                   <span className=" m-2">
-                                  <svg xmlns="http://www.w3.org/2000/svg" id="Bold" viewBox="0 0 24 24" width="15" height="15"><path d="M19.5,0H4.5A4.505,4.505,0,0,0,0,4.5v15A4.505,4.505,0,0,0,4.5,24h15A4.505,4.505,0,0,0,24,19.5V4.5A4.505,4.505,0,0,0,19.5,0ZM4.5,3h15A1.5,1.5,0,0,1,21,4.5v15a1.492,1.492,0,0,1-.44,1.06l-8.732-8.732a4,4,0,0,0-5.656,0L3,15V4.5A1.5,1.5,0,0,1,4.5,3Z"/><circle cx="15.5" cy="7.5" r="2.5"/></svg>
-                                  </span><p className=" self-center">{t("Navbar.gallery")}</p>
+                                    <svg xmlns="http://www.w3.org/2000/svg" id="Layer_1" data-name="Layer 1" viewBox="0 0 24 24" width="15" height="15"><path d="M18.5,0h-5A5.5,5.5,0,0,0,8.015,5.21a5.5,5.5,0,0,0-4,5A5.506,5.506,0,0,0,0,15.5v3A5.507,5.507,0,0,0,5.5,24h5A5.507,5.507,0,0,0,16,18.5v-.213a5.512,5.512,0,0,0,3.919-4.38A5.162,5.162,0,0,0,24,8.5v-3A5.507,5.507,0,0,0,18.5,0ZM3,15.5A2.5,2.5,0,0,1,5.5,13h5A2.5,2.5,0,0,1,13,15.5v.2l-2.115,2.115a1,1,0,0,1-1.415,0L9,17.335a1,1,0,0,0-1.347-.061l-3.7,3.176A2.488,2.488,0,0,1,3,18.5ZM17,13a2.492,2.492,0,0,1-1.025,2.008A5.506,5.506,0,0,0,10.5,10H7.051A2.5,2.5,0,0,1,9.5,8h5A2.5,2.5,0,0,1,17,10.5Zm4-4.5a2.719,2.719,0,0,1-1,2.226V10.5A5.507,5.507,0,0,0,14.5,5H11.051A2.5,2.5,0,0,1,13.5,3h5A2.5,2.5,0,0,1,21,5.5Zm-17,7A1.5,1.5,0,1,1,5.5,17,1.5,1.5,0,0,1,4,15.5Z" /></svg>                              </span>
+                                  <p className=" self-center">{t("Navbar.gallery")}</p>
                                 </div>
-                              </a>
-                            )}
-                          </Menu.Item>
-                          <Menu.Item
-                          >
-                            {({ active }) => (
-                              <a href="/collections" className={classNames(
-                                active
-                                  ? "bg-yellow text-darkgray "
-                                  : "text-darkgray ml-2 ",
-                                "block px-2 py-2 text-sm text-center font-raleway font-normal md:hidden "
-                              )}>
-                                <div className="flex justify-start">
-                                  <span className=" m-2">
-                                  <svg xmlns="http://www.w3.org/2000/svg" id="Layer_1" data-name="Layer 1" viewBox="0 0 24 24" width="15" height="15"><path d="M18.5,0h-5A5.5,5.5,0,0,0,8.015,5.21a5.5,5.5,0,0,0-4,5A5.506,5.506,0,0,0,0,15.5v3A5.507,5.507,0,0,0,5.5,24h5A5.507,5.507,0,0,0,16,18.5v-.213a5.512,5.512,0,0,0,3.919-4.38A5.162,5.162,0,0,0,24,8.5v-3A5.507,5.507,0,0,0,18.5,0ZM3,15.5A2.5,2.5,0,0,1,5.5,13h5A2.5,2.5,0,0,1,13,15.5v.2l-2.115,2.115a1,1,0,0,1-1.415,0L9,17.335a1,1,0,0,0-1.347-.061l-3.7,3.176A2.488,2.488,0,0,1,3,18.5ZM17,13a2.492,2.492,0,0,1-1.025,2.008A5.506,5.506,0,0,0,10.5,10H7.051A2.5,2.5,0,0,1,9.5,8h5A2.5,2.5,0,0,1,17,10.5Zm4-4.5a2.719,2.719,0,0,1-1,2.226V10.5A5.507,5.507,0,0,0,14.5,5H11.051A2.5,2.5,0,0,1,13.5,3h5A2.5,2.5,0,0,1,21,5.5Zm-17,7A1.5,1.5,0,1,1,5.5,17,1.5,1.5,0,0,1,4,15.5Z" /></svg>                             
-                                  </span>
-                                  <p className=" self-center"> {t("Navbar.collections")}</p>
-                                </div>
-
                               </a>
                             )}
                           </Menu.Item>
@@ -332,7 +313,25 @@ function LightHeaderB(props) {
                               </a>
                             )}
                           </Menu.Item>
-                          
+                          <Menu.Item
+                          >
+                            {({ active }) => (
+                              <a href="/create" className={classNames(
+                                active
+                                  ? "bg-yellow text-darkgray "
+                                  : "text-darkgray ml-2 ",
+                                "block px-2 py-2 text-sm text-center font-raleway font-normal md:hidden "
+                              )}>
+                                <div className="flex justify-start">
+                                  <span className=" m-2">
+                                    <svg id="Layer_1" viewBox="0 0 24 24" width="15" height="15" xmlns="http://www.w3.org/2000/svg" data-name="Layer 1"><path d="m.024 23.976.076-1.05c.076-1.1.545-6.688 2.307-8.451a5.036 5.036 0 0 1 7.118 7.125c-1.762 1.762-7.349 2.23-8.452 2.306zm23.076-23.108a3.137 3.137 0 0 0 -4.333 0l-10.515 10.519a6.967 6.967 0 0 1 4.342 4.324l10.506-10.511a3.067 3.067 0 0 0 0-4.332z" /></svg>
+                                  </span>
+                                  <p className=" self-center"> {t("Navbar.create")}</p>
+                                </div>
+
+                              </a>
+                            )}
+                          </Menu.Item>
                           <Menu.Item
                           >
                             {({ active }) => (
@@ -347,44 +346,6 @@ function LightHeaderB(props) {
                                     <svg xmlns="http://www.w3.org/2000/svg" id="Filled" viewBox="0 0 24 24" width="15" height="15"><path d="M20.057,16.8l.1.1a1.912,1.912,0,0,0,1.769.521,1.888,1.888,0,0,0,1.377-1.177A11.924,11.924,0,0,0,24.08,11.7,12.155,12.155,0,0,0,12.5.007,12,12,0,0,0,.083,12a12.014,12.014,0,0,0,12,12c.338,0,.67-.022,1-.05a1,1,0,0,0,.916-1l-.032-3.588A3.567,3.567,0,0,1,20.057,16.8ZM17.115,8.05A1.5,1.5,0,1,1,16.05,9.885,1.5,1.5,0,0,1,17.115,8.05Zm-9.23,8.9A1.5,1.5,0,1,1,8.95,15.115,1.5,1.5,0,0,1,7.885,16.95Zm0-6A1.5,1.5,0,1,1,8.95,9.115,1.5,1.5,0,0,1,7.885,10.95Zm5-3A1.5,1.5,0,1,1,13.95,6.115,1.5,1.5,0,0,1,12.885,7.95Z" /></svg>
                                   </span>
                                   <p className=" self-center"> {t("Navbar.myNFTs")}</p>
-                                </div>
-
-                              </a>
-                            )}
-                          </Menu.Item>
-                          <Menu.Item
-                          >
-                            {({ active }) => (
-                              <a href="/create" className={classNames(
-                                active
-                                  ? "bg-yellow text-darkgray "
-                                  : "text-darkgray ml-2 ",
-                                "block px-2 py-2 text-sm text-center font-raleway font-normal "
-                              )}>
-                                <div className="flex justify-start">
-                                  <span className=" m-2">
-                                  <svg xmlns="http://www.w3.org/2000/svg" id="Filled" viewBox="0 0 24 24" width="15" height="15"><path d="M17,11H13V7a1,1,0,0,0-2,0v4H7a1,1,0,0,0,0,2h4v4a1,1,0,0,0,2,0V13h4a1,1,0,0,0,0-2Z"/></svg>
-                                  </span>
-                                  <p className=" self-center"> {t("Navbar.create")}</p>
-                                </div>
-
-                              </a>
-                            )}
-                          </Menu.Item>
-                          <Menu.Item
-                          >
-                            {({ active }) => (
-                              <a href="/collection" className={classNames(
-                                active
-                                  ? "bg-yellow text-darkgray "
-                                  : "text-darkgray ml-2 ",
-                                "block px-2 py-2 text-sm text-center font-raleway font-normal "
-                              )}>
-                                <div className="flex justify-start">
-                                  <span className=" m-2">
-                                  <svg xmlns="http://www.w3.org/2000/svg" id="Isolation_Mode" data-name="Isolation Mode" viewBox="0 0 24 24" width="15" height="15"><polygon points="20 4 20 0 17 0 17 4 13 4 13 7 17 7 17 11 20 11 20 7 24 7 24 4 20 4"/><path d="M0,3v8H11V0H3A3,3,0,0,0,0,3ZM3,3H8V8H3Z"/><path d="M0,21a3,3,0,0,0,3,3h8V13H0Zm3-5H8v5H3Z"/><path d="M13,24h8a3,3,0,0,0,3-3V13H13Zm3-8h5v5H16Z"/></svg>
-                                  </span>
-                                  <p className=" self-center"> {t("Navbar.createCollection")}</p>
                                 </div>
 
                               </a>
