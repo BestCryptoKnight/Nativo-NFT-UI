@@ -115,7 +115,10 @@
         "modalMakeBid" : "Hacer una oferta",
         "modalMsg" : "Haz una oferta atractiva para obtener este token",
         "actualBid" : "Oferta actual:",
-        "cancelBid" : "Cancelar oferta"
+        "cancelBid" : "Cancelar oferta",
+        "btnAddNFTCol" : "Agregar NFT a una colección",
+        "msgAddToken" : "Agregar NFT a una colección",
+        "msgAddToken2" : "Selecciona la coleccion a la que deseas agregar el NFT"
     },
     "MyNFTs" : {
         "title" : "Mis NFTs",
@@ -268,5 +271,15 @@
         "prefUsr" : "Preferencias del usuario",
         "language" : "Idioma",
         "addNTV" : "Agregar mis NTVs a mi wallet"
+    },
+    "addToken" : {
+        "alert1-title" : "Selecciona una coleccion",
+        "alert1-msg" : "Tienes que seleccionar la coleccion a la que deseas agregar el NFT",
+        "alert2-title" : "Advertencia",
+        "alert2-msg" : "Solo podras agregar una sola vez tu NFT a una coleccion, verifica que hayas seleccionado la correcta",
+        "comboOpc" : "Seleccione la coleccion",
+        "btnAdd" : "Agregar NFT",
+        "btnCol" : "Crear colección",
+        "msgNoCol" : "Aun no has creado una coleccion, primero crea una coleccion para agregar tu NFT"
     }
 }
