@@ -75,7 +75,9 @@
         "volSale" : "Sales volume:",
         "descrip" : "This collection doesn't have a description",
         "load-1" : "Loading Please wait",
-        "load-2" : "There are currently no collections available"
+        "load-2" : "There are no currently collections available",
+        "end" : "There are no more Collections",
+        "noData" : "No Collections Currently"
     },
     "tokCollection" : {
         "creator" : "Creator",
