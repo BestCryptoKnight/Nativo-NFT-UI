@@ -28,24 +28,26 @@ function LightEcommerceA() {
     page: parseInt(window.localStorage.getItem("page")),
     pag: window.localStorage.getItem("pagSale"),
     blockchain: localStorage.getItem("blockchain"),
-    tokensPerPage: 10,
+    tokensPerPage: 9,
     tokensPerPageNear: 9,
   });
   const [t, i18n] = useTranslation("global")
   const [esconder, setesconder] = React.useState(true);
   const [counter, setcounter] = React.useState();
-  const [load, setload] = React.useState(false);
+  const [load, setload] = React.useState(true);
   const [pagsale, setpagsale] = React.useState(0);
-  const [hasData,setHasData] = React.useState(false)
+  const [hasData, setHasData] = React.useState(true);
+  const [pageCreations, setpageCreations] = React.useState(1);
   const [pagCount, setpagCount] = React.useState("");
   const [chunksale, setchunksale] = React.useState(0);
+  const [totalCol, setTotalCol] = React.useState(0);
   const [page, setpage] = React.useState(1);
   const [ini, setini] = React.useState(true);
   const [firstID, setFirstID] = React.useState(-1);
   const [lastID, setLastID] = React.useState(-1);
   const [statePage, setStatePage] = React.useState(true)
   const [firstLoad, setFirstLoad] = React.useState(true)
-  const [loadMsg,setLoadMsg] = React.useState(true)
+  const [loadMsg, setLoadMsg] = React.useState(true)
   const [trigger, settrigger] = React.useState(true);
   const [filtro, setfiltro] = React.useState({
     culture: "null",
@@ -54,10 +56,10 @@ function LightEcommerceA() {
     date: "null",
     price: "null",
   });
-  const [collections,setCollections] = React.useState({
-    items:[],
+  let [collections, setCollections] = React.useState({
+    items: [],
     hasMore: true
-});
+  });
 
   const APIURL = process.env.REACT_APP_API_TG
 
@@ -86,8 +88,89 @@ function LightEcommerceA() {
     setfiltro(c => ({ ...c, ...v }))
   }
 
-  let fetchMoreData = async () => {}
-  var colData
+  let fetchMoreData = async () => {
+    setpageCreations(pageCreations + 1);
+    //instanciar contracto
+    let contract = await getNearContract();
+    let account = await getNearAccount();
+    let colData;
+    const queryData = `
+          query($first: Int, $lastTokenID: Int){
+              collections(first: $first,  orderBy: collectionID, orderDirection: desc, where: { collectionID_lt: $lastTokenID}){
+                id
+                collectionID
+                owner_id
+                title
+                timestamp
+                mediaIcon
+                mediaBanner,
+                description,
+                tokenCount
+            }
+          }
+        `
+
+    //Declaramos el cliente
+    const client = new ApolloClient({
+      uri: APIURL,
+      cache: new InMemoryCache(),
+    })
+
+    await client
+      .query({
+        query: gql(queryData),
+        variables: {
+          first: Landing.tokensPerPage,
+          lastTokenID: lastID
+        },
+      })
+      .then((data) => {
+        colData = data.data.collections;
+        if (data.data.collections.length <= Landing.tokensPerPage) {
+          setCollections({...collections, hasMore: false });
+          setLastID(parseInt(data.data.collections[data.data.collections.length - 1].collectionID))
+          return;
+        }
+
+        if (data.data.collections.length > Landing.tokensPerPage) {
+          setCollections({...collections, hasMore: true });
+           setLastID(parseInt(data.data.collections[data.data.collections.length - 1].collectionID))
+        }
+       
+        setpage(page + 1)
+      })
+      .catch((err) => {
+        colData = 0
+      })
+
+
+      if(colData != 0 ) {
+        let col = colData.map((collection) => {
+          return {
+            title: collection.title,
+            owner: collection.owner_id,
+            tokenCount: collection.tokenCount,
+            description: collection.description,
+            mediaIcon: collection.mediaIcon,
+            mediaBanner: collection.mediaBanner,
+            collectionID: collection.collectionID
+          };
+        });
+    
+        await setLanding({
+          ...Landing,
+          tokens: col,
+          nPages: 0,
+        });
+        setCollections({
+          ...collections,
+          items: collections.items.concat(col)
+        });
+      }
+      
+
+  }
+  var colData;
   const { tokenid: owner } = useParams();
   React.useEffect(() => {
     // console.log("esto ---> ",owner);
@@ -132,56 +215,14 @@ function LightEcommerceA() {
         //instanciar contracto
         let contract = await getNearContract();
         let account = await getNearAccount();
-        //console.log("Page",Landing.page)
-        //obtener tokens a la venta
-        // //console.log("Paasdsadfsdfdge",Landing.page*30,"edfew" ,Landing.tokensPerPageNear*(Landing.page+1))
-        // let pag = await contract.get_ids_onsale({
-        //    tokens: Landing.tokensPerPageNear})
-        //  window.localStorage.setItem('pagSale',pag)
 
-        // let payload = {
-        //   account : (owner.toString().toLowerCase()+".testnet").toString(),
-        //   //from_index: nfts.page, 
-        //   //limit: nfts.tokensPerPageNear,
-        // };
-        // console.log("payload ",payload);
-        // toks = await contract.obtener_pagina_by_creator(payload);
-          
 
-        const queryDataMinter = `
-        query($id: String){
-              minters(where:{ id : $id }){
-                id
-                collectionCount
-              }
-          }
-        `
-         //Declaramos el cliente
-         const clientMinter = new ApolloClient({
-          uri: APIURL,
-          cache: new InMemoryCache(),
-        })
+        
 
-        await clientMinter
-        .query({
-          query: gql(queryDataMinter),
-          variables: {
-            id: "Minter",
-          },
-        })
-          .then((data) => {
-            console.log("collections minter: ",data.data.minters[0].collectionCount)
-            if(data.data.minters[0].collectionCount > 0 ){
-              setHasData(true);
-            }
-          })
-          .catch((err) => {
-            console.log('Error ferching data: ', err)
-          })
 
-        const queryData = `
+    const queryData = `
           query($first: Int){
-              collections(first: $first,  orderBy: id, orderDirection: desc){
+              collections(first: $first,  orderBy: collectionID, orderDirection: desc){
                 id
                 collectionID
                 owner_id
@@ -201,137 +242,144 @@ function LightEcommerceA() {
           }
         `
 
-          //Declaramos el cliente
-          const client = new ApolloClient({
-            uri: APIURL,
-            cache: new InMemoryCache(),
-          })
+    //Declaramos el cliente
+    const client = new ApolloClient({
+      uri: APIURL,
+      cache: new InMemoryCache(),
+    })
 
-          await client
-            .query({
-              query: gql(queryData),
-              variables: {
-                first: Landing.tokensPerPage,
-              },
-            })
-            .then((data) => {
-              console.log("collections data: ",data.data.collections)
-              //console.log("tokens data: ", data.data.tokens)
-              colData = data.data.collections
-              console.log(data.data.collections)
-              if(data.data.collections.length <= 0){
-                setLoadMsg(false)
-              }
-              setFirstID(parseInt(data.data.collections[0].collectionID))
-              setLastID(parseInt(data.data.collections[data.data.collections.length - 1].collectionID))
-              setpage(page+1)
-              // colData = data.data.collections[0]
-            })
-            .catch((err) => {
-              //console.log('Error ferching data: ', err)
-              colData = 0
-            })
+    await client
+      .query({
+        query: gql(queryData),
+        variables: {
+          first: Landing.tokensPerPage,
+        },
+      })
+      .then((data) => {
+        //console.log("tokens data: ", data.data.tokens)
+        colData = data.data.collections
+        console.log(data.data.collections)
+        if (data.data.collections.length <= 0) {
+          setLoadMsg(false)
+        }
+        setFirstID(parseInt(data.data.collections[0].collectionID))
+        setLastID(parseInt(data.data.collections[data.data.collections.length - 1].collectionID))
+        setpage(page + 1)
+        // colData = data.data.collections[0]
+      })
+      .catch((err) => {
+        //console.log('Error ferching data: ', err)
+        colData = 0
+      })
 
-        let col = colData.map((collection) => {
-          console.log('collectionsssss',collection);
+      if(colData != 0){
+
+
+      let col = colData.map((collection) => {
           return {
             title: collection.title,
             owner: collection.owner_id,
             tokenCount: collection.tokenCount,
             description: collection.description,
             mediaIcon: collection.mediaIcon,
-            mediaBanner:  collection.mediaBanner,
+            mediaBanner: collection.mediaBanner,
             collectionID: collection.collectionID
           };
         });
-
+    
         await setLanding({
           ...Landing,
           tokens: col,
           nPages: 0,
         });
-        setCollections({...collections,
+        setCollections({
+          ...collections,
           items: collections.items.concat(col)
         });
+    
+      } else {
+        setTotalCol(0);
+        setHasData(false);
       }
+  }
 
     })();
   }, []);
 
-  return (
-    <section className={"text-gray-600 body-font "+(ini&&hasData ? "" : "py-64 dark:bg-darkgray")}>
-       <div className={"pt-3 mx-auto dark:bg-darkgray" }>
-       {hasData ? 
-            <div>
-              <InfiniteScroll
-                dataLength={collections.items.length}
-                next={fetchMoreData}
-                hasMore={collections.hasMore}
-                loader={<h1 className="text-center w-full py-10 text-xl font-bold text-yellow2">{t("tokCollection.loading")}</h1>}
-                endMessage={
-                  <p className="text-center w-full py-10 text-xl text-yellow2">
-                    <b>{t("tokCollection.end")}</b>
-                  </p>
-                }
-                className={"flex flex-wrap px-[40px]"}
-              >
-                {collections.items.map((i, index) => {
-                  return(
-                    <div className="w-full md:w-1/2 lg:w-1/3 p-4  " key={index}>
-                      <a
-                        href={"/collection/" + i.collectionID}
-                      >
-                        <div className="flex flex-row  mb-10 md:mb-0  justify-center " >
-                          <div className="trending-token w-64 md:w-80 rounded-20 hover:shadow-yellow1   hover:scale-105 ">
-                            <div className=" bg-white rounded-20 h-[365px] md:h-[450px]">
-                              <div className="p-6 pt-3 pb-3">
-                                <img
-                                  className="object-cover object-center rounded-xlarge h-[8rem] md:h-48  w-full bg-center"
-                                  src={`https://ipfs.io/ipfs/${i.mediaBanner}`}
-
-                                  alt={i.description}
-                                />
-                              </div>
-                              
-                              <div className="w-[70px] h-[70px]  bg-circle bg-center rounded-full border-4 border-white relative bg-cover mx-auto -mt-[45px]" style={{ backgroundImage: `url(https://ipfs.io/ipfs/${i.mediaIcon})` }} >
-                                </div> 
-                              <div className=" pb-3 p-6 pt-3">
-
-                                <div className="capitalize text-black text-sm  text-ellipsis overflow-hidden whitespace-nowrap  font-raleway font-bold text-center">{i.title}</div>
-                                <div className="h-[3.4em] text-sm  stroke-gray-700 collection-description font-raleway py-2 ">{i.description}</div>
-
-                                  <div className="flex justify-around pt-2">
-                                  <div className="text-black text-sm font-raleway font-normal   "><span className="font-bold">Id:</span> {i.collectionID}</div>
-                                  <div className="text-black text-sm font-raleway font-normal   "><span className="font-bold"># Tokens:</span> {i.tokenCount}</div>
-
-
-
-                                </div>
-                                <a className="rounded-xlarge  text-white  bg-yellow2 border-0  px-6 w-[115px] flex mx-auto my-2 p-2  text-xs font-semibold font-raleway uppercase hover:bg-brown width" href={"/collection/" + i.collectionID}>See Detail</a>
-                              </div>
-                              <div className=" px-6 font-raleway text-xs text-right">created by <a href={`profile/${i.owner}`} className="font-raleway text-xs font-bold text-blue2">{i.owner}</a></div>
-                            </div>
-                          </div>
-                          </div>
-                      </a>
-                    </div>
-                  )
-                })}
-              </InfiniteScroll>
-            </div> 
-            :
-            <div className="container mx-auto flex  my- md:flex-row flex-col text-yellow2 justify-center h-96 items-center text-4xl font-bold">
-              <div className="flex flex-col justify-center">
-                <h1 className="text-center">{t("tokCollection.noData")}</h1>
-              </div>
-            </div>
+return (
+  <section className={"text-gray-600 body-font " + (ini && hasData ? "" : "py-64 dark:bg-darkgray")}>
+    <div className={"pt-3 mx-auto dark:bg-darkgray"}>
+      {hasData ?
+        <div>
+          <InfiniteScroll
+            dataLength={collections.items.length}
+            next={fetchMoreData}
+            hasMore={collections.hasMore}
+            loader={<h1 className="text-center w-full py-10 text-xl font-bold text-yellow2">{t("tokCollection.loading")}</h1>}
+            endMessage={
+              <p className="text-center w-full py-10 text-xl text-yellow2">
+                <b>{t("Collections.end")}</b>
+              </p>
             }
-            
+            className={"flex flex-wrap px-[40px]"}
+          >
+            {collections.items.map((i, index) => {
+              return (
+                <div className="w-full md:w-1/2 lg:w-1/3 p-4  " key={index}>
+                  <a
+                    href={"/collection/" + i.collectionID}
+                  >
+                    <div className="flex flex-row  mb-10 md:mb-0  justify-center " >
+                      <div className="trending-token w-64 md:w-80 rounded-20 hover:shadow-yellow1   hover:scale-105 ">
+                        <div className=" bg-white rounded-20 h-[365px] md:h-[450px]">
+                          <div className="p-6 pt-3 pb-3">
+                            <img
+                              className="object-cover object-center rounded-xlarge h-[8rem] md:h-48  w-full bg-center"
+                              src={`https://ipfs.io/ipfs/${i.mediaBanner}`}
+
+                              alt={i.description}
+                            />
+                          </div>
+
+                          <div className="w-[70px] h-[70px]  bg-circle bg-center rounded-full border-4 border-white relative bg-cover mx-auto -mt-[45px]" style={{ backgroundImage: `url(https://ipfs.io/ipfs/${i.mediaIcon})` }} >
+                          </div>
+                          <div className=" pb-3 p-6 pt-3">
+
+                            <div className="capitalize text-black text-sm  text-ellipsis overflow-hidden whitespace-nowrap  font-raleway font-bold text-center">{i.title}</div>
+                            <div className="h-[3.4em] text-sm  stroke-gray-700 collection-description font-raleway py-2 ">{i.description}</div>
+
+                            <div className="flex justify-around pt-2">
+                              <div className="text-black text-sm font-raleway font-normal   "><span className="font-bold">Id:</span> {i.collectionID}</div>
+                              <div className="text-black text-sm font-raleway font-normal   "><span className="font-bold"># Tokens:</span> {i.tokenCount}</div>
 
 
+
+                            </div>
+                            <div className="rounded-xlarge  text-white  bg-yellow2 border-0  px-6 w-[115px] flex mx-auto my-2 p-2  text-xs font-semibold font-raleway uppercase hover:bg-brown width" >See Detail</div>
+                          </div>
+                          <div className=" px-6 font-raleway text-xs text-right">created by <a href={`profile/${i.owner}`} className="font-raleway text-xs font-bold text-blue2">{i.owner}</a></div>
+                        </div>
+                      </div>
+                    </div>
+                  </a>
+                </div>
+              )
+            })}
+          </InfiniteScroll>
         </div>
-    </section>
-  );
-}
+        :
+        <div className="container mx-auto flex  my- md:flex-row flex-col text-yellow2 justify-center h-96 items-center text-4xl font-bold">
+          <div className="flex flex-col justify-center">
+            <h1 className="text-center">{t("Collections.load-2")}</h1>
+          </div>
+        </div>
+      }
+
+
+
+    </div>
+  </section>
+);
+    }
 
 export default LightEcommerceA;
