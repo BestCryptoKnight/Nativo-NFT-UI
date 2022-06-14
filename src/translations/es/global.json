@@ -74,7 +74,9 @@
         "volSale" : "Vol. de ventas:",
         "descrip" : "Esta colección no tiene una descripción",
         "load-1" : "Cargando, por favor espere",
-        "load-2" : "Actualmente no hay colecciones disponibles"
+        "load-2" : "Actualmente no hay colecciones disponibles",
+        "end" : "No hay más colecciones para mostrar",
+        "noData" : "No hay colecciones actualmente"
     },
     "tokCollection" : {
         "creator" : "Creador",
