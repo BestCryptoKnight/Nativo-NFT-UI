@@ -93,7 +93,8 @@
         "end" : "There are no more NFTs",
         "noData" : "No NFTs Currently",
         "createdBy" : "created by",
-        "seeDetails" : "See Detail"
+        "seeDetails" : "See Detail",
+        "hasTok" : "The collection currently has no NFTs"
     },
     "Detail" : {
         "collection" : "Collection",
