@@ -91,7 +91,9 @@
         "descrip" : "This collection doesn't have a description",
         "loading" : "Loading...",
         "end" : "There are no more NFTs",
-        "noData" : "No NFTs Currently"
+        "noData" : "No NFTs Currently",
+        "createdBy" : "created by",
+        "seeDetails" : "See Detail"
     },
     "Detail" : {
         "collection" : "Collection",
