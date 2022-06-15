@@ -90,7 +90,8 @@
         "descrip" : "Esta colección no tiene una descripción",
         "loading" : "Cargando...",
         "end" : "Ya no hay mas NFTs",
-        "noData" : "No hay NFTs Actualmente"
+        "noData" : "No hay NFTs Actualmente",
+        "hasTok" : "La coleccion no tiene NFTs actualmente"
     },
     "Detail" : {
         "collection" : "Colección",
