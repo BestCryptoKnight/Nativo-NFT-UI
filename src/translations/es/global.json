@@ -91,6 +91,8 @@
         "loading" : "Cargando...",
         "end" : "Ya no hay mas NFTs",
         "noData" : "No hay NFTs Actualmente",
+        "createdBy" : "creado por",
+        "seeDetails" : "Ver Detalle",
         "hasTok" : "La coleccion no tiene NFTs actualmente"
     },
     "Detail" : {
