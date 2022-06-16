@@ -41,7 +41,8 @@
         "onSale" : "Market",
         "login" : "Login",
         "profile" : "profile",
-        "logout" : "Logout"
+        "logout" : "Logout",
+        "logoin" : "Login"
 
     },
     "Footer" : {
