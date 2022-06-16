@@ -14,6 +14,7 @@ import { isNearReady } from "../utils/near_interaction";
 import { nearSignIn } from "../utils/near_interaction";
 import verifyImage from '../assets/img/Check.png';
 import { ApolloClient, InMemoryCache, gql } from '@apollo/client';
+import defaultUser from '../assets/img/defaultUser.png'
 function LightHeaderB(props) {
   const APIURL = process.env.REACT_APP_API_TG;
   const [state, setState] = useState({
@@ -425,16 +426,140 @@ function LightHeaderB(props) {
               </Menu>
               :
               <>
-                <button
-                  className={`flex ml-auto mt-2 text-white bg-yellow2 border-0 py-2 px-6 focus:outline-none w-[320px] md:w-auto rounded-xlarge font-raleway font-medium`}
+               <button
+                  className={`ml-auto mt-2 text-white bg-yellow2 border-0 py-2 px-6 focus:outline-none w-[320px] md:w-auto rounded-xlarge font-raleway font-medium hidden md:flex`}
                   style={{ justifyContent: "center" }}
                   // disabled={state?.tokens.onSale}
                   onClick={async () => {
                     nearSignIn(window.location.href);
-                  }}
-                >
+                  }}>
+                  
                   {t("Navbar.login")}
                 </button>
+                <Menu as="div" className="relative inline-block text-left w-full md:w-auto md:ml-4 md:hidden">
+
+                {({ open }) => (
+                  <>
+
+                    <div className="flex flex-nowrap flex-row-reverse">
+
+                      <Menu.Button className="w-[75px] md:w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-2 py-1 bg-white text-sm  text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-100 focus:ring-yellow-500 font-raleway font-normal">
+
+                          <div className="w-full  flex relative ">
+                            <img
+                              alt="ecommerce"
+                              className=" object-contain md:object-scale-down rounded-xlarge  lg:h-auto w-[35px] h-[35px] m-auto"
+                              src={defaultUser}
+                            />
+                          </div>
+
+                        <ChevronDownIcon
+                          className="-mr-1 ml-2  w-5"
+                          aria-hidden="true"
+                        />
+                      </Menu.Button>
+                    </div>
+
+
+                    <Transition
+                      show={open}
+                      as={Fragment}
+                      enter="transition ease-out duration-100"
+                      enterFrom="transform opacity-0 scale-95"
+                      enterTo="transform opacity-100 scale-100"
+                      leave="transition ease-in duration-75"
+                      leaveFrom="transform opacity-100 scale-100"
+                      leaveTo="transform opacity-0 scale-95"
+                    >
+
+
+                      <Menu.Items
+                        static
+                        className="w-[180px]  md:w-full origin-top-right absolute right-0 mt-2 divide-y rounded-md shadow-lg bg-white outline-none"
+                      >
+                        <div className="py-1">
+                        
+                          <Menu.Item>
+                            {({ active }) => (
+                              <a href="/gallery" className={classNames(
+                                active
+                                  ? "bg-yellow text-darkgray "
+                                  : "text-darkgray ml-2 ",
+                                "block px-2 py-2 text-sm text-center font-raleway font-normal "
+                              )}>
+                                <div className="flex justify-start">
+                                  <span className=" m-2">
+                                  <svg xmlns="http://www.w3.org/2000/svg" id="Bold" viewBox="0 0 24 24" width="15" height="15"><path d="M19.5,0H4.5A4.505,4.505,0,0,0,0,4.5v15A4.505,4.505,0,0,0,4.5,24h15A4.505,4.505,0,0,0,24,19.5V4.5A4.505,4.505,0,0,0,19.5,0ZM4.5,3h15A1.5,1.5,0,0,1,21,4.5v15a1.492,1.492,0,0,1-.44,1.06l-8.732-8.732a4,4,0,0,0-5.656,0L3,15V4.5A1.5,1.5,0,0,1,4.5,3Z"/><circle cx="15.5" cy="7.5" r="2.5"/></svg>
+                                  </span><p className=" self-center">{t("Navbar.gallery")}</p>
+                                </div>
+                              </a>
+                            )}
+                          </Menu.Item>
+                          <Menu.Item
+                          >
+                            {({ active }) => (
+                              <a href="/collections" className={classNames(
+                                active
+                                  ? "bg-yellow text-darkgray "
+                                  : "text-darkgray ml-2 ",
+                                "block px-2 py-2 text-sm text-center font-raleway font-normal "
+                              )}>
+                                <div className="flex justify-start">
+                                  <span className=" m-2">
+                                  <svg xmlns="http://www.w3.org/2000/svg" id="Layer_1" data-name="Layer 1" viewBox="0 0 24 24" width="15" height="15"><path d="M18.5,0h-5A5.5,5.5,0,0,0,8.015,5.21a5.5,5.5,0,0,0-4,5A5.506,5.506,0,0,0,0,15.5v3A5.507,5.507,0,0,0,5.5,24h5A5.507,5.507,0,0,0,16,18.5v-.213a5.512,5.512,0,0,0,3.919-4.38A5.162,5.162,0,0,0,24,8.5v-3A5.507,5.507,0,0,0,18.5,0ZM3,15.5A2.5,2.5,0,0,1,5.5,13h5A2.5,2.5,0,0,1,13,15.5v.2l-2.115,2.115a1,1,0,0,1-1.415,0L9,17.335a1,1,0,0,0-1.347-.061l-3.7,3.176A2.488,2.488,0,0,1,3,18.5ZM17,13a2.492,2.492,0,0,1-1.025,2.008A5.506,5.506,0,0,0,10.5,10H7.051A2.5,2.5,0,0,1,9.5,8h5A2.5,2.5,0,0,1,17,10.5Zm4-4.5a2.719,2.719,0,0,1-1,2.226V10.5A5.507,5.507,0,0,0,14.5,5H11.051A2.5,2.5,0,0,1,13.5,3h5A2.5,2.5,0,0,1,21,5.5Zm-17,7A1.5,1.5,0,1,1,5.5,17,1.5,1.5,0,0,1,4,15.5Z" /></svg>                             
+                                  </span>
+                                  <p className=" self-center"> {t("Navbar.collections")}</p>
+                                </div>
+
+                              </a>
+                            )}
+                          </Menu.Item>
+                          <Menu.Item
+                          >
+                            {({ active }) => (
+                              <a href="/market" className={classNames(
+                                active
+                                  ? "bg-yellow text-darkgray "
+                                  : "text-darkgray ml-2 ",
+                                "block px-2 py-2 text-sm text-center font-raleway font-normal  "
+                              )}>
+                                <div className="flex justify-start">
+                                  <span className=" m-2"><svg xmlns="http://www.w3.org/2000/svg" id="Layer_1" data-name="Layer 1" viewBox="0 0 24 24" width="15" height="15"><path d="M19,17a5.994,5.994,0,0,1-3-.806A5.994,5.994,0,0,1,13,17H11a5.938,5.938,0,0,1-3-.818A5.936,5.936,0,0,1,5,17H4a5.949,5.949,0,0,1-3-.813V21a3,3,0,0,0,3,3H20a3,3,0,0,0,3-3V16.188A5.958,5.958,0,0,1,20,17Z" /><path d="M17,0V6H15V0H9V6H7V0H2.2L.024,9.783,0,11a4,4,0,0,0,4,4H5a3.975,3.975,0,0,0,3-1.382A3.975,3.975,0,0,0,11,15h2a3.99,3.99,0,0,0,3-1.357A3.99,3.99,0,0,0,19,15h1a4,4,0,0,0,4-4V10L21.8,0Z" /></svg>
+                                  </span>
+                                  <p className=" self-center">{t("Navbar.onSale")}</p>
+                                </div>
+                              </a>
+                            )}
+                          </Menu.Item>
+                          <Menu.Item
+                            onClick={async () => {
+                              nearSignIn(window.location.href);
+                            }}
+                          >
+                            {({ active }) => (
+                              <a  className={classNames(
+                                active
+                                  ? "bg-yellow text-darkgray "
+                                  : "text-darkgray ml-2 ",
+                                "block px-2 py-2 text-sm text-center font-raleway font-normal  "
+                              )}>
+                                <div className="flex justify-start">
+                                  <span className=" m-2">
+                                    <svg xmlns="http://www.w3.org/2000/svg" id="Isolation_Mode" data-name="Isolation Mode" viewBox="0 0 24 24" width="15" height="15"><path d="M3,3H8V0H3A3,3,0,0,0,0,3V21a3,3,0,0,0,3,3H8V21H3Z" /><path d="M22.948,9.525,18.362,4.939,16.241,7.061l3.413,3.412L5,10.5,5,13.5l14.7-.027-3.466,3.466,2.121,2.122,4.587-4.586A3.506,3.506,0,0,0,22.948,9.525Z" /></svg>
+                                  </span>
+                                  <p className=" self-center"> {t("Navbar.login")}</p>
+                                </div>
+
+                              </a>
+                            )}
+                          </Menu.Item>
+                        </div>
+                      </Menu.Items>
+                    </Transition>
+                  </>
+                )}
+              </Menu>
+                
               </>
           }
 

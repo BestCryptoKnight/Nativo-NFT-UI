@@ -41,7 +41,8 @@
         "login" : "Iniciar sesión",
         "profile" : "Perfil",
         "logout" : "Salir",
-        "createCollection" : "Crear Colección"
+        "createCollection" : "Crear Colección",
+        "logoin" : "Iniciar"
     },
     "Footer" : {
         "made" : "Hecho con:",
