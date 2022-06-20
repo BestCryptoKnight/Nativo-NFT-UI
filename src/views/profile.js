@@ -91,8 +91,13 @@ function LightEcommerceB(props) {
       setStateLogin(await isNearReady());
       let ownerAccount = await getNearAccount();
 
-
-      let totalSupply;
+      let contract = await getNearContract();
+      let account = await getNearAccount();
+      let paramsSupplyForOwner = {
+        account_id: account
+      };
+      let totalTokensByOwner = await contract.nft_supply_for_owner(paramsSupplyForOwner);
+      let totalTokensByCreator = await contract.nft_supply_for_creator(paramsSupplyForOwner);
 
       if (localStorage.getItem("blockchain") == "0") {
         
@@ -169,8 +174,8 @@ function LightEcommerceB(props) {
             media: userData.media,
             biography: userData.biography,
             socialMedia: userData.socialMedia,
-            tokCreated: userData.tokCreated,
-            tokBought: userData.tokBought,
+            tokCreated: totalTokensByCreator,
+            tokBought: totalTokensByOwner,
             timestamp: date,
           },
         });
