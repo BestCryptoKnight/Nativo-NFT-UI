@@ -24,8 +24,10 @@ import Modal from "../components/modal.component";
 import flechaiz from '../assets/landingSlider/img/flechaIz.png'
 import ReactHashtag from "react-hashtag";
 import OfferModal from "../components/offerModal.component";
+import AddTokenModal from "../components/addTokenModal.component";
 import { useTranslation } from "react-i18next";
 import Swal from 'sweetalert2'
+import { use } from "i18next";
 
 function LightEcommerceB(props) {
   //guarda el estado de  toda la vista
@@ -40,6 +42,8 @@ function LightEcommerceB(props) {
   const [stateLogin, setStateLogin] = useState(false);
   const [hasRoyalty, setHasRoyalty] = useState(false)
   const [hasBids, setHasBids] = useState(false)
+  const [creator, setCreator] = useState(false)
+  const [noCollection, setNoCollection] = useState(false)
   //es el parametro de tokenid
   const { data } = useParams();
   //es el historial de busqueda
@@ -86,7 +90,39 @@ function LightEcommerceB(props) {
         let contract = await getNearContract();
         let account = await getNearAccount();
         let tokenId = data;
+        let userData
 
+        const query = `
+          query($tokenID: String){
+            tokens (where : {id : $tokenID}){
+              id
+              collectionID
+            }
+          }
+        `
+        const client = new ApolloClient({
+          uri: APIURL,
+          cache: new InMemoryCache(),
+        })
+
+        await client.query({
+          query: gql(query),
+          variables: {
+            tokenID: tokenId
+          }
+        })
+          .then((data) => {
+            console.log('token Data: ', data.data.tokens)
+            if (data.data.tokens.length <= 0) {
+              setNoCollection(true)
+            }
+            else {
+              userData = data.data.tokens
+            }
+          })
+          .catch((err) => {
+            console.log('error: ', err)
+          })
 
         let payload = {
           account_id: account,
@@ -100,6 +136,9 @@ function LightEcommerceB(props) {
         let nft = await contract.nft_token(payload);
         let bidsData = await getBids(tokenId)
           console.log(bidsData)
+        if(nft.creator_id == account){
+          setCreator(true)
+        }
         if(Object.keys(nft.royalty).length!=0){
           setHasRoyalty(true)
         }        
@@ -341,9 +380,26 @@ function LightEcommerceB(props) {
     })
   }
 
-
+  async function makeAddToken(){
+    console.log("Add token to collection")
+    setAddTokenModal({
+      ...state,
+      show: true,
+      title: t('Detail.msgAddToken'),
+      message: t('Detail.msgAddToken2'),
+      loading: false,
+      disabled: false,
+      change: setAddTokenModal,
+      buttonName: 'X',
+      tokenId: 'hardcoded'
+    })
+  }
   //setting state for the offer modal
   const [offerModal, setOfferModal] = useState({
+    show: false,
+  });
+
+  const [addTokenModal, setAddTokenModal] = useState({
     show: false,
   });
   return (
@@ -378,6 +434,23 @@ function LightEcommerceB(props) {
                 {state?.jdata.description}
               </p>
 
+              {creator ? 
+                noCollection ?
+                <div>
+                  <button
+                    className={"w-full m-2 content-center justify-center text-center  text-white bg-yellow2 border-0 py-2 px-6 focus:outline-none hover:bg-yellow rounded-xlarge font-raleway font-medium"}
+                    onClick={async () => {
+                      makeAddToken()
+                    }}>
+                      {t('Detail.msgAddToken')}
+                    </button>
+                </div>
+                :
+                ""
+              :
+              ""
+              }
+              
               <div
                 className={`flex py-2 px-2 my-2 bg-gray-50 rounded-xlarge`}
                 >
@@ -436,18 +509,18 @@ function LightEcommerceB(props) {
                 className={`flex py-2 px-2 my-2 bg-gray-50 rounded-xlarge`}
               >
                 <span className="text-black pl-3 font-bold uppercase font-raleway text-sm">{t("Detail.owner")}</span>
-                <span className="ml-auto text-gray-900 font-semibold pr-3 font-raleway text-sm">
+                <a className="ml-auto" href={"/profile/"+state?.owner.split('.')[0]}><span className="ml-auto text-gray-900 font-semibold pr-3 font-raleway text-sm">
                   {state?.owner}
-                </span>
+                </span></a>
               </div>
 
               <div
                 className={`flex py-2 px-2 my-2 bg-gray-50 rounded-xlarge`}
               >
                 <span className="text-black pl-3 font-bold uppercase font-raleway text-sm">{t("Detail.creator")}</span>
-                <span className="ml-auto text-gray-900 font-semibold pr-3 font-raleway text-sm">
+                <a className="ml-auto" href={"/profile/"+state?.jdata.creator.split('.')[0]}><span className="ml-auto text-gray-900 font-semibold pr-3 font-raleway text-sm">
                   {state?.jdata.creator}
-                </span>
+                </span></a>
               </div>
 
               {(hasRoyalty ?
@@ -651,6 +724,7 @@ function LightEcommerceB(props) {
         </div>
         <Modal {...modal} />
         <OfferModal {...offerModal}  />
+        <AddTokenModal {...addTokenModal} />
       </section>
     </>
   );

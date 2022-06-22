@@ -41,7 +41,8 @@
         "login" : "Iniciar sesión",
         "profile" : "Perfil",
         "logout" : "Salir",
-        "createCollection" : "Crear Colección"
+        "createCollection" : "Crear Colección",
+        "logoin" : "Iniciar"
     },
     "Footer" : {
         "made" : "Hecho con:",
@@ -74,7 +75,9 @@
         "volSale" : "Vol. de ventas:",
         "descrip" : "Esta colección no tiene una descripción",
         "load-1" : "Cargando, por favor espere",
-        "load-2" : "Actualmente no hay colecciones disponibles"
+        "load-2" : "Actualmente no hay colecciones disponibles",
+        "end" : "No hay más colecciones para mostrar",
+        "noData" : "No hay colecciones actualmente"
     },
     "tokCollection" : {
         "creator" : "Creador",
@@ -88,7 +91,10 @@
         "descrip" : "Esta colección no tiene una descripción",
         "loading" : "Cargando...",
         "end" : "Ya no hay mas NFTs",
-        "noData" : "No hay NFTs Actualmente"
+        "noData" : "No hay NFTs Actualmente",
+        "createdBy" : "creado por",
+        "seeDetails" : "Ver Detalle",
+        "hasTok" : "La coleccion no tiene NFTs actualmente"
     },
     "Detail" : {
         "collection" : "Colección",
@@ -116,7 +122,10 @@
         "modalMakeBid" : "Hacer una oferta",
         "modalMsg" : "Haz una oferta atractiva para obtener este token",
         "actualBid" : "Oferta actual:",
-        "cancelBid" : "Cancelar oferta"
+        "cancelBid" : "Cancelar oferta",
+        "btnAddNFTCol" : "Agregar NFT a una colección",
+        "msgAddToken" : "Agregar NFT a una colección",
+        "msgAddToken2" : "Selecciona la coleccion a la que deseas agregar el NFT"
     },
     "MyNFTs" : {
         "title" : "Mis NFTs",
@@ -256,18 +265,28 @@
         "title" : "Crear perfil",
         "title2" : "Editar perfil",
         "biography" : "Biografía",
-        "twitter" : "Perfil de Twitter",
+        "twitter" : "Usuario de Twitter",
         "upImg" : "Subir imagen de perfil",
         "createProfile" : "Crear perfil",
         "editProfile" : "Editar perfil",
         "minBio" : "La biografía debe tener longitud mayor a 5 caracteres",
         "minSocial" : "El usuario debe de superar 4 caracteres",
         "maxSocial" : "El usuario no puede superar 15 caracteres",
-        "tokCreated" : "No. de tokens creados",
-        "tokOwned" : "No. de tokens en propiedad",
-        "since" : "Se unio a Nativo NFT en:",
+        "tokCreated" : "No. de tokens creados en Nativo NFT",
+        "tokOwned" : "No. de tokens en propiedad en Nativo NFT",
+        "since" : "Perfil creado en:",
         "prefUsr" : "Preferencias del usuario",
         "language" : "Idioma",
         "addNTV" : "Agregar mis NTVs a mi wallet"
+    },
+    "addToken" : {
+        "alert1-title" : "Selecciona una coleccion",
+        "alert1-msg" : "Tienes que seleccionar la coleccion a la que deseas agregar el NFT",
+        "alert2-title" : "Advertencia",
+        "alert2-msg" : "Solo podras agregar una sola vez tu NFT a una coleccion, verifica que hayas seleccionado la correcta",
+        "comboOpc" : "Seleccione la coleccion",
+        "btnAdd" : "Agregar NFT",
+        "btnCol" : "Crear colección",
+        "msgNoCol" : "Aun no has creado una coleccion, primero crea una coleccion para agregar tu NFT"
     }
 }
