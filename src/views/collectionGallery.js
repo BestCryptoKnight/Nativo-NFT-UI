@@ -9,6 +9,7 @@ import { currencys } from "../utils/constraint";
 import { getNearContract, fromYoctoToNear, getNearAccount } from "../utils/near_interaction";
 import { useParams, useHistory } from "react-router-dom";
 
+
 import filtroimg from '../assets/landingSlider/img/filtro.png'
 import countrys from '../utils/countrysList'
 import loading from '../assets/landingSlider/img/loader.gif'
@@ -49,6 +50,13 @@ function LightEcommerceA() {
   const [firstLoad, setFirstLoad] = React.useState(true)
   const [loadMsg, setLoadMsg] = React.useState(true)
   const [trigger, settrigger] = React.useState(true);
+  const [search, setSearch] = React.useState({
+    isSearch: false,
+    skipSearch: 0,
+    searchWord: "",
+    hasMore: true
+  });
+  const [skipSearch, setSkipSearch] = React.useState(0);
   const [filtro, setfiltro] = React.useState({
     culture: "null",
     country: "null",
@@ -306,15 +314,162 @@ function LightEcommerceA() {
     })();
   }, []);
 
+  const _handleKeyUp = async(e) => {
+    let colData;
+    console.log('enter first time on search',e);
+
+    let searchWord = e.target.value;
+    
+    if (e.key === 'Enter' || e.keyCode == 13) {
+      console.log('search on first fime', search);
+
+    
+      const queryData2 = `
+         query($first: String!) 
+            {
+              collectionSearch(text: $first, skip: 0, first: 3) {
+                id
+                title
+                description
+                owner_id
+                tokenCount
+                mediaBanner
+                mediaIcon
+                collectionID
+                timestamp
+
+            }
+          }
+        `
+
+    //Declaramos el cliente
+    const client = new ApolloClient({
+      uri: APIURL,
+      cache: new InMemoryCache(),
+    })
+
+    await client
+    .query({
+      query: gql(queryData2),
+      variables: {
+        first: searchWord,
+      },
+    })
+      .then((data) => {
+        console.log('data',data);
+        colData = data.data.collectionSearch;
+      })
+      .catch((err) => {
+        console.log('err',err);
+      })
+
+      let col = colData.map((collection) => {
+        return {
+          title: collection.title,
+          owner: collection.owner_id,
+          tokenCount: collection.tokenCount,
+          description: collection.description,
+          mediaIcon: collection.mediaIcon,
+          mediaBanner: collection.mediaBanner,
+          collectionID: collection.collectionID
+        };
+      });
+
+      setCollections({
+        ...collections,
+        items: col
+      });
+
+      setSearch({ ...search, searchWord: searchWord, isSearch: true, skipSearch : 3, hasMore: col.length == 3 ? true : false});
+    }   
+  }
+
+  let fetchMoreSearch = async() => {
+    let colData;
+    console.log('fetchMoreSearch');
+    
+      const queryData2 = `
+         query($first: String!) 
+            {
+              collectionSearch(text: $first, skip: ${search.skipSearch}, first: 3) {
+                id
+                title
+                description
+                owner_id
+                tokenCount
+                mediaBanner
+                mediaIcon
+                collectionID
+                timestamp
+
+            }
+          }
+        `
+
+    //Declaramos el cliente
+    const client = new ApolloClient({
+      uri: APIURL,
+      cache: new InMemoryCache(),
+    })
+
+    await client
+    .query({
+      query: gql(queryData2),
+      variables: {
+        first: search.searchWord,
+      },
+    })
+      .then((data) => {
+        console.log('data',data);
+        colData = data.data.collectionSearch;
+      })
+      .catch((err) => {
+        console.log('err',err);
+      })
+
+      let col = colData.map((collection) => {
+        return {
+          title: collection.title,
+          owner: collection.owner_id,
+          tokenCount: collection.tokenCount,
+          description: collection.description,
+          mediaIcon: collection.mediaIcon,
+          mediaBanner: collection.mediaBanner,
+          collectionID: collection.collectionID
+        };
+      });
+
+      setCollections({
+        ...collections,
+        items: collections.items.concat(col)
+      });
+
+      console.log('collection', col.length);
+      setSearch({...search, skipSearch : search.skipSearch + 3, hasMore: col.length == 3 ? true : false});
+
+      console.log('search', search);
+      
+  }
+
 return (
   <section className={"text-gray-600 body-font " + (ini && hasData ? "" : "py-64 dark:bg-darkgray")}>
-    <div className={"pt-3 mx-auto dark:bg-darkgray"}>
+    
+    <div className={"pt-3 mx-auto dark:bg-darkgray "}>
+
+
+    <div className="flex  rounded-xlarge  w-full  h-[45px] mx-0   mb-2 bg-gradient-to-b p-[2px] from-yellow  to-brown ">
+          <input className={` font-open-sans  flex flex-col  h-full dark:bg-white dark:text-darkgray   text-left rounded-xlarge justify-center focus-visible:outline-none focus-visible:shadow-s focus-visible:shadow-s focus-visible:shadow-brown-s w-full `}
+            onKeyUp={_handleKeyUp}>
+          </input>
+        </div>
+
+    
       {hasData ?
         <div>
           <InfiniteScroll
             dataLength={collections.items.length}
-            next={fetchMoreData}
-            hasMore={collections.hasMore}
+            next={!search.isSearch ? fetchMoreData : fetchMoreSearch}
+            hasMore={!search.isSearch ? collections.hasMore : search.hasMore}
             loader={<h1 className="text-center w-full py-10 text-xl font-bold text-yellow2">{t("tokCollection.loading")}</h1>}
             endMessage={
               <p className="text-center w-full py-10 text-xl text-yellow2">
