@@ -102,7 +102,7 @@ export default function AddTokenModal(props) {
           media: props.jdata.image,
           creator: props.jdata.creator,
           price: 10,
-          collectionID: parseInt(colID)
+          collection_id: parseInt(colID)
         }
         console.log(payload)
         ext_call(process.env.REACT_APP_CONTRACT_MARKET, 'add_token_to_collection', payload, 300000000000000, 1)

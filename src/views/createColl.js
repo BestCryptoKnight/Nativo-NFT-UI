@@ -85,129 +85,9 @@ function LightHeroE(props) {
     },
     //validaciones
     validationSchema: Yup.object({
-      // title: Yup.string()
-      //   .max(30, "Menos de 30 caracteres")
-      //   .required("Requerido")
-      //   .min(5, "el titulo debe longitud mayor a 5"),
-
-      // description: Yup.string()
-      //   .max(300, "Menos de 50 caracteres")
-      //   .required("Requerido")
-      //   .min(30, "la descripción minimo es de 30 caracteres"),
-
-      // price: Yup.number()
-      //   .required("Requerido")
-      //   .positive("el precio debe ser positivo")
-      //   .moreThan(0, "no existen nft gratis")
-      //   .min(0.000000000000000001, "el precio minimo es un wei"),
-
-      // culture: Yup.string().required(
-      //   "Escribe el nombre de la cultura pertenenciente "
-      // ),
-
-      // country: Yup.string().required(
-      //   "Escribe el nombre del pais pertenenciente "
-      // ),
-
-      // image: Yup.string().required("Requerido"),
+     
     }),
-    // onSubmit: async (values) => {
-    //   // console.log('Entra')
-    //   //evitar que el usuario pueda volver a hacer click hasta que termine el minado
-    //   setmint({ ...mint, onSubmitDisabled: true });
-    //   let account;
-    //   if (mint.blockchain == "0") {
-    //     //primero nos aseguramos de que la red de nuestro combo sea igual a la que esta en metamask
-    //     await syncNets();
-
-    //     //la cuenta a la cual mandaremos el token
-    //     account = await getSelectedAccount();
-    //     //console.log(account);
-    //   }
-
-    //   //cargamos el modal
-
-    //   // console.log(JSON.stringify(values))
-    //   const fecha = values.date.split('-')
-    //   let dateSTR = fecha[1] + '-' + fecha[2] + '-' + fecha[0]
-    //   // console.log(dateSTR)
-    //   const date = new Date(dateSTR)
-    //   date.setDate(date.getDate())
-    //   date.setHours(values.hrs)
-    //   date.setMinutes(values.min)
-    //   if (date < Date.now()) {
-    //     alert("La fecha y hora para la subasta debe de ser mayor a la fecha y hora actual")
-    //     window.location.reload();
-    //     return
-    //   }
-    //   let token;
-    //   if (mint.blockchain == "0") {
-    //     //los datos de la transacccion
-    //     token = await getContract()
-    //       .methods.minar(
-    //         account,
-    //         JSON.stringify(values),
-    //         fromETHtoWei(values.price)
-    //       )
-    //       .send({ from: account })
-    //       .catch((err) => {
-    //         return err;
-    //       });
-    //   } else {
-    //     let contract = await getNearContract();
-    //     const data = await contract.account.connection.provider.block({
-    //       finality: "final",
-    //     });
-    //     const dateActual = (data.header.timestamp) / 1000000;
-    //     const owner = await getNearAccount()
-    //     let payloadCol = {
-    //       contr: "dev-1644523323613-61099606761670",
-    //       addressowner: owner,
-    //       title: values.titleCol,
-    //       descrip: values.descriptionCol,
-    //     }
-
-    //     let colResult = contract.Add_user_collection(
-    //       payloadCol
-    //     )
-    //     //console.log(contract);
-    //     //console.log(payload);
-    //     //console.log(fromYoctoToNear("5700000000000000000000"));
-
-    //     // alert(payload);
-    //     // let tokenresult = contract.minar(
-    //     //   payload,
-    //     //   300000000000000, // attached GAS (optional)
-    //     //   amount
-    //     // );
-
-
-    //   }
-    //   //if de error
-    //   if (!token.status)
-    //     setModal({
-    //       ...modal,
-    //       show: true,
-    //       loading: false,
-    //       title: "error",
-    //       message: "intentalo de nuevo",
-    //       change: setModal,
-    //       disabled: false,
-    //     });
-
-    //   else
-    //     setModal({
-    //       ...modal,
-    //       show: true,
-    //       title: "Exito",
-    //       message: "el nuevo token se ha minado correctamente",
-    //       loading: false,
-    //       change: setModal,
-    //       disabled: false,
-    //     });
-
-    //   setmint({ ...mint, onSubmitDisabled: false });
-    // },
+    
   });
 
   async function saveCollection() {
@@ -217,8 +97,8 @@ function LightHeroE(props) {
     let payloadCol = {
       title: title,
       description: desc,
-      mediaIcon: mediaIcon,
-      mediaBanner: mediaBanner,
+      media_icon: mediaIcon,
+      media_banner: mediaBanner,
       _type: "create"
     }
     console.log(payloadCol);
@@ -309,27 +189,6 @@ function LightHeroE(props) {
 
       };
     }
-    /*  //si selecciono un archivo, evita que nos de error si el usuario decide cancelar la carga
-     if (e.target.files[0]) {
-       //asignar imagen de preview
-       setmint({ ...mint, file: URL.createObjectURL(e.target.files[0]) });
- 
-       //una vez que cargue el arhcivo lo mandamos a ipfs
-       const reader = new FileReader();
-       reader.readAsArrayBuffer(e.target.files[0]);
- 
-       //una vez que cargue
-       reader.onloadend = async function () {
-         //subimos la imagen a ipfs
-         window.ipfs.add(reader.result).then(async (result) => {
-           console.log(result);
-           console.log(`https://ipfs.io/ipfs/${result.path}`);
- 
-           //agregamos el cid de ipfs  en el campo image
-           formik.setFieldValue("image", result.path);
-         });
-       };
-     } */
   }
 
 
@@ -358,27 +217,6 @@ function LightHeroE(props) {
 
       };
     }
-    /*  //si selecciono un archivo, evita que nos de error si el usuario decide cancelar la carga
-     if (e.target.files[0]) {
-       //asignar imagen de preview
-       setmint({ ...mint, file: URL.createObjectURL(e.target.files[0]) });
- 
-       //una vez que cargue el arhcivo lo mandamos a ipfs
-       const reader = new FileReader();
-       reader.readAsArrayBuffer(e.target.files[0]);
- 
-       //una vez que cargue
-       reader.onloadend = async function () {
-         //subimos la imagen a ipfs
-         window.ipfs.add(reader.result).then(async (result) => {
-           console.log(result);
-           console.log(`https://ipfs.io/ipfs/${result.path}`);
- 
-           //agregamos el cid de ipfs  en el campo image
-           formik.setFieldValue("image", result.path);
-         });
-       };
-     } */
   }
 
   const format = (v) => {
@@ -544,14 +382,6 @@ function LightHeroE(props) {
                   <p className="lg:text-lg text-base pb-1 font-raleway text-darkgray"><b>{t("CreateCol.noTokens")}</b></p>
                   <p className="lg:text-base text-sm pb-1 font-raleway text-darkgray">0</p>
                 </div>
-                {/*<div>
-                  <p className="lg:text-lg text-base pb-1 font-raleway text-darkgray"><b>{t("CreateCol.noSale")}</b></p>
-                  <p className="lg:text-base text-sm pb-1 font-raleway text-darkgray">0</p>
-                </div>
-                <div className="pr-5">
-                  <p className="lg:text-lg text-base pb-1 font-raleway text-darkgray"><b>{t("CreateCol.volSale")}</b></p>
-                  <p className="lg:text-base text-sm pb-1 font-raleway text-darkgray">0 {currencys[parseInt(localStorage.getItem("blockchain"))]}</p>
-                  </div>*/}
               </div>
             </div>
 
