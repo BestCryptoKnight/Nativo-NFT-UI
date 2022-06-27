@@ -319,8 +319,11 @@ function LightEcommerceA() {
     let colData;
 
     let originalSearchWord = search.searchWord;
-    let searchWordMap = originalSearchWord.split(' ');
-    let searchWordJoin = searchWordMap.map((word, i, arr) => {
+    let replacedString = originalSearchWord.replace(/['"]+/g,'');
+    let searchWordMap = replacedString.split(' ');
+    let filterWords =  searchWordMap.filter((word) => word !== "");
+    let searchWordJoin = filterWords.map((word, i, arr) => {
+ 
       if (i + 1 === arr.length) {
         return word;
       } else {
