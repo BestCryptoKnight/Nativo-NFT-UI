@@ -102,7 +102,7 @@ export default function AddTokenModal(props) {
           media: props.jdata.image,
           creator: props.jdata.creator,
           price: 10,
-          collectionID: parseInt(colID)
+          collection_id: parseInt(colID)
         }
         console.log(payload)
         ext_call(process.env.REACT_APP_CONTRACT_MARKET, 'add_token_to_collection', payload, 300000000000000, 1)
@@ -229,7 +229,7 @@ export default function AddTokenModal(props) {
                   <>
                     <div className="flex flex-col justify-center">
                       <h1 className="text-darkgray text-xl text-center font-raleway mb-4">{t('addToken.msgNoCol')}</h1>
-                      <a className="bg-yellow2 mt-3 text-center items-center text-white active:bg-brown font-bold uppercase text-sm px-6 py-3 rounded-full shadow hover:shadow-lg outline-none focus:outline-none  ease-linear transition-all duration-150" href="/collection">{t('addToken.btnCol')}</a>
+                      <a className="bg-yellow2 mt-3 text-center items-center text-white active:bg-brown font-bold uppercase text-sm px-6 py-3 rounded-full shadow hover:shadow-lg outline-none focus:outline-none  ease-linear transition-all duration-150" href="/createCollection">{t('addToken.btnCol')}</a>
                     </div>
                   </>
                 }

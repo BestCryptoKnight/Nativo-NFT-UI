@@ -296,20 +296,6 @@ function LightEcommerceB(props) {
         token_id: state.tokens.tokenID
       }
       let toks = await ext_call(process.env.REACT_APP_CONTRACT_MARKET,"offer",payload,300000000000000,fromNearToYocto(amount))
-      // let contract = await getNearContract();
-      //obtener tokens a la venta
-      // toks = await contract.market_buy_generic(
-      //   {
-      //     address_contract: state.tokens.contract,
-      //     token_id: state.tokens.tokenID,
-      //     collection: state.tokens.collection,
-      //     collection_id: state.tokens.collectionID
-      //   },
-      //   300000000000000,
-      //   fromNearToYocto(amount)
-      // );
-
-      //console.log(toks);
     }
 
     //si status esta undefined o falso le mandamos el modal de error

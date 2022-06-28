@@ -95,7 +95,8 @@
         "noData" : "No NFTs Currently",
         "createdBy" : "created by",
         "seeDetails" : "See Detail",
-        "hasTok" : "The collection currently has no NFTs"
+        "hasTok" : "The collection currently has no NFTs",
+        "search" : "Search By: Account or Title.."
     },
     "Detail" : {
         "collection" : "Collection",
