@@ -22,6 +22,7 @@ import {
 } from "../utils/near_interaction";
 import Modal from "../components/modal.component";
 import flechaiz from '../assets/landingSlider/img/flechaIz.png'
+import defaultUser from '../assets/img/defaultUser.png'
 import ReactHashtag from "react-hashtag";
 import OfferModal from "../components/offerModal.component";
 import { useTranslation } from "react-i18next";
@@ -90,8 +91,13 @@ function LightEcommerceB(props) {
       setStateLogin(await isNearReady());
       let ownerAccount = await getNearAccount();
 
-
-      let totalSupply;
+      let contract = await getNearContract();
+      let account = await getNearAccount();
+      let paramsSupplyForOwner = {
+        account_id: account
+      };
+      let totalTokensByOwner = await contract.nft_supply_for_owner(paramsSupplyForOwner);
+      let totalTokensByCreator = await contract.nft_supply_for_creator(paramsSupplyForOwner);
 
       if (localStorage.getItem("blockchain") == "0") {
         
@@ -136,7 +142,21 @@ function LightEcommerceB(props) {
           .then((data) => {
             console.log('profile: ', data.data.profiles.length)
             if(data.data.profiles.length <= 0){
-              window.location.href = '/profileData/create'
+              if(account == ownerAccount){
+                window.location.href = '/profileData/create'
+              }
+              else{
+                let date = new Date().getTime()
+                userData={
+                  username: account,
+                  media: "",
+                  biography: "El usuario no ha guardado la informacion de su perfil",
+                  socialMedia: "No ha registrado su Twitter",
+                  tokCreated: 0,
+                  tokBought: 0,
+                  timestamp: date.toString()
+                }
+              }
             }
             else{
               userData = data.data.profiles[0]
@@ -154,8 +174,8 @@ function LightEcommerceB(props) {
             media: userData.media,
             biography: userData.biography,
             socialMedia: userData.socialMedia,
-            tokCreated: userData.tokCreated,
-            tokBought: userData.tokBought,
+            tokCreated: totalTokensByCreator,
+            tokBought: totalTokensByOwner,
             timestamp: date,
           },
         });
@@ -196,7 +216,7 @@ function LightEcommerceB(props) {
               <img
                 alt="ecommerce"
                 className=" object-contain md:object-scale-down rounded-xlarge shadow-yellow2 lg:h-auto h-64 w-auto m-auto"
-                src={`https://ipfs.io/ipfs/${state?.data.media}`}
+                src={state?.data.media == "" ? defaultUser :`https://ipfs.io/ipfs/${state?.data.media}`}
               />
             </div>
 

@@ -32,7 +32,8 @@
     },
     "Navbar" : {
         "collections" : "Collections",
-        "create" : "Create",
+        "createCollection" : "Create Collection",
+        "create" : "Create NFT",
         "myNFTs" : "My NFTs",
         "warning" : "This is a public beta version - Use at your own risk - Unaudited code",
         "language" : "English",
@@ -40,7 +41,8 @@
         "onSale" : "Market",
         "login" : "Login",
         "profile" : "profile",
-        "logout" : "Logout"
+        "logout" : "Logout",
+        "logoin" : "Login"
 
     },
     "Footer" : {
@@ -74,7 +76,9 @@
         "volSale" : "Sales volume:",
         "descrip" : "This collection doesn't have a description",
         "load-1" : "Loading Please wait",
-        "load-2" : "There are currently no collections available"
+        "load-2" : "There are no currently collections available",
+        "end" : "There are no more Collections",
+        "noData" : "No Collections Currently"
     },
     "tokCollection" : {
         "creator" : "Creator",
@@ -88,7 +92,11 @@
         "descrip" : "This collection doesn't have a description",
         "loading" : "Loading...",
         "end" : "There are no more NFTs",
-        "noData" : "No NFTs Currently"
+        "noData" : "No NFTs Currently",
+        "createdBy" : "created by",
+        "seeDetails" : "See Detail",
+        "hasTok" : "The collection currently has no NFTs",
+        "search" : "Search By: Account or Title.."
     },
     "Detail" : {
         "collection" : "Collection",
@@ -116,7 +124,10 @@
         "modalMakeBid" : "Make a bid",
         "modalMsg" : "Make an attractive bid to get this token",
         "actualBid" : "Current bid:",
-        "cancelBid" : "Cancel bid"
+        "cancelBid" : "Cancel bid",
+        "btnAddNFTCol" : "Add NFT to a collection",
+        "msgAddToken" : "Add NFT to a collection",
+        "msgAddToken2" : "Select the collection to which you want to add the NFT"
     },
     "MyNFTs" : {
         "title" : "My NFTs",
@@ -159,11 +170,11 @@
         "msg-2" : "Your image may take a little time to display",
         "demoTitle" : "Collection title",
         "demoDescrip" : "Write the description of your collection",
-        "creator" : "Creator:",
-        "contract" : "Contract:",
-        "noTokens" : "No. of tokens:",
-        "noSale" : "No. of sales:",
-        "volSale" : "Sales volume:",
+        "creator" : "Creator",
+        "contract" : "Contract",
+        "noTokens" : "No. of tokens",
+        "noSale" : "No. of sales",
+        "volSale" : "Sales volume",
         "btnImg-1" : "Select image",
         "btnImg-2" : "Loading",
         "btnImg-3" : "Change image",
@@ -257,18 +268,28 @@
         "title" : "Create profile",
         "title2" : "Edit profile",
         "biography" : "Biography",
-        "twitter" : "Twitter profile",
+        "twitter" : "Twitter user",
         "upImg" : "Upload profile image",
         "createProfile" : "Create profile",
         "editProfile" : "Edit profile",
         "minBio" : "The biography must be longer than 5 characters",
         "minSocial" : "The username must exceed 4 characters",
         "maxSocial" : "User cannot exceed 15 characters",
-        "tokCreated" : "No. of tokens created",
-        "tokOwned" : "No. of tokens owned",
-        "since" : "Joined Nativo NFT in:",
+        "tokCreated" : "No. of tokens created in Nativo NFT",
+        "tokOwned" : "No. of tokens owned in Nativo NFT",
+        "since" : "Profile created in:",
         "prefUsr" : "User preferences",
         "language" : "Language",
         "addNTV" : "Add my NTVs to my wallet"
+    },
+    "addToken" : {
+        "alert1-title" : "Select a collection",
+        "alert1-msg" : "You have to select the collection to which you want to add the NFT",
+        "alert2-title" : "Warning",
+        "alert2-msg" : "You can only add your NFT to a collection once, verify that you have selected the correct one",
+        "comboOpc" : "Select the collection",
+        "btnAdd" : "Add NFT",
+        "btnCol" : "Create collection",
+        "msgNoCol" : "You haven't created a collection yet, first create a collection to add your NFT"
     }
 }
