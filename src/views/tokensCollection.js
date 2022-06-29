@@ -304,7 +304,7 @@ function LightEcommerceA() {
                       <p className="text-xs md:text-lg  pb-3 text-darkgray break-words">{showMoreDescription ? Landing.descriptionCol : `${Landing.descriptionCol.substring(0, 150)}`} <button className="btn font-raleway text-xs font-bold text-blue2" onClick={() => setShowMoreDescription(!showMoreDescription)}>
                         {showMoreDescription ? `${t("tokCollection.seeLess")}` : `${t("tokCollection.seeMore")}`}</button></p>
                       :
-                      <p className="text-xs md:text-lg  pb-3 text-darkgraybreak-words">{Landing.descriptionCol == "" ? t("tokCollection.descrip") : Landing.descriptionCol}</p>
+                      <p className="text-xs md:text-lg  pb-3 text-darkgray break-words">{Landing.descriptionCol == "" ? t("tokCollection.descrip") : Landing.descriptionCol}</p>
                     }
                   </div>
                 </div>
