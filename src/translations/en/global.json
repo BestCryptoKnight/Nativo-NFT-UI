@@ -98,7 +98,8 @@
         "seeDetails" : "See Detail",
         "hasTok" : "The collection currently has no NFTs",
         "seeMore" : "...See more",
-        "seeLess" : "See Lees"
+        "seeLess" : "See Lees",
+        "search" : "Search By: Account or Title.."
     },
     "Detail" : {
         "collection" : "Collection",

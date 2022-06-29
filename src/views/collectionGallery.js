@@ -9,6 +9,7 @@ import { currencys } from "../utils/constraint";
 import { getNearContract, fromYoctoToNear, getNearAccount } from "../utils/near_interaction";
 import { useParams, useHistory } from "react-router-dom";
 
+
 import filtroimg from '../assets/landingSlider/img/filtro.png'
 import countrys from '../utils/countrysList'
 import loading from '../assets/landingSlider/img/loader.gif'
@@ -49,6 +50,13 @@ function LightEcommerceA() {
   const [firstLoad, setFirstLoad] = React.useState(true)
   const [loadMsg, setLoadMsg] = React.useState(true)
   const [trigger, settrigger] = React.useState(true);
+  const [search, setSearch] = React.useState({
+    isSearch: false,
+    skipSearch: 0,
+    searchWord: "",
+    hasMore: true
+  });
+  const [skipSearch, setSkipSearch] = React.useState(0);
   const [filtro, setfiltro] = React.useState({
     culture: "null",
     country: "null",
@@ -60,7 +68,7 @@ function LightEcommerceA() {
     items: [],
     hasMore: true
   });
-
+  
   const APIURL = process.env.REACT_APP_API_TG
 
   const handleChangePage = (e, value) => {
@@ -304,17 +312,198 @@ function LightEcommerceA() {
   }
 
     })();
-  }, []);
+  }, [trigger]);
 
+  const _handleKeyUp = async(e) => {
+    e.preventDefault();
+    let colData;
+
+    let originalSearchWord = search.searchWord;
+    let replacedString = originalSearchWord.replace(/['"]+/g,'');
+    let searchWordMap = replacedString.split(' ');
+    let filterWords =  searchWordMap.filter((word) => word !== "");
+    let searchWordJoin = filterWords.map((word, i, arr) => {
+ 
+      if (i + 1 === arr.length) {
+        return word;
+      } else {
+        return word + " & ";
+      }
+    })
+    let searchWord = searchWordJoin.join(' ');
+  
+
+
+    
+      const queryData2 = `
+         query($first: String!) 
+            {
+              collectionSearch(text: $first, skip: 0, first: 3) {
+                id
+                title
+                description
+                owner_id
+                tokenCount
+                mediaBanner
+                mediaIcon
+                collectionID
+                timestamp
+
+            }
+          }
+        `
+
+    //Declaramos el cliente
+    const client = new ApolloClient({
+      uri: APIURL,
+      cache: new InMemoryCache(),
+    })
+
+    await client
+    .query({
+      query: gql(queryData2),
+      variables: {
+        first: searchWord,
+      },
+    })
+      .then((data) => {
+        console.log('data',data);
+        colData = data.data.collectionSearch;
+      })
+      .catch((err) => {
+        console.log('err',err);
+      })
+
+      let col = colData.map((collection) => {
+        return {
+          title: collection.title,
+          owner: collection.owner_id,
+          tokenCount: collection.tokenCount,
+          description: collection.description,
+          mediaIcon: collection.mediaIcon,
+          mediaBanner: collection.mediaBanner,
+          collectionID: collection.collectionID
+        };
+      });
+
+      setCollections({
+        ...collections,
+        items: col
+      });
+
+      setSearch({searchWord: originalSearchWord, isSearch: true, skipSearch : 3, hasMore: col.length == 3 ? true : false});
+
+     
+  }
+
+  let fetchMoreSearch = async() => {
+    let colData;
+    console.log('fetchMoreSearch');
+    
+      const queryData2 = `
+         query($first: String!) 
+            {
+              collectionSearch(text: $first, skip: ${search.skipSearch}, first: 3) {
+                id
+                title
+                description
+                owner_id
+                tokenCount
+                mediaBanner
+                mediaIcon
+                collectionID
+                timestamp
+
+            }
+          }
+        `
+
+    //Declaramos el cliente
+    const client = new ApolloClient({
+      uri: APIURL,
+      cache: new InMemoryCache(),
+    })
+
+    await client
+    .query({
+      query: gql(queryData2),
+      variables: {
+        first: search.searchWord,
+      },
+    })
+      .then((data) => {
+        console.log('data',data);
+        colData = data.data.collectionSearch;
+      })
+      .catch((err) => {
+        console.log('err',err);
+      })
+
+      let col = colData.map((collection) => {
+        return {
+          title: collection.title,
+          owner: collection.owner_id,
+          tokenCount: collection.tokenCount,
+          description: collection.description,
+          mediaIcon: collection.mediaIcon,
+          mediaBanner: collection.mediaBanner,
+          collectionID: collection.collectionID
+        };
+      });
+
+      setCollections({
+        ...collections,
+        items: collections.items.concat(col)
+      });
+
+      console.log('collection', col.length);
+      setSearch({...search, skipSearch : search.skipSearch + 3, hasMore: col.length == 3 ? true : false});
+
+      console.log('search', search);
+      
+  }
+
+
+  let _cleanSearch = async() => {
+  setSearch({isSearch: false,
+    skipSearch: 0,
+    searchWord: "",
+    hasMore: true});
+    setCollections({items: [],
+      hasMore: true})
+   settrigger(!trigger);
+  }
+
+  let _handleChange = async(e)=>{
+    setSearch({...search, searchWord: e.target.value})
+  }
 return (
   <section className={"text-gray-600 body-font " + (ini && hasData ? "" : "py-64 dark:bg-darkgray")}>
-    <div className={"pt-3 mx-auto dark:bg-darkgray"}>
+    
+    <div className={"pt-3 mx-auto dark:bg-darkgray "}>
+
+      <div className="flex justify-end mr-0 md:mr-10">
+        <form onSubmit={_handleKeyUp} className="flex mx-auto md:mx-0">
+          <div className="flex  rounded-xlarge  w-full   h-[45px] mx-0   mb-2 bg-gradient-to-b p-[2px] from-yellow  to-brown ">
+            <input type="text" value={search.searchWord} onChange={_handleChange} placeholder={t("tokCollection.search")} className={` font-open-sans  flex flex-col  h-full dark:bg-white dark:text-darkgray   text-left rounded-xlarge justify-center focus-visible:outline-none focus-visible:shadow-s focus-visible:shadow-s focus-visible:shadow-brown-s w-full `} />
+          </div>
+          <button type="submit" value="Submit" className="rounded-xlarge  text-white  bg-yellow2 w-[50px] h-[45px] mx-1" >
+            <svg xmlns="http://www.w3.org/2000/svg" id="Isolation_Mode" data-name="Isolation Mode" viewBox="0 0 24 24" width="20" height="20"><path fill="currentColor" d="M18.9,16.776A10.539,10.539,0,1,0,16.776,18.9l5.1,5.1L24,21.88ZM10.5,18A7.5,7.5,0,1,1,18,10.5,7.507,7.507,0,0,1,10.5,18Z" /></svg>
+          </button>
+          <button className="rounded-xlarge  text-white  bg-yellow2 w-[50px] h-[45px] mx-1" onClick={_cleanSearch}>
+            <svg xmlns="http://www.w3.org/2000/svg" id="Outline" viewBox="0 0 24 24" width="20" height="20"><path fill="currentColor" d="M23.715,2.285a1.013,1.013,0,0,0-1.43,0L17.521,7.049l-.32-.313a5.008,5.008,0,0,0-6.429-.479A16.618,16.618,0,0,1,6.224,8.685L4.15,9.293a5.036,5.036,0,0,0-3.113,2.635A4.973,4.973,0,0,0,.9,15.947a12.95,12.95,0,0,0,12.112,8.064h.924a1.011,1.011,0,0,0,.578-.182A15.288,15.288,0,0,0,21.224,13.62a5.029,5.029,0,0,0-1.453-4.374l-.8-.784,4.747-4.747A1.013,1.013,0,0,0,23.715,2.285Zm-10.107,19.7h-.6A11.3,11.3,0,0,1,8.7,21.138l.011-.006a11.546,11.546,0,0,0,4.351-3.8l.518-.761a1.01,1.01,0,0,0-1.67-1.138l-.518.761A9.535,9.535,0,0,1,7.8,19.327l-1.251.63a10.757,10.757,0,0,1-2.583-2.57,11.625,11.625,0,0,0,4.377-2.664,1.011,1.011,0,0,0-1.414-1.446,9.617,9.617,0,0,1-3.98,2.32c-.061-.135-.127-.267-.182-.406a2.906,2.906,0,0,1,.085-2.381,3.023,3.023,0,0,1,1.864-1.578l2.073-.608a15.364,15.364,0,0,0,3.426-1.588l7.915,7.712A14.192,14.192,0,0,1,13.608,21.989Zm5.62-8.683a12.421,12.421,0,0,1-.309,1.387L11.948,7.9l0,0a3.011,3.011,0,0,1,1.755-.566,2.973,2.973,0,0,1,2.084.849l2.569,2.509A3.01,3.01,0,0,1,19.228,13.306Z" /></svg>
+          </button>
+        </form>
+
+      </div>
+
+    
       {hasData ?
         <div>
           <InfiniteScroll
             dataLength={collections.items.length}
-            next={fetchMoreData}
-            hasMore={collections.hasMore}
+            next={!search.isSearch ? fetchMoreData : fetchMoreSearch}
+            hasMore={!search.isSearch ? collections.hasMore : search.hasMore}
             loader={<h1 className="text-center w-full py-10 text-xl font-bold text-yellow2">{t("tokCollection.loading")}</h1>}
             endMessage={
               <p className="text-center w-full py-10 text-xl text-yellow2">

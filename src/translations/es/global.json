@@ -97,7 +97,8 @@
         "seeDetails" : "Ver Detalle",
         "hasTok" : "La coleccion no tiene NFTs actualmente",
         "seeMore" : "...Ver más",
-        "seeLess" : "Ver menos"
+        "seeLess" : "Ver menos",
+        "search" : "Busca por: Cuenta ó Título.."
     },
     "Detail" : {
         "collection" : "Colección",
