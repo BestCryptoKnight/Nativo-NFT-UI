@@ -18,6 +18,7 @@ import { ApolloClient, InMemoryCache, gql } from '@apollo/client'
 import { useTranslation } from "react-i18next";
 import InfiniteScroll from "react-infinite-scroll-component";
 import verifyImage from '../assets/img/Check.png';
+import { textAlign } from "@mui/system";
 
 function LightEcommerceA() {
   const [Landing, setLanding] = React.useState({
@@ -29,6 +30,8 @@ function LightEcommerceA() {
     blockchain: localStorage.getItem("blockchain"),
     tokensPerPage: 10,
     tokensPerPageNear: 15,
+    titleCol: "",
+    descriptionCol: ""
   });
   const [esconder, setesconder] = React.useState(true);
   const [counter, setcounter] = React.useState();
@@ -56,7 +59,9 @@ function LightEcommerceA() {
   let [tokens, setTokens] = React.useState({
     items: [],
     hasMore: true
-  })
+  });
+  const [showMoreTitle,setShowMoreTitle] = React.useState(false);
+  const [showMoreDescription,setShowMoreDescription] = React.useState(false);
 
   const APIURL = process.env.REACT_APP_API_TG
 
@@ -273,37 +278,51 @@ function LightEcommerceA() {
 
   return (
     <section className="text-gray-600 body-font bg-darkgray">
-      <div className={`container px-5 pt-6 mx-auto flex flex-wrap flex-col text-center items-center `}>
-        <img
-          className="object-cover h-96 w-full rounded-3xl  z-0 opacity-80 brightness-[.75] blur-sm"
-          src={`https://ipfs.io/ipfs/${Landing.bannerCol}`}
-        />
-        <img
-          className="object-cover h-48 w-48 rounded-3xl border-solid border-4 border-slate-700 z-10 -mt-96"
-          src={`https://ipfs.io/ipfs/${Landing.mediaCol}`}
-        />
-        <div className="z-10 -mt-120 w-full text-white font-raleway">
-          <div className="bg-white lg:mx-20 mx-5 text-black mt-4 pt-2 rounded-t-2xl bg-opacity-80">
-            <h1 className="lg:text-5xl text-3xl font-bold pb-4 opacity-100 stroke-gray-700">{Landing.titleCol}</h1>
-            <p className="lg:text-xl text-base px-2 pb-3 stroke-gray-700">{Landing.descriptionCol == "" ? t("tokCollection.descrip") : Landing.descriptionCol}</p>
-            <div className="grid grid-cols-1 divide-x pb-3 mx-auto stroke-gray-700">
-              <div>
-                <p className="lg:text-xl text-base pb-1 lg:text-center text-center lg:mr-5 ml-1 w-full"><b>{t("tokCollection.creator")}</b><br />{Landing.ownerCol}</p>
+      <div className={`flex flex-row  mb-10 md:mb-0  justify-center `}>
+        <div className="trending-token w-full p-5 rounded-20  ">
+          <div className=" bg-white rounded-20 ">
+            <div className="p-6 pt-3 pb-3">
+              <img
+                className="object-cover object-center rounded-xlarge h-[8rem] md:h-48  w-full bg-center"
+                src={`https://ipfs.io/ipfs/${Landing.bannerCol}`}
+              />
+            </div>
+            <div className="z-10 -mt-120 w-full text-white font-raleway">
+
+              <div className="bg-white lg:mx-20 mx-5 text-black mt-4 pt-2 md:mt-0 md:pt-0 pb-3 rounded-t-2xl bg-opacity-80">
+                <div className="flex flex-col md:flex-row">
+                  <div className="w-[120px] md:w-[200px] h-[120px] md:h-[200px]  bg-circle bg-center rounded-full border-4 border-white relative bg-cover mx-auto md:mx-0  -mt-[95px] md:-mt-[45px]" style={{ backgroundImage: `url(https://ipfs.io/ipfs/${Landing.mediaCol})` }} />
+                  
+                  <div className="px-2 mx-auto w-full md:w-3/4">
+                    {Landing.titleCol.length > 130 ?
+                      <h1 className="text-sm md:text-xl font-bold pb-4 opacity-100 stroke-gray-700 break-words break-all">{showMoreTitle ? Landing.titleCol : `${Landing.titleCol.substring(0, 130)}`} <button className="btn font-raleway text-xs font-bold text-blue2" onClick={() => setShowMoreTitle(!showMoreTitle)}>
+                        {showMoreTitle ? `${t("tokCollection.seeLess")}` : `${t("tokCollection.seeMore")}`}</button></h1>
+                      :
+                      <h1 className="text-sm md:text-2xl font-bold pb-4 opacity-100 stroke-gray-700 break-words break-all">{Landing.titleCol}</h1>
+                    }
+                    {Landing.descriptionCol.length > 150 ?
+                      <p className="text-xs md:text-lg  pb-3 stroke-gray-700 break-words">{showMoreDescription ? Landing.descriptionCol : `${Landing.descriptionCol.substring(0, 150)}`} <button className="btn font-raleway text-xs font-bold text-blue2" onClick={() => setShowMoreDescription(!showMoreDescription)}>
+                        {showMoreDescription ? `${t("tokCollection.seeLess")}` : `${t("tokCollection.seeMore")}`}</button></p>
+                      :
+                      <p className="text-xs md:text-lg  pb-3 stroke-gray-700 break-words">{Landing.descriptionCol == "" ? t("tokCollection.descrip") : Landing.descriptionCol}</p>
+                    }
+                  </div>
+                </div>
+                <div className="grid grid-cols-2 md:grid-cols-3 divide-x gap-1 bg-yellow-400 rounded-b-2xl text-darkgray lg:mx-20  mx-auto text-center bg-white bg-opacity-80">
+                  <div className="flex flex-col justify-center">
+                    <p className="lg:text-lg text-sm pb-1"><b>{t("tokCollection.noTokens")}</b></p>
+                    <p className="lg:text-base text-xs pb-1">{Landing.tokenCount}</p>
+                  </div>
+                  <div className="flex flex-col justify-center">
+                    <p className="lg:text-lg text-sm pb-1"><b>{t("tokCollection.collectionID")}</b></p>
+                    <p className="lg:text-base text-xs pb-1">{Landing.tokenCount}</p>
+                  </div>
+                  <div className="flex flex-col justify-center col-span-2 md:col-span-1">
+                    <p className="lg:text-lg text-sm pb-1"><b>{t("tokCollection.creator")}</b></p>
+                    <a href={`../profile/${Landing.ownerCol}`} className="lg:text-base text-xs pb-1 font-bold text-blue2 break-words">{Landing.ownerCol}</a>
+                  </div>
+                </div>
               </div>
-            </div>
-          </div>
-          <div className="grid grid-cols-3 divide-x gap-1 bg-yellow-400 rounded-b-2xl text-darkgray lg:mx-20 mx-5 mx-auto text-center bg-white bg-opacity-80">
-            <div className="pl-5">
-              <p className="lg:text-lg text-base pb-1"><b>{t("tokCollection.noTokens")}</b></p>
-              <p className="lg:text-base text-sm pb-1">{Landing.tokenCount}</p>
-            </div>
-            <div>
-              <p className="lg:text-lg text-base pb-1"><b>{t("tokCollection.noSale")}</b></p>
-              <p className="lg:text-base text-sm pb-1">{Landing.saleCount}</p>
-            </div>
-            <div className="pr-5">
-              <p className="lg:text-lg text-base pb-1"><b>{t("tokCollection.volSale")}</b></p>
-              <p className="lg:text-base text-sm pb-1">{Landing.saleVolume} {Landing.currency}</p>
             </div>
           </div>
         </div>
@@ -370,10 +389,10 @@ function LightEcommerceA() {
                 )
               })}
             </InfiniteScroll>
-          :
-              <div className="text-yellow2 text-2xl w-full text-center mt-6 font-bold">
+            :
+            <div className="text-yellow2 text-2xl w-full text-center mt-6 font-bold">
               <p>{t("tokCollection.hasTok")}</p>
-              </div>
+            </div>
           }
 
         </div>
