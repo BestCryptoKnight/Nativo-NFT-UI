@@ -83,7 +83,8 @@
     "tokCollection" : {
         "creator" : "Creator",
         "contract" : "Contract:",
-        "noTokens" : "No. of tokens:",
+        "noTokens" : "No. Tokens",
+        "collectionID" : "Collection ID",
         "noSale" : "No. of sales:",
         "volSale" : "Sales volume:",
         "owner" : "Owner",
@@ -95,7 +96,9 @@
         "noData" : "No NFTs Currently",
         "createdBy" : "created by",
         "seeDetails" : "See Detail",
-        "hasTok" : "The collection currently has no NFTs"
+        "hasTok" : "The collection currently has no NFTs",
+        "seeMore" : "...See more",
+        "seeLess" : "See Lees"
     },
     "Detail" : {
         "collection" : "Collection",
