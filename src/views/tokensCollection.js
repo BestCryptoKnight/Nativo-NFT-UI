@@ -295,30 +295,30 @@ function LightEcommerceA() {
                   
                   <div className="px-2 mx-auto w-full md:w-3/4">
                     {Landing.titleCol.length > 130 ?
-                      <h1 className="text-sm md:text-xl font-bold pb-4 opacity-100 stroke-gray-700 break-words break-all">{showMoreTitle ? Landing.titleCol : `${Landing.titleCol.substring(0, 130)}`} <button className="btn font-raleway text-xs font-bold text-blue2" onClick={() => setShowMoreTitle(!showMoreTitle)}>
+                      <h1 className="text-sm md:text-xl font-bold pb-4 opacity-100 text-darkgray break-words break-all">{showMoreTitle ? Landing.titleCol : `${Landing.titleCol.substring(0, 130)}`} <button className="btn font-raleway text-xs font-bold text-blue2" onClick={() => setShowMoreTitle(!showMoreTitle)}>
                         {showMoreTitle ? `${t("tokCollection.seeLess")}` : `${t("tokCollection.seeMore")}`}</button></h1>
                       :
-                      <h1 className="text-sm md:text-2xl font-bold pb-4 opacity-100 stroke-gray-700 break-words break-all">{Landing.titleCol}</h1>
+                      <h1 className="text-sm md:text-xl font-bold pb-4 opacity-100 stext-darkgray break-words break-all">{Landing.titleCol}</h1>
                     }
                     {Landing.descriptionCol.length > 150 ?
-                      <p className="text-xs md:text-lg  pb-3 stroke-gray-700 break-words">{showMoreDescription ? Landing.descriptionCol : `${Landing.descriptionCol.substring(0, 150)}`} <button className="btn font-raleway text-xs font-bold text-blue2" onClick={() => setShowMoreDescription(!showMoreDescription)}>
+                      <p className="text-xs md:text-lg  pb-3 text-darkgray break-words">{showMoreDescription ? Landing.descriptionCol : `${Landing.descriptionCol.substring(0, 150)}`} <button className="btn font-raleway text-xs font-bold text-blue2" onClick={() => setShowMoreDescription(!showMoreDescription)}>
                         {showMoreDescription ? `${t("tokCollection.seeLess")}` : `${t("tokCollection.seeMore")}`}</button></p>
                       :
-                      <p className="text-xs md:text-lg  pb-3 stroke-gray-700 break-words">{Landing.descriptionCol == "" ? t("tokCollection.descrip") : Landing.descriptionCol}</p>
+                      <p className="text-xs md:text-lg  pb-3 text-darkgraybreak-words">{Landing.descriptionCol == "" ? t("tokCollection.descrip") : Landing.descriptionCol}</p>
                     }
                   </div>
                 </div>
                 <div className="grid grid-cols-2 md:grid-cols-3 divide-x gap-1 bg-yellow-400 rounded-b-2xl text-darkgray lg:mx-20  mx-auto text-center bg-white bg-opacity-80">
                   <div className="flex flex-col justify-center">
-                    <p className="lg:text-lg text-sm pb-1"><b>{t("tokCollection.noTokens")}</b></p>
-                    <p className="lg:text-base text-xs pb-1">{Landing.tokenCount}</p>
+                    <p className="lg:text-lg text-sm pb-1 text-darkgray"><b>{t("tokCollection.noTokens")}</b></p>
+                    <p className="lg:text-base text-xs pb-1 text-darkgray">{Landing.tokenCount}</p>
                   </div>
                   <div className="flex flex-col justify-center">
-                    <p className="lg:text-lg text-sm pb-1"><b>{t("tokCollection.collectionID")}</b></p>
-                    <p className="lg:text-base text-xs pb-1">{Landing.tokenCount}</p>
+                    <p className="lg:text-lg text-sm pb-1 text-darkgray"><b>{t("tokCollection.collectionID")}</b></p>
+                    <p className="lg:text-base text-xs pb-1 text-darkgray">{Landing.tokenCount}</p>
                   </div>
                   <div className="flex flex-col justify-center col-span-2 md:col-span-1">
-                    <p className="lg:text-lg text-sm pb-1"><b>{t("tokCollection.creator")}</b></p>
+                    <p className="lg:text-lg text-sm pb-1 text-darkgray"><b>{t("tokCollection.creator")}</b></p>
                     <a href={`../profile/${Landing.ownerCol}`} className="lg:text-base text-xs pb-1 font-bold text-blue2 break-words">{Landing.ownerCol}</a>
                   </div>
                 </div>
