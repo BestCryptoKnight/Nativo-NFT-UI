@@ -216,7 +216,7 @@ function LightEcommerceB(props) {
               <img
                 alt="ecommerce"
                 className=" object-contain md:object-scale-down rounded-xlarge shadow-yellow2 lg:h-auto h-64 w-auto m-auto"
-                src={state?.data.media == "" ? defaultUser :`https://ipfs.io/ipfs/${state?.data.media}`}
+                src={state?.data.media == "" ? defaultUser :`https://ipfs.fleek.co/ipfs/${state?.data.media}`}
               />
             </div>
 

@@ -96,7 +96,14 @@ function LightEcommerceA() {
     setfiltro(c => ({ ...c, ...v }))
   }
 
+  function delay(n){
+    return new Promise(function(resolve){
+        setTimeout(resolve,n*1000);
+    });
+  }
+
   let fetchMoreData = async () => {
+    await delay(.75)
     setpageCreations(pageCreations + 1);
     //instanciar contracto
     let contract = await getNearContract();
@@ -397,6 +404,7 @@ function LightEcommerceA() {
   }
 
   let fetchMoreSearch = async() => {
+    await delay(.75)
     let colData;
     console.log('fetchMoreSearch');
     
@@ -524,13 +532,13 @@ return (
                           <div className="p-6 pt-3 pb-3">
                             <img
                               className="object-cover object-center rounded-xlarge h-[8rem] md:h-48  w-full bg-center"
-                              src={`https://ipfs.io/ipfs/${i.mediaBanner}`}
+                              src={`https://ipfs.fleek.co/ipfs/${i.mediaBanner}`}
 
                               alt={i.description}
                             />
                           </div>
 
-                          <div className="w-[70px] h-[70px]  bg-circle bg-center rounded-full border-4 border-white relative bg-cover mx-auto -mt-[45px]" style={{ backgroundImage: `url(https://ipfs.io/ipfs/${i.mediaIcon})` }} >
+                          <div className="w-[70px] h-[70px]  bg-circle bg-center rounded-full border-4 border-white relative bg-cover mx-auto -mt-[45px]" style={{ backgroundImage: `url(https://ipfs.fleek.co/ipfs/${i.mediaIcon})` }} >
                           </div>
                           <div className=" pb-3 p-6 pt-3">
 

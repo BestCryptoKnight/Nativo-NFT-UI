@@ -82,8 +82,9 @@
     "tokCollection" : {
         "creator" : "Creador",
         "contract" : "Contrato:",
-        "noTokens" : "No. de tokens:",
+        "noTokens" : "No. Tokens",
         "noSale" : "No. de ventas:",
+        "collectionID" : "ID Colección",
         "volSale" : "Vol. de venta:",
         "owner" : "Dueño",
         "load-1" : "Cargando, por favor espere",
@@ -95,6 +96,8 @@
         "createdBy" : "creado por",
         "seeDetails" : "Ver Detalle",
         "hasTok" : "La coleccion no tiene NFTs actualmente",
+        "seeMore" : "...Ver más",
+        "seeLess" : "Ver menos",
         "search" : "Busca por: Cuenta ó Título.."
     },
     "Detail" : {
