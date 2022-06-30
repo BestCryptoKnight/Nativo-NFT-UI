@@ -25,6 +25,7 @@ import flechaiz from '../assets/landingSlider/img/flechaIz.png'
 import ReactHashtag from "react-hashtag";
 import OfferModal from "../components/offerModal.component";
 import AddTokenModal from "../components/addTokenModal.component";
+import loadingGif from "../assets/img/loadingGif.gif"
 import { useTranslation } from "react-i18next";
 import Swal from 'sweetalert2'
 import { use } from "i18next";
@@ -44,6 +45,7 @@ function LightEcommerceB(props) {
   const [hasBids, setHasBids] = useState(false)
   const [creator, setCreator] = useState(false)
   const [noCollection, setNoCollection] = useState(false)
+  const [loadInfo, setLoadInfo] = useState(false)
   //es el parametro de tokenid
   const { data } = useParams();
   //es el historial de busqueda
@@ -160,6 +162,7 @@ function LightEcommerceB(props) {
           bidder = bidsData.buyer_id
           bidPrice = fromYoctoToNear(bidsData.price)
         }
+        setLoadInfo(true)
         setstate({
           ...state,
           tokens: {
@@ -407,7 +410,7 @@ function LightEcommerceB(props) {
               <img
                 alt="ecommerce"
                 className=" object-contain md:object-scale-down rounded-xlarge shadow-yellow2 lg:h-auto h-64 w-auto m-auto"
-                src={`https://ipfs.fleek.co/ipfs/${state?.jdata.image}`}
+                src={loadInfo ? `https://ipfs.fleek.co/ipfs/${state?.jdata.image}` : loadingGif}
               />
             </div>
             
