@@ -283,7 +283,7 @@ function LightEcommerceA() {
                        <img
                             alt="ecommerce"
                             className="imgaa object-cover object-center w-full h-full block"
-                            src={`https://ipfs.io/ipfs/${tokenData.image}`}
+                            src={`https://ipfs.fleek.co/ipfs/${tokenData.image}`}
                           /> 
                
                    

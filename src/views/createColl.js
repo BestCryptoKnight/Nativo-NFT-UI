@@ -358,11 +358,11 @@ function LightHeroE(props) {
           <div className={`container px-5 py-6 pt-6 mx-auto flex flex-wrap flex-col text-center items-center `}>
             <img
               className="object-cover h-96 w-full rounded-3xl  z-0 opacity-80 brightness-[.75] blur-sm"
-              src={mediaBanner == "" ? icon : `https://ipfs.io/ipfs/${mediaBanner}`}
+              src={mediaBanner == "" ? icon : `https://ipfs.fleek.co/ipfs/${mediaBanner}`}
             />
             <img
               className="object-cover h-48 w-48 rounded-3xl border-solid border-4 border-slate-700 z-10 -mt-96"
-              src={mediaIcon == "" ? banner : `https://ipfs.io/ipfs/${mediaIcon}`}
+              src={mediaIcon == "" ? banner : `https://ipfs.fleek.co/ipfs/${mediaIcon}`}
             />
             <div className="z-10 -mt-120 w-full text-white">
               <div className="bg-white lg:mx-20 mx-5 text-black mt-4 pt-2 rounded-t-2xl bg-opacity-80 rounded-xlarge">

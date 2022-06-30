@@ -407,7 +407,7 @@ function LightEcommerceB(props) {
               <img
                 alt="ecommerce"
                 className=" object-contain md:object-scale-down rounded-xlarge shadow-yellow2 lg:h-auto h-64 w-auto m-auto"
-                src={`https://ipfs.io/ipfs/${state?.jdata.image}`}
+                src={`https://ipfs.fleek.co/ipfs/${state?.jdata.image}`}
               />
             </div>
             
