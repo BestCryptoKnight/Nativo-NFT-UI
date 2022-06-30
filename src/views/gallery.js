@@ -86,7 +86,14 @@ function LightEcommerceA() {
 
   var totalTokens=0
 
+  function delay(n){
+    return new Promise(function(resolve){
+        setTimeout(resolve,n*1000);
+    });
+  }
+
   let fetchMoreData = async () => {
+    await delay(.75)
     let limit=true
     let contract = await getNearContract();
     let indexQuery

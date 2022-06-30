@@ -96,7 +96,14 @@ function LightEcommerceA() {
     setfiltro(c => ({ ...c, ...v }))
   }
 
+  function delay(n){
+    return new Promise(function(resolve){
+        setTimeout(resolve,n*1000);
+    });
+  }
+
   let fetchMoreData = async () => {
+    await delay(.75)
     setpageCreations(pageCreations + 1);
     //instanciar contracto
     let contract = await getNearContract();
@@ -397,6 +404,7 @@ function LightEcommerceA() {
   }
 
   let fetchMoreSearch = async() => {
+    await delay(.75)
     let colData;
     console.log('fetchMoreSearch');
     
