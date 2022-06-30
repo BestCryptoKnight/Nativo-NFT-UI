@@ -223,7 +223,14 @@ function LightEcommerceA() {
     })();
   }, []);
 
+  function delay(n){
+    return new Promise(function(resolve){
+        setTimeout(resolve,n*1000);
+    });
+  }
+
   let fetchMoreData = async () => {
+    await delay(.75)
     if (tokens.items.length >= Landing.tokenCount) {
       setTokens({ ...tokens, hasMore: false })
       return

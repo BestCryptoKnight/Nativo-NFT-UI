@@ -164,8 +164,14 @@ function MisTokens(props) {
     hasMoreCreations: true
   });
 
+  function delay(n){
+    return new Promise(function(resolve){
+        setTimeout(resolve,n*1000);
+    });
+  }
 
   const fetchMoreData = async () => {
+    await delay(.75)
     setpage(page + 1);
 
     let contract = await getNearContract();
@@ -233,6 +239,7 @@ function MisTokens(props) {
   };
 
   const fetchMoreDataCreator = async () => {
+    await delay(.75)
     setpageCreations(pageCreations + 1);
 
     let contract = await getNearContract();
