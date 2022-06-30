@@ -284,14 +284,14 @@ function LightEcommerceA() {
             <div className="p-6 pt-3 pb-3">
               <img
                 className="object-cover object-center rounded-xlarge h-[8rem] md:h-48  w-full bg-center"
-                src={`https://ipfs.io/ipfs/${Landing.bannerCol}`}
+                src={`https://ipfs.fleek.co/ipfs/${Landing.bannerCol}`}
               />
             </div>
             <div className="z-10 -mt-120 w-full text-white font-raleway">
 
               <div className="bg-white lg:mx-20 mx-5 text-black mt-4 pt-2 md:mt-0 md:pt-0 pb-3 rounded-t-2xl bg-opacity-80">
                 <div className="flex flex-col md:flex-row">
-                  <div className="w-[120px] md:w-[200px] h-[120px] md:h-[200px]  bg-circle bg-center rounded-full border-4 border-white relative bg-cover mx-auto md:mx-0  -mt-[95px] md:-mt-[45px]" style={{ backgroundImage: `url(https://ipfs.io/ipfs/${Landing.mediaCol})` }} />
+                  <div className="w-[120px] md:w-[200px] h-[120px] md:h-[200px]  bg-circle bg-center rounded-full border-4 border-white relative bg-cover mx-auto md:mx-0  -mt-[95px] md:-mt-[45px]" style={{ backgroundImage: `url(https://ipfs.fleek.co/ipfs/${Landing.mediaCol})` }} />
                   
                   <div className="px-2 mx-auto w-full md:w-3/4">
                     {Landing.titleCol.length > 130 ?
@@ -366,7 +366,7 @@ function LightEcommerceA() {
                             <div className="p-6 pt-3 pb-3">
                               <img
                                 className="object-cover object-center rounded-xlarge h-48 md:h-72 w-full "
-                                src={`https://ipfs.io/ipfs/${i.media}`}
+                                src={`https://ipfs.fleek.co/ipfs/${i.media}`}
 
                                 alt={i.description}
                               />

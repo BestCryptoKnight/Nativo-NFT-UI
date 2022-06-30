@@ -205,7 +205,7 @@ function MisTokens(props) {
           console.log("Esta a la venta en nativo")
         }
       })
-      fetch("https://ipfs.io/ipfs/" + tok.media).then(request => request.blob()).then(() => {
+      fetch("https://ipfs.fleek.co/ipfs/" + tok.media).then(request => request.blob()).then(() => {
 
         imgs[i] = true;
       });
@@ -273,7 +273,7 @@ function MisTokens(props) {
           console.log("Esta a la venta en nativo")
         }
       })
-      fetch("https://ipfs.io/ipfs/" + tok.media).then(request => request.blob()).then(() => {
+      fetch("https://ipfs.fleek.co/ipfs/" + tok.media).then(request => request.blob()).then(() => {
 
         imgs[i] = true;
       });
@@ -453,7 +453,7 @@ function MisTokens(props) {
               console.log("Esta a la venta en nativo")
             }
           })
-          fetch("https://ipfs.io/ipfs/" + tok.media).then(request => request.blob()).then(() => {
+          fetch("https://ipfs.fleek.co/ipfs/" + tok.media).then(request => request.blob()).then(() => {
 
             imgs[i] = true;
           });
@@ -496,7 +496,7 @@ function MisTokens(props) {
               console.log("Esta a la venta en nativo")
             }
           })
-          fetch("https://ipfs.io/ipfs/" + tok.media).then(request => request.blob()).then(() => {
+          fetch("https://ipfs.fleek.co/ipfs/" + tok.media).then(request => request.blob()).then(() => {
 
             imgs[i] = true;
           });
@@ -686,7 +686,7 @@ function MisTokens(props) {
                                     <img
                                       alt="gallery"
                                       className=" absolute inset-0 z-0 w-full h-full object-cover object-center rounded-xlarge"
-                                      src={imgs[key] ? load : "https://ipfs.io/ipfs/" + nftData.image}
+                                      src={imgs[key] ? load : "https://ipfs.fleek.co/ipfs/" + nftData.image}
                                     />
                                     <h1 className="absolute justify-center px-2 py-1 text-sm font-bold leading-none text-white dark:bg-yellow2 rounded-xlarge top-4 left-3 font-raleway">{nftData.title}</h1>
                                     <div className="px-8 py-6 relative z-10 w-full  bg-darkgray opacity-0 hover:opacity-100 hover:shadow-yellow1  rounded-xlarge ">
@@ -853,7 +853,7 @@ function MisTokens(props) {
                                   <img
                                     alt="gallery"
                                     className=" absolute inset-0 z-0 w-full h-full object-cover object-center rounded-xlarge"
-                                    src={imgs[key] ? load : "https://ipfs.io/ipfs/" + nftData.image}
+                                    src={imgs[key] ? load : "https://ipfs.fleek.co/ipfs/" + nftData.image}
                                   />
                                   <h1 className="absolute justify-center px-2 py-1 text-sm font-bold leading-none text-white dark:bg-yellow2 rounded-xlarge top-4 left-3 font-raleway">{nftData.title}</h1>
                                   <div className="px-8 py-6 relative z-10 w-full  bg-darkgray opacity-0 hover:opacity-100 hover:shadow-yellow1  rounded-xlarge ">
