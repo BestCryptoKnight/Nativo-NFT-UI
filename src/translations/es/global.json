@@ -145,6 +145,8 @@
         "btnCancel" : "Cancelar",
         "load-1" : "Cargando, por favor espere",
         "load-2" : "Aún no tienes NFTs... Crea o adquiere uno para comenzar",
+        "load-3" : "Aún no tienes creaciones",
+        "load-4" : "Aún no has creado colecciones :0",
         "putSale" : "Poner en venta",
         "cost" : "Costo",
         "transferButton": "Transferir NFT",
@@ -158,7 +160,8 @@
         "loading" : "Cargando",
         "youseenit" : "¡Bien! Ya has visto todo",
         "myTokens": "Mis Tokens",
-        "myCreations": "Mis Creaciones"
+        "myCreations": "Mis Creaciones",
+        "myCollections": "Mis Colecciones"
     },
     "CreateCol" : {
         "title" : "Nueva Colección",

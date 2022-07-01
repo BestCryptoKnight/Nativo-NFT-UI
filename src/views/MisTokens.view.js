@@ -38,18 +38,23 @@ function MisTokens(props) {
   const [chunksale, setchunksale] = React.useState(0);
   const [page, setpage] = React.useState(1);
   const [pageCreations, setpageCreations] = React.useState(1);
+  const [pageCollections, setPageCollections] = React.useState(1);
   const [trigger, settrigger] = React.useState(true);
   const [ini, setini] = React.useState(true);
   const [firstID, setFirstID] = React.useState(-1);
   const [lastID, setLastID] = React.useState(-1);
+  const [lastIDCollection, setLastIDCollection] = React.useState(-1);
   const [statePage, setStatePage] = React.useState(true)
   const [firstLoad, setFirstLoad] = React.useState(true)
   const [loadMsg, setLoadMsg] = React.useState(true)
   const [loadMsgCreations, setLoadMsgCreations] = React.useState(true)
+  const [loadMsgCollections, setLoadMsgCollections] = React.useState(true);
+  const [collections, setCollections] = React.useState(true)
   const [t, i18n] = useTranslation("global")
   const [nfts, setNfts] = useState({
     nfts: [],
     nftsCreations: [],
+    collections: [],
     page: parseInt(window.localStorage.getItem("Mypage")),
     tokensPerPage: 3,
     tokensPerPageNear: 6,
@@ -161,7 +166,8 @@ function MisTokens(props) {
   const [state, setState] = React.useState({
     items: Array.from({ length: 400 }),
     hasMore: true,
-    hasMoreCreations: true
+    hasMoreCreations: true,
+    hasMoreCollections: true
   });
 
   function delay(n){
@@ -306,6 +312,87 @@ function MisTokens(props) {
     setNfts({...nfts, nftsCreations: newValue });
 
   };
+  let fetchMoreDataCollections = async () => {
+    setPageCollections(pageCollections + 1);
+    //instanciar contracto
+    let contract = await getNearContract();
+    let account = await getNearAccount();
+    let colData;
+    const queryData = `
+          query($first: Int, $lastTokenID: Int, $account: String){
+              collections(first: $first,  orderBy: collectionID, orderDirection: desc, where: {collectionID_lt: $lastTokenID, owner_id: $account}){
+                id
+                collectionID
+                owner_id
+                title
+                timestamp
+                mediaIcon
+                mediaBanner,
+                description,
+                tokenCount
+            }
+          }
+        `
+
+    //Declaramos el cliente
+    const client = new ApolloClient({
+      uri: APIURL,
+      cache: new InMemoryCache(),
+    })
+
+    await client
+      .query({
+        query: gql(queryData),
+        variables: {
+          first: nfts.tokensPerPage,
+          lastTokenID: lastIDCollection,
+          account: account
+        },
+      })
+      .then((data) => {
+        colData = data.data.collections;
+        if (data.data.collections.length <= nfts.tokensPerPage) {
+          setState({...state, hasMoreCollections: false });
+          setLastIDCollection(parseInt(data.data.collections[data.data.collections.length - 1].collectionID))
+          return;
+        }
+
+        if (data.data.collections.length > nfts.tokensPerPage) {
+          setState({...state, hasMoreCollections: true });
+          setLastIDCollection(parseInt(data.data.collections[data.data.collections.length - 1].collectionID))
+        }
+       
+        setpage(pageCollections + 1)
+      })
+      .catch((err) => {
+        colData = 0
+      })
+
+
+      if(colData != 0 ) {
+        let col = colData.map((collection) => {
+          return {
+            title: collection.title,
+            owner: collection.owner_id,
+            tokenCount: collection.tokenCount,
+            description: collection.description,
+            mediaIcon: collection.mediaIcon,
+            mediaBanner: collection.mediaBanner,
+            collectionID: collection.collectionID
+          };
+        });
+    
+
+        setNfts({
+          ...nfts,
+          collections: nfts.collections.concat(col)
+        });
+
+      }
+      
+
+  }
+
 
 
   const history = useHistory();
@@ -523,12 +610,71 @@ function MisTokens(props) {
           };
         });
 
+        let colData;
+        let col;
+
+        const queryData = `
+        query($first: Int, $account: String){
+          collections(first: $first,  orderBy: collectionID, orderDirection: desc, where: { owner_id: $account }){
+            id
+            collectionID
+            owner_id
+            title
+            timestamp
+            mediaIcon
+            mediaBanner,
+            description,
+            tokenCount
+          }
+        }`
+
+        //Declaramos el cliente
+    const client = new ApolloClient({
+      uri: APIURL,
+      cache: new InMemoryCache(),
+    })
+
+    await client
+      .query({
+        query: gql(queryData),
+        variables: {
+          first: nfts.tokensPerPageNear,
+          account: account
+        },
+      })
+      .then((data) => {
+        //console.log("tokens data: ", data.data.tokens)
+        colData = data.data.collections
+        console.log(data.data.collections)
+        if (data.data.collections.length <= 0) {
+          setLoadMsgCollections(false)
+        }
+        setLastIDCollection(parseInt(data.data.collections[data.data.collections.length - 1].collectionID))
+      })
+      .catch((err) => {
+        //console.log('Error ferching data: ', err)
+        colData = 0
+      })
+      if(colData != 0 ) {
+         col = colData.map((collection) => {
+          return {
+            title: collection.title,
+            owner: collection.owner_id,
+            tokenCount: collection.tokenCount,
+            description: collection.description,
+            mediaIcon: collection.mediaIcon,
+            mediaBanner: collection.mediaBanner,
+            collectionID: collection.collectionID
+          };
+        });
+      }
 
         setNfts({
           ...nfts,
           nftsCreations: nftsArrCreations, 
           nfts: nftsArr,
           owner: account,
+          collections: nfts.collections.concat(col)
         });
 
 
@@ -633,7 +779,7 @@ function MisTokens(props) {
               <Tab.Group>
                 <Tab.List className="flex space-x-1 rounded-xl bg-blue-900/20 p-1">
                   <Tab
-                    key={"Creaciones"}
+                    key={"MisTokens"}
                     className={({ selected }) =>
                       classNames(
                         'w-full rounded-lg py-2.5 text-sm font-medium leading-5 ',
@@ -648,7 +794,7 @@ function MisTokens(props) {
                    
                   </Tab>
                   <Tab
-                    key={"Colecciones"}
+                    key={"Creaciones"}
                     className={({ selected }) =>
                       classNames(
                         'w-full rounded-lg py-2.5 text-sm font-medium leading-5 ',
@@ -661,10 +807,24 @@ function MisTokens(props) {
                   >
                     {t("MyNFTs.myCreations")}
                   </Tab>
+                  <Tab
+                    key={"Colecciones"}
+                    className={({ selected }) =>
+                      classNames(
+                        'w-full rounded-lg py-2.5 text-sm font-medium leading-5 ',
+                        'ring-white ring-opacity-60 ring-offset-2 ring-offset-blue-400 focus:outline-none focus:ring-2 font-raleway font-bold text-lg',
+                        selected
+                          ? 'bg-white shadow text-darkgray'
+                          : 'text-blue-100 hover:bg-white/[0.12]  text-white'
+                      )
+                    }
+                  >
+                    {t("MyNFTs.myCollections")}
+                  </Tab>
                 </Tab.List>
                 <Tab.Panels className="mt-2 bg-darkgray">
                   <Tab.Panel
-                    key={"Creaciones"}
+                    key={"MisTokens"}
                     className={classNames(
                       'rounded-xl  bg-darkgray'
                     )}
@@ -826,13 +986,17 @@ function MisTokens(props) {
                         </InfiniteScroll>
                         </li>
                         :
-                        ""}
+                        <div className="container mx-auto flex  my- md:flex-row flex-col  justify-center h-96 items-center text-3xl ">
+                          <div className="flex flex-col justify-center">
+                            <h1 className="text-center dark:text-yellow2 font-raleway">{loadMsg ? t("MyNFTs.load-1") : t("MyNFTs.load-2")}</h1>
+                          </div>
+                        </div>}
 
                     </ul>
                   </Tab.Panel>
 
                   <Tab.Panel
-                    key={"Colecciones"}
+                    key={"Creaciones"}
                     className={classNames(
                       'rounded-xl   bg-darkgray'
                     )}
@@ -909,7 +1073,89 @@ function MisTokens(props) {
                           })}
                         </div>
                       </InfiniteScroll>
-                      </li> : ""}
+                      </li> : 
+                        <div className="container mx-auto flex  my- md:flex-row flex-col  justify-center h-96 items-center text-3xl ">
+                          <div className="flex flex-col justify-center">
+                            <h1 className="text-center dark:text-yellow2 font-raleway">{loadMsgCreations ? t("MyNFTs.load-1") : t("MyNFTs.load-3")}</h1>
+                          </div>
+                        </div>
+                        }
+                    </ul>
+                  </Tab.Panel>
+
+                  <Tab.Panel
+                    key={"Colecciones"}
+                    className={classNames(
+                      'rounded-xl  bg-darkgray'
+                    )}
+                  >
+                                       <ul>
+                      {loadMsgCollections ? 
+                        <li>
+                        <InfiniteScroll
+                        dataLength={nfts.collections.length}
+                        next={fetchMoreDataCollections}
+                        hasMore={state.hasMoreCollections}
+                        loader={<h4 className="dark:text-yellow2 font-raleway">{t("MyNFTs.loading")}</h4>}
+                        endMessage={
+                          <p style={{ textAlign: "center" }} className="dark:text-yellow2 font-raleway">
+                            <b>{t("MyNFTs.youseenit")}</b>
+                          </p>
+                        }
+                      >
+                        <div className="flex flex-wrap md:m-9 mb-6">
+                          {nfts.collections.map((i, index) => {
+                            //obtenemos la data del token nft
+                            //console.log(nft)
+                            return (
+                              <div className="w-full md:w-1/2 lg:w-1/3 p-4  " key={index}>
+                                <a
+                                  href={"/collection/" + i.collectionID}
+                                >
+                                  <div className="flex flex-row  mb-10 md:mb-0  justify-center " >
+                                    <div className="trending-token w-64 md:w-80 rounded-20 hover:shadow-yellow1   hover:scale-105 ">
+                                      <div className=" bg-white rounded-20 h-[365px] md:h-[450px]">
+                                        <div className="p-6 pt-3 pb-3">
+                                          <img
+                                            className="object-cover object-center rounded-xlarge h-[8rem] md:h-48  w-full bg-center"
+                                            src={`https://ipfs.io/ipfs/${i.mediaBanner}`}
+              
+                                            alt={i.description}
+                                          />
+                                        </div>
+              
+                                        <div className="w-[70px] h-[70px]  bg-circle bg-center rounded-full border-4 border-white relative bg-cover mx-auto -mt-[45px]" style={{ backgroundImage: `url(https://ipfs.io/ipfs/${i.mediaIcon})` }} >
+                                        </div>
+                                        <div className=" pb-3 p-6 pt-3">
+              
+                                          <div className="capitalize text-black text-sm  text-ellipsis overflow-hidden whitespace-nowrap  font-raleway font-bold text-center">{i.title}</div>
+                                          <div className="h-[3.4em] text-sm  stroke-gray-700 collection-description font-raleway py-2 ">{i.description}</div>
+              
+                                          <div className="flex justify-around pt-2">
+                                            <div className="text-black text-sm font-raleway font-normal   "><span className="font-bold">Id:</span> {i.collectionID}</div>
+                                            <div className="text-black text-sm font-raleway font-normal   "><span className="font-bold"># Tokens:</span> {i.tokenCount}</div>
+              
+              
+              
+                                          </div>
+                                          <div className="rounded-xlarge  text-white  bg-yellow2 border-0 mx-auto justify-center  px-6 w-[130px] flex mx-auto my-2 p-2  text-xs font-semibold font-raleway uppercase hover:bg-brown width" >{t("tokCollection.seeDetails")}</div>
+                                        </div>
+                                        <div className=" px-6 font-raleway text-xs text-right mx-auto justify-center">{t("tokCollection.createdBy")} <a href={`profile/${i.owner}`} className="font-raleway text-xs font-bold text-blue2">{i.owner}</a></div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </a>
+                              </div>
+                            )
+                          })}
+                        </div>
+                      </InfiniteScroll>
+                      </li> : 
+                        <div className="container mx-auto flex  my- md:flex-row flex-col  justify-center h-96 items-center text-3xl ">
+                          <div className="flex flex-col justify-center">
+                            <h1 className="text-center dark:text-yellow2 font-raleway">{loadMsgCollections ? t("MyNFTs.load-1") : t("MyNFTs.load-4")}</h1>
+                          </div>
+                        </div>}
                     </ul>
                   </Tab.Panel>
                 </Tab.Panels>
@@ -926,14 +1172,6 @@ function MisTokens(props) {
                 Mostrar tokens en NEAR Wallet
               </button> */}
             </div>
-            {/* Arroj un mensaje si no hay tokens en mi pertenencia*/}
-            {nfts.nftsCreations.length > 0 ? null : (
-              <div className="container mx-auto flex  my- md:flex-row flex-col  justify-center h-96 items-center text-3xl ">
-                <div className="flex flex-col justify-center">
-                  <h1 className="text-center dark:text-yellow2 font-raleway">{loadMsgCreations ? t("MyNFTs.load-1") : t("MyNFTs.load-2")}</h1>
-                </div>
-              </div>
-            )}
           </div>
 
 
