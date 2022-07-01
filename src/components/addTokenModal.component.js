@@ -209,7 +209,7 @@ export default function AddTokenModal(props) {
                       <option key={0} value={-1}>{t('addToken.comboOpc')}</option>
                       {collectionData.length > 0 ?
                         collectionData.map((data) =>
-                          <option key={data.id} value={data.id}>{data.title}</option>
+                          <option key={data.id} value={data.id}>{data.title} - ID:{data.id}</option>
                         )
                         :
                         null}
