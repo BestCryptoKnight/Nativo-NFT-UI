@@ -299,7 +299,7 @@ function LightEcommerceB(props) {
           <img
             alt="ecommerce"
             className="lg:w-1/2 w-full lg:h-auto h-64 object-fill  object-fill md:object-scale-down  rounded"
-            src={`https://ipfs.fleek.co/ipfs/${state?.jdata.image}`}
+            src={`https://nativonft.mypinata.cloud/ipfs/${state?.jdata.image}`}
           />
           <div className="lg:w-1/2 w-full lg:pl-10 lg:py-6 mt-6 lg:mt-0">
             <h1 className="text-gray-900 text-3xl title-font font-medium mb-1 mb-6">

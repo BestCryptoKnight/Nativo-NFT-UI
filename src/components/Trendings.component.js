@@ -90,7 +90,7 @@ function Trendings() {
                       <a href="#" >
                         <img
                           className="object-cover object-center rounded-xlarge h-60 w-full "
-                          src={`https://ipfs.fleek.co/ipfs/${item.metadata.media}`}
+                          src={`https://nativonft.mypinata.cloud/ipfs/${item.metadata.media}`}
                           key={key}
                           alt={item.description}
                         />

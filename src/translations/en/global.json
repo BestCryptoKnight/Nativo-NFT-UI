@@ -146,6 +146,8 @@
         "btnCancel" : "Cancel",
         "load-1" : "Loading Please wait",
         "load-2" : "You don't have NFTs yet... Create or acquire one to get started",
+        "load-3" : "You don't have creations yet",
+        "load-4" : "You don't have collections yet :0",
         "putSale" : "Put on sale",
         "cost" : "Cost",
         "transferButton": "Transfer NFT",
@@ -159,7 +161,9 @@
         "loading" : "Loading",
         "youseenit" : "Yay! You have seen it all",
         "myTokens": "My Tokens",
-        "myCreations": "My Creations"
+        "myCreations": "My Creations",
+        "myCollections": "My Collections"
+
 
     },
     "CreateCol" : {

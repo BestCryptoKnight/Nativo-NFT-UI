@@ -223,7 +223,7 @@ function LightHeaderB(props) {
 
                         <div className="w-full  flex relative ">
                           {state.userMedia ?
-                            <div className="w-[35px] h-[35px]  bg-circle rounded-full  relative bg-cover " style={{ backgroundImage: `url(https://ipfs.fleek.co/ipfs/${state.userMedia})` }} >
+                            <div className="w-[35px] h-[35px]  bg-circle rounded-full  relative bg-cover " style={{ backgroundImage: `url(https://nativonft.mypinata.cloud/ipfs/${state.userMedia})` }} >
                               <img className="w-[20px] h-[20px]  bg-transparent rounded-full top-0 -right-3 absolute" src={verifyImage}></img>
                             </div> :
                             <div className="w-[35px] h-[35px]  bg-circle rounded-full bg-pink-2 relative">

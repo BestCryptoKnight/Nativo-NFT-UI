@@ -606,7 +606,7 @@ function LightEcommerceA() {
                               <div className="p-6 pt-3 pb-3">
                                   <img
                                     className="object-cover object-center rounded-xlarge h-48 md:h-72 w-full "
-                                    src={`https://ipfs.fleek.co/ipfs/${i.media}`}
+                                    src={`https://nativonft.mypinata.cloud/ipfs/${i.media}`}
                             
                                     alt={i.description}
                                   />
@@ -674,7 +674,7 @@ function LightEcommerceA() {
                             w-full
                             object-cover object-center
                             mb-4"
-                          src={`https://ipfs.fleek.co/ipfs/${element.media}`}
+                          src={`https://nativonft.mypinata.cloud/ipfs/${element.media}`}
                         />
 
 
