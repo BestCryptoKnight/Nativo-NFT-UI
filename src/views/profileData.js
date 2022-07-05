@@ -207,7 +207,7 @@ function LightHeroE(props) {
         formik.setFieldValue('title',userData.biography)
         formik.setFieldValue('description',userData.socialMedia)
         formik.setFieldValue("image", userData.media);
-        setmint({ ...mint, file: `https://ipfs.fleek.co/ipfs/${userData.media}` });
+        setmint({ ...mint, file: `https://nativonft.mypinata.cloud/ipfs/${userData.media}` });
       }
     })()
   },[])

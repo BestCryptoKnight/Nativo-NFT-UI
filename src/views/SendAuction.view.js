@@ -194,7 +194,7 @@ function LightHeroE(props) {
       //subimos la imagen a ipfs
       uploadFile(file.name,reader.result).then(({hash}) =>{
         // console.log(result);
-        //console.log(`https://ipfs.fleek.co/ipfs/${hash}`);
+        //console.log(`https://nativonft.mypinata.cloud/ipfs/${hash}`);
         formik.setFieldValue("image", hash);
       })
 
@@ -214,7 +214,7 @@ function LightHeroE(props) {
         //subimos la imagen a ipfs
         window.ipfs.add(reader.result).then(async (result) => {
           console.log(result);
-          console.log(`https://ipfs.fleek.co/ipfs/${result.path}`);
+          console.log(`https://nativonft.mypinata.cloud/ipfs/${result.path}`);
 
           //agregamos el cid de ipfs  en el campo image
           formik.setFieldValue("image", result.path);

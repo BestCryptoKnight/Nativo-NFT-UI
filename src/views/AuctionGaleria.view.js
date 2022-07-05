@@ -306,7 +306,7 @@ const TokenCart = ({tokenData, token, Landing ,key}) => {
                        <img
                             alt="ecommerce"
                             className="imgaa object-cover object-center w-full h-full block"
-                            src={`https://ipfs.fleek.co/ipfs/${tokenData.image}`}
+                            src={`https://nativonft.mypinata.cloud/ipfs/${tokenData.image}`}
                             //src="https://cdn.pixabay.com/photo/2021/08/25/20/42/field-6574455__340.jpg"
                           /> 
                

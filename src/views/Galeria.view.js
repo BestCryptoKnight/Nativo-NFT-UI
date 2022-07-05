@@ -383,7 +383,7 @@ function LightEcommerceA() {
                           <img
                             alt="ecommerce"
                             className="imgaa object-cover object-center w-full h-full block"
-                            src={`https://ipfs.fleek.co/ipfs/${tokenData.image}`}
+                            src={`https://nativonft.mypinata.cloud/ipfs/${tokenData.image}`}
                           />
 
 

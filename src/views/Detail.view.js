@@ -410,7 +410,7 @@ function LightEcommerceB(props) {
               <img
                 alt="ecommerce"
                 className=" object-contain md:object-scale-down rounded-xlarge shadow-yellow2 lg:h-auto h-64 w-auto m-auto"
-                src={loadInfo ? `https://ipfs.fleek.co/ipfs/${state?.jdata.image}` : loadingGif}
+                src={loadInfo ? `https://nativonft.mypinata.cloud/ipfs/${state?.jdata.image}` : loadingGif}
               />
             </div>
             
