@@ -24,7 +24,9 @@ import {
   getNearContract,
   fromYoctoToNear,
   fromNearToYocto,
-  ext_call
+  ext_call,
+  getNFTContractsByAccount,
+  getNFTByContract
 } from "../utils/near_interaction";
 import Swal from 'sweetalert2';
 import { ApolloClient, InMemoryCache, gql } from '@apollo/client'
@@ -518,6 +520,8 @@ function MisTokens(props) {
         let numNFT = await contract.nft_supply_for_owner({ account_id: account })
         let numNFTCreations = await contract.nft_supply_for_creator({ account_id: account })
 
+        await getContractsByAccount(account);
+
         if (numNFT == 0) {
           setLoadMsg(false)
         }
@@ -757,6 +761,33 @@ function MisTokens(props) {
 
   function classNames(...classes) {
     return classes.filter(Boolean).join(" ");
+  }
+
+  async function getContractsByAccount(account){
+    let contracts = await getNFTContractsByAccount(account).catch(data=>{
+      console.log('data contracts',data);
+    });
+    console.log('contratos',contracts);
+    let allNfts = [];
+
+
+    for await (let [i, contract] of contracts.entries()) {
+      console.log('dentro de contratos',contract+i);
+     let nfts = await getNFTByContract(contract, account).catch(data=>{
+        console.log('data contracts',data);
+      });
+
+      let obj = {
+        contract : contract,
+        contractNfts: nfts
+      }
+      allNfts.push(obj);
+    }
+
+    console.log('my contracts',allNfts);
+
+      
+    
   }
 
   return (
