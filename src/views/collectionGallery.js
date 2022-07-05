@@ -532,13 +532,13 @@ return (
                           <div className="p-6 pt-3 pb-3">
                             <img
                               className="object-cover object-center rounded-xlarge h-[8rem] md:h-48  w-full bg-center"
-                              src={`https://ipfs.fleek.co/ipfs/${i.mediaBanner}`}
+                              src={`https://nativonft.mypinata.cloud/ipfs/${i.mediaBanner}`}
 
                               alt={i.description}
                             />
                           </div>
 
-                          <div className="w-[70px] h-[70px]  bg-circle bg-center rounded-full border-4 border-white relative bg-cover mx-auto -mt-[45px]" style={{ backgroundImage: `url(https://ipfs.fleek.co/ipfs/${i.mediaIcon})` }} >
+                          <div className="w-[70px] h-[70px]  bg-circle bg-center rounded-full border-4 border-white relative bg-cover mx-auto -mt-[45px]" style={{ backgroundImage: `url(https://nativonft.mypinata.cloud/ipfs/${i.mediaIcon})` }} >
                           </div>
                           <div className=" pb-3 p-6 pt-3">
 
