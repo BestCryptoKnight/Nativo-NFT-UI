@@ -162,8 +162,10 @@
         "youseenit" : "Yay! You have seen it all",
         "myTokens": "My Tokens",
         "myCreations": "My Creations",
-        "myCollections": "My Collections"
-
+        "myCollections": "My Collections",
+        "allTokens": "All",
+        "contract": "Contract",
+        "notNfts": "You don't have NFT's "
 
     },
     "CreateCol" : {
