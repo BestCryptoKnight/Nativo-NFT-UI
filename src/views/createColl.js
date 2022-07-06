@@ -28,6 +28,7 @@ import {
 } from "../utils/near_interaction";
 import { Reader, uploadFile } from '../utils/fleek';
 import { Reader2, uploadFile2 } from '../utils/fleek2';
+import { uploadFileAPI } from '../utils/pinata'
 import Swal from 'sweetalert2'
 import { useTranslation } from "react-i18next";
 
@@ -163,6 +164,29 @@ function LightHeroE(props) {
    * cada vez que el usuario cambia de archivo se ejecuta esta funcion
    *
    */
+
+  async function uploadIconPinata(picture){
+    setTxtBttnIcon(t("CreateCol.btnImg-2"))
+    let file = picture.pop()
+    let cid = await uploadFileAPI(file)
+    setmint({ ...mint, fileIcon: URL.createObjectURL(file) });
+    formik.setFieldValue("image", cid);
+    setMediaIcon(cid)
+    setTxtBttnIcon(t("CreateCol.btnImg-3"))
+    console.log(cid)
+  }
+
+  async function uploadBannerPinata(picture){
+    setTxtBttnBanner(t("CreateCol.btnImg-2"))
+    let file = picture.pop()
+    let cid = await uploadFileAPI(file)
+    setmint({ ...mint, fileBanner: URL.createObjectURL(file) });
+    formik.setFieldValue("image", cid);
+    setMediaBanner(cid)
+    setTxtBttnBanner(t("CreateCol.btnImg-3"))
+    console.log(cid)
+  }
+
   function imageChangeIcon(picture) {
     setTxtBttnIcon(t("CreateCol.btnImg-2"))
     let data = picture.pop()
@@ -307,7 +331,7 @@ function LightHeroE(props) {
                       withIcon={false}
                       buttonText={txtBttnIcon}
                       buttonClassName="yellow-button"
-                      onChange={imageChangeIcon}
+                      onChange={uploadIconPinata}
                       imgExtension={['.jpg', '.gif', '.png', '.gif', '.jpeg', '.webp']}
                       maxFileSize={5242880}
                       singleImage={true}
@@ -328,7 +352,7 @@ function LightHeroE(props) {
                       withIcon={false}
                       buttonText={txtBttnBanner}
                       buttonClassName="yellow-button"
-                      onChange={imageChangeBanner}
+                      onChange={uploadBannerPinata}
                       imgExtension={['.jpg', '.gif', '.png', '.gif', '.jpeg', '.webp']}
                       maxFileSize={10485760}
                       singleImage={true}
