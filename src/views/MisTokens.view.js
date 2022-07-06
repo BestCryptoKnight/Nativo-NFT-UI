@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import Tooltip from '@mui/material/Tooltip';
 import { Tab  } from "@headlessui/react";
+import { Accordion } from 'react-bootstrap-accordion'
+import 'react-bootstrap-accordion/dist/index.css'
 //Importamos metodos de interacción con el smartcontract
 import {
   fromWEItoEth,
@@ -85,6 +87,7 @@ function MisTokens(props) {
   const [priceModal, setPriceModal] = useState({
     show: false,
   });
+  const [allNfts, setAllNfts] = useState([]);
   // const [imgs, setImgs] = useState([]);
   let imgs = [];
 
@@ -784,6 +787,8 @@ function MisTokens(props) {
       allNfts.push(obj);
     }
 
+    setAllNfts(allNfts);
+
     console.log('my contracts',allNfts);
 
       
@@ -806,15 +811,15 @@ function MisTokens(props) {
         </div>
         <div className="container px-5 pt-5 mx-auto asda">
           <div className="flex flex-col text-center w-full">
-            <div className="w-full  px-2 py-16 sm:px-0">
+            <div className="w-full  px-2 py-5 sm:px-0">
               <Tab.Group>
                 <Tab.List className="flex space-x-1 rounded-xl bg-blue-900/20 p-1">
                   <Tab
                     key={"MisTokens"}
                     className={({ selected }) =>
                       classNames(
-                        'w-full rounded-lg py-2.5 text-sm font-medium leading-5 ',
-                        'ring-white ring-opacity-60 ring-offset-2 ring-offset-blue-400 focus:outline-none focus:ring-2 font-raleway  font-bold text-lg',
+                        'w-full rounded-lg py-2.5 text-xs md:text-lg font-medium leading-5 ',
+                        'ring-white ring-opacity-60 ring-offset-2 ring-offset-blue-400 focus:outline-none focus:ring-2 font-raleway  font-bold ',
                         selected
                           ? 'bg-white shadow text-darkgray'
                           : 'text-blue-100 hover:bg-white/[0.12] text-white '
@@ -828,8 +833,8 @@ function MisTokens(props) {
                     key={"Creaciones"}
                     className={({ selected }) =>
                       classNames(
-                        'w-full rounded-lg py-2.5 text-sm font-medium leading-5 ',
-                        'ring-white ring-opacity-60 ring-offset-2 ring-offset-blue-400 focus:outline-none focus:ring-2 font-raleway font-bold text-lg',
+                        'w-full rounded-lg py-2.5 text-xs md:text-lg font-medium leading-5 ',
+                        'ring-white ring-opacity-60 ring-offset-2 ring-offset-blue-400 focus:outline-none focus:ring-2 font-raleway font-bold ',
                         selected
                           ? 'bg-white shadow text-darkgray'
                           : 'text-blue-100 hover:bg-white/[0.12]  text-white'
@@ -842,8 +847,8 @@ function MisTokens(props) {
                     key={"Colecciones"}
                     className={({ selected }) =>
                       classNames(
-                        'w-full rounded-lg py-2.5 text-sm font-medium leading-5 ',
-                        'ring-white ring-opacity-60 ring-offset-2 ring-offset-blue-400 focus:outline-none focus:ring-2 font-raleway font-bold text-lg',
+                        'w-full rounded-lg py-2.5 text-xs md:text-lg font-medium leading-5 ',
+                        'ring-white ring-opacity-60 ring-offset-2 ring-offset-blue-400 focus:outline-none focus:ring-2 font-raleway font-bold ',
                         selected
                           ? 'bg-white shadow text-darkgray'
                           : 'text-blue-100 hover:bg-white/[0.12]  text-white'
@@ -851,6 +856,20 @@ function MisTokens(props) {
                     }
                   >
                     {t("MyNFTs.myCollections")}
+                  </Tab>
+                  <Tab
+                    key={"AllTokens"}
+                    className={({ selected }) =>
+                      classNames(
+                        'w-full rounded-lg py-2.5 text-xs md:text-lg font-medium leading-5 ',
+                        'ring-white ring-opacity-60 ring-offset-2 ring-offset-blue-400 focus:outline-none focus:ring-2 font-raleway font-bold ',
+                        selected
+                          ? 'bg-white shadow text-darkgray'
+                          : 'text-blue-100 hover:bg-white/[0.12]  text-white'
+                      )
+                    }
+                  >
+                    {t("MyNFTs.allTokens")}
                   </Tab>
                 </Tab.List>
                 <Tab.Panels className="mt-2 bg-darkgray">
@@ -1189,6 +1208,51 @@ function MisTokens(props) {
                         </div>}
                     </ul>
                   </Tab.Panel>
+                  <Tab.Panel
+                    key={"AllTokens"}materi
+                    className={classNames(
+                      'rounded-xl  bg-darkgray'
+                    )}
+                  >{allNfts.length>0 ? allNfts.map((i, x) => {
+                        return (
+                          <div className="py-2" >
+                            <Accordion title={t("MyNFTs.contract")+': '+i.contract} show={x==0?true:false} className="rounded-xlarge">
+                              <div className="flex flex-wrap md:m-9 mb-6">
+                                {i.contractNfts.map((nftData, key) => {
+                                  return (
+                                    <div className="lg:w-1/3 md:w-1/2 w-full ssmw-1  px-2 lg:px-6 my-5  xlarge" key={key}>
+                                      <div className="flex relative xlarge  h-[450px]">
+                                        <img
+                                          alt="gallery"
+                                          className=" absolute inset-0 z-0 w-full h-full object-cover object-center rounded-xlarge"
+                                          src={imgs[key] ? load : "https://nativonft.mypinata.cloud/ipfs/" + nftData.metadata.media}
+                                        />
+                                        <h1 className="absolute justify-center px-2 py-1 text-sm font-bold leading-none text-white dark:bg-yellow2 rounded-xlarge top-4 left-3 right-3 font-raleway text-ellipsis overflow-hidden whitespace-nowrap">{nftData.metadata.title}</h1>
+                                        <div className="px-8 py-6 relative z-10 w-full  bg-darkgray opacity-0 hover:opacity-100 hover:shadow-yellow1  rounded-xlarge ">
+                                          <h1 className="title-font text-lg  text-gray-900 mb-3 dark:text-white dark:font-bold font-raleway font-bold text-ellipsis overflow-hidden whitespace-nowrap">
+                                            {nftData.metadata.title}
+                                          </h1>
+                                          <p className="leading-relaxed rounded-xlarge dark:text-white text-ellipsis overflow-hidden whitespace-nowrap"><b className="dark:font-bold font-raleway ">{t("MyNFTs.creator")}</b > <a></a>{nftData.creator_id}</p>
+                                          <h2
+                                            className={`tracking-widest text-sm title-font font-medium text-white font-raleway`}
+                                          >{`Token id: ${nftData.token_id}  `}</h2>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  )
+                                })}
+                                </div>
+                            </Accordion>
+                            </div>
+                        )
+                      })
+                      : 
+                      <div className="container mx-auto flex  my- md:flex-row flex-col  justify-center h-96 items-center text-3xl ">
+                          <div className="flex flex-col justify-center">
+                            <h1 className="text-center dark:text-yellow2 font-raleway">{t("MyNFTs.notNfts")}</h1>
+                          </div>
+                        </div>
+                    }</Tab.Panel>
                 </Tab.Panels>
               </Tab.Group>
             </div>
