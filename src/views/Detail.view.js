@@ -497,7 +497,7 @@ function LightEcommerceB(props) {
               <div
                 className={`flex py-2 px-2 my-2 bg-gray-50 rounded-xlarge`}
               >
-                <span className="text-black pl-3 font-bold uppercase font-raleway text-sm">{t("Detail.owner")}</span>
+                <span className="text-black pl-3 font-bold uppercase font-raleway text-sm text-ellipsis overflow-hidden">{t("Detail.owner")}</span>
                 <a className="ml-auto" href={"/profile/"+state?.owner.split('.')[0]}><span className="ml-auto text-gray-900 font-semibold pr-3 font-raleway text-sm">
                   {state?.owner}
                 </span></a>
@@ -506,7 +506,7 @@ function LightEcommerceB(props) {
               <div
                 className={`flex py-2 px-2 my-2 bg-gray-50 rounded-xlarge`}
               >
-                <span className="text-black pl-3 font-bold uppercase font-raleway text-sm">{t("Detail.creator")}</span>
+                <span className="text-black pl-3 font-bold uppercase font-raleway text-sm text-ellipsis overflow-hidden">{t("Detail.creator")}</span>
                 <a className="ml-auto" href={"/profile/"+state?.jdata.creator.split('.')[0]}><span className="ml-auto text-gray-900 font-semibold pr-3 font-raleway text-sm">
                   {state?.jdata.creator}
                 </span></a>

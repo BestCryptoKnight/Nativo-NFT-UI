@@ -84,10 +84,13 @@ function Trendings() {
                       <div className="w-[50px] h-[50px]  bg-circle rounded-full bg-pink-2 relative">
                         <img className="w-[25px] h-[25px] bg-transparent rounded-full top-0 -right-3 absolute  " src={verifyImage}></img>
                       </div>
+                      <div className="font-raleway font-bold text-black text-sm flex items-center ml-3 text-ellipsis overflow-hidden">
+                        {item.owner_id}
+                      </div>
 
                     </div>
                     <div className="p-6 pt-3 pb-3">
-                      <a href="#" >
+                      <a href={"/detail/" + item.token_id} >
                         <img
                           className="object-cover object-center rounded-xlarge h-60 w-full "
                           src={`https://nativonft.mypinata.cloud/ipfs/${item.metadata.media}`}

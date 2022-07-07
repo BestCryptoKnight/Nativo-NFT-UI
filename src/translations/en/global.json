@@ -1,6 +1,6 @@
 {
     "Landing": {
-        "title" : "Collect NTFs ",
+        "title" : "Collect NFTs ",
         "title-2" : "in NEAR Protocol",
         "subtitle" : "We update! You can now receive royalty payments from your NFT's.",
         "btnCollections" : "Collections",
@@ -204,7 +204,7 @@
         "userCont" : "This is your contract"
     },
     "MintNFT" : {
-        "maxTitle" : "Less than 30 characters",
+        "maxTitle" : "Less than 60 characters",
         "minTitle" : "Title must be longer than 5",
         "maxDesc" : "Less than 1000 characters",
         "minDesc" : "The minimum description is 5 characters",
