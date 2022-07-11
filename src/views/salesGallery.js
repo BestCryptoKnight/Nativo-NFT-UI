@@ -598,7 +598,7 @@ function LightEcommerceA() {
                                 <div className="w-[40px] h-[40px]  bg-circle rounded-full bg-pink-2 relative">
                                   <img className="w-[25px] h-[25px]  bg-transparent rounded-full top-0 -right-3 absolute" src={verifyImage}></img>
                                 </div>
-                                <div className="font-raleway font-bold text-black text-sm flex items-center ml-3">
+                                <div className="font-raleway font-bold text-black text-sm flex items-center ml-3 text-ellipsis overflow-hidden">
                                   {i.owner_id}
                                 </div>
 

@@ -15,6 +15,8 @@ import { nearSignIn } from "../utils/near_interaction";
 import verifyImage from '../assets/img/Check.png';
 import { ApolloClient, InMemoryCache, gql } from '@apollo/client';
 import defaultUser from '../assets/img/defaultUser.png'
+import closeImg from '../assets/img/x.png'
+
 function LightHeaderB(props) {
   const APIURL = process.env.REACT_APP_API_TG;
   const [state, setState] = useState({
@@ -570,7 +572,7 @@ function LightHeaderB(props) {
       </header>
       <div className={`beta ${Beta ? "h-auto" : ""}`}>
         <p>{t("Navbar.warning")}</p>
-        <img src="x.png" title="Cerrar" onClick={e => closeBeta()} />
+        <img src={closeImg} title="Cerrar" onClick={e => closeBeta()} />
       </div>
     </>
   );

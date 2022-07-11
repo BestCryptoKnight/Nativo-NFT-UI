@@ -108,7 +108,7 @@ function LightHeroE(props) {
     //validaciones
     validationSchema: Yup.object({
       title: Yup.string()
-        .max(30, t("MintNFT.maxTitle"))
+        .max(60, t("MintNFT.maxTitle"))
         .required(t("MintNFT.required"))
         .min(5, t("MintNFT.minTitle")),
 

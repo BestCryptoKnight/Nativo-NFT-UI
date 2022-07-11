@@ -222,7 +222,7 @@ function LightEcommerceB(props) {
 
             <div className="lg:w-1/2 w-full lg:pl-10 lg:mt-0">
 
-              <h1 className="text-white text-3xl text-center title-font font-bold mb-3 font-raleway">
+              <h1 className="text-white text-3xl text-center title-font font-bold mb-3 font-raleway text-ellipsis overflow-hidden">
                 {state?.data.account}
               </h1>
 

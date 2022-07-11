@@ -80,14 +80,17 @@ function Trendings() {
                 <div className="flex flex-row md:w-1/3 w-5/6 mb-10 md:mb-0  justify-center" key={key}>
                   <div className="trending-token rounded-xlarge">
                   <div className="max-w-xs w-72 bg-white rounded-xlarge border">
-                    <div className="w-full m-5 mb-0 flex relative ">
+                    <div className="w-full p-6 mb-0 flex relative ">
                       <div className="w-[50px] h-[50px]  bg-circle rounded-full bg-pink-2 relative">
                         <img className="w-[25px] h-[25px] bg-transparent rounded-full top-0 -right-3 absolute  " src={verifyImage}></img>
+                      </div>
+                      <div className="font-raleway font-bold text-black text-sm flex items-center ml-3 text-ellipsis overflow-hidden">
+                        {item.owner_id}
                       </div>
 
                     </div>
                     <div className="p-6 pt-3 pb-3">
-                      <a href="#" >
+                      <a href={"/detail/" + item.token_id} >
                         <img
                           className="object-cover object-center rounded-xlarge h-60 w-full "
                           src={`https://nativonft.mypinata.cloud/ipfs/${item.metadata.media}`}

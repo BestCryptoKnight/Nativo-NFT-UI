@@ -28,7 +28,7 @@
         "steps-sell": "Vende tus NFTs",
         "steps-title" : "Crea tus NFTs",
         "trending-title" : "Tendencias en nativo",
-        "trending-buy" : "Comprar"
+        "trending-buy" : "Ver detalle"
     },
     "Navbar" : {
         "collections" : "Colecciones",
@@ -201,7 +201,7 @@
         "userCont" : "Este es tu contrato"
     },
     "MintNFT" : {
-        "maxTitle" : "Menos de 30 caracteres",
+        "maxTitle" : "Menos de 60 caracteres",
         "minTitle" : "El titulo debe longitud mayor a 5",
         "maxDesc" : "Menos de 1000 caracteres",
         "minDesc" : "La descripción minimo es de 5 caracteres",
