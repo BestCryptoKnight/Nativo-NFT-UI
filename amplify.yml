@@ -4,8 +4,8 @@ applications:
       phases:
         preBuild:
           commands:
-            - nvm install 12.21.0
-            - nvm use 12.21.0
+            - nvm install 16.14.2
+            - nvm use 16.14.2
             - npm install
         build:
           commands:
@@ -16,6 +16,8 @@ applications:
             - REACT_APP_FEE_CREATE_COL=${REACT_APP_FEE_CREATE_COL}
             - REACT_APP_FEE_CREATE_NFT=${REACT_APP_FEE_CREATE_NFT}
             - REACT_APP_FEE_OFFERS=${REACT_APP_FEE_OFFERS}
+            - REACT_APP_PINATA_API_KEY=${REACT_APP_PINATA_API_KEY}
+            - REACT_APP_PINATA_API_SECRET=${REACT_APP_PINATA_API_SECRET}
             - npm run build-prod-tailwind
             - npm run build
       artifacts:
