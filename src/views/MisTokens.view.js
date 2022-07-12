@@ -34,6 +34,7 @@ import Swal from 'sweetalert2';
 import { ApolloClient, InMemoryCache, gql } from '@apollo/client'
 import { useTranslation } from "react-i18next";
 import InfiniteScroll from 'react-infinite-scroll-component';
+import SearchNftsModal from "../components/searchNftsModal.component";
 
 function MisTokens(props) {
   //Hooks para el manejo de estados
@@ -80,6 +81,10 @@ function MisTokens(props) {
     show: false,
   });
 
+  const [searchNftsModal, setSearchNftsModal] = useState({
+    show: false,
+  });
+
   const [approvalModal, setApprovalModal] = useState({
     show: false,
   });
@@ -87,7 +92,7 @@ function MisTokens(props) {
   const [priceModal, setPriceModal] = useState({
     show: false,
   });
-  const [allNfts, setAllNfts] = useState([]);
+  const [allNfts, setAllNfts] = useState({nfts:[],contracts:[]});
   // const [imgs, setImgs] = useState([]);
   let imgs = [];
 
@@ -139,6 +144,18 @@ function MisTokens(props) {
       change: setPriceModal,
       buttonName: 'X',
       tokenId: 'hardcoded'
+    })
+  }
+
+  async function searchNftsByID() {
+    setSearchNftsModal({
+      show: true,
+      title: "BUSCAR NFT POR ID",
+      loading: false,
+      disabled: false,
+      change: setSearchNftsModal,
+      buttonName: 'X',
+      contracts: allNfts.contracts
     })
   }
 
@@ -523,7 +540,7 @@ function MisTokens(props) {
         let numNFT = await contract.nft_supply_for_owner({ account_id: account })
         let numNFTCreations = await contract.nft_supply_for_creator({ account_id: account })
 
-        await getContractsByAccount(account);
+        await getContractsByAccount(account);//
 
         if (numNFT == 0) {
           setLoadMsg(false)
@@ -769,8 +786,10 @@ function MisTokens(props) {
   async function getContractsByAccount(account){
     let contracts = await getNFTContractsByAccount(account).catch(data=>{
       console.log('data contracts',data);
+      
     });
     console.log('contratos',contracts);
+    
     let allNfts = [];
 
 
@@ -784,12 +803,11 @@ function MisTokens(props) {
         contract : contract,
         contractNfts: nfts
       }
+
       allNfts.push(obj);
     }
 
-    setAllNfts(allNfts);
-
-    console.log('my contracts',allNfts);
+    setAllNfts({nfts: allNfts, contracts: contracts});
 
       
     
@@ -1213,7 +1231,16 @@ function MisTokens(props) {
                     className={classNames(
                       'rounded-xl  bg-darkgray'
                     )}
-                  >{allNfts.length>0 ? allNfts.map((i, x) => {
+                  >
+                    <div>
+                    <button
+                      type="submit"
+                      className={` mt-12 w-full rounded-xlarge  dark:text-white  bg-yellow2 border-0 py-2 px-6 focus:outline-none hover:bg-orange  text-lg font-open-sans `}
+                      onClick={()=>{searchNftsByID()}}
+                    >
+                    {t("MyNFTs.searchNftById")}
+                    </button>
+                    {allNfts.nfts.length>0 ? allNfts.nfts.map((i, x) => {
                         return (
                           <div className="py-2" >
                             <Accordion title={t("MyNFTs.contract")+': '+i.contract} show={x==0?true:false} className="rounded-xlarge">
@@ -1252,7 +1279,8 @@ function MisTokens(props) {
                             <h1 className="text-center dark:text-yellow2 font-raleway">{t("MyNFTs.notNfts")}</h1>
                           </div>
                         </div>
-                    }</Tab.Panel>
+                    }
+                    </div></Tab.Panel>
                 </Tab.Panels>
               </Tab.Group>
             </div>
@@ -1282,6 +1310,7 @@ function MisTokens(props) {
         <TransferModal {...transferModal} />
 
         <PriceModal  {...priceModal} />
+        <SearchNftsModal {...searchNftsModal}/>
       </section>
     </>
   );
