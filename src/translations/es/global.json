@@ -164,7 +164,8 @@
         "myCollections": "Mis Colecciones",
         "allTokens": "Todos",
         "contract": "Contrato",
-        "notNfts": "No tienes NFT's"
+        "notNfts": "No tienes NFT's",
+        "searchNftById": "Buscar NFT por ID"
     },
     "CreateCol" : {
         "title" : "Nueva Colección",
@@ -298,5 +299,9 @@
         "btnAdd" : "Agregar NFT",
         "btnCol" : "Crear colección",
         "msgNoCol" : "Aun no has creado una coleccion, primero crea una coleccion para agregar tu NFT"
+    },
+    "searchNftById" : {
+        "contract" : "Contrato",
+        "results" : "Resultados"
     }
 }

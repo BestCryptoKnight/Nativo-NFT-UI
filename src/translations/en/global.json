@@ -165,7 +165,8 @@
         "myCollections": "My Collections",
         "allTokens": "All",
         "contract": "Contract",
-        "notNfts": "You don't have NFT's "
+        "notNfts": "You don't have NFT's ",
+        "searchNftById": "Search NFT by ID"
 
     },
     "CreateCol" : {
@@ -300,5 +301,9 @@
         "btnAdd" : "Add NFT",
         "btnCol" : "Create collection",
         "msgNoCol" : "You haven't created a collection yet, first create a collection to add your NFT"
+    },
+    "searchNftById" : {
+        "contract" : "Contract",
+        "results" : "Results"
     }
 }
