@@ -223,3 +223,17 @@ export async function getNFTByContract(contract_id, owner_account_id) {
     return [];
   }
 }
+
+export async function getNFTById(nft_contract_id, nft_id,owner_account_id) {
+  const near = (process.env.REACT_APP_NEAR_ENV == "mainnet" ? await connect(config.mainnet) : await connect(config.testnet))
+  const wallet = new WalletConnection(near);
+  const contract = new Contract(wallet.account(), nft_contract_id, {
+    viewMethods: ["nft_token"],
+    sender: wallet.account(),
+  });
+
+  const params = { token_id: nft_id, account_id: owner_account_id };
+  let result = await contract.nft_token(params);
+
+  return result;
+}
