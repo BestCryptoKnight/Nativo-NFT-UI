@@ -79,3 +79,6 @@
   scrollbar-width: none;  /* Firefox */
 }
 
+.overflow-modal{
+  overflow: hidden;
+}
