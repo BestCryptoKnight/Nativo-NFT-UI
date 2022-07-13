@@ -34,21 +34,14 @@ export default function SearchNftsModal(props) {
     }),
     //Metodo para el boton ofertar del formulario
     onSubmit: async (value) => {
-      console.log('value',value);
-      console.log('props', props);
-      console.log('state',state);
       let allNFTS=[];
       let account = await getNearAccount();
       for await (let contract of props.contracts){
-        console.log(contract);
-        console.log(value);
         let searchedNfts = await getNFTById(contract, value.nftID, state.account);
-        console.log('searchedNfts',searchedNfts);
         if(searchedNfts !== null && searchedNfts.owner_id == state.account){allNFTS.push({...searchedNfts,contract:contract})}
         
       }
       setState({...state, nftsSearched: allNFTS, account : account})
-      console.log('allnfts',allNFTS);
     }
   });
 
@@ -62,10 +55,10 @@ export default function SearchNftsModal(props) {
   return (
     props.show && (
       <>
-        <div className="  justify-center items-center flex overflow-y-scroll overflow-x-hidden  fixed inset-0 z-50 outline-none focus:outline-none rounded-xlarge">
-          <div className="w-9/12 h-3/4 mb-6  rounded-xlarge ">
+        <div className="flex justify-center items-center overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none">
+          <div className="w-9/12  rounded-xlarge ">
             {/*content*/}
-            <div className="rounded-xlarge h-3/4 shadow-lg  flex flex-col  bg-white outline-none focus:outline-none">
+            <div className="rounded-xlarge  shadow-lg  flex flex-col  bg-white outline-none focus:outline-none">
               {/*header*/}
 
               <div
@@ -76,7 +69,10 @@ export default function SearchNftsModal(props) {
                   type="button"
                   disabled={props.disabled}
                   onClick={() => {
+                    setState({...state,nftsSearched: []});
+                    formik.resetForm()
                     props.change({ show: false });
+                    document.body.classList.remove('overflow-modal');
                   }}
                 >
                   {props.buttonName}
@@ -84,7 +80,7 @@ export default function SearchNftsModal(props) {
                 </div>
               </div>
 
-              <div className="relative p-6 flex flex-col h-3/4 ">
+              <div className="relative p-6 flex flex-col max-h-[400px] ">
 
                 {/* Formulario para ofertar */}
                 <form
@@ -105,14 +101,14 @@ export default function SearchNftsModal(props) {
                         type="text"
                         id="nftID"
                         name="nftID"
-                        className={`border-none w-2/3 md:w-3/4 bg-gray-100 bg-opacity-50 rounded   focus:bg-transparent  text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out-yellow-500 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out font-raleway`}
+                        className={`border-none w-2/3 md:w-3/4 bg-gray-100 bg-opacity-50 rounded   focus:bg-gray-100   text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out-yellow-500 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out font-raleway`}
                         {...formik.getFieldProps("nftID")}
                       />
                       <button
                           className={`bg-yellow2 w-1/3 md:w-1/4  text-white active:bg-brown font-bold uppercase text-sm md:px-6 md:py-3 rounded-full shadow hover:shadow-lg outline-none focus:outline-none  ease-linear transition-all duration-150  `}
                           type="submit"
                         >
-                          <span className="font-raleway text-xs md:text-sm">BUSCAR</span>
+                          <span className="font-raleway text-xs md:text-sm">{t("searchNftById.search")}</span>
                         </button>
                     </div>
 
@@ -122,11 +118,11 @@ export default function SearchNftsModal(props) {
 
                 </form>
                 {/* Boton de cancelar en la ventana modal */}
-                <div className="flex flex-wrap h-3/4 overflow-y-scroll no-scrollbar">
+                <div className="flex flex-wrap  overflow-y-scroll no-scrollbar">
                   {state.nftsSearched.length > 0 ? state.nftsSearched.map((nftData,key)=>{
                         return (
                           <div className="lg:w-1/3 md:w-1/2 w-full ssmw-1  px-2 lg:px-6 my-5  xlarge" key={key}>
-                          <div className="flex relative xlarge  h-[450px]">
+                          <div className="flex relative xlarge  h-[300px]">
                             <img
                               alt="gallery"
                               className=" absolute inset-0 z-0 w-full h-full object-cover object-center rounded-xlarge"
@@ -150,7 +146,7 @@ export default function SearchNftsModal(props) {
                         )
                   }) :
                   <div>
-                    <p className="text-darkgray p-6 text-base md:text-lg">{t("searchNftById.results")} :</p>
+                    <p className="text-darkgray p-6 text-base md:text-lg">{t("searchNftById.results")}</p>
                   </div>
                   
                   }
