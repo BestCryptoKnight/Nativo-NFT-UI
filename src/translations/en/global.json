@@ -304,6 +304,7 @@
     },
     "searchNftById" : {
         "contract" : "Contract",
-        "results" : "Results"
+        "results" : "Search for some NFT ID",
+        "search": "Search"
     }
 }
