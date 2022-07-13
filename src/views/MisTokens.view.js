@@ -148,9 +148,10 @@ function MisTokens(props) {
   }
 
   async function searchNftsByID() {
+    document.body.classList.add('overflow-modal');
     setSearchNftsModal({
       show: true,
-      title: "BUSCAR NFT POR ID",
+      title:  t("MyNFTs.searchNftById"),
       loading: false,
       disabled: false,
       change: setSearchNftsModal,
