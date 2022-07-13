@@ -1234,6 +1234,7 @@ function MisTokens(props) {
                     )}
                   >
                     <div>
+                    {allNfts.nfts.length>0 ?
                     <button
                       type="submit"
                       className={` mt-12 w-full rounded-xlarge  dark:text-white  bg-yellow2 border-0 py-2 px-6 focus:outline-none hover:bg-orange  text-lg font-open-sans `}
@@ -1241,6 +1242,7 @@ function MisTokens(props) {
                     >
                     {t("MyNFTs.searchNftById")}
                     </button>
+                     : ""}
                     {allNfts.nfts.length>0 ? allNfts.nfts.map((i, x) => {
                         return (
                           <div className="py-2" >
