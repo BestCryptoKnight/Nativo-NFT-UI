@@ -162,8 +162,11 @@
         "youseenit" : "Yay! You have seen it all",
         "myTokens": "My Tokens",
         "myCreations": "My Creations",
-        "myCollections": "My Collections"
-
+        "myCollections": "My Collections",
+        "allTokens": "All",
+        "contract": "Contract",
+        "notNfts": "You don't have NFT's ",
+        "searchNftById": "Search NFT by ID"
 
     },
     "CreateCol" : {
@@ -298,5 +301,10 @@
         "btnAdd" : "Add NFT",
         "btnCol" : "Create collection",
         "msgNoCol" : "You haven't created a collection yet, first create a collection to add your NFT"
+    },
+    "searchNftById" : {
+        "contract" : "Contract",
+        "results" : "Search for some NFT ID",
+        "search": "Search"
     }
 }

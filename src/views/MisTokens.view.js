@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import Tooltip from '@mui/material/Tooltip';
 import { Tab  } from "@headlessui/react";
+import { Accordion } from 'react-bootstrap-accordion'
+import 'react-bootstrap-accordion/dist/index.css'
 //Importamos metodos de interacción con el smartcontract
 import {
   fromWEItoEth,
@@ -24,12 +26,15 @@ import {
   getNearContract,
   fromYoctoToNear,
   fromNearToYocto,
-  ext_call
+  ext_call,
+  getNFTContractsByAccount,
+  getNFTByContract
 } from "../utils/near_interaction";
 import Swal from 'sweetalert2';
 import { ApolloClient, InMemoryCache, gql } from '@apollo/client'
 import { useTranslation } from "react-i18next";
 import InfiniteScroll from 'react-infinite-scroll-component';
+import SearchNftsModal from "../components/searchNftsModal.component";
 
 function MisTokens(props) {
   //Hooks para el manejo de estados
@@ -76,6 +81,10 @@ function MisTokens(props) {
     show: false,
   });
 
+  const [searchNftsModal, setSearchNftsModal] = useState({
+    show: false,
+  });
+
   const [approvalModal, setApprovalModal] = useState({
     show: false,
   });
@@ -83,6 +92,7 @@ function MisTokens(props) {
   const [priceModal, setPriceModal] = useState({
     show: false,
   });
+  const [allNfts, setAllNfts] = useState({nfts:[],contracts:[]});
   // const [imgs, setImgs] = useState([]);
   let imgs = [];
 
@@ -134,6 +144,19 @@ function MisTokens(props) {
       change: setPriceModal,
       buttonName: 'X',
       tokenId: 'hardcoded'
+    })
+  }
+
+  async function searchNftsByID() {
+    document.body.classList.add('overflow-modal');
+    setSearchNftsModal({
+      show: true,
+      title:  t("MyNFTs.searchNftById"),
+      loading: false,
+      disabled: false,
+      change: setSearchNftsModal,
+      buttonName: 'X',
+      contracts: allNfts.contracts
     })
   }
 
@@ -518,6 +541,8 @@ function MisTokens(props) {
         let numNFT = await contract.nft_supply_for_owner({ account_id: account })
         let numNFTCreations = await contract.nft_supply_for_creator({ account_id: account })
 
+        await getContractsByAccount(account);//
+
         if (numNFT == 0) {
           setLoadMsg(false)
         }
@@ -759,6 +784,36 @@ function MisTokens(props) {
     return classes.filter(Boolean).join(" ");
   }
 
+  async function getContractsByAccount(account){
+    let contracts = await getNFTContractsByAccount(account).catch(data=>{
+      console.log('data contracts',data);
+      
+    });
+    console.log('contratos',contracts);
+    
+    let allNfts = [];
+
+
+    for await (let [i, contract] of contracts.entries()) {
+      console.log('dentro de contratos',contract+i);
+     let nfts = await getNFTByContract(contract, account).catch(data=>{
+        console.log('data contracts',data);
+      });
+
+      let obj = {
+        contract : contract,
+        contractNfts: nfts
+      }
+
+      allNfts.push(obj);
+    }
+
+    setAllNfts({nfts: allNfts, contracts: contracts});
+
+      
+    
+  }
+
   return (
     <>
       <section className="text-gray-600 body-font  dark:bg-darkgray ">
@@ -775,15 +830,15 @@ function MisTokens(props) {
         </div>
         <div className="container px-5 pt-5 mx-auto asda">
           <div className="flex flex-col text-center w-full">
-            <div className="w-full  px-2 py-16 sm:px-0">
+            <div className="w-full  px-2 py-5 sm:px-0">
               <Tab.Group>
                 <Tab.List className="flex space-x-1 rounded-xl bg-blue-900/20 p-1">
                   <Tab
                     key={"MisTokens"}
                     className={({ selected }) =>
                       classNames(
-                        'w-full rounded-lg py-2.5 text-sm font-medium leading-5 ',
-                        'ring-white ring-opacity-60 ring-offset-2 ring-offset-blue-400 focus:outline-none focus:ring-2 font-raleway  font-bold text-lg',
+                        'w-full rounded-lg py-2.5 text-xs md:text-lg font-medium leading-5 ',
+                        'ring-white ring-opacity-60 ring-offset-2 ring-offset-blue-400 focus:outline-none focus:ring-2 font-raleway  font-bold ',
                         selected
                           ? 'bg-white shadow text-darkgray'
                           : 'text-blue-100 hover:bg-white/[0.12] text-white '
@@ -797,8 +852,8 @@ function MisTokens(props) {
                     key={"Creaciones"}
                     className={({ selected }) =>
                       classNames(
-                        'w-full rounded-lg py-2.5 text-sm font-medium leading-5 ',
-                        'ring-white ring-opacity-60 ring-offset-2 ring-offset-blue-400 focus:outline-none focus:ring-2 font-raleway font-bold text-lg',
+                        'w-full rounded-lg py-2.5 text-xs md:text-lg font-medium leading-5 ',
+                        'ring-white ring-opacity-60 ring-offset-2 ring-offset-blue-400 focus:outline-none focus:ring-2 font-raleway font-bold ',
                         selected
                           ? 'bg-white shadow text-darkgray'
                           : 'text-blue-100 hover:bg-white/[0.12]  text-white'
@@ -811,8 +866,8 @@ function MisTokens(props) {
                     key={"Colecciones"}
                     className={({ selected }) =>
                       classNames(
-                        'w-full rounded-lg py-2.5 text-sm font-medium leading-5 ',
-                        'ring-white ring-opacity-60 ring-offset-2 ring-offset-blue-400 focus:outline-none focus:ring-2 font-raleway font-bold text-lg',
+                        'w-full rounded-lg py-2.5 text-xs md:text-lg font-medium leading-5 ',
+                        'ring-white ring-opacity-60 ring-offset-2 ring-offset-blue-400 focus:outline-none focus:ring-2 font-raleway font-bold ',
                         selected
                           ? 'bg-white shadow text-darkgray'
                           : 'text-blue-100 hover:bg-white/[0.12]  text-white'
@@ -820,6 +875,20 @@ function MisTokens(props) {
                     }
                   >
                     {t("MyNFTs.myCollections")}
+                  </Tab>
+                  <Tab
+                    key={"AllTokens"}
+                    className={({ selected }) =>
+                      classNames(
+                        'w-full rounded-lg py-2.5 text-xs md:text-lg font-medium leading-5 ',
+                        'ring-white ring-opacity-60 ring-offset-2 ring-offset-blue-400 focus:outline-none focus:ring-2 font-raleway font-bold ',
+                        selected
+                          ? 'bg-white shadow text-darkgray'
+                          : 'text-blue-100 hover:bg-white/[0.12]  text-white'
+                      )
+                    }
+                  >
+                    {t("MyNFTs.allTokens")}
                   </Tab>
                 </Tab.List>
                 <Tab.Panels className="mt-2 bg-darkgray">
@@ -1158,6 +1227,63 @@ function MisTokens(props) {
                         </div>}
                     </ul>
                   </Tab.Panel>
+                  <Tab.Panel
+                    key={"AllTokens"}materi
+                    className={classNames(
+                      'rounded-xl  bg-darkgray'
+                    )}
+                  >
+                    <div>
+                    {allNfts.nfts.length>0 ?
+                    <button
+                      type="submit"
+                      className={` mt-12 w-full rounded-xlarge  dark:text-white  bg-yellow2 border-0 py-2 px-6 focus:outline-none hover:bg-orange  text-lg font-open-sans `}
+                      onClick={()=>{searchNftsByID()}}
+                    >
+                    {t("MyNFTs.searchNftById")}
+                    </button>
+                     : ""}
+                    {allNfts.nfts.length>0 ? allNfts.nfts.map((i, x) => {
+                        return (
+                          <div className="py-2" >
+                            <Accordion title={t("MyNFTs.contract")+': '+i.contract} show={x==0?true:false} className="rounded-xlarge">
+                              <div className="flex flex-wrap md:m-9 mb-6">
+                                {i.contractNfts.map((nftData, key) => {
+                                  return (
+                                    <div className="lg:w-1/3 md:w-1/2 w-full ssmw-1  px-2 lg:px-6 my-5  xlarge" key={key}>
+                                      <div className="flex relative xlarge  h-[450px]">
+                                        <img
+                                          alt="gallery"
+                                          className=" absolute inset-0 z-0 w-full h-full object-cover object-center rounded-xlarge"
+                                          src={imgs[key] ? load : "https://nativonft.mypinata.cloud/ipfs/" + nftData.metadata.media}
+                                        />
+                                        <h1 className="absolute justify-center px-2 py-1 text-sm font-bold leading-none text-white dark:bg-yellow2 rounded-xlarge top-4 left-3 right-3 font-raleway text-ellipsis overflow-hidden whitespace-nowrap">{nftData.metadata.title}</h1>
+                                        <div className="px-8 py-6 relative z-10 w-full  bg-darkgray opacity-0 hover:opacity-100 hover:shadow-yellow1  rounded-xlarge ">
+                                          <h1 className="title-font text-lg  text-gray-900 mb-3 dark:text-white dark:font-bold font-raleway font-bold text-ellipsis overflow-hidden whitespace-nowrap">
+                                            {nftData.metadata.title}
+                                          </h1>
+                                          <p className="leading-relaxed rounded-xlarge dark:text-white text-ellipsis overflow-hidden whitespace-nowrap"><b className="dark:font-bold font-raleway ">{t("MyNFTs.creator")}</b > <a></a>{nftData.creator_id}</p>
+                                          <h2
+                                            className={`tracking-widest text-sm title-font font-medium text-white font-raleway`}
+                                          >{`Token id: ${nftData.token_id}  `}</h2>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  )
+                                })}
+                                </div>
+                            </Accordion>
+                            </div>
+                        )
+                      })
+                      : 
+                      <div className="container mx-auto flex  my- md:flex-row flex-col  justify-center h-96 items-center text-3xl ">
+                          <div className="flex flex-col justify-center">
+                            <h1 className="text-center dark:text-yellow2 font-raleway">{t("MyNFTs.notNfts")}</h1>
+                          </div>
+                        </div>
+                    }
+                    </div></Tab.Panel>
                 </Tab.Panels>
               </Tab.Group>
             </div>
@@ -1187,6 +1313,7 @@ function MisTokens(props) {
         <TransferModal {...transferModal} />
 
         <PriceModal  {...priceModal} />
+        <SearchNftsModal {...searchNftsModal}/>
       </section>
     </>
   );
