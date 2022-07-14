@@ -1228,7 +1228,7 @@ function MisTokens(props) {
                     </ul>
                   </Tab.Panel>
                   <Tab.Panel
-                    key={"AllTokens"}materi
+                    key={"AllTokens"}
                     className={classNames(
                       'rounded-xl  bg-darkgray'
                     )}
@@ -1244,37 +1244,41 @@ function MisTokens(props) {
                     </button>
                      : ""}
                     {allNfts.nfts.length>0 ? allNfts.nfts.map((i, x) => {
-                        return (
-                          <div className="py-2" >
-                            <Accordion title={t("MyNFTs.contract")+': '+i.contract} show={x==0?true:false} className="rounded-xlarge">
-                              <div className="flex flex-wrap md:m-9 mb-6">
-                                {i.contractNfts.map((nftData, key) => {
-                                  return (
-                                    <div className="lg:w-1/3 md:w-1/2 w-full ssmw-1  px-2 lg:px-6 my-5  xlarge" key={key}>
-                                      <div className="flex relative xlarge  h-[450px]">
-                                        <img
-                                          alt="gallery"
-                                          className=" absolute inset-0 z-0 w-full h-full object-cover object-center rounded-xlarge"
-                                          src={imgs[key] ? load : "https://nativonft.mypinata.cloud/ipfs/" + nftData.metadata.media}
-                                        />
-                                        <h1 className="absolute justify-center px-2 py-1 text-sm font-bold leading-none text-white dark:bg-yellow2 rounded-xlarge top-4 left-3 right-3 font-raleway text-ellipsis overflow-hidden whitespace-nowrap">{nftData.metadata.title}</h1>
-                                        <div className="px-8 py-6 relative z-10 w-full  bg-darkgray opacity-0 hover:opacity-100 hover:shadow-yellow1  rounded-xlarge ">
-                                          <h1 className="title-font text-lg  text-gray-900 mb-3 dark:text-white dark:font-bold font-raleway font-bold text-ellipsis overflow-hidden whitespace-nowrap">
-                                            {nftData.metadata.title}
-                                          </h1>
-                                          <p className="leading-relaxed rounded-xlarge dark:text-white text-ellipsis overflow-hidden whitespace-nowrap"><b className="dark:font-bold font-raleway ">{t("MyNFTs.creator")}</b > <a></a>{nftData.creator_id}</p>
-                                          <h2
-                                            className={`tracking-widest text-sm title-font font-medium text-white font-raleway`}
-                                          >{`Token id: ${nftData.token_id}  `}</h2>
+                      return (
+                        <div>
+                          {i.contractNfts.length > 0 ?
+                            <div className="py-2" >
+                              <Accordion title={t("MyNFTs.contract") + ': ' + i.contract} show={x == 0 ? true : false} className="rounded-xlarge">
+                                <div className="flex flex-wrap md:m-9 mb-6">
+                                  {i.contractNfts.map((nftData, key) => {
+                                    return (
+                                      <div className="lg:w-1/3 md:w-1/2 w-full ssmw-1  px-2 lg:px-6 my-5  xlarge" key={key}>
+                                        <div className="flex relative xlarge  h-[450px]">
+                                          <img
+                                            alt="gallery"
+                                            className=" absolute inset-0 z-0 w-full h-full object-cover object-center rounded-xlarge"
+                                            src={imgs[key] ? load : "https://nativonft.mypinata.cloud/ipfs/" + nftData.metadata.media}
+                                          />
+                                          <h1 className="absolute justify-center px-2 py-1 text-sm font-bold leading-none text-white dark:bg-yellow2 rounded-xlarge top-4 left-3 right-3 font-raleway text-ellipsis overflow-hidden whitespace-nowrap">{nftData.metadata.title}</h1>
+                                          <div className="px-8 py-6 relative z-10 w-full  bg-darkgray opacity-0 hover:opacity-100 hover:shadow-yellow1  rounded-xlarge ">
+                                            <h1 className="title-font text-lg  text-gray-900 mb-3 dark:text-white dark:font-bold font-raleway font-bold text-ellipsis overflow-hidden whitespace-nowrap">
+                                              {nftData.metadata.title}
+                                            </h1>
+                                            <p className="leading-relaxed rounded-xlarge dark:text-white text-ellipsis overflow-hidden whitespace-nowrap"><b className="dark:font-bold font-raleway ">{t("MyNFTs.creator")}</b > <a></a>{nftData.creator_id}</p>
+                                            <h2
+                                              className={`tracking-widest text-sm title-font font-medium text-white font-raleway`}
+                                            >{`Token id: ${nftData.token_id}  `}</h2>
+                                          </div>
                                         </div>
                                       </div>
-                                    </div>
-                                  )
-                                })}
+                                    )
+                                  })}
                                 </div>
-                            </Accordion>
+                              </Accordion>
                             </div>
-                        )
+                            : ""}
+                        </div>
+                      )
                       })
                       : 
                       <div className="container mx-auto flex  my- md:flex-row flex-col  justify-center h-96 items-center text-3xl ">
