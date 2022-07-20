@@ -233,7 +233,13 @@ export async function getNFTById(nft_contract_id, nft_id,owner_account_id) {
   });
 
   const params = { token_id: nft_id, account_id: owner_account_id };
-  let result = await contract.nft_token(params);
 
-  return result;
+  try {
+    let result = await contract.nft_token(params);
+
+    return result;
+  } catch (err) {
+    console.log("err on getting ID on this contract", nft_contract_id);
+    return [];
+  }
 }

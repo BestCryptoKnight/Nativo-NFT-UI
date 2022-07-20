@@ -38,8 +38,19 @@ export default function SearchNftsModal(props) {
       let account = await getNearAccount();
       for await (let contract of props.contracts){
         let searchedNfts = await getNFTById(contract, value.nftID, state.account);
-        if(searchedNfts !== null && searchedNfts.owner_id == state.account){allNFTS.push({...searchedNfts,contract:contract})}
+        if(searchedNfts !== null && searchedNfts.owner_id == state.account){
+          allNFTS.push({...searchedNfts,contract:contract})
+        }
         
+      }
+
+      if(allNFTS.length < 1){
+        Swal.fire({
+          title: t("searchNftById.modalSearch"),
+          text: t("searchNftById.modalSearchText"),
+          icon: 'warning',
+          confirmButtonColor: '#E79211'
+        })
       }
       setState({...state, nftsSearched: allNFTS, account : account})
     }
