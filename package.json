@@ -21,6 +21,7 @@
     "near-api-js": "^0.42.0",
     "node-fetch": "^2.6.1",
     "react": "^16.12.0",
+    "react-bootstrap-accordion": "^1.0.0",
     "react-dom": "^16.12.0",
     "react-frame-component": "^4.1.1",
     "react-hashtag": "^2.1.2",
@@ -66,7 +67,7 @@
   "devDependencies": {
     "autoprefixer": "^9.8.8",
     "gh-pages": "^2.2.0",
-    "postcss": "^7.0.39",
-    "tailwindcss": "npm:@tailwindcss/postcss7-compat@^2.2.17"
+    "postcss": "^8.4.14",
+    "tailwindcss": "^3.1.5"
   }
 }

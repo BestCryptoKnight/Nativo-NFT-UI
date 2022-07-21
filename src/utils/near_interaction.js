@@ -5,6 +5,7 @@ import {
   Contract,
   utils,
 } from "near-api-js";
+import axios from "axios";
 
 export const storage_byte_cost = 10000000000000000000;
 //export const contract_name = "nativo.near";
@@ -193,4 +194,52 @@ export async function ext_view(contract,method,args){
   //Realizar la ejecucion de la llamada
   const result = await wallet.account().viewFunction(contract,method,args)
   return result
+}
+
+
+
+export async function getNFTContractsByAccount(accountId) {
+    const test = process.env.REACT_APP_NEAR_ENV === "mainnet" ? "" : "testnet-";
+    const serviceUrl = `https://${test}api.kitwallet.app/account/${accountId}/likelyNFTs`;
+    const result = await axios.get(serviceUrl);
+    return result.data;
+}
+
+export async function getNFTByContract(contract_id, owner_account_id) {
+  const near = (process.env.REACT_APP_NEAR_ENV == "mainnet" ? await connect(config.mainnet) : await connect(config.testnet))
+  const wallet = new WalletConnection(near);
+  try {
+    const contract = new Contract(wallet.account(), contract_id, {
+      viewMethods: ["nft_tokens_for_owner"],
+      sender: wallet.account(),
+    });
+
+    const result = await contract.nft_tokens_for_owner({
+      account_id: owner_account_id,
+    });
+    return result;
+  } catch (err) {
+    console.log("err", contract_id);
+    return [];
+  }
+}
+
+export async function getNFTById(nft_contract_id, nft_id,owner_account_id) {
+  const near = (process.env.REACT_APP_NEAR_ENV == "mainnet" ? await connect(config.mainnet) : await connect(config.testnet))
+  const wallet = new WalletConnection(near);
+  const contract = new Contract(wallet.account(), nft_contract_id, {
+    viewMethods: ["nft_token"],
+    sender: wallet.account(),
+  });
+
+  const params = { token_id: nft_id, account_id: owner_account_id };
+
+  try {
+    let result = await contract.nft_token(params);
+
+    return result;
+  } catch (err) {
+    console.log("err on getting ID on this contract", nft_contract_id);
+    return [];
+  }
 }

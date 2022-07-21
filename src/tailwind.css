@@ -52,3 +52,33 @@
     text-overflow: ellipsis;
     word-break: break-all;
   }
+
+
+  
+  .accordion-item > h2  > button {
+    @apply rounded-xlarge  text-darkgray bg-white text-base font-raleway font-bold !important
+  }
+
+
+  .accordion-item .accordion-collapse {
+    @apply rounded-xlarge  text-darkgray   bg-darkgray !important
+  }
+
+  .accordion-item {
+    @apply rounded-xlarge  text-darkgray bg-darkgray border-0 !important
+  }
+
+/* Hide scrollbar for Chrome, Safari and Opera */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+.no-scrollbar {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+
+.overflow-modal{
+  overflow: hidden;
+}

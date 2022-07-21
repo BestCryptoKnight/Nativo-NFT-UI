@@ -25,6 +25,7 @@ import {
   storage_byte_cost,
 } from "../utils/near_interaction";
 import { Reader, uploadFile } from '../utils/fleek';
+import { uploadFileAPI } from '../utils/pinata'
 import Swal from 'sweetalert2'
 import { useTranslation } from "react-i18next";
 import trashIcon from '../assets/img/bin.png';
@@ -107,7 +108,7 @@ function LightHeroE(props) {
     //validaciones
     validationSchema: Yup.object({
       title: Yup.string()
-        .max(30, t("MintNFT.maxTitle"))
+        .max(60, t("MintNFT.maxTitle"))
         .required(t("MintNFT.required"))
         .min(5, t("MintNFT.minTitle")),
 
@@ -303,6 +304,15 @@ function LightHeroE(props) {
    * cada vez que el usuario cambia de archivo se ejecuta esta funcion
    *
    */
+
+  async function uploadFilePinata(e){
+    let file = e.target.files[0]
+    setmint({ ...mint, file: URL.createObjectURL(e.target.files[0]) });
+    let cid = await uploadFileAPI(file)
+    formik.setFieldValue("image", cid);
+    console.log(cid)
+  }
+
   function imageChange(e) {
     const { file, reader } = Reader(e);
 
@@ -379,7 +389,7 @@ function LightHeroE(props) {
                     <img src={uploadImg} className="h-[150px] lg:h-[250px] object-contain"></img><span className="text-sm">{t("MintNFT.upImg")}</span></div>}
                   </div>
                   <input
-                    onChange={imageChange}
+                    onChange={uploadFilePinata}
                     onClick={imageClick}
                     type="file"
                     id="image"
