@@ -201,8 +201,13 @@ export async function ext_view(contract,method,args){
 export async function getNFTContractsByAccount(accountId) {
     const test = process.env.REACT_APP_NEAR_ENV === "mainnet" ? "" : "testnet-";
     const serviceUrl = `https://${test}api.kitwallet.app/account/${accountId}/likelyNFTs`;
-    const result = await axios.get(serviceUrl);
-    return result.data;
+    try {
+      const result = await axios.get(serviceUrl);
+      return result.data;
+      } catch(e){
+        console.log('err',e);
+        return [];
+      }
 }
 
 export async function getNFTByContract(contract_id, owner_account_id) {
