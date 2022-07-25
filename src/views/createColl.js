@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { ApolloClient, InMemoryCache, gql } from '@apollo/client'
+import { useParams, useHistory } from "react-router-dom";
 import { acceptedFormats, currencys } from "../utils/constraint";
 import Modal from "../components/modal.component";
 import icon from "../assets/img/iconoColeccion.png"
@@ -53,6 +54,9 @@ function LightHeroE(props) {
   const [mediaBanner, setMediaBanner] = useState("")
   const [txtBttnIcon, setTxtBttnIcon] = useState(t("CreateCol.btnImg-1"))
   const [txtBttnBanner, setTxtBttnBanner] = useState(t("CreateCol.btnImg-1"))
+  const [colId, setColId] = useState()
+  const [visibility, setVisibility] = useState(false)
+  const [type, setType] = useState(false)
   
   
   //guarda el estado de el modal
@@ -68,15 +72,73 @@ function LightHeroE(props) {
   let collectionData
   const APIURL = process.env.REACT_APP_API_TG
 
+
+  function handleVisibility(){
+    let state = document.getElementById('visibility')
+    console.log(state.checked)
+    setVisibility(state.checked)
+  }
+
+  const { state } = useParams();
   //guardara todos los valores del formulario
   const pru = (parseInt(Math.random() * 100000) + 1);
 
   useEffect(() => {
-    const valores = window.location.search;
-    const values = new URLSearchParams(valores)
-    if(values.has('transactionHashes')){
-      window.location.href ="/create"
-    }
+    (async () => {
+      let type = state.split(',')
+      if(type[0]=="edit"){
+        let id = await getNearAccount()
+        console.log("Entro a editar coleccion")
+        setType(true)
+        let userData
+        const query = `
+          query ($id: String){
+            collections (where : {id : $id}){
+              id
+              owner_id
+              collectionID
+              title
+              description
+              mediaIcon
+              mediaBanner
+              visibility
+            }
+          }
+        `
+        const client = new ApolloClient({
+          uri: APIURL,
+          cache: new InMemoryCache(),
+        })
+        console.log(type)
+        await client.query({
+            query: gql(query),
+            variables: {
+              id: type[1]
+            }
+        })
+        .then((data)=> {
+          console.log('profile: ',data.data.collections[0])
+          collectionData = data.data.collections[0]
+        })
+        .catch((err) =>{
+          console.log('error: ',err)
+        })
+        if(collectionData.owner_id == await getNearAccount()){
+          setColId(collectionData.collectionID)
+          setTitle(collectionData.title)
+          setDesc(collectionData.description)
+          setMediaBanner(collectionData.mediaBanner)
+          setMediaIcon(collectionData.mediaIcon)
+          setVisibility(collectionData.visibility)
+          document.getElementById('visibility').checked = collectionData.visibility
+          setTxtBttnIcon(t("CreateCol.btnImg-3"))
+          setTxtBttnBanner(t("CreateCol.btnImg-3"))
+        }
+        else{
+          window.location.href('/collectionData/create')
+        }
+      }
+    })()
   },[])
 
   const formik = useFormik({
@@ -95,12 +157,27 @@ function LightHeroE(props) {
     // console.log("Hola");
     let contract = await getNearContract();
     const owner = await getNearAccount()
-    let payloadCol = {
-      title: title,
-      description: desc,
-      media_icon: mediaIcon,
-      media_banner: mediaBanner,
-      _type: "create"
+    let payloadCol
+    if(type){
+      payloadCol = {
+        title: title,
+        description: desc,
+        media_icon: mediaIcon,
+        media_banner: mediaBanner,
+        visibility: visibility,
+        _id: colId,
+        _type: "edit"
+      }
+    }
+    else{
+      payloadCol = {
+        title: title,
+        description: desc,
+        media_icon: mediaIcon,
+        media_banner: mediaBanner,
+        visibility: visibility,
+        _type: "create"
+      }
     }
     console.log(payloadCol);
     // console.log(desc);
@@ -139,16 +216,16 @@ function LightHeroE(props) {
       return
     }
     let colResult = await ext_call(process.env.REACT_APP_CONTRACT_MARKET,"add_new_user_collection",payloadCol,200000000000000,1)
-    Swal.fire({
-      html:
-      '<div>'+
-      '<div class="font-open-sans dark:text-darkgray text-xl font-bold">' +  t("CreateCol.succ-title") + '</div>'+ 
-      '<div class="font-open-sans dark:text-darkgray  text-sm">' + t("CreateCol.succ-msg")+ '</div>'+
-      '</div>',
-      icon: 'success',
-    }).then(function () {
-      window.location.href = "/create"
-    })
+    // Swal.fire({
+    //   html:
+    //   '<div>'+
+    //   '<div class="font-open-sans dark:text-darkgray text-xl font-bold">' +  t("CreateCol.succ-title") + '</div>'+ 
+    //   '<div class="font-open-sans dark:text-darkgray  text-sm">' + t("CreateCol.succ-msg")+ '</div>'+
+    //   '</div>',
+    //   icon: 'success',
+    // }).then(function () {
+    //   window.location.href = "/create"
+    // })
   }
 
   /**
@@ -262,7 +339,7 @@ function LightHeroE(props) {
       <div className=" mx-auto text-gray-600 body-font flex flex-col bg-crear-background bg-contain bg-no-repeat">
         <div className="">
           <h1 className=" w-full font-raleway font-bold text-center py-10 text-3xl md:text-6xl text-darkgray uppercase">
-            {t("CreateCol.title")}
+            {type ? "Editar coleccion" : t("CreateCol.title")}
           </h1>
           <div className="items-center px-6 ">
             <div className="flex flex-col lg:flex-row lg:flex-nowrap items-center  bg-white   mb-4 rounded-xlarge">
@@ -319,6 +396,16 @@ function LightHeroE(props) {
                   className={` font-open-sans  flex flex-col  h-full dark:bg-white dark:text-darkgray   text-left rounded-xlarge justify-center focus-visible:outline-none focus-visible:shadow-s focus-visible:shadow-s focus-visible:shadow-brown-s w-full `}
                 />
                 </div>
+                <div className="flex">
+                  <div className="flex items-center h-5">
+                      <input id="visibility" onClick={handleVisibility} type="checkbox" value="" className="w-5 h-5 text-yellow appearance-none checked:bg-yellow2 bg-gray-300 rounded border-gray-300 focus:ring-yellow3 focus:ring-2 ring-inset"/>
+                  </div>
+                  <div className="ml-2 text-sm">
+                      <label htmlFor="visibility" className="text-sm dark:text-darkgray uppercase font-semibold font-raleway">Visibilidad</label>
+                      <p id="helper-checkbox-text" className="text-xs  dark:text-darkgray uppercase font-semibold font-raleway">Da clic aqui para mostrar u ocultar tu coleccion</p>
+                  </div>
+                </div>
+                
 
               </div>
               <div className="w-full lg:w-1/2 px-6 mb-6">
@@ -373,7 +460,7 @@ function LightHeroE(props) {
               onClick={() => saveCollection()}
               className={` mt-4 mb-4 text-darkgray bg-yellow2 border-0 py-2 lg:px-6 px-2 focus:outline-none  rounded-xlarge text-lg  font-raleway font-bold`}
             >
-              {t("CreateCol.createBtn")}
+              {type ? "Editar coleccion" : t("CreateCol.createBtn")}
             </button>
             <p className="font-semibold font-raleway text-darkgray">{t("CreateCol.msg-2")}</p>
           </div>

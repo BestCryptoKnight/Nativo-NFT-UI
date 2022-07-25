@@ -65,7 +65,11 @@
         "aboutNativo" : "acerca de nativo nft",
         "theTeam" : "el equipo",
         "tribu" : "Nativo NFT 2022 - Mantenido por la tribu de",
-        "cloudMx": "CloudMex Analytics"
+        "cloudMx" : "CloudMex Analytics",
+        "btn-NTV" : "Agregar mis NTVs a mi wallet",
+        "msg-ntv-title" : "Advertencia",
+        "msg-ntv-desc" : "La transaccion que estas por ejecutar fallara, no te preocupes no hay ningun problema, ejecuta la transaccion, una vez esta falle presiona cancelar para volver a la pagina.",
+        "msg-ntv-btn" : "Continuar"
     },
     "Collections" : {
         "creator" : "Creador",

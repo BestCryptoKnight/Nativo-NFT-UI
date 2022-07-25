@@ -19,6 +19,7 @@ import { useTranslation } from "react-i18next";
 import InfiniteScroll from "react-infinite-scroll-component";
 import verifyImage from '../assets/img/Check.png';
 import { textAlign } from "@mui/system";
+import { FiEdit } from 'react-icons/fi';
 
 function LightEcommerceA() {
   const [Landing, setLanding] = React.useState({
@@ -288,11 +289,12 @@ function LightEcommerceA() {
       <div className={`flex flex-row  mb-10 md:mb-0  justify-center `}>
         <div className="trending-token w-full p-5 rounded-20  ">
           <div className=" bg-white rounded-20 ">
-            <div className="p-6 pt-3 pb-3">
+            <div className="p-6 pt-3 pb-3 relative">
               <img
                 className="object-cover object-center rounded-xlarge h-[8rem] md:h-48  w-full bg-center"
                 src={`https://nativonft.mypinata.cloud/ipfs/${Landing.bannerCol}`}
               />
+              <a href={"/collectionData/edit,"+Landing.colID} className="absolute bottom-0 right-0 bg-yellow2 m-4 border-0 text-sm dark:text-white font-bold py-2 px-2 rounded inline-flex items-center hover:bg-[#8f5403]">Editar coleccion</a>
             </div>
             <div className="z-10 -mt-120 w-full text-white font-raleway">
 
