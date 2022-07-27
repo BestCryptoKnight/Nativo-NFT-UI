@@ -352,7 +352,8 @@ function MisTokens(props) {
                 mediaIcon
                 mediaBanner,
                 description,
-                tokenCount
+                tokenCount,
+                visibility
             }
           }
         `
@@ -401,7 +402,8 @@ function MisTokens(props) {
             description: collection.description,
             mediaIcon: collection.mediaIcon,
             mediaBanner: collection.mediaBanner,
-            collectionID: collection.collectionID
+            collectionID: collection.collectionID,
+            visibility: collection.visibility
           };
         });
     
@@ -649,7 +651,8 @@ function MisTokens(props) {
             mediaIcon
             mediaBanner,
             description,
-            tokenCount
+            tokenCount,
+            visibility
           }
         }`
 
@@ -689,7 +692,8 @@ function MisTokens(props) {
             description: collection.description,
             mediaIcon: collection.mediaIcon,
             mediaBanner: collection.mediaBanner,
-            collectionID: collection.collectionID
+            collectionID: collection.collectionID,
+            visibility: collection.visibility
           };
         });
       }
@@ -1209,7 +1213,19 @@ function MisTokens(props) {
                                           </div>
                                           <div className="rounded-xlarge  text-white  bg-yellow2 border-0 mx-auto justify-center  px-6 w-[130px] flex mx-auto my-2 p-2  text-xs font-semibold font-raleway uppercase hover:bg-brown width" >{t("tokCollection.seeDetails")}</div>
                                         </div>
-                                        <div className=" px-6 font-raleway text-xs text-right mx-auto justify-center">{t("tokCollection.createdBy")} <a href={`profile/${i.owner}`} className="font-raleway text-xs font-bold text-blue2">{i.owner}</a></div>
+                                        <div className=" px-6 font-raleway text-xs text-right mx-auto justify-center">
+                                          <span 
+                                            className={`inline-flex items-center justify-center px-2 py-1  font-raleway font-medium text-xs leading-none ${i.visibility ? "text-green-100 bg-green-600" : "text-red-100 bg-red-600"} rounded-full`}
+                                          >
+                                            {i.visibility ? t("MyNFTs.vis") : t("MyNFTs.noVis")}
+                                          </span> 
+                                          <a 
+                                            href={"/collectionData/edit,"+i.collectionID} 
+                                            className="bg-yellow2 border-0 text-xs ml-2 dark:text-white font-bold py-1 px-2 rounded-full inline-flex items-center hover:bg-brown"
+                                          >
+                                            {t("CreateCol.editBtn")}
+                                          </a>
+                                        </div>
                                       </div>
                                     </div>
                                   </div>

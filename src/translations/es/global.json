@@ -169,7 +169,9 @@
         "allTokens": "Todos",
         "contract": "Contrato",
         "notNfts": "No tienes NFT's",
-        "searchNftById": "Buscar NFT por ID"
+        "searchNftById": "Buscar NFT por ID",
+        "vis" : "Visible",
+        "noVis": "No visible"
     },
     "CreateCol" : {
         "title" : "Nueva Colección",
@@ -206,7 +208,12 @@
         "lblIcon-2" : "Maximo 10mb, formatos aceptados .jpg, .gif, .png, .webp",
         "errSize-2" : "El tamaño no puede superar los 10mb",
         "userAcc" : "Tu cuenta",
-        "userCont" : "Este es tu contrato"
+        "userCont" : "Este es tu contrato",
+        "visibility": "Visibilidad",
+        "vis-msg" : "Da clic aqui para mostrar u ocultar tu coleccion",
+        "title2" : "Editar coleccion",
+        "editBtn" : "Editar coleccion",
+        "idCol" : "ID de la coleccion:"
     },
     "MintNFT" : {
         "maxTitle" : "Menos de 60 caracteres",
