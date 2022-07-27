@@ -339,15 +339,22 @@ function LightHeroE(props) {
       <div className=" mx-auto text-gray-600 body-font flex flex-col bg-crear-background bg-contain bg-no-repeat">
         <div className="">
           <h1 className=" w-full font-raleway font-bold text-center py-10 text-3xl md:text-6xl text-darkgray uppercase">
-            {type ? "Editar coleccion" : t("CreateCol.title")}
+            {type ? t("CreateCol.title2") : t("CreateCol.title")}
           </h1>
           <div className="items-center px-6 ">
             <div className="flex flex-col lg:flex-row lg:flex-nowrap items-center  bg-white   mb-4 rounded-xlarge">
               <div className="w-full lg:w-1/2 px-6 mb-6">
+                {type ? 
+                <div className="flex justify-between">
+                  <label className="leading-7 text-sm dark:text-darkgray uppercase font-semibold font-raleway">
+                    {t("CreateCol.idCol")} {colId}
+                  </label>
+                </div>
+                : ""}
                 <div className="flex justify-between">
                   <label
                     htmlFor="titleCol"
-                    className="leading-7 text-sm  dark:text-darkgray  uppercase font-semibold font-raleway"
+                    className="leading-7 text-sm dark:text-darkgray uppercase font-semibold font-raleway"
                   >
                     {t("CreateCol.titleCol")}
                   </label>
@@ -401,8 +408,8 @@ function LightHeroE(props) {
                       <input id="visibility" onClick={handleVisibility} type="checkbox" value="" className="w-5 h-5 text-yellow appearance-none checked:bg-yellow2 bg-gray-300 rounded border-gray-300 focus:ring-yellow3 focus:ring-2 ring-inset"/>
                   </div>
                   <div className="ml-2 text-sm">
-                      <label htmlFor="visibility" className="text-sm dark:text-darkgray uppercase font-semibold font-raleway">Visibilidad</label>
-                      <p id="helper-checkbox-text" className="text-xs  dark:text-darkgray uppercase font-semibold font-raleway">Da clic aqui para mostrar u ocultar tu coleccion</p>
+                      <label htmlFor="visibility" className="text-sm dark:text-darkgray uppercase font-semibold font-raleway">{t("CreateCol.visibility")}</label>
+                      <p id="helper-checkbox-text" className="text-xs  dark:text-darkgray uppercase font-semibold font-raleway">{t("CreateCol.vis-msg")}</p>
                   </div>
                 </div>
                 
@@ -460,7 +467,7 @@ function LightHeroE(props) {
               onClick={() => saveCollection()}
               className={` mt-4 mb-4 text-darkgray bg-yellow2 border-0 py-2 lg:px-6 px-2 focus:outline-none  rounded-xlarge text-lg  font-raleway font-bold`}
             >
-              {type ? "Editar coleccion" : t("CreateCol.createBtn")}
+              {type ? t("CreateCol.editBtn") : t("CreateCol.createBtn")}
             </button>
             <p className="font-semibold font-raleway text-darkgray">{t("CreateCol.msg-2")}</p>
           </div>

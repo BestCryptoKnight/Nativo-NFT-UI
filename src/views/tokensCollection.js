@@ -294,7 +294,7 @@ function LightEcommerceA() {
                 className="object-cover object-center rounded-xlarge h-[8rem] md:h-48  w-full bg-center"
                 src={`https://nativonft.mypinata.cloud/ipfs/${Landing.bannerCol}`}
               />
-              <a href={"/collectionData/edit,"+Landing.colID} className="absolute bottom-0 right-0 bg-yellow2 m-4 border-0 text-sm dark:text-white font-bold py-2 px-2 rounded inline-flex items-center hover:bg-[#8f5403]">Editar coleccion</a>
+              <a href={"/collectionData/edit,"+Landing.colID} className="absolute bottom-0 right-0 bg-yellow2 m-4 border-0 text-sm dark:text-white font-bold py-2 px-2 rounded inline-flex items-center hover:bg-[#8f5403]">{t("CreateCol.editBtn")}</a>
             </div>
             <div className="z-10 -mt-120 w-full text-white font-raleway">
 
