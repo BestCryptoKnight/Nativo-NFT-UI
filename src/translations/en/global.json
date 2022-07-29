@@ -42,7 +42,8 @@
         "login" : "Login",
         "profile" : "profile",
         "logout" : "Logout",
-        "logoin" : "Login"
+        "logoin" : "Login",
+        "auctions": "Auctions"
 
     },
     "Footer" : {

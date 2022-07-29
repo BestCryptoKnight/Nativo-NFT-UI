@@ -42,7 +42,8 @@
         "profile" : "Perfil",
         "logout" : "Salir",
         "createCollection" : "Crear Colección",
-        "logoin" : "Iniciar"
+        "logoin" : "Iniciar",
+        "auctions": "Subastas"
     },
     "Footer" : {
         "made" : "Hecho con:",
