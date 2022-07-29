@@ -216,20 +216,23 @@ export default function AddTokenModal(props) {
                     </select>
 
                     <div className="w-full flex justify-end">
-                      <button
-                        className={`bg-yellow2 w- mt-3  text-white active:bg-brown font-bold uppercase text-sm px-6 py-3 rounded-full shadow hover:shadow-lg outline-none focus:outline-none  ease-linear transition-all duration-150 `}
-                        onClick={handleAddToken}
-                        disabled={state.disabled}
-                      >
-                        {t('addToken.btnAdd')}
-                      </button>
+                      <div className="relative group mt-3 rounded-full">
+                        <div className="absolute -inset-0.5 bg-gradient-to-r from-[#f2b159] to-[#ca7e16] rounded-full blur opacity-70 group-hover:opacity-100 transition duration-1000 group-hover:duration-200 animate-tilt group-hover:-inset-1"></div>
+                        <button
+                          className={`relative bg-yellow2 text-white font-bold uppercase text-sm px-6 py-3 rounded-full shadow hover:shadow-lg outline-none focus:outline-none  ease-linear transition-all duration-150`}
+                          onClick={handleAddToken}
+                          disabled={state.disabled}
+                        >
+                          {t('addToken.btnAdd')}
+                        </button>
+                      </div>
                     </div>
                   </>
                   :
                   <>
                     <div className="flex flex-col justify-center">
                       <h1 className="text-darkgray text-xl text-center font-raleway mb-4">{t('addToken.msgNoCol')}</h1>
-                      <a className="bg-yellow2 mt-3 text-center items-center text-white active:bg-brown font-bold uppercase text-sm px-6 py-3 rounded-full shadow hover:shadow-lg outline-none focus:outline-none  ease-linear transition-all duration-150" href="/createCollection">{t('addToken.btnCol')}</a>
+                      <a className="relative bg-yellow2 text-white text-center font-bold uppercase text-sm px-6 py-3 rounded-full shadow outline-none focus:outline-none  ease-linear transition-all duration-150 hover:shadow-yellow1 hover:scale-105" href="/createCollection">{t('addToken.btnCol')}</a>
                     </div>
                   </>
                 }

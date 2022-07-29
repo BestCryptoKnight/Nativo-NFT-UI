@@ -339,18 +339,11 @@ function LightHeroE(props) {
       <div className=" mx-auto text-gray-600 body-font flex flex-col bg-crear-background bg-contain bg-no-repeat">
         <div className="">
           <h1 className=" w-full font-raleway font-bold text-center py-10 text-3xl md:text-6xl text-darkgray uppercase">
-            {type ? t("CreateCol.title2") : t("CreateCol.title")}
+            {type ? t("CreateCol.title2")+" "+colId : t("CreateCol.title")}
           </h1>
           <div className="items-center px-6 ">
             <div className="flex flex-col lg:flex-row lg:flex-nowrap items-center  bg-white   mb-4 rounded-xlarge">
               <div className="w-full lg:w-1/2 px-6 mb-6">
-                {type ? 
-                <div className="flex justify-between">
-                  <label className="leading-7 text-sm dark:text-darkgray uppercase font-semibold font-raleway">
-                    {t("CreateCol.idCol")} {colId}
-                  </label>
-                </div>
-                : ""}
                 <div className="flex justify-between">
                   <label
                     htmlFor="titleCol"
@@ -461,14 +454,18 @@ function LightHeroE(props) {
             </div>
 
           </div>
-          <div className="lg:w-full w-full px-6 mb-6 lg:mb-0 text-center">
+          <div className=" w-full px-6 mb-6 lg:mb-0 text-center place-items-center flex flex-col">
             <p className="font-semibold font-raleway text-darkgray">{t("CreateCol.msg-1")}</p>
-            <button
-              onClick={() => saveCollection()}
-              className={` mt-4 mb-4 text-darkgray bg-yellow2 border-0 py-2 lg:px-6 px-2 focus:outline-none  rounded-xlarge text-lg  font-raleway font-bold`}
-            >
-              {type ? t("CreateCol.editBtn") : t("CreateCol.createBtn")}
-            </button>
+            <div className="mt-4 mb-4 lg:w-1/6 relative group rounded-xlarge ">
+              <div className="absolute -inset-0.5 bg-gradient-to-r from-[#f2b159] to-[#ca7e16] rounded-full blur opacity-70 group-hover:opacity-100 transition duration-1000 group-hover:duration-200 animate-tilt group-hover:-inset-1"></div>
+              <button
+                onClick={() => saveCollection()}
+                className={`relative lg:w-full text-white bg-yellow2 py-2 lg:px-6 px-2 uppercase rounded-xlarge lg:text-lg text-base font-raleway font-bold`}
+              >
+                {type ? t("CreateCol.editBtn") : t("CreateCol.createBtn")}
+              </button>
+            </div>
+            
             <p className="font-semibold font-raleway text-darkgray">{t("CreateCol.msg-2")}</p>
           </div>
         </div>

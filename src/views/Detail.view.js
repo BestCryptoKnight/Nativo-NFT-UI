@@ -425,9 +425,10 @@ function LightEcommerceB(props) {
 
               {creator ? 
                 noCollection ?
-                <div>
+                <div className="relative group rounded-xlarge">
+                  <div className="absolute -inset-0.5 bg-gradient-to-r from-[#f2b159] to-[#ca7e16] rounded-full blur opacity-70 group-hover:opacity-100 transition duration-1000 group-hover:duration-200 animate-tilt group-hover:-inset-1"></div>
                   <button
-                    className={"w-full m-2 content-center justify-center text-center  text-white bg-yellow2 border-0 py-2 px-6 focus:outline-none hover:bg-yellow rounded-xlarge font-raleway font-medium"}
+                    className={"relative w-full content-center uppercase justify-center text-center font-bold text-white bg-yellow2 py-2 px-6 rounded-xlarge font-raleway"}
                     onClick={async () => {
                       makeAddToken()
                     }}>
@@ -441,7 +442,7 @@ function LightEcommerceB(props) {
               }
               
               <div
-                className={`flex py-2 px-2 my-2 bg-gray-50 rounded-xlarge`}
+                className={`mt-4 flex py-2 px-2 my-2 bg-gray-50 rounded-xlarge`}
                 >
                 <span className="text-black pl-3 font-bold text-sm uppercase font-raleway ">Token Id</span>
                 <span className="ml-auto text-gray-900  text-sm pr-3 font-raleway font-medium">
@@ -532,23 +533,25 @@ function LightEcommerceB(props) {
               {(hasBids ?
                 <>
                 <div className="grid grid-rows-2 py-2 px-2 bg-gray-50 rounded-xlarge">
-                  <div className="grid grid-cols-2">
+                  <div className="grid grid-cols-2 mb-2">
                     <span className="text-black pl-3 font-bold uppercase font-raleway text-sm">{t("Detail.actualBid")} {state?.tokens.bidPrice} NEAR</span>
                     <span className="ml-auto text-gray-900 font-semibold pr-3 font-raleway text-sm">{state?.tokens.bidder}</span>
                   </div>
                   {(state?.tokens.bidder == state?.tokens.account ? 
-                    <div className="w-full pt-2">
+                    <div className="w-full relative group rounded-xlarge">
+                      <div className="absolute -inset-0.5 bg-gradient-to-r from-[#f2b159] to-[#ca7e16] rounded-full blur opacity-70 group-hover:opacity-100 transition duration-1000 group-hover:duration-200 animate-tilt group-hover:-inset-1"></div>
                       <button 
-                        className="w-full content-center justify-center text-center font-bold text-white bg-yellow2 border-0 py-1 px-6 focus:outline-none hover:bg-yellow  ml-auto font-raleway text-sm rounded-xlarge"
+                        className="relative w-full bg-yellow2 rounded-xlarge uppercase content-center justify-center text-center font-bold text-white border-0 py-1 px-6 ml-auto font-raleway text-sm"
                         onClick={async () => {processCancelOffer(state?.tokens.tokenID)}}>
                           <span className="font-raleway">{t("Detail.cancelBid")}</span>
                       </button>
                     </div>
                     : state?.tokens.account == state?.owner ?
                       <>
-                        <div className="grid grid-cols-1 gap-4 place-items-center ">
+                        <div className="w-full relative group rounded-xlarge">
+                          <div className="absolute -inset-0.5 bg-[#5aee8c]  rounded-xlarge blur opacity-70 group-hover:opacity-100 transition duration-1000 group-hover:duration-200 animate-tilt group-hover:-inset-1"></div>
                           <button 
-                            className="w-full  content-center justify-center text-center font-bold text-white bg-green-500 border-0 py-1 px-6 focus:outline-none hover:bg-green-300 rounded-xlarge font-raleway text-sm"
+                            className="relative w-full bg-green-500 rounded-xlarge uppercase content-center justify-center text-center font-bold text-white border-0 py-1 px-6 ml-auto font-raleway text-sm"
                             onClick={async () => {processAcceptOffer(state?.tokens.sale,state?.tokens.tokenID)}}>
                             <span className="font-raleway">{t("Detail.accept")}</span>
                           </button>
@@ -593,24 +596,31 @@ function LightEcommerceB(props) {
                     stateLogin? 
                     state?.owner != state?.ownerAccount? 
                       <>
+                      <div className="w-full my-4 lg:w-40 relative group rounded-xlarge">
+                        <div className="absolute -inset-0.5 bg-gradient-to-r from-[#f2b159] to-[#ca7e16] rounded-full blur opacity-70 group-hover:opacity-100 transition duration-1000 group-hover:duration-200 animate-tilt group-hover:-inset-1"></div>
                         <button
-                          className={`w-full m-2 lg:w-40 content-center justify-center text-center  text-white bg-yellow2 border-0 py-2 px-6 focus:outline-none hover:bg-yellow rounded-xlarge font-raleway font-medium`}
+                          className={`content-center justify-center text-center text-white bg-yellow2 border-0 py-2 px-6 rounded-xlarge font-raleway font-bold uppercase relative w-full`}
                           onClick={async () => {
                             makeAnOffer();
                           }}
                         >
                           {t("Detail.bid")}
                         </button>
+                      </div>
+                        
                         {state?.tokens.sale ? 
                         <>
-                        <button
-                          className={`w-full m-2 lg:w-40 content-center justify-center text-center  text-white bg-yellow2 border-0 py-2 px-6 focus:outline-none hover:bg-yellow rounded-xlarge font-raleway font-medium`}
-                          onClick={async () => {
-                            comprar();
-                          }}
-                        >
-                          {t("Detail.buy")}
-                        </button>
+                        <div className="w-full my-4 lg:w-40 relative group rounded-xlarge">
+                          <div className="absolute -inset-0.5 bg-gradient-to-r from-[#f2b159] to-[#ca7e16] rounded-full blur opacity-70 group-hover:opacity-100 transition duration-1000 group-hover:duration-200 animate-tilt group-hover:-inset-1"></div>
+                          <button
+                            className={`content-center justify-center text-center text-white bg-yellow2 border-0 py-2 px-6 rounded-xlarge font-raleway font-bold uppercase relative w-full`}
+                            onClick={async () => {
+                              comprar();
+                            }}
+                          >
+                            {t("Detail.buy")}
+                          </button>
+                        </div>
                         </> : ""}
                       </>
                       : "" 
