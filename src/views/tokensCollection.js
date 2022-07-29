@@ -300,7 +300,15 @@ function LightEcommerceA() {
                 className="object-cover object-center rounded-xlarge h-[8rem] md:h-48  w-full bg-center"
                 src={`https://nativonft.mypinata.cloud/ipfs/${Landing.bannerCol}`}
               />
-              {isOwner? <a href={"/collectionData/edit,"+Landing.colID} className="absolute bottom-0 right-0 bg-yellow2 m-4 border-0 text-sm dark:text-white font-bold py-2 px-2 rounded inline-flex items-center hover:bg-[#8f5403]">{t("CreateCol.editBtn")}</a> : ""}
+              {isOwner? 
+              <div className="absolute bottom-0 right-0 m-4">
+                <div className="relative group rounded">
+                  <div className="absolute -inset-0.5 bg-gradient-to-r from-[#f2b159] to-[#ca7e16] rounded-full blur opacity-70 group-hover:opacity-100 transition duration-1000 group-hover:duration-200 animate-tilt group-hover:-inset-1"></div>
+                  <a href={"/collectionData/edit,"+Landing.colID} className="relative text-sm bg-yellow2 text-white font-bold uppercase px-2 py-1 rounded-full shadow hover:shadow-lg outline-none focus:outline-none  ease-linear transition-all duration-150">{t("CreateCol.editBtn")}</a>
+                </div>              
+              </div>
+              
+               : ""}
             </div>
             <div className="z-10 -mt-120 w-full text-white font-raleway">
 
