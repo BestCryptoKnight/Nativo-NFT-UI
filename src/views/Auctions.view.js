@@ -44,11 +44,11 @@ function Auctions() {
         from_index: '0',
         limit: 50
       }
-      let all_auctions = await ext_view(contract, 'get_all_nfts_for_auction', payload);
+      let all_auctions = await ext_view(contract, 'get_nfts_for_auction', payload);
       console.log('aaaaaaaaaaaa',all_auctions);
       let total = await ext_view(contract, 'get_auctions_stats', payload);
       console.log('total',total);
-      setAuctions({...auctions, all: test_active, total_active: total.total_auctions_active});
+      setAuctions({...auctions, all: all_auctions, total_active: total.total_auctions_active});
     })();
   }, []);
 
@@ -65,17 +65,17 @@ function Auctions() {
   
   return (
     <section className="text-gray-600 body-font  dark:bg-darkgray ">
-        <div className="flex flex-col text-center w-full">
-          <div className="lg:w-full h-[30px] flex my-8 justify-center">
-            <h1 className="sm:text-3xl lg:text-6xl font-black title-font  dark:text-white  bg-darkgray m-0 px-10 font-raleway uppercase self-center">
-              subastas ALV
-            </h1>
-          </div>
-          <p className="lg:w-full leading-relaxed text-base bg-white text-darkgray font-raleway">
-           subastas ALV x2
-          </p>
-
+      <div className="flex flex-col text-center w-full">
+        <div className="lg:w-full h-[30px] flex my-8 justify-center">
+          <h1 className="sm:text-3xl lg:text-6xl font-black title-font  dark:text-white  bg-darkgray m-0 px-10 font-raleway uppercase self-center">
+            subastas ALV
+          </h1>
         </div>
+        <p className="lg:w-full leading-relaxed text-base bg-white text-darkgray font-raleway">
+          subastas ALV x2
+        </p>
+
+      </div>
         <div className="container px-5 pt-5 mx-auto asda">
           <div className="flex flex-col text-center w-full">
             <div className="w-full  px-2 py-5 sm:px-0">
@@ -95,7 +95,7 @@ function Auctions() {
               return (
                 <div className="w-full p-4  " key={key}>
                   <a
-                    href={"/loan/" + nft.id}
+                    href={"/auction/" + nft.id}
                   >
                     <div className="flex flex-row  mb-10 md:mb-0  justify-center " >
                       <div className="trending-token w-full rounded-20 hover:shadow-yellow1   hover:scale-105 ">
@@ -116,7 +116,7 @@ function Auctions() {
                                 <div className="text-black text-sm font-raleway font-normal  w-1/3"><span className="font-bold">NFT ID: </span>{nft.nft_id}</div>
                                 <div className="text-black text-sm font-raleway font-normal  w-2/3"><span className="font-bold">Propietario: </span>{nft.nft_owner}</div>
                               </div>
-                              <div className="text-black text-sm font-raleway font-normal text-left  "><span className="font-bold">Termina en: </span>{dayjs.unix(nft.auction_deadline / 1000000000).format("DD/MMM/YYYY HH:mm:ss")}</div>
+                              <div className="text-black text-sm font-raleway font-normal text-left  "><span className="font-bold">Termina en: </span>{dayjs.unix(nft.auction_deadline / 1000).format("DD/MMM/YYYY HH:mm:ss")}</div>
                               <div className="text-black text-sm font-raleway font-normal text-left  "><span className="font-bold">Status </span>{nft.status}</div>
                               <div className="text-black  text-lg  font-raleway font-normal   text-left"><span className="font-bold text-sm">Precio base </span>{fromYoctoToNear(nft.auction_base_requested)} Ⓝ</div>
                               <div className="text-black text-sm font-raleway font-normal text-left  "><span className="font-bold">Contrato </span>{nft.nft_contract}</div>
@@ -126,7 +126,7 @@ function Auctions() {
                         </div>
                       </div>
                     </div>
-                  </a>
+                    </a>
                 </div>
               )
             })}
