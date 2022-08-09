@@ -68,13 +68,12 @@ function Auctions() {
       <div className="flex flex-col text-center w-full">
         <div className="lg:w-full h-[30px] flex my-8 justify-center">
           <h1 className="sm:text-3xl lg:text-6xl font-black title-font  dark:text-white  bg-darkgray m-0 px-10 font-raleway uppercase self-center">
-            subastas ALV
+            subastas 
           </h1>
         </div>
         <p className="lg:w-full leading-relaxed text-base bg-white text-darkgray font-raleway">
-          subastas ALV x2
-        </p>
-
+          subastas
+       </p>
       </div>
         <div className="container px-5 pt-5 mx-auto asda">
           <div className="flex flex-col text-center w-full">
