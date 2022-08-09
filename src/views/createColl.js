@@ -176,6 +176,7 @@ function LightHeroE(props) {
         media_icon: mediaIcon,
         media_banner: mediaBanner,
         visibility: visibility,
+        _id: "0",
         _type: "create"
       }
     }
