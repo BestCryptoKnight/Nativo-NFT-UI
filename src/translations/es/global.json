@@ -134,7 +134,8 @@
         "cancelBid" : "Cancelar oferta",
         "btnAddNFTCol" : "Agregar NFT a una colección",
         "msgAddToken" : "Agregar NFT a una colección",
-        "msgAddToken2" : "Selecciona la coleccion a la que deseas agregar el NFT"
+        "msgAddToken2" : "Selecciona la coleccion a la que deseas agregar el NFT",
+        "auction": "Subastar"
     },
     "MyNFTs" : {
         "title" : "Mis NFTs",
@@ -312,5 +313,50 @@
         "searchNftById": "Buscar NFT por ID",
         "modalSearch": "No podemos encontrar ese NFT",
         "modalSearchText": "Busca por otro ID"
+    },
+    "auctions" : {
+        "au_title" : "Subastas",
+        "au_subtitle" : "Aquí podrás encontrar todas las subastas y ofertar por alguna!",
+        "au_owner": "Propietario Subasta",
+        "au_end": "Finaliza en",
+        "au_status": "Estatus",
+        "au_price": "Precio inicial",
+        "au_contract": "Contrato",
+        "au_loading": "Cargando subastas",
+        "au_finish": "Ya terminaron",
+        "au_notAvailable": "No hay subastas disponibles"
+    },
+    "auction" : {
+        "au_title" : "Subastas",
+        "au_subtitle" : "Aquí podrás encontrar todas las subastas y ofertar por alguna!",
+        "au_owner": "Hecha por",
+        "au_end": "Finaliza en",
+        "au_status": "Estatus",
+        "au_price": "Precio inicial",
+        "au_contract": "Contrato",
+        "au_loading": "Cargando subastas",
+        "au_finish": "Ya terminaron",
+        "au_actual": "Oferta Actual",
+        "au_bidder": "Ofertante",
+        "au_cancel": "Cancelar",
+        "au_bid": "Ofertar",
+        "au_bids": "Todas las Ofertas",
+        "au_bidAmount": "Precio",
+        "au_cancelAuction": "Cancelar subasta",
+        "au_claim": "Reclamar mi NFT",
+        "au_msgAuctionEnded": "Termino la subasta ¡Reclama tu NFT!",
+        "au_noOffer": "Actualmente no hay ofertas para esta subasta"
+    },
+    "auctionModal" : {
+        "au_title" : "Haz una oferta",
+        "au_bid" : "Ofertar",
+        "au_bidAmount": "Precio"
+    },
+    "bidModal" : {
+        "au_title" : "Subasta este NFT",
+        "au_price": "Precio inicial",
+        "au_description": "Añade una descripción",
+        "au_ok": "OK"
     }
+
 }

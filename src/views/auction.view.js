@@ -49,7 +49,7 @@ function AuctionFunction(props) {
     console.log("Make a offer")
     setBidModal({
       show: true,
-      message: "HAZ UNA OFFERTA",
+      message: t("auctionModal.au_title"),
       loading: false,
       disabled: false,
       change: setBidModal,
@@ -61,8 +61,6 @@ function AuctionFunction(props) {
   async function processCancelBidOffer() {
     if(auctionBids.length == 0){
       /*No hay oferta y cancela el owner*/
-      console.log("account nft_owner",auction.nft_owner);
-      console.log("account nft_owner",auction);
 
       let payload = {
         auction_id: auction.id
@@ -70,7 +68,6 @@ function AuctionFunction(props) {
       ext_call(process.env.REACT_APP_CONTRACT_AUCTIONS, 'withdraw_nft_owner', payload, 300000000000000, 1);
     } else {
       /*Hay oferta y cancela el bidder*/
-      console.log("account bidder_id",auction.bidder_id);
       let payload = {
         auction_id: auction.id
       }
@@ -105,31 +102,31 @@ function AuctionFunction(props) {
 
                 <div className="flex flex-row  mb-10 md:mb-0  justify-center " >
                   <div className="trending-token w-full rounded-20 ">
-                    <div className=" bg-white rounded-20 h-auto  flex">
-                      <div className="p-6 pt-3 pb-3  w-1/3">
+                    <div className=" bg-white rounded-20 h-auto  flex flex-col md:flex-row">
+                      <div className="p-6 pt-3 pb-3  w-full md:w-1/3 flex">
                         <img
-                          className="object-contain object-center rounded-xlarge h-[9rem]  bg-center"
+                          className="object-contain object-center rounded-xlarge h-[9rem]  bg-center m-auto"
                           src={`https://nativonft.mypinata.cloud/ipfs/${auction.nft_media}`}
                           alt={1}
                         />
                       </div>
-                      <div className=" pb-3 p-6 pt-3 flex flex-col  w-2/3">
-                        <div className="capitalize text-black text-sm  text-ellipsis overflow-hidden whitespace-nowrap  font-raleway font-bold text-center"></div>
+                      <div className="pb-3 p-6 pt-3 flex flex-col  w-full md:w-2/3">
+                        <div className="capitalize text-black text-sm  font-raleway font-bold text-center"></div>
                         <div className="flex justify-around pt-2 flex-col">
 
-                          <div className="text-black font-raleway font-normal w-full text-base text-left"><span className="font-bold"></span>{auction.description}</div>
-                          <div className="flex w-full text-left">
-                            <div className="text-black text-sm font-raleway font-normal  w-1/3"><span className="font-bold">NFT ID: </span>{auction.nft_id}</div>
-                            <div className="text-black text-sm font-raleway font-normal  w-2/3"><span className="font-bold">Propietario: </span>{auction.nft_owner}</div>
+                          <div className="text-black font-raleway font-normal w-full text-base text-left text-ellipsis overflow-hidden whitespace-nowrap"><span className="font-bold"></span>{auction.description}</div>
+                          <div className="flex flex-col md:flex-row w-full text-left">
+                            <div className="text-black text-sm font-raleway font-normal  w-1/3"><span className="font-bold">ID </span>{auction.nft_id}</div>
+                            <div className="text-black text-sm font-raleway font-normal  w-2/3"><span className="font-bold">{t("auction.au_owner")} </span>{auction.nft_owner}</div>
                           </div>
-                          <div className="flex">
-                            <div className="w-1/3">
-                              <div className="text-black text-sm font-raleway font-normal text-left  "><span className="font-bold">Termina en: </span>{dayjs.unix(auction.auction_deadline / 1000).format("DD/MMM/YYYY HH:mm:ss")} jsaas{ } </div>
-                              <div className="text-black text-sm font-raleway font-normal text-left  "><span className="font-bold">Status </span>{auction.status}</div>
-                              <div className="text-black  text-lg  font-raleway font-normal   text-left"><span className="font-bold text-sm">Precio base </span>{auction.auction_base_requested ? (fromYoctoToNear(auction.auction_base_requested)) : null}  Ⓝ</div>
-                              <div className="text-black text-sm font-raleway font-normal text-left  "><span className="font-bold">Contrato </span>{auction.nft_contract}</div>
+                          <div className="flex flex-col md:flex-row">
+                            <div className="w-full md:w-1/3">
+                              <div className="text-black text-sm font-raleway font-normal text-left  "><span className="font-bold">{t("auction.au_end")}  </span>{dayjs.unix(auction.auction_deadline / 1000).format("DD/MMM/YYYY HH:mm:ss")}</div>
+                              <div className="text-black text-sm font-raleway font-normal text-left  "><span className="font-bold">{t("auction.au_status")} </span>{auction.status}</div>
+                              <div className="text-black  text-lg  font-raleway font-normal   text-left"><span className="font-bold text-sm">{t("auction.au_price")} </span>{auction.auction_base_requested ? (fromYoctoToNear(auction.auction_base_requested)) : null}  Ⓝ</div>
+                              <div className="text-black text-sm font-raleway font-normal text-left  "><span className="font-bold">{t("auction.au_contract")}  </span>{auction.nft_contract}</div>
                             </div>
-                            <div className="w-2/3  rounded-xlarge ">
+                            <div className="w-full md:w-2/3  rounded-xlarge ">
                               {/*Auction active*/
                               (dayjs.unix(auction.auction_deadline / 1000).format("DD/MMM/YYYY HH:mm:ss") > dayjs(new Date()).format("DD/MMM/YYYY HH:mm:ss") ? 
                                 <>
@@ -137,8 +134,8 @@ function AuctionFunction(props) {
                                   (auctionBids.length == 1 ?
                                   <div className="flex flex-col py-2 border rounded-xlarge">
                                     <div className="flex justify-around">
-                                      <span className="text-black   font-raleway text-sm"><span className="font-bold">{t("Detail.actualBid")}</span> {fromYoctoToNear(auction.auction_payback)}  Ⓝ</span>
-                                      <span className=" text-black  pr-3 font-raleway text-sm"><span className="font-bold">OFERTANTE</span> {auction.bidder_id}</span>
+                                      <span className="text-black   font-raleway text-sm"><span className="font-bold">{t("auction.au_actual")} </span> {fromYoctoToNear(auction.auction_payback)}  Ⓝ</span>
+                                      <span className=" text-black  pr-3 font-raleway text-sm"><span className="font-bold">{t("auction.au_bidder")} </span> {auction.bidder_id}</span>
                                     </div>
                                     {
                                     (account==auction.nft_owner ?
@@ -175,7 +172,7 @@ function AuctionFunction(props) {
                                         <button
                                           className="w-full content-center justify-center text-center font-bold text-white bg-yellow2 border-0  focus:outline-none hover:bg-yellow   font-raleway text-sm rounded-xlarge p-2 m-2"
                                           onClick={async () => { processCancelBidOffer() }}>
-                                          <span className="font-raleway">CANCEL THIS AUCTION</span>
+                                          <span className="font-raleway">{t("auction.au_cancelAuction")}</span>
                                         </button>
                                       </div>
                                       :
@@ -192,13 +189,13 @@ function AuctionFunction(props) {
                                 {account == auction.bidder_id && auction.status != 'Claimed' ? <>
                                   <div className="flex flex-col py-2 border rounded-xlarge">
                                     <div className="flex justify-around">
-                                      <div className="text-black   font-raleway text-sm"><span className="font-bold">AUCTION ENDED! CLAIM YOUR NFT!</span></div>
+                                      <div className="text-black   font-raleway text-sm"><span className="font-bold">{t("auction.au_msgAuctionEnded")}</span></div>
                                     </div>
                                     <div className="w-full p-2">
                                         <button
                                           className="w-full content-center justify-center text-center font-bold text-white bg-yellow2 border-0  focus:outline-none hover:bg-yellow   font-raleway text-sm rounded-xlarge p-2 m-2"
                                           onClick={async () => { processClaimNFT() }}>
-                                          <span className="font-raleway">CLAIM NFT</span>
+                                          <span className="font-raleway">{t("auction.au_claim")}</span>
                                         </button>
                                       </div>
                                   </div>
@@ -216,7 +213,7 @@ function AuctionFunction(props) {
                                                   <button
                                                     className="w-full content-center justify-center text-center font-bold text-white bg-yellow2 border-0  focus:outline-none hover:bg-yellow   font-raleway text-sm rounded-xlarge p-2 m-2"
                                                     onClick={async () => { processCancelBidOffer() }}>
-                                                    <span className="font-raleway">CANCEL AUCTION</span>
+                                                    <span className="font-raleway">{t("auction.au_cancelAuction")}</span>
                                                   </button>
                                                 </div>
                                               </div>
@@ -244,7 +241,7 @@ function AuctionFunction(props) {
                   <div className="trending-token w-full rounded-20 ">
                     <div className="flex justify-between">
                       <div className="text-white font-bold my-auto">
-                        OFERTAS Realizadas
+                      {t("auction.au_bids")}
                       </div>
 
                       {account!=auction.nft_owner && dayjs.unix(auction.auction_deadline / 1000).format("DD/MMM/YYYY HH:mm:ss") > dayjs(new Date()).format("DD/MMM/YYYY HH:mm:ss") ? 
@@ -255,7 +252,7 @@ function AuctionFunction(props) {
                             makeAnOffer();
                           }}
                         >
-                          OFERTAR
+                          {t("auction.au_bid")}
                         </button>
                       </div> : ""}
                     </div>
@@ -265,8 +262,8 @@ function AuctionFunction(props) {
                           <div className="flex  flex-col">
                             {key == 0 ? <>
                               <div className="flex">
-                                <p className="font-bold text-center text-darkgray border-b border-solid border-gray-700 w-1/2">bid_amount</p>
-                                <p className="font-bold text-center text-darkgray border-b border-solid border-gray-700 w-1/2">bidder_id</p>
+                                <p className="font-bold text-center text-darkgray border-b border-solid border-gray-700 w-1/2">{t("auction.au_bidAmount")}</p>
+                                <p className="font-bold text-center text-darkgray border-b border-solid border-gray-700 w-1/2">{t("auction.au_bidder")}</p>
                               </div>
                               <div className="flex">
                                 <p className="border-b border-solid border-gray-700 w-1/2 text-darkgray">{fromYoctoToNear(bid.bid_amount)} Ⓝ{ }</p>
@@ -283,7 +280,7 @@ function AuctionFunction(props) {
 
                           </div>
                         )
-                      }) : "There is no current Offers for this auction"}
+                      }) : <>{t("auction.au_noOffer")}</>}
                     </div>
                   </div>
                 </div>

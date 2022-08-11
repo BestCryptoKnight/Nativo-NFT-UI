@@ -139,7 +139,7 @@ export default function AuctionModal(props) {
                         htmlFor="price"
                         className="leading-7 text-sm  text-darkgray"
                       >
-                        Precio {props.currency}
+                        {t("bidModal.au_price")} 
                       </label>
                       {formik.touched.price && formik.errors.price ? (
                         <div className="leading-7 text-sm text-red-600 font-open-sans">
@@ -168,7 +168,7 @@ export default function AuctionModal(props) {
                         htmlFor="msg"
                         className="leading-7 text-sm  text-darkgray"
                       >
-                        Descripción subasta
+                        {t("bidModal.au_description")}
                       </label>
                       {formik.touched.msg && formik.errors.msg ? (
                         <div className="leading-7 text-sm text-red-600 font-open-sans">
@@ -197,7 +197,7 @@ export default function AuctionModal(props) {
                           type="submit"
                           disabled={state.disabled}
                         >
-                          Ofertar
+                          {t("bidModal.au_ok")}
                         </button>
                       </div>
                     )}

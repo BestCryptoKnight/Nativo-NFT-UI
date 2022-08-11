@@ -125,7 +125,7 @@ export default function BidModal(props) {
                         htmlFor="price"
                         className="leading-7 text-sm  text-darkgray"
                       >
-                        Precio {props.currency}
+                         {t("auctionModal.au_bidAmount")} {props.currency}
                       </label>
                       {formik.touched.price && formik.errors.price ? (
                         <div className="leading-7 text-sm text-red-600 font-open-sans">
@@ -160,7 +160,7 @@ export default function BidModal(props) {
                           type="submit"
                           disabled={state.disabled}
                         >
-                          Ofertar
+                          {t("auctionModal.au_bid")}
                         </button>
                       </div>
                     )}

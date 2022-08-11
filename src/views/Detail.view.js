@@ -381,8 +381,7 @@ function LightEcommerceB(props) {
         tokenId: "1",
         currency: "1",
         blockchain: "1",
-        message:
-          "Ingresa el monto base al que quieres subastar este NFT",
+        message: t("bidModal.au_title") ,
         buttonName: "X",
         change: setModalSub,
       });
@@ -665,7 +664,7 @@ function LightEcommerceB(props) {
                       makeAnAuction();
                     }}
                   >
-                    SUBASTAR NFT
+                    {t("Detail.auction")}
                   </button>
                    : ""
                 }
