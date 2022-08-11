@@ -42,7 +42,8 @@
         "login" : "Login",
         "profile" : "profile",
         "logout" : "Logout",
-        "logoin" : "Login"
+        "logoin" : "Login",
+        "auctions": "Auctions"
 
     },
     "Footer" : {
@@ -134,7 +135,8 @@
         "cancelBid" : "Cancel bid",
         "btnAddNFTCol" : "Add NFT to a collection",
         "msgAddToken" : "Add NFT to a collection",
-        "msgAddToken2" : "Select the collection to which you want to add the NFT"
+        "msgAddToken2" : "Select the collection to which you want to add the NFT",
+        "auction": "Start Auction"
     },
     "MyNFTs" : {
         "title" : "My NFTs",
@@ -320,5 +322,49 @@
         "searchNftById": "Search NFT by ID",
         "modalSearch": "We can't find that NFT",
         "modalSearchText": "Search by another ID"
+    },
+    "auctions" : {
+        "au_title" : "Auctions",
+        "au_subtitle" : "Here you can find all the NFT auctions and do an bid on some!",
+        "au_owner": "Auction Owner",
+        "au_end": "Ends on",
+        "au_status": "Status",
+        "au_price": "Initial Price",
+        "au_contract": "Contract",
+        "au_loading": "Auctions Loading",
+        "au_finish": "Finish",
+        "au_notAvailable": "There is not available auctions"
+    },
+    "auction" : {
+        "au_title" : "Auctions",
+        "au_subtitle" : "Here you can find all the NFT auctions and do an bid on some!",
+        "au_owner": "By",
+        "au_end": "Ends on",
+        "au_status": "Status",
+        "au_price": "Init Price",
+        "au_contract": "Contract",
+        "au_loading": "Auctions Loading",
+        "au_finish": "Finish",
+        "au_actual": "Current Bid",
+        "au_bidder": "Bidder",
+        "au_cancel": "Cancel",
+        "au_bid": "Bid",
+        "au_bids": "All Bids",
+        "au_bidAmount": "Amount",
+        "au_cancelAuction": "Cancel Auction",
+        "au_claim": "Claim my NFT",
+        "au_msgAuctionEnded": "Auction Ended, Claim your NFT!",
+        "au_noOffer": "There is no current offers for this auction"
+    },
+    "auctionModal" : {
+        "au_title" : "Make a Bid",
+        "au_bid" : "Place the bid",
+        "au_bidAmount": "Amount"
+    },
+    "bidModal" : {
+        "au_title" : "Make an Auction",
+        "au_price": "Init Price",
+        "au_description": "Add a description",
+        "au_ok": "OK"
     }
 }

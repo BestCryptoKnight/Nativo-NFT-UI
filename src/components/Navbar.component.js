@@ -188,6 +188,9 @@ function LightHeaderB(props) {
             <a href="/collections" className="mr-5 hover:text-[#ec8b01] hover:text-lg hover:font-bold dark:text-white font-raleway font-normal">
               {t("Navbar.collections")}
             </a>
+            <a href="/auctions" className="mr-5 hover:text-[#ec8b01] hover:text-lg hover:font-bold dark:text-white font-raleway font-normal">
+            {t("Navbar.auctions")}
+            </a>
           </nav>
 
 
@@ -388,6 +391,25 @@ function LightHeaderB(props) {
                                   <svg xmlns="http://www.w3.org/2000/svg" id="Isolation_Mode" data-name="Isolation Mode" viewBox="0 0 24 24" width="15" height="15"><polygon points="20 4 20 0 17 0 17 4 13 4 13 7 17 7 17 11 20 11 20 7 24 7 24 4 20 4"/><path d="M0,3v8H11V0H3A3,3,0,0,0,0,3ZM3,3H8V8H3Z"/><path d="M0,21a3,3,0,0,0,3,3h8V13H0Zm3-5H8v5H3Z"/><path d="M13,24h8a3,3,0,0,0,3-3V13H13Zm3-8h5v5H16Z"/></svg>
                                   </span>
                                   <p className=" self-center"> {t("Navbar.createCollection")}</p>
+                                </div>
+
+                              </a>
+                            )}
+                          </Menu.Item>
+                          <Menu.Item
+                          >
+                            {({ active }) => (
+                              <a href="/auctions" className={classNames(
+                                active
+                                  ? "bg-yellow text-darkgray "
+                                  : "text-darkgray ml-2 ",
+                                "block px-2 py-2 text-sm text-center font-raleway font-normal md:hidden "
+                              )}>
+                                <div className="flex justify-start">
+                                  <span className=" m-2">
+                                  <svg xmlns="http://www.w3.org/2000/svg" id="Layer_1" data-name="Layer 1" viewBox="0 0 24 24" width="15" height="15"><path d="M24,7v1c0,.552-.447,1-1,1s-1-.448-1-1v-1c0-1.654-1.346-3-3-3H5c-1.654,0-3,1.346-3,3v10c0,1.654,1.346,3,3,3h3c.553,0,1,.448,1,1s-.447,1-1,1h-3c-2.757,0-5-2.243-5-5V7C0,4.243,2.243,2,5,2h14c2.757,0,5,2.243,5,5Zm-9,2h4c.553,0,1-.448,1-1s-.447-1-1-1h-4c-.553,0-1,.448-1,1s.447,1,1,1Zm8.121,2.879c.566,.566,.879,1.32,.879,2.121s-.313,1.555-.879,2.122l-6.707,6.707c-.755,.755-1.76,1.172-2.828,1.172h-1.586c-.553,0-1-.448-1-1v-1.586c0-1.068,.416-2.073,1.172-2.828l6.707-6.707c1.17-1.17,3.072-1.17,4.242,0Zm-1.121,2.121c0-.267-.104-.518-.293-.707-.391-.391-1.023-.39-1.414,0l-6.707,6.707c-.372,.373-.586,.888-.586,1.414v.586h.586c.534,0,1.036-.208,1.414-.586l6.707-6.707c.189-.189,.293-.44,.293-.707Zm-13,1h-2.268c-.356,0-.688-.192-.867-.5-.275-.479-.886-.644-1.366-.365-.478,.277-.642,.888-.364,1.366,.534,.925,1.53,1.499,2.598,1.499h.268c0,.552,.447,1,1,1s1-.448,1-1c1.654,0,3-1.346,3-3,0-1.36-.974-2.51-2.315-2.733l-3.041-.507c-.373-.062-.644-.382-.644-.76,0-.551,.448-1,1-1h2.268c.356,0,.688,.192,.867,.5,.275,.478,.885,.642,1.366,.365,.478-.277,.642-.888,.364-1.366-.534-.925-1.53-1.5-2.598-1.5h-.268c0-.552-.447-1-1-1s-1,.448-1,1c-1.654,0-3,1.346-3,3,0,1.36,.974,2.51,2.315,2.733l3.041,.507c.373,.062,.644,.382,.644,.76,0,.551-.448,1-1,1Zm5-3c0,.552,.448,1,1,1s1-.448,1-1-.448-1-1-1-1,.448-1,1Z"/></svg>
+                                  </span>
+                                  <p className=" self-center"> {t("Navbar.auctions")}</p>
                                 </div>
 
                               </a>
