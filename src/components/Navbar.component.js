@@ -188,6 +188,9 @@ function LightHeaderB(props) {
             <a href="/collections" className="mr-5 hover:text-[#ec8b01] hover:text-lg hover:font-bold dark:text-white font-raleway font-normal">
               {t("Navbar.collections")}
             </a>
+            <a href="/auctions" className="mr-5 hover:text-[#ec8b01] hover:text-lg hover:font-bold dark:text-white font-raleway font-normal">
+            {t("Navbar.auctions")}
+            </a>
           </nav>
 
 
@@ -400,7 +403,7 @@ function LightHeaderB(props) {
                                 active
                                   ? "bg-yellow text-darkgray "
                                   : "text-darkgray ml-2 ",
-                                "block px-2 py-2 text-sm text-center font-raleway font-normal "
+                                "block px-2 py-2 text-sm text-center font-raleway font-normal md:hidden "
                               )}>
                                 <div className="flex justify-start">
                                   <span className=" m-2">
