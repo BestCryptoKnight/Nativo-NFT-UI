@@ -11,7 +11,7 @@ import {
   getSelectedAccount,
   getContract,
   fromWEItoEth,
-  fromETHtoWei
+  fromETHtoWei,
 } from "../utils/blockchain_interaction";
 import { currencys } from "../utils/constraint";
 import {
@@ -29,7 +29,6 @@ import loadingGif from "../assets/img/loadingGif.gif"
 import { useTranslation } from "react-i18next";
 import Swal from 'sweetalert2'
 import { use } from "i18next";
-import ModalSubasta from '../components/auctionModal.component'
 
 function LightEcommerceB(props) {
   //guarda el estado de  toda la vista
@@ -47,10 +46,6 @@ function LightEcommerceB(props) {
   const [creator, setCreator] = useState(false)
   const [noCollection, setNoCollection] = useState(false)
   const [loadInfo, setLoadInfo] = useState(false)
-  const [modalSub, setModalSub] = useState({
-    //state para la ventana modal
-    show: false,
-  });
   //es el parametro de tokenid
   const { data } = useParams();
   //es el historial de busqueda
@@ -374,21 +369,6 @@ function LightEcommerceB(props) {
     })
   }
 
-  async function makeAnAuction(){
-      setModalSub({
-        ...modalSub,
-        show: true,
-        tokenId: "1",
-        currency: "1",
-        blockchain: "1",
-        message: t("bidModal.au_title") ,
-        buttonName: "X",
-        change: setModalSub,
-      });
-     
-    
-  }
-
   async function makeAddToken(){
     console.log("Add token to collection")
     setAddTokenModal({
@@ -662,23 +642,8 @@ function LightEcommerceB(props) {
                         {t("Detail.login")}
                       </button>
                   }
-                         
 
-                <div>
-                  
-                {
-                    stateLogin && state?.owner == state?.ownerAccount? 
-                    <button
-                    className={`w-full m-2 lg:w-40 content-center justify-center text-center  text-white bg-yellow2 border-0 py-2 px-6 focus:outline-none hover:bg-yellow rounded-xlarge font-raleway font-medium`}
-                    onClick={async () => {
-                      makeAnAuction();
-                    }}
-                  >
-                    {t("Detail.auction")}
-                  </button>
-                   : ""
-                }
-                </div>
+                
                 </div>
               </div>
             </div>
@@ -759,7 +724,6 @@ function LightEcommerceB(props) {
         <Modal {...modal} />
         <OfferModal {...offerModal}  />
         <AddTokenModal {...addTokenModal} />
-        <ModalSubasta {...modalSub} {...state}/>
       </section>
     </>
   );

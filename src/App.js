@@ -16,7 +16,6 @@ import AuctionGaleria from "./views/AuctionGaleria.view";
 import Auction from "./views/auction.view";
 import SendAuction from "./views/SendAuction.view";
 import Perfil from "./views/Perfil.view";
-import Auctions from "./views/Auctions.view";
 import creCol from "./views/createColl"
 import Collections from "./views/collectionGallery"
 import TokensCollection from "./views/tokensCollection"
@@ -80,7 +79,7 @@ class App extends Component {
             <Route path="/collections" component={Collections} />
             <Route path="/collection/:data" component={TokensCollection} />
             <Route path="/perfil/:tokenid" component={Perfil} />
-            <Route path="/auctions" component={Auctions} />
+            <Route path="/auctions" component={AuctionGaleria} />
             <Route path="/auction/:tokenid" component={Auction} />
             <BlockchainProtectedRoute path="/sendauction/:tokenid" component={SendAuction} />
             <Route path="/detail/:data" component={Detail}/>
