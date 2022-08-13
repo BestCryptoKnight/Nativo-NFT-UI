@@ -70,11 +70,11 @@ function LightEcommerceB(props) {
       memo: ":"
     }
     Swal.fire({
-      title: t("Footer.msg-ntv-title"),
-      text: t("Footer.msg-ntv-desc"),
+      title: "Advertencia",
+      text: "La transaccion que estas por ejecutar fallara, no te preocupes no hay ningun problema, ejecuta la transaccion, una vez esta falle presiona cancelar para volver a la pagina.",
       icon: 'warning',
       confirmButtonColor: '#E79211',
-      confirmButtonText: t("Footer.msg-ntv-btn")
+      confirmButtonText: "Continuar"
     }).then(async (result) => {
       if (result.isConfirmed) {
         console.log("Transfer NTV")

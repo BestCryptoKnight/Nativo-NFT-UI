@@ -377,7 +377,7 @@ function LightHeaderB(props) {
                           <Menu.Item
                           >
                             {({ active }) => (
-                              <a href="/collectionData/create" className={classNames(
+                              <a href="/createCollection" className={classNames(
                                 active
                                   ? "bg-yellow text-darkgray "
                                   : "text-darkgray ml-2 ",

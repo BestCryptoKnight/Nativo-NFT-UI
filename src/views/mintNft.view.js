@@ -526,22 +526,19 @@ function LightHeroE(props) {
                           )
                         })}
                       </div>
-                      <div className="relative group mt-4 rounded-xlarge">
-                        <div className="absolute -inset-0.5 bg-[#5aee8c]  rounded-xlarge blur opacity-70 group-hover:opacity-100 transition duration-1000 group-hover:duration-200 animate-tilt group-hover:-inset-1"></div>
-                        <button type="button" onClick={addFields} className="relative w-full  rounded-xlarge dark:text-white font-bold bg-lime-600 py-2 text-base uppercase font-open-sans">{t("MintNFT.btnRoyalties")}</button>
-                      </div>
+
+                      <button type="button" onClick={addFields} className="mt-2 w-7/12  rounded-xlarge dark:text-darkgray  bg-lime-600 border-0 py-2 px-6 focus:outline-none hover:bg-brown  text-base uppercase font-open-sans">{t("MintNFT.btnRoyalties")}</button>
                     </div>
 
-                    <div className="relative group mt-10 rounded-xlarge">
-                      <div className="absolute -inset-0.5 bg-gradient-to-r from-[#f2b159] to-[#ca7e16] rounded-full blur opacity-70 group-hover:opacity-100 transition duration-1000 group-hover:duration-200 animate-tilt group-hover:-inset-1"></div>
-                      <button
-                          type="submit"
-                          className={`relative w-full bg-yellow2 rounded-xlarge uppercase font-open-sans text-base px-6 py-2 font-bold border-2 border-yellow2 dark:text-white`}
-                          disabled={mint?.onSubmitDisabled}
-                        >
-                          {t("MintNFT.createNFT")}
-                      </button>
-                    </div>
+
+
+                    <button
+                      type="submit"
+                      className={` mt-12 w-full rounded-xlarge  dark:text-darkgray  bg-yellow2 border-0 py-2 px-6 focus:outline-none hover:bg-brown  text-lg font-open-sans uppercase `}
+                      disabled={mint?.onSubmitDisabled}
+                    >
+                      {t("MintNFT.createNFT")}
+                    </button>
                   </div>
                 </div>
               </div>

@@ -65,11 +65,7 @@
         "aboutNativo" : "acerca de nativo nft",
         "theTeam" : "el equipo",
         "tribu" : "Nativo NFT 2022 - Mantenido por la tribu de",
-        "cloudMx" : "CloudMex Analytics",
-        "btn-NTV" : "Agregar mis NTVs a mi wallet",
-        "msg-ntv-title" : "Advertencia",
-        "msg-ntv-desc" : "La transaccion que estas por ejecutar fallara, no te preocupes no hay ningun problema, ejecuta la transaccion, una vez esta falle presiona cancelar para volver a la pagina.",
-        "msg-ntv-btn" : "Continuar"
+        "cloudMx": "CloudMex Analytics"
     },
     "Collections" : {
         "creator" : "Creador",
@@ -169,9 +165,7 @@
         "allTokens": "Todos",
         "contract": "Contrato",
         "notNfts": "No tienes NFT's",
-        "searchNftById": "Buscar NFT por ID",
-        "vis" : "Visible",
-        "noVis": "No visible"
+        "searchNftById": "Buscar NFT por ID"
     },
     "CreateCol" : {
         "title" : "Nueva Colección",
@@ -208,12 +202,7 @@
         "lblIcon-2" : "Maximo 10mb, formatos aceptados .jpg, .gif, .png, .webp",
         "errSize-2" : "El tamaño no puede superar los 10mb",
         "userAcc" : "Tu cuenta",
-        "userCont" : "Este es tu contrato",
-        "visibility": "Visibilidad",
-        "vis-msg" : "Da clic aqui para mostrar u ocultar tu coleccion",
-        "title2" : "Editar coleccion",
-        "editBtn" : "Editar coleccion",
-        "idCol" : "ID de la coleccion:"
+        "userCont" : "Este es tu contrato"
     },
     "MintNFT" : {
         "maxTitle" : "Menos de 60 caracteres",

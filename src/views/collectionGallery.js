@@ -111,7 +111,7 @@ function LightEcommerceA() {
     let colData;
     const queryData = `
           query($first: Int, $lastTokenID: Int){
-              collections(first: $first,  orderBy: collectionID, orderDirection: desc, where: { collectionID_lt: $lastTokenID, visibility:true}){
+              collections(first: $first,  orderBy: collectionID, orderDirection: desc, where: { collectionID_lt: $lastTokenID}){
                 id
                 collectionID
                 owner_id
@@ -237,7 +237,7 @@ function LightEcommerceA() {
 
     const queryData = `
           query($first: Int){
-              collections(first: $first,  orderBy: collectionID, orderDirection: desc, where:{visibility:true}){
+              collections(first: $first,  orderBy: collectionID, orderDirection: desc){
                 id
                 collectionID
                 owner_id
@@ -421,6 +421,7 @@ function LightEcommerceA() {
                 mediaIcon
                 collectionID
                 timestamp
+
             }
           }
         `
