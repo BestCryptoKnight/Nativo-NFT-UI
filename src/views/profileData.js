@@ -372,17 +372,14 @@ function LightHeroE(props) {
                         className={`font-open-sans flex flex-col  h-full dark:bg-white dark:text-darkgray   text-left rounded-xlarge justify-center focus-visible:outline-none focus-visible:shadow-brown-s w-full`}
                       />
                     </div>
-                    <div className="relative group mt-10 rounded-xlarge mt-12">
-                      <div className="absolute -inset-0.5 bg-gradient-to-r from-[#f2b159] to-[#ca7e16] rounded-full blur opacity-70 group-hover:opacity-100 transition duration-1000 group-hover:duration-200 animate-tilt group-hover:-inset-1"></div>
-                      <button
-                        type="submit"
-                        className={`relative w-full bg-yellow2 rounded-xlarge uppercase font-open-sans text-base px-6 py-2 font-bold border-2 border-yellow2 dark:text-white`}
-                        disabled={mint?.onSubmitDisabled}
-                      >
-                        {type?t("Profile.title2"):t("Profile.createProfile")}
-                      </button>
-                    </div>
-                    
+
+                    <button
+                      type="submit"
+                      className={` mt-12 w-full rounded-xlarge  dark:text-darkgray  bg-yellow2 border-0 py-2 px-6 focus:outline-none hover:bg-brown  text-lg font-open-sans uppercase `}
+                      disabled={mint?.onSubmitDisabled}
+                    >
+                      {type?t("Profile.title2"):t("Profile.createProfile")}
+                    </button>
                   </div>
                 </div>
               </div>

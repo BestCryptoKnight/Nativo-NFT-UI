@@ -179,17 +179,13 @@ export default function OfferModal(props) {
                     {/* Ofertar */}
                     {props.tokenId && (
                       <div className="w-full flex justify-end">
-                        <div className="relative group mt-3 rounded-full">
-                          <div className="absolute -inset-0.5 bg-gradient-to-r from-[#f2b159] to-[#ca7e16] rounded-full blur opacity-70 group-hover:opacity-100 transition duration-1000 group-hover:duration-200 animate-tilt group-hover:-inset-1"></div>
-                          <button
-                            className={`relative bg-yellow2 text-white font-bold uppercase text-sm px-6 py-3 rounded-full shadow hover:shadow-lg outline-none focus:outline-none  ease-linear transition-all duration-150 `}
-                            type="submit"
-                            disabled={state.disabled}
-                          >
-                            Ofertar
-                          </button>
-                        </div>
-                        
+                        <button
+                          className={`bg-yellow2 w- mt-3  text-white active:bg-brown font-bold uppercase text-sm px-6 py-3 rounded-full shadow hover:shadow-lg outline-none focus:outline-none  ease-linear transition-all duration-150 `}
+                          type="submit"
+                          disabled={state.disabled}
+                        >
+                          Ofertar
+                        </button>
                       </div>
                     )}
                   </div>

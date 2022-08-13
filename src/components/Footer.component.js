@@ -16,11 +16,11 @@ function LightFooterB(props) {
       memo: ":"
     }
     Swal.fire({
-      title: t("Footer.msg-ntv-title"),
-      text: t("Footer.msg-ntv-desc"),
+      title: "Advertencia",
+      text: "La transaccion que estas por ejecutar fallara, no te preocupes no hay ningun problema, ejecuta la transaccion, una vez esta falle presiona cancelar para volver a la pagina.",
       icon: 'warning',
       confirmButtonColor: '#E79211',
-      confirmButtonText: t("Footer.msg-ntv-btn")
+      confirmButtonText: "Continuar"
     }).then(async (result) => {
       if (result.isConfirmed) {
         console.log("Transfer NTV")
@@ -85,7 +85,7 @@ function LightFooterB(props) {
               <li className="pb-4">
                 <button 
                   className="bg-yellow2 text-white py-1 px-2 text-sm rounded-xlarge"
-                  onClick={async () => {addNTVToken()}}>{t("Footer.btn-NTV")}</button>
+                  onClick={async () => {addNTVToken()}}>Agregar mis NTVs a mi wallet</button>
               </li>
 
               
