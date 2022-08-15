@@ -213,7 +213,11 @@
         "vis-msg" : "Da clic aqui para mostrar u ocultar tu coleccion",
         "title2" : "Editar coleccion",
         "editBtn" : "Editar coleccion",
-        "idCol" : "ID de la coleccion:"
+        "idCol" : "ID de la coleccion:",
+        "swEditedTit" : "Se ha editado la colección",
+        "swEditedDesc" : "La colección ha sido editada con exito",
+        "swCreatedTit" : "La colección ha sido creada con exito",
+        "swCreatedDesc" : "Seras redirigido a mis NFTs para que agregues tus NFTs a la colección"
     },
     "MintNFT" : {
         "maxTitle" : "Menos de 60 caracteres",
