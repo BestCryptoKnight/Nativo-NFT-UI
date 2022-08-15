@@ -40,7 +40,7 @@
   
 
   .yellow-button {
-    @apply   rounded-xlarge  text-darkgray  bg-yellow2 border-0 py-2 px-6   text-xs font-semibold font-raleway uppercase hover:bg-brown !important;
+    @apply   rounded-xlarge  text-white  bg-yellow2 border-0 py-2 px-6   text-xs font-bold font-raleway uppercase hover:shadow-yellow1 hover:scale-105 !important;
   }
 
 

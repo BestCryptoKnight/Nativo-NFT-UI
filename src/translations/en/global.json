@@ -66,7 +66,11 @@
         "aboutNativo" : "About NativoNFT",
         "theTeam" : "The Team",
         "tribu" : "Nativo NFT 2022 - Mantained by",
-        "cloudMx": "CloudMex Analytics community"
+        "cloudMx": "CloudMex Analytics community",
+        "btn-NTV" : "Add my NTVs to my wallet",
+        "msg-ntv-title" : "Warning",
+        "msg-ntv-desc" : "The transaction that you are about to execute will fail, don't worry there is no problem, execute the transaction, once it fails press cancel to return to the page.",
+        "msg-ntv-btn" : "Continue"
     },
     "Collections" : {
         "creator" : "Creator",
@@ -166,7 +170,9 @@
         "allTokens": "All",
         "contract": "Contract",
         "notNfts": "You don't have NFT's ",
-        "searchNftById": "Search NFT by ID"
+        "searchNftById": "Search NFT by ID",
+        "vis" : "Visible",
+        "noVis": "Not visible"
 
     },
     "CreateCol" : {
@@ -204,7 +210,12 @@
         "lblIcon-2" : "Maximum 10mb, accepted formats .jpg, .gif, .png, .webp",
         "errSize-2" : "Size cannot exceed 10mb",
         "userAcc" : "Your account",
-        "userCont" : "This is your contract"
+        "userCont" : "This is your contract",
+        "visibility": "Visibility",
+        "vis-msg" : "Click here to show or hide your collection",
+        "title2" : "Edit collection",
+        "editBtn" : "Edit collection",
+        "idCol" : "Collection ID:"
     },
     "MintNFT" : {
         "maxTitle" : "Less than 60 characters",
