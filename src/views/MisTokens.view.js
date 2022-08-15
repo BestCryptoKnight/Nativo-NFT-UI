@@ -352,7 +352,8 @@ function MisTokens(props) {
                 mediaIcon
                 mediaBanner,
                 description,
-                tokenCount
+                tokenCount,
+                visibility
             }
           }
         `
@@ -401,7 +402,8 @@ function MisTokens(props) {
             description: collection.description,
             mediaIcon: collection.mediaIcon,
             mediaBanner: collection.mediaBanner,
-            collectionID: collection.collectionID
+            collectionID: collection.collectionID,
+            visibility: collection.visibility
           };
         });
     
@@ -649,7 +651,8 @@ function MisTokens(props) {
             mediaIcon
             mediaBanner,
             description,
-            tokenCount
+            tokenCount,
+            visibility
           }
         }`
 
@@ -689,7 +692,8 @@ function MisTokens(props) {
             description: collection.description,
             mediaIcon: collection.mediaIcon,
             mediaBanner: collection.mediaBanner,
-            collectionID: collection.collectionID
+            collectionID: collection.collectionID,
+            visibility: collection.visibility
           };
         });
       }
@@ -1207,9 +1211,24 @@ function MisTokens(props) {
               
               
                                           </div>
-                                          <div className="rounded-xlarge  text-white  bg-yellow2 border-0 mx-auto justify-center  px-6 w-[130px] flex mx-auto my-2 p-2  text-xs font-semibold font-raleway uppercase hover:bg-brown width" >{t("tokCollection.seeDetails")}</div>
+                                          <div className="relative group mt-2 my-2 mx-auto rounded-xlarge w-[130px]">
+                                            <div className="absolute -inset-0.5 bg-gradient-to-r from-[#f2b159] to-[#ca7e16] rounded-xlarge blur opacity-70 group-hover:opacity-100 transition duration-1000 group-hover:duration-200 animate-tilt group-hover:-inset-1"></div>
+                                            <div className="relative rounded-xlarge text-white p-2 bg-yellow2 justify-center flex text-xs font-semibold font-raleway uppercase" >{t("tokCollection.seeDetails")}</div>
+                                          </div>                                          
                                         </div>
-                                        <div className=" px-6 font-raleway text-xs text-right mx-auto justify-center">{t("tokCollection.createdBy")} <a href={`profile/${i.owner}`} className="font-raleway text-xs font-bold text-blue2">{i.owner}</a></div>
+                                        <div className=" px-6 font-raleway text-xs text-right mx-auto justify-center">
+                                          <span 
+                                            className={`inline-flex items-center justify-center px-2 py-1  font-raleway font-medium text-xs leading-none ${i.visibility ? "text-green-100 bg-green-600" : "text-red-100 bg-red-600"} rounded-full`}
+                                          >
+                                            {i.visibility ? t("MyNFTs.vis") : t("MyNFTs.noVis")}
+                                          </span>
+                                          <a 
+                                            href={"/collectionData/edit,"+i.collectionID} 
+                                            className="hover:shadow-yellow1 hover:scale-105 bg-yellow2 border-0 text-xs ml-2 dark:text-white font-bold py-1 px-2 rounded-full inline-flex items-center"
+                                          >
+                                            {t("CreateCol.editBtn")}
+                                          </a>
+                                        </div>
                                       </div>
                                     </div>
                                   </div>
