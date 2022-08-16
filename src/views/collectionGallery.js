@@ -29,8 +29,8 @@ function LightEcommerceA() {
     page: parseInt(window.localStorage.getItem("page")),
     pag: window.localStorage.getItem("pagSale"),
     blockchain: localStorage.getItem("blockchain"),
-    tokensPerPage: 9,
-    tokensPerPageNear: 9,
+    tokensPerPage: 20,
+    tokensPerPageNear: 20,
   });
   const [t, i18n] = useTranslation("global")
   const [esconder, setesconder] = React.useState(true);
@@ -488,12 +488,14 @@ return (
   <section className={"text-gray-600 body-font " + (ini && hasData ? "" : "py-64 dark:bg-darkgray")}>
     
     <div className={"pt-3 mx-auto dark:bg-darkgray "}>
-
-      <div className="flex justify-end mr-0 md:mr-10">
-        <form onSubmit={_handleKeyUp} className="flex mx-auto md:mx-0">
-          <div className="flex  rounded-xlarge  w-full   h-[45px] mx-0   mb-2 bg-gradient-to-b p-[2px] from-yellow  to-brown ">
-            <input type="text" value={search.searchWord} onChange={_handleChange} placeholder={t("tokCollection.search")} className={` font-open-sans  flex flex-col  h-full dark:bg-white dark:text-darkgray   text-left rounded-xlarge justify-center focus-visible:outline-none focus-visible:shadow-s focus-visible:shadow-s focus-visible:shadow-brown-s w-full `} />
-          </div>
+      <div className="lg:w-full  h-[30px] flex my-8 justify-center">
+        <h1 className="text-3xl lg:text-6xl font-black dark:text-white bg-darkgray m-0 px-6 font-raleway uppercase self-center">
+          {t("Collections.title")}
+        </h1>
+      </div>
+      <div className="flex justify-around px-5 md:px-8 mb-2 w-full">
+        <form onSubmit={_handleKeyUp} className="flex w-full">
+          <input type="text" value={search.searchWord} onChange={_handleChange} placeholder={t("tokCollection.search")} className={` font-open-sans  flex flex-col  h-full dark:bg-white dark:text-darkgray text-left rounded-lg mr-2 justify-center focus-visible:outline-none focus-visible:shadow-s focus-visible:shadow-s focus-visible:shadow-brown-s w-full `} />
           <button type="submit" value="Submit" className="rounded-xlarge  text-white  bg-yellow2 w-[50px] h-[45px] mx-1" >
             <svg xmlns="http://www.w3.org/2000/svg" id="Isolation_Mode" data-name="Isolation Mode" viewBox="0 0 24 24" width="20" height="20"><path fill="currentColor" d="M18.9,16.776A10.539,10.539,0,1,0,16.776,18.9l5.1,5.1L24,21.88ZM10.5,18A7.5,7.5,0,1,1,18,10.5,7.507,7.507,0,0,1,10.5,18Z" /></svg>
           </button>
@@ -517,43 +519,40 @@ return (
                 <b>{t("Collections.end")}</b>
               </p>
             }
-            className={"flex flex-wrap px-[40px]"}
+            className={"flex flex-wrap px-[20px]"}
           >
             {collections.items.map((i, index) => {
               return (
-                <div className="w-full md:w-1/2 lg:w-1/3 p-4  " key={index}>
+                <div className="w-full md:w-1/2 lg:w-1/3 xl:w-1/4 md:p-4" key={index}>
                   <a
                     href={"/collection/" + i.collectionID}
                   >
-                    <div className="flex flex-row  mb-10 md:mb-0  justify-center " >
-                      <div className="trending-token w-64 md:w-80 rounded-20 hover:shadow-yellow1   hover:scale-105 ">
-                        <div className=" bg-white rounded-20 h-[365px] md:h-[450px]">
-                          <div className="p-6 pt-3 pb-3">
+                    <div className="flex flex-row  mb-5 md:mb-0 justify-center " >
+                      <div className="trending-token w-full rounded-20 hover:shadow-yellow1   hover:scale-105 ">
+                        <div className=" bg-white rounded-20 pb-4 ">
+                          <div className="">
                             <img
-                              className="object-cover object-center rounded-xlarge h-[8rem] md:h-48  w-full bg-center"
+                              className="object-cover object-center rounded-t-xlarge h-[12rem] md:h-48  w-full bg-center"
                               src={`https://nativonft.mypinata.cloud/ipfs/${i.mediaBanner}`}
 
                               alt={i.description}
                             />
                           </div>
 
-                          <div className="w-[70px] h-[70px]  bg-circle bg-center rounded-full border-4 border-white relative bg-cover mx-auto -mt-[45px]" style={{ backgroundImage: `url(https://nativonft.mypinata.cloud/ipfs/${i.mediaIcon})` }} >
+                          <div className="w-[125px] h-[125px]  bg-circle bg-center rounded-full border-4 border-white relative bg-cover mx-auto -mt-[100px]" style={{ backgroundImage: `url(https://nativonft.mypinata.cloud/ipfs/${i.mediaIcon})` }} >
                           </div>
-                          <div className=" pb-3 p-6 pt-3">
+                          <div className=" px-4">
 
-                            <div className="capitalize text-black text-sm  text-ellipsis overflow-hidden whitespace-nowrap  font-raleway font-bold text-center">{i.title}</div>
-                            <div className="h-[3.4em] text-sm  stroke-gray-700 collection-description font-raleway py-2 ">{i.description}</div>
+                            <div className="capitalize text-black text-base text-ellipsis overflow-hidden whitespace-nowrap  font-raleway font-bold text-center">{i.title}</div>
 
-                            <div className="flex justify-around pt-2">
-                              <div className="text-black text-sm font-raleway font-normal   "><span className="font-bold">Id:</span> {i.collectionID}</div>
-                              <div className="text-black text-sm font-raleway font-normal   "><span className="font-bold"># Tokens:</span> {i.tokenCount}</div>
+                            <div className="flex justify-center pt-2">
+                              {/* <div className="text-black text-sm font-raleway font-normal   "><span className="font-bold">Tokens:</span> {i.tokenCount}</div> */}
 
 
 
                             </div>
-                            <div className="rounded-xlarge  text-white  bg-yellow2 border-0 mx-auto justify-center  px-6 w-[130px] flex mx-auto my-2 p-2  text-xs font-semibold font-raleway uppercase hover:bg-brown width" >{t("tokCollection.seeDetails")}</div>
                           </div>
-                          <div className=" px-6 font-raleway text-xs text-right mx-auto justify-center text-ellipsis overflow-hidden">{t("tokCollection.createdBy")} <a href={`profile/${i.owner.split('.')[0]}`} className="font-raleway text-xs font-bold text-blue2">{i.owner}</a></div>
+                          <div className=" px-6 font-raleway text-xs text-right mx-auto justify-center text-ellipsis overflow-hidden">{t("tokCollection.createdBy")} <a href={`profile/${i.owner.split('.')[0]}`} className="font-raleway text-xs font-bold text-blue2 text-ellipsis overflow-hidden">{i.owner}</a></div>
                         </div>
                       </div>
                     </div>
