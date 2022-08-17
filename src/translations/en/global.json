@@ -1,10 +1,10 @@
 {
     "Landing": {
-        "title" : "Collect NFTs ",
-        "title-2" : "in NEAR Protocol",
-        "subtitle" : "We update! You can now receive royalty payments from your NFT's.",
+        "title" : "Create, buy and earn",
+        "title-2" : "with your NFT's",
+        "subtitle" : "Decentralized Finance platform that allows the use of NFT's as warranty",
         "btnCollections" : "Collections",
-        "gallery" : "Explore Gallery",
+        "gallery" : "Explore",
         "useNear" : "Use your Near wallet",
         "useNear-sub" : "With them you can buy your NFT's and enter your panel",
         "artist" : "As an artist create new NFT",
@@ -42,7 +42,11 @@
         "login" : "Login",
         "profile" : "profile",
         "logout" : "Logout",
-        "logoin" : "Login"
+        "logoin" : "Login",
+        "finance" : "Finance",
+        "auctions" : "Auctions",
+        "loans" : "Loans",
+        "community" : "Community"
 
     },
     "Footer" : {

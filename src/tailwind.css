@@ -82,3 +82,37 @@
 .overflow-modal{
   overflow: hidden;
 }
+
+.landingBackground{
+  width: 100%;
+  /* height: 30rem; */
+  height: 586px;
+  background-size: cover;
+  background-color: rgb(255, 255, 255);
+  background-position: center center;
+  opacity: 0.3;
+  filter: blur(3px);
+  -webkit-mask: linear-gradient(rgb(255, 255, 255), transparent);
+}
+
+.customHover:hover{
+  background-image: linear-gradient(to bottom, #e6c509 , #810602);
+  transition-delay: 0s;
+}
+
+.cardsNFTSection:hover{
+  cursor: pointer;
+  --tw-shadow: 0 0 20px rgba(158, 009, 004, 1);
+  --tw-shadow-colored: 0 0 20px var(--tw-shadow-color);
+  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+  border-radius: 10px;
+}
+
+.cardsNFTSection:hover .buttonsNFTSection{
+  cursor: pointer;
+  --tw-shadow: 0 0 20px rgba(158, 009, 004, 1);
+  --tw-shadow-colored: 0 0 20px var(--tw-shadow-color);
+  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+}
+
+
