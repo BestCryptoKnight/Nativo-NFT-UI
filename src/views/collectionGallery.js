@@ -494,8 +494,8 @@ return (
         </h1>
       </div>
       <div className="flex justify-around px-5 md:px-8 mb-2 w-full">
-        <form onSubmit={_handleKeyUp} className="flex w-full">
-          <input type="text" value={search.searchWord} onChange={_handleChange} placeholder={t("tokCollection.search")} className={` font-open-sans  flex flex-col  h-full dark:bg-white dark:text-darkgray text-left rounded-lg mr-2 justify-center focus-visible:outline-none focus-visible:shadow-s focus-visible:shadow-s focus-visible:shadow-brown-s w-full `} />
+        <form onSubmit={_handleKeyUp} className="flex w-full justify-center">
+          <input type="text" value={search.searchWord} onChange={_handleChange} placeholder={t("tokCollection.search")} className={` placeholder:text-center font-open-sans  flex flex-col  h-full dark:bg-white dark:text-darkgray text-left rounded-20 mr-2 justify-center focus-visible:outline-none focus-visible:shadow-s focus-visible:shadow-s focus-visible:shadow-brown-s w-full xl:w-4/5 `} />
           <button type="submit" value="Submit" className="rounded-xlarge  text-white  bg-yellow2 w-[50px] h-[45px] mx-1" >
             <svg xmlns="http://www.w3.org/2000/svg" id="Isolation_Mode" data-name="Isolation Mode" viewBox="0 0 24 24" width="20" height="20"><path fill="currentColor" d="M18.9,16.776A10.539,10.539,0,1,0,16.776,18.9l5.1,5.1L24,21.88ZM10.5,18A7.5,7.5,0,1,1,18,10.5,7.507,7.507,0,0,1,10.5,18Z" /></svg>
           </button>
