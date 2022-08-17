@@ -81,7 +81,8 @@
         "load-1" : "Cargando, por favor espere",
         "load-2" : "Actualmente no hay colecciones disponibles",
         "end" : "No hay más colecciones para mostrar",
-        "noData" : "No hay colecciones actualmente"
+        "noData" : "No hay colecciones actualmente",
+        "title" : "Colecciones"
     },
     "tokCollection" : {
         "creator" : "Creador",
