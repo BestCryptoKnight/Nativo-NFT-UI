@@ -8,7 +8,7 @@ import rocket from '../assets/img/Rocket.png';
 function LightHeroE(props) {
   const [t, i18n] = useTranslation("global")
   return (
-    <section className="text-gray-600 body-font dark:bg-darkgray">
+    <section className="text-gray-600 body-font dark:bg-darkgray h-screen">
       <div className="container mx-auto flex px-5 pb-10 flex-col items-center md:items-center">
         <div className=" h-72 lg:h-96 lg:flex-grow  flex flex-col md:text-left items-center" >
           <div className="w-full z-20 pt-10">

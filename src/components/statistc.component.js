@@ -6,7 +6,7 @@ import { useTranslation } from "react-i18next";
 function LightStatisicC(props) {
   const [t, i18n] = useTranslation("global")
   return (
-      <section className="text-gray-600 body-font dark:bg-darkgray">
+      <section className="text-gray-600 body-font dark:bg-darkgray pt-10">
         <div className="w-full">
           <h2 className="dark:text-white  text-center  uppercase font-raleway font-bold text-3xl  lg:text-5xl">{t("Landing.dao")}</h2>
           <div className="h-[30px] w-2/3 bg-brown2 mt-[-10px] mx-auto " />

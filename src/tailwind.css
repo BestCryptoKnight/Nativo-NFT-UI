@@ -115,4 +115,21 @@
   box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
 }
 
+.rotate {
+  animation: rotation 7s infinite ease-in-out;
+  animation-direction: alternate;
+  transform-origin: bottom center;
+}
 
+@keyframes rotation {
+  from {
+    transform: rotate(20deg);
+  }
+  to {
+    transform: rotate(-20deg);
+  }
+}
+
+.customBlur {
+  filter: blur(2px);
+}
