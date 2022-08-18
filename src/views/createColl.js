@@ -85,8 +85,20 @@ function LightHeroE(props) {
 
   useEffect(() => {
     (async () => {
+      let urlParams = new URLSearchParams(window.location.search);
+      let execTrans = urlParams.has('transactionHashes')
       let type = state.split(',')
       if(type[0]=="edit"){
+        if (execTrans){
+          Swal.fire({
+            title: t("CreateCol.swEditedTit"),
+            text: t('CreateCol.swEditedDesc'),
+            icon: 'success',
+            confirmButtonColor: '#E79211'
+          }).then(function () {
+            window.location.href = "/collection/"+type[1]
+          })
+        }
         let id = await getNearAccount()
         console.log("Entro a editar coleccion")
         setType(true)
@@ -136,6 +148,18 @@ function LightHeroE(props) {
         }
         else{
           window.location.href('/collectionData/create')
+        }
+      }
+      else{
+        if (execTrans){
+          Swal.fire({
+            title: t("CreateCol.swCreatedTit"),
+            text: t('CreateCol.swCreatedDesc'),
+            icon: 'success',
+            confirmButtonColor: '#E79211'
+          }).then(function () {
+            window.location.href = "/mynfts"
+          })
         }
       }
     })()

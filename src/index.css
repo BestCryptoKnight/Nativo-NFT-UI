@@ -119,7 +119,7 @@ iframe {
   position: relative;
   overflow: hidden;
   height: 0px;
-  
+  z-index: 49;
 }
 .h-auto{
   height: auto;
@@ -957,7 +957,7 @@ select{
 }
 
 
-@media (max-width: 764px) {
+@media (max-width: 768px) {
 
   .sp-7{
     width: 100%;
@@ -1072,7 +1072,7 @@ select{
 
 /*quick fix on css for the menu bar*/
 .esconder-nav{
-  overflow: hidden;
+  /* overflow: hidden; */
   height: 0px;
   transition: 0.3s;
   border: none;
@@ -1086,7 +1086,7 @@ select{
   }
 
   .esconder-nav{
-    height: 30px;
+    height: 100%;
   }
 }
 
@@ -1110,4 +1110,10 @@ select{
 
 .sp-6{
   width: 400px;
+}
+
+@media (min-width: 815px) {
+  .hiddenUserName{
+    display: flex !important;
+  }
 }

@@ -1,10 +1,10 @@
 {
     "Landing": {
-        "title" : "Colecciona NFTs ",
-        "title-2" : "en NEAR Protocol",
-        "subtitle" : "¡Nos actualizamos! Ahora puedes recibir pagos de regalías de tus NFT’s.",
+        "title" : "Crea, compra y gana",
+        "title-2" : "con tus NFT's",
+        "subtitle" : "La plataforma de Finanzas Descentralizadas que permite usar NFT's como garantía",
         "btnCollections" : "Colecciones",
-        "gallery" : "Explorar Galería",
+        "gallery" : "Explorar",
         "useNear" : "Utiliza tu Near wallet",
         "useNear-sub" : "Con ellas podrás comprar tus NFTs e ingresa a tu panel",
         "artist" : "Como artista crea nuevos NFT",
@@ -42,7 +42,11 @@
         "profile" : "Perfil",
         "logout" : "Salir",
         "createCollection" : "Crear Colección",
-        "logoin" : "Iniciar"
+        "logoin" : "Iniciar",
+        "finance" : "Finanzas",
+        "auctions" : "Subastas",
+        "loans" : "Prestamos",
+        "community" : "Comunidad"
     },
     "Footer" : {
         "made" : "Hecho con:",
@@ -81,7 +85,8 @@
         "load-1" : "Cargando, por favor espere",
         "load-2" : "Actualmente no hay colecciones disponibles",
         "end" : "No hay más colecciones para mostrar",
-        "noData" : "No hay colecciones actualmente"
+        "noData" : "No hay colecciones actualmente",
+        "title" : "Colecciones"
     },
     "tokCollection" : {
         "creator" : "Creador",
@@ -213,7 +218,11 @@
         "vis-msg" : "Da clic aqui para mostrar u ocultar tu coleccion",
         "title2" : "Editar coleccion",
         "editBtn" : "Editar coleccion",
-        "idCol" : "ID de la coleccion:"
+        "idCol" : "ID de la coleccion:",
+        "swEditedTit" : "Se ha editado la colección",
+        "swEditedDesc" : "La colección ha sido editada con exito",
+        "swCreatedTit" : "La colección ha sido creada con exito",
+        "swCreatedDesc" : "Seras redirigido a mis NFTs para que agregues tus NFTs a la colección"
     },
     "MintNFT" : {
         "maxTitle" : "Menos de 60 caracteres",

@@ -1,10 +1,10 @@
 {
     "Landing": {
-        "title" : "Collect NFTs ",
-        "title-2" : "in NEAR Protocol",
-        "subtitle" : "We update! You can now receive royalty payments from your NFT's.",
+        "title" : "Create, buy and earn",
+        "title-2" : "with your NFT's",
+        "subtitle" : "Decentralized Finance platform that allows the use of NFT's as warranty",
         "btnCollections" : "Collections",
-        "gallery" : "Explore Gallery",
+        "gallery" : "Explore",
         "useNear" : "Use your Near wallet",
         "useNear-sub" : "With them you can buy your NFT's and enter your panel",
         "artist" : "As an artist create new NFT",
@@ -42,7 +42,11 @@
         "login" : "Login",
         "profile" : "profile",
         "logout" : "Logout",
-        "logoin" : "Login"
+        "logoin" : "Login",
+        "finance" : "Finance",
+        "auctions" : "Auctions",
+        "loans" : "Loans",
+        "community" : "Community"
 
     },
     "Footer" : {
@@ -82,7 +86,8 @@
         "load-1" : "Loading Please wait",
         "load-2" : "There are no currently collections available",
         "end" : "There are no more Collections",
-        "noData" : "No Collections Currently"
+        "noData" : "No Collections Currently",
+        "title" : "Collections"
     },
     "tokCollection" : {
         "creator" : "Creator",
@@ -215,7 +220,11 @@
         "vis-msg" : "Click here to show or hide your collection",
         "title2" : "Edit collection",
         "editBtn" : "Edit collection",
-        "idCol" : "Collection ID:"
+        "idCol" : "Collection ID:",
+        "swEditedTit" : "Collection has been edited",
+        "swEditedDesc" : "The collection has been edited successfully",
+        "swCreatedTit" : "The collection has been created successfully",
+        "swCreatedDesc" : "You will be redirected to my NTFs to add your NTFs to the collection"
     },
     "MintNFT" : {
         "maxTitle" : "Less than 60 characters",
