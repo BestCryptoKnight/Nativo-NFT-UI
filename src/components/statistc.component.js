@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import nativoLogo from '../assets/img/logo_nativo_ntv.png'
+import nativoLogo from '../assets/img/logo_nativo_ntv.webp'
 import arteNativo from '../assets/img/arte nativo.png'
 import { useTranslation } from "react-i18next";
 function LightStatisicC(props) {
