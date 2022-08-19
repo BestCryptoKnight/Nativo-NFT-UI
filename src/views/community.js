@@ -19,8 +19,6 @@ import twitterLogo from '../assets/img/twitter_logo.svg'
 import twitter from '../assets/img/twitter.png'
 import telegramLogo from '../assets/img/telegram_logo.svg'
 import telegram from '../assets/img/telegram.png'
-import githubLogo from '../assets/img/github_logo.svg'
-import github from '../assets/img/github.png'
 
 function Community() {
     const [Landing, setLanding] = React.useState({
@@ -36,50 +34,39 @@ function Community() {
 
     return (
         <section className={"text-gray-600 body-font pt-20 dark:bg-darkgray"}>
-            <div className="mx-auto grid min-h-[50vh] grid-cols-1 gap-10 sm:max-w-[2000px] sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 justify-items-center">    
-                <div className="max-w-sm max-h-[360px] m-5 bg-white rounded-[50px] border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700 hover:shadow-yellow1 hover:scale-105 overflow-hidden group">
+            <div className="grid grid-cols-3" >
+                <div className="max-w-sm m-5 bg-white rounded-[50px] border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700 hover:shadow-yellow1 hover:scale-105 overflow-hidden">
                     <a href="https://discord.gg/q2R6rtY4ks" target="_blank">
-                        <img className="rounded-t-lg mx-auto py-8 px-4 opacity-20 transition-opacity group-hover:opacity-100" src={discordLogo} alt="" />
+                        <img className="rounded-t-lg mx-auto py-8 px-4" src={discordLogo} alt="" />
                     </a>
                     <a href="https://discord.gg/q2R6rtY4ks" target="_blank">
                         <img className="rounded-t-lg mx-auto customBlur" src={discord} alt="" />
                     </a>
                 </div>
-                <div className="max-w-sm max-h-[360px] m-5 bg-white rounded-[50px] border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700 hover:shadow-yellow1 hover:scale-105 overflow-hidden group">
+                <div className="max-w-sm m-5 bg-white rounded-[50px] border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700 hover:shadow-yellow1 hover:scale-105 overflow-hidden">
                     <a href="https://nativonft.medium.com/" target="_blank">
-                        <img className="rounded-t-lg mx-auto py-8 px-4 opacity-20 transition-opacity group-hover:opacity-100" src={mediumLogo} alt="" />
+                        <img className="rounded-t-lg mx-auto py-8 px-4" src={mediumLogo} alt="" />
                     </a>
                     <a href="https://nativonft.medium.com/" target="_blank">
                         <img className="rounded-t-lg mx-auto customBlur" src={medium} alt="" />
                     </a>
                 </div>
-                <div className="max-w-sm max-h-[360px] m-5 bg-white rounded-[50px] border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700 hover:shadow-yellow1 hover:scale-105 overflow-hidden group">
+                <div className="max-w-sm m-5 bg-white rounded-[50px] border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700 hover:shadow-yellow1 hover:scale-105 overflow-hidden">
                     <a href="https://twitter.com/nativonft" target="_blank">
-                        <img className="rounded-t-lg mx-auto py-8 px-4 opacity-20 transition-opacity group-hover:opacity-100" src={twitterLogo} alt="" />
+                        <img className="rounded-t-lg mx-auto py-8 px-4" src={twitterLogo} alt="" />
                     </a>
                     <a href="https://twitter.com/nativonft" target="_blank">
                         <img className="rounded-t-lg mx-auto customBlur" src={twitter} alt="" />
                     </a>
                 </div>
-                <div className="max-w-sm max-h-[360px] m-5 bg-white rounded-[50px] border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700 hover:shadow-yellow1 hover:scale-105 overflow-hidden group">
+                <div className="max-w-sm m-5 bg-white rounded-[50px] border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700 hover:shadow-yellow1 hover:scale-105 overflow-hidden">
                     <a href="https://t.me/+TFdhJmJzwmkwNDQx" target="_blank">
-                        <img className="rounded-t-lg mx-auto py-8 px-4 opacity-20 transition-opacity group-hover:opacity-100" src={telegramLogo} alt="" />
+                        <img className="rounded-t-lg mx-auto py-8 px-4" src={telegramLogo} alt="" />
                     </a>
                     <a href="https://t.me/+TFdhJmJzwmkwNDQx" target="_blank">
                         <img className="rounded-t-lg mx-auto customBlur" src={telegram} alt="" />
                     </a>
                 </div>
-                <div className="max-w-sm max-h-[365px] m-5 bg-white rounded-[50px] border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700 hover:shadow-yellow1 hover:scale-105 overflow-hidden group">
-                    <a href="https://github.com/cloudmex/Nativo-NFT-UI" target="_blank">
-                        <img className="rounded-t-lg mx-auto py-8 px-4 opacity-20 transition-opacity group-hover:opacity-100" src={githubLogo} alt="" />
-                    </a>
-                    <a href="https://github.com/cloudmex/Nativo-NFT-UI" target="_blank">
-                        <div>
-                            <img className="rounded-t-lg mx-auto customBlur" src={github} alt="" />
-                        </div>
-                    </a>
-                </div>
-
             </div>
         </section>
     );

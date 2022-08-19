@@ -36,7 +36,7 @@ module.exports = {
         '20': '20px',
       },
       backgroundImage: {
-        'background-landing': "url('./assets/img/background_landing.webp')",
+        'background-landing': "url('./assets/img/background_landing.png')",
         'hero-rocket': "url('./assets/img/Rocket.png')",
         'trendings-background': "url('./assets/img/Trending2.png')",
         'crear-background': "url('./assets/img/Back_Crear.png')"
