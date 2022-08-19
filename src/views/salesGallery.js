@@ -486,91 +486,13 @@ function LightEcommerceA() {
   }, [trigger]);
 
   return (
-    <section className={"text-gray-600 body-font "+(ini&&hasData ? "" : "py-64 dark:bg-darkgray")}>
-      
-      {/* <div className="bg-white px-4 py-3 flex items-center justify-center border-b border-gray-200 sm:px-6 mt-1">
-        <button className="bg-transparent hover:bg-slate-200 text-slate-500 hover:text-slate-700 font-extrabold text-center items-center rounded-full py-2 px-4 mx-4"
-          onClick={() => handleBackPage()}
-        >{"<"}</button>
-        <p>{page}</p>
-        <button className="bg-transparent hover:bg-slate-200 text-slate-500 hover:text-slate-700 font-extrabold text-center items-center rounded-full py-2 px-4 mx-4"
-          onClick={() => handleForwardPage()}
-        >{">"}</button>
-      </div> */}
-      {/* <div className={"container px-5 mx-auto flex flex-wrap items-center "+(
-        esconder? "" : "py-2"
-      )}>
-        <div className="fs-1 flex items-center" onClick={e=>{
-            setesconder(v=> !v);
-          }}>
-          <img src={filtroimg} className="logg mr-1"/>
-          <b>Filtro</b>
-        </div>
+    <section className={"text-gray-600 body-font bg-darkgray "+(ini&&hasData ? "" : "py-64 bg-darkgray")}>
+      <div className="lg:w-full h-[30px] flex pt-10 pb-6 justify-center bg-darkgray">
+        <h1 className="text-3xl lg:text-6xl font-black dark:text-white bg-darkgray m-0 px-6 font-raleway uppercase self-center">
+          {t("tokCollection.markTitle")}
+        </h1>
       </div>
-      <div className={"container py-5 px-5  mx-auto flex flex-wrap items-center "+(
-        esconder ? "" : "esconder"
-      )} >
-        <b>Tipo: </b>
-      <select className="ml-2 p-2 lg:w-2/12 bg-s1 ">
-          <option >
-            Todos los tokens
-          </option>
-          <option >
-            Tokens en venta
-          </option>
-          <option >
-            Tokens en subasta
-          </option>
-        </select>
-        <b className="ml-2" >Fecha:</b>
-        <select className="p-2 lg:w-2/12 ml-2 bg-s1">
-          <option >
-            Todos los tokens
-          </option>
-          <option >
-            Nuevos tokens
-          </option>
-          <option >
-            Tokens Antiguos
-          </option>
-        </select>
-        <b className="ml-2" >Precio:</b>
-        <select className="p-2 lg:w-2/12 ml-2 bg-s1">
-          <option >
-            Todos los tokens
-          </option>
-          <option >
-            Asendente
-          </option>
-          <option >
-            Desendente
-          </option>
-        </select>
-        <b className="ml-2" >País:</b>
-        <select className="p-2 lg:w-2/12 ml-2 bg-s1" onChange={e=>{
-            modificarFiltro({country: (e.target.value == "Todos los tokens" ? "null" : e.target.value)});
-          }}>
-          <option >
-            Todos los tokens
-          </option>
-          {
-            countrys.map(c=>(
-              <option >
-                {c}
-              </option>
-            ))
-          }
-        </select>
-      </div> */}
       <div className={"pt-3 mx-auto dark:bg-darkgray" }>
-
-     
-
-          {/* 
-          {
-            load ?
-            <img src={loading} style={{width:"50px"}}/>
-            : */}
             {hasData ? 
             <div>
               <InfiniteScroll
@@ -587,45 +509,31 @@ function LightEcommerceA() {
               >
                 {tokens.items.map((i, index) => {
                   return(
-                    <div className="w-full md:w-1/2 lg:w-1/3 p-4 " key={index}>
+                    <div className="w-full md:w-1/2 lg:w-1/3 xl:w-1/4 md:p-4 " key={index}>
                       <a
                         href={"/detail/" + i.token_id}
                       >
                         <div className="flex flex-row  mb-10 md:mb-0  justify-center " >
                           <div className="trending-token w-64 md:w-80 rounded-20 hover:shadow-yellow1   hover:scale-105 ">
-                            <div className=" bg-white rounded-20">
-                              <div className="w-full p-6 pb-0 flex relative ">
-                                <div className="w-[40px] h-[40px]  bg-circle rounded-full bg-pink-2 relative">
-                                  <img className="w-[25px] h-[25px]  bg-transparent rounded-full top-0 -right-3 absolute" src={verifyImage}></img>
-                                </div>
-                                <div className="font-raleway font-bold text-black text-sm flex items-center ml-3 text-ellipsis overflow-hidden">
-                                  {i.owner_id}
-                                </div>
-
-                              </div>
-                              <div className="p-6 pt-3 pb-3">
+                            <div className=" bg-white rounded-xl">
+                              <div className="pb-3">
                                   <img
-                                    className="object-cover object-center rounded-xlarge h-48 md:h-72 w-full "
+                                    className="object-cover object-center rounded-t-xl h-48 md:h-72 w-full "
                                     src={`https://nativonft.mypinata.cloud/ipfs/${i.media}`}
                             
                                     alt={i.description}
                                   />
                               </div>
-                              <div className="p-6 pt-3">
+                              <div className="px-3 py-1">
                                 
                                 <div className="capitalize text-black text-sm  text-ellipsis overflow-hidden whitespace-nowrap  font-raleway font-bold">{i.title}</div>
-                                <div className="flex justify-between">
-                                  <div className="text-black text-sm font-raleway font-normal w-1/2">token id: {i.token_id}</div> 
+                                <div className="flex justify-end">
+                                  {/* <div className="text-black text-sm font-raleway font-normal w-1/2">token id: {i.token_id}</div>  */}
                                   <div className="price w-1/2 text-lg text-right text-orange  font-raleway font-bold rounded-full">
                                     {Landing.blockchain != 0 && fromYoctoToNear(i.price) + " " + Landing.currency}</div> 
                                   </div>
-                               
-                                  <div >
-                                    <p className="text-orange text-sm font-raleway font-bold">{t("Landing.trending-buy")}</p>
-                                  </div>
-                                  
-                                
                               </div>
+                              <div className=" px-3  pb-3 font-raleway text-xs text-right mx-auto justify-center text-ellipsis overflow-hidden">{t("tokCollection.markOwn")} <a href={`profile/${i.owner_id.split('.')[0]}`} className="font-raleway text-xs font-bold text-blue2 text-ellipsis overflow-hidden">{i.owner_id}</a></div>
                             </div>
                           </div>
                         </div>
