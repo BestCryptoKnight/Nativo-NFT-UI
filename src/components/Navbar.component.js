@@ -163,6 +163,7 @@ function LightHeaderB(props) {
 
   return (
     <>
+
       <header className="text-gray-600 body-font shadow-sm sticky top-0 z-50 bg-[#ffffff]">
         <div className=" flex  px-5 py-2  flex-row items-center movil-header dark:bg-[#1d1d1b]">
           <div className="w-full flex flex-row justify-between md:w-auto">
@@ -243,7 +244,7 @@ function LightHeaderB(props) {
               )}
             </Menu>
 
-            <a href="/community" className="mr-5 hover:text-[#ec8b01] hover:text-lg hover:font-bold hover:animate-pulse dark:text-white font-raleway font-normal cursor-pointer">
+            <a className="mr-5 hover:text-[#ec8b01] hover:text-lg hover:font-bold hover:animate-pulse dark:text-white font-raleway font-normal cursor-pointer" onClick={async () => { futureFeatureMsg(t("Navbar.community")); }}>
               {t("Navbar.community")}
             </a>
           </nav>
