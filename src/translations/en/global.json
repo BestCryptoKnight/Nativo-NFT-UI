@@ -46,7 +46,8 @@
         "finance" : "Finance",
         "auctions" : "Auctions",
         "loans" : "Loans",
-        "community" : "Community"
+        "community" : "Community",
+        "staking" : "Staking"
 
     },
     "Footer" : {

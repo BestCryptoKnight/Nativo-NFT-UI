@@ -236,6 +236,16 @@ function LightHeaderB(props) {
                             </a>
                           )}
                         </Menu.Item>
+
+                        <Menu.Item onClick={async () => { futureFeatureMsg(t("Navbar.staking")); }}>
+                          {({ active }) => (
+                            <a className={classNames(active ? "dark:text-white font-bold ml-4" : "dark:text-white ml-2 font-bold","block px-2 py-2 text-sm text-center font-raleway")}>
+                              <div className="flex justify-start cursor-pointer">
+                                <p className=" self-center"> {t("Navbar.staking")}</p>
+                              </div>
+                            </a>
+                          )}
+                        </Menu.Item>
                       </div>
                     </Menu.Items>
                   </Transition>

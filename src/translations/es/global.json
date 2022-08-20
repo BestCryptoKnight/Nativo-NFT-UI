@@ -46,7 +46,8 @@
         "finance" : "Finanzas",
         "auctions" : "Subastas",
         "loans" : "Prestamos",
-        "community" : "Comunidad"
+        "community" : "Comunidad",
+        "staking" : "Staking"
     },
     "Footer" : {
         "made" : "Hecho con:",
