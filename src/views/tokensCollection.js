@@ -300,14 +300,14 @@ function LightEcommerceA() {
                 className="object-cover object-center rounded-xlarge h-[8rem] md:h-48  w-full bg-center"
                 src={`https://nativonft.mypinata.cloud/ipfs/${Landing.bannerCol}`}
               />
-              {isOwner? 
+              {isOwner?
               <div className="absolute bottom-0 right-0 m-4">
                 <div className="relative group rounded">
                   <div className="absolute -inset-0.5 bg-gradient-to-r from-[#f2b159] to-[#ca7e16] rounded-full blur opacity-70 group-hover:opacity-100 transition duration-1000 group-hover:duration-200 animate-tilt group-hover:-inset-1"></div>
                   <a href={"/collectionData/edit,"+Landing.colID} className="relative text-sm bg-yellow2 text-white font-bold uppercase px-2 py-1 rounded-full shadow hover:shadow-lg outline-none focus:outline-none  ease-linear transition-all duration-150">{t("CreateCol.editBtn")}</a>
-                </div>              
+                </div>
               </div>
-              
+
                : ""}
             </div>
             <div className="z-10 -mt-120 w-full text-white font-raleway">
@@ -315,7 +315,7 @@ function LightEcommerceA() {
               <div className="bg-white lg:mx-20 mx-5 text-black mt-4 pt-2 md:mt-0 md:pt-0 pb-3 rounded-t-2xl bg-opacity-80">
                 <div className="flex flex-col md:flex-row">
                   <div className="w-[120px] md:w-[200px] h-[120px] md:h-[200px]  bg-circle bg-center rounded-full border-4 border-white relative bg-cover mx-auto md:mx-0  -mt-[95px] md:-mt-[45px]" style={{ backgroundImage: `url(https://nativonft.mypinata.cloud/ipfs/${Landing.mediaCol})` }} />
-                  
+
                   <div className="px-2 mx-auto w-full md:w-3/4">
                     {Landing.titleCol.length > 130 ?
                       <h1 className="text-sm md:text-xl font-bold pb-4 opacity-100 text-darkgray break-words break-all">{showMoreTitle ? Landing.titleCol : `${Landing.titleCol.substring(0, 130)}`} <button className="btn font-raleway text-xs font-bold text-blue2" onClick={() => setShowMoreTitle(!showMoreTitle)}>
@@ -370,7 +370,37 @@ function LightEcommerceA() {
             >
               {tokens.items.map((i, index) => {
                 return (
-                  <div className="w-full md:w-1/2 lg:w-1/3 p-4 " key={index}>
+                  <>
+                    <div className="w-full md:w-1/2 lg:w-1/3 xl:w-1/4 md:p-4 " key={index}>
+                      <a
+                        href={"/detail/" + i.tokenId}
+                      >
+                        <div className="flex flex-row  mb-10 md:mb-0  justify-center " >
+                          <div className="trending-token w-64 md:w-80 rounded-20 hover:shadow-yellow1   hover:scale-105 ">
+                            <div className=" bg-white rounded-xl">
+                              <div className="pb-3">
+                                  <img
+                                    className="object-cover object-center rounded-t-xl h-48 md:h-72 w-full "
+                                    src={`https://nativonft.mypinata.cloud/ipfs/${i.media}`}
+
+                                    alt={i.description}
+                                  />
+                              </div>
+                              <div className="px-3 py-1">
+
+                                <div className="capitalize text-black text-sm  text-ellipsis overflow-hidden whitespace-nowrap  font-raleway font-bold">{i.title}</div>
+                                <div className="flex justify-end">
+                                  <div className="text-black text-sm font-raleway font-normal py-2">token id: {i.tokenId}</div>
+                                  </div>
+                              </div>
+                              {/* <div className=" px-3  pb-3 font-raleway text-xs text-right mx-auto justify-center text-ellipsis overflow-hidden">{t("tokCollection.markOwn")} <a href={`profile/${i.owner_id.split('.')[0]}`} className="font-raleway text-xs font-bold text-blue2 text-ellipsis overflow-hidden">{i.owner_id}</a></div>- */}
+                            </div>
+                          </div>
+                        </div>
+                      </a>
+                    </div>
+
+                  {/* <div className="w-full md:w-1/2 lg:w-1/3 p-4 " key={index}>
                     <a
                       href={"/detail/" + i.tokenId}
                     >
@@ -408,7 +438,9 @@ function LightEcommerceA() {
                         </div>
                       </div>
                     </a>
-                  </div>
+                  </div> */}
+                  </>
+
                 )
               })}
             </InfiniteScroll>

@@ -77,40 +77,35 @@ function Trendings() {
           <Slider {...settings} >
             {tokens.items.map((item, key) => {
               return (
-                <div className="flex flex-row md:w-1/3 w-5/6 mb-10 md:mb-0  justify-center" key={key}>
-                  <div className="trending-token rounded-xlarge">
-                  <div className="max-w-xs w-72 bg-white rounded-xlarge border">
-                    <div className="w-full p-6 mb-0 flex relative ">
-                      <div className="w-[50px] h-[50px]  bg-circle rounded-full bg-pink-2 relative">
-                        <img className="w-[25px] h-[25px] bg-transparent rounded-full top-0 -right-3 absolute  " src={verifyImage}></img>
-                      </div>
-                      <div className="font-raleway font-bold text-black text-sm flex items-center ml-3 text-ellipsis overflow-hidden">
-                        {item.owner_id}
-                      </div>
+                <>
+                      <a
+                        href={"/detail/" + item.token_id}
+                      >
+                        <div className="flex flex-row  mb-10 md:mb-0  justify-center " key={key}>
+                          <div className="trending-token w-64 md:w-80 rounded-20 hover:shadow-yellow1   hover:scale-105 ">
+                            <div className=" bg-white rounded-xl">
+                              <div className="pb-3">
+                                  <img
+                                    className="object-cover object-center rounded-t-xl h-48 md:h-72 w-full "
+                                    src={`https://nativonft.mypinata.cloud/ipfs/${item.metadata.media}`}
 
-                    </div>
-                    <div className="p-6 pt-3 pb-3">
-                      <a href={"/detail/" + item.token_id} >
-                        <img
-                          className="object-cover object-center rounded-xlarge h-60 w-full "
-                          src={`https://nativonft.mypinata.cloud/ipfs/${item.metadata.media}`}
-                          key={key}
-                          alt={item.description}
-                        />
-                      </a>
-                    </div>
-                    <div className="p-6 pt-3">
-                      <div className="text-black text-sm font-raleway font-bold">#{item.token_id}</div>
-                      <div className="capitalize text-black text-ellipsis overflow-hidden whitespace-nowrap font-raleway font-normal">{item.metadata.title}</div>
-                      <a href={'detail/'+item.token_id} >
-                        <div >
-                          <p className="text-orange text-sm font-raleway font-bold">{t("Landing.trending-buy")}</p>
+                                    alt={item.description}
+                                  />
+                              </div>
+                              <div className="px-3 py-1">
+
+                                <div className="capitalize text-black text-sm  text-ellipsis overflow-hidden whitespace-nowrap  font-raleway font-bold">{item.metadata.title}</div>
+                                {/* <div className="flex justify-end">
+                                  <div className="text-black text-sm font-raleway font-normal py-2">token id: {item.token_id}</div>
+                                </div> */}
+                              </div>
+                              <div className=" px-3 font-raleway text-xs text-right mx-auto justify-center text-ellipsis overflow-hidden">{t("tokCollection.createdBy")} <a href={`profile/${item.creator_id.split('.')[0]}`} className="font-raleway text-xs font-bold text-blue2 text-ellipsis overflow-hidden">{item.creator_id}</a></div>-
+                            </div>
                           </div>
+                        </div>
                       </a>
-                    </div>
-                  </div>
-                  </div>
-                </div>
+                </>
+                
               );
             })}
           </Slider>
