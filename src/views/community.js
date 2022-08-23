@@ -36,54 +36,58 @@ function Community() {
 
     return (
         <section className={"text-gray-600 body-font pt-20 dark:bg-darkgray"}>
-            <div className="mx-auto grid min-h-[50vh] grid-cols-1 gap-10 sm:max-w-[2000px] sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 justify-items-center">
-                
+            {/* <div className="mx-auto grid min-h-[50vh] grid-cols-1 gap-10 sm:max-w-[2000px] sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 justify-items-center"> */}
+            <div className="mx-auto flex flex-row flex-wrap space-x-4 justify-center">
+
                 {/* Discord */}
                 <a href="https://discord.gg/q2R6rtY4ks" target="_blank">
-                    <div className="flex items-center min-h-[350px] max-h-[350px] min-w-[320px] max-w-[320px] m-5 bg-white rounded-[50px] border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700 hover:shadow-yellow1 hover:scale-105 overflow-hidden group hover:bg-black" style={{ backgroundImage: `url(${discord})` }}>
-                        <a href="https://discord.gg/q2R6rtY4ks" target="_blank" className="w-full">
-                            <img className="rounded-t-lg mx-auto opacity-20 transition-opacity group-hover:opacity-100 group-hover:bg-yellow2 pr-[5px] rounded group-hover:shadow-yellow1 group-hover:bg-opacity-90	" src={discordLogo} alt="" />
+                    <div className="flex items-center min-h-[350px] max-h-[350px] min-w-[320px] max-w-[320px] m-5 bg-white rounded-[50px] border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700 hover:shadow-yellow1 hover:scale-105 overflow-hidden group">
+                        <a className="w-full flex justify-center items-center">
+                            <img className="rounded-t-lg mx-auto opacity-20 transition-opacity group-hover:opacity-100 group-hover:bg-yellow2 p-[5px] rounded group-hover:shadow-yellow1 group-hover:bg-opacity-90	absolute z-[2]" src={discordLogo} alt="" />
+                            <img className="min-h-[350px] max-h-[350px] min-w-[320px] max-w-[320px] z-[1] group-hover:brightness-50" src={discord} alt="" />
                         </a>
                     </div>
                 </a>
                 
                 {/* Medium */}
                 <a href="https://nativonft.medium.com/" target="_blank">
-                    <div className="flex items-center min-h-[350px] max-h-[350px] min-w-[320px] max-w-[320px] m-5 bg-white rounded-[50px] border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700 hover:shadow-yellow1 hover:scale-105 overflow-hidden group" style={{ backgroundImage: `url(${medium})` }}>
-                        <a href="https://nativonft.medium.com/" target="_blank" className="w-full">
-                            <img className="rounded-t-lg mx-auto opacity-20 transition-opacity group-hover:opacity-100 group-hover:bg-yellow2 px-[5px] py-[2px] rounded group-hover:shadow-yellow1 group-hover:bg-opacity-90	" src={mediumLogo} alt="" />
+                    <div className="flex items-center min-h-[350px] max-h-[350px] min-w-[320px] max-w-[320px] m-5 bg-white rounded-[50px] border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700 hover:shadow-yellow1 hover:scale-105 overflow-hidden group">
+                        <a className="w-full flex justify-center items-center">
+                            <img className="rounded-t-lg mx-auto opacity-20 transition-opacity group-hover:opacity-100 group-hover:bg-yellow2 p-[5px] rounded group-hover:shadow-yellow1 group-hover:bg-opacity-90	absolute z-[2]" src={mediumLogo} alt="" />
+                            <img className="min-h-[350px] max-h-[350px] min-w-[320px] max-w-[320px] z-[1] group-hover:brightness-50" src={medium} alt="" />
                         </a>
                     </div>
                 </a>
                 
                 {/* Twitter */}
                 <a href="https://twitter.com/nativonft" target="_blank">
-                    <div className="flex items-center min-h-[350px] max-h-[350px] min-w-[320px] max-w-[320px] m-5 bg-white rounded-[50px] border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700 hover:shadow-yellow1 hover:scale-105 overflow-hidden group" style={{ backgroundImage: `url(${twitter})` }}>
-                        <a href="https://twitter.com/nativonft" target="_blank" className="w-full">
-                            <img className="rounded-t-lg mx-auto opacity-20 transition-opacity group-hover:opacity-100 group-hover:bg-yellow2 pr-[5px] rounded group-hover:shadow-yellow1 group-hover:bg-opacity-90	" src={twitterLogo} alt="" />
+                    <div className="flex items-center min-h-[350px] max-h-[350px] min-w-[320px] max-w-[320px] m-5 bg-white rounded-[50px] border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700 hover:shadow-yellow1 hover:scale-105 overflow-hidden group">
+                        <a className="w-full flex justify-center items-center">
+                            <img className="rounded-t-lg mx-auto opacity-20 transition-opacity group-hover:opacity-100 group-hover:bg-yellow2 p-[5px] rounded group-hover:shadow-yellow1 group-hover:bg-opacity-90	absolute z-[2]" src={twitterLogo} alt="" />
+                            <img className="min-h-[350px] max-h-[350px] min-w-[320px] max-w-[320px] z-[1] group-hover:brightness-50" src={twitter} alt="" />
                         </a>
                     </div>
                 </a>
                 
                 {/* Telegram */}
                 <a href="https://t.me/+TFdhJmJzwmkwNDQx" target="_blank">
-                    <div className="flex items-center min-h-[350px] max-h-[350px] min-w-[320px] max-w-[320px] m-5 bg-white rounded-[50px] border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700 hover:shadow-yellow1 hover:scale-105 overflow-hidden group" style={{ backgroundImage: `url(${telegram})` }}>
-                        <a href="https://t.me/+TFdhJmJzwmkwNDQx" target="_blank" className="w-full">
-                            <img className="rounded-t-lg mx-auto opacity-20 transition-opacity group-hover:opacity-100 group-hover:bg-yellow2 px-[5px] py-[2px] rounded group-hover:shadow-yellow1 group-hover:bg-opacity-90	" src={telegramLogo} alt="" />
-                        </a>
-                    </div>
-                </a>
-                
-                {/* Github */}
-                <a href="https://github.com/cloudmex/Nativo-NFT-UI" target="_blank">
-                    <div className="flex items-center min-h-[350px] max-h-[350px] min-w-[320px] max-w-[320px] m-5 bg-white rounded-[50px] border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700 hover:shadow-yellow1 hover:scale-105 overflow-hidden group" style={{ backgroundImage: `url(${github})` }}>
-                        <a href="https://github.com/cloudmex/Nativo-NFT-UI" target="_blank" className="w-full">
-                            <img className="rounded-t-lg mx-auto opacity-20 transition-opacity group-hover:opacity-100 group-hover:bg-yellow2 px-[5px] rounded group-hover:shadow-yellow1 group-hover:bg-opacity-90	" src={githubLogo} alt="" />
+                    <div className="flex items-center min-h-[350px] max-h-[350px] min-w-[320px] max-w-[320px] m-5 bg-white rounded-[50px] border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700 hover:shadow-yellow1 hover:scale-105 overflow-hidden group">
+                        <a className="w-full flex justify-center items-center">
+                            <img className="rounded-t-lg mx-auto opacity-20 transition-opacity group-hover:opacity-100 group-hover:bg-yellow2 p-[5px] rounded group-hover:shadow-yellow1 group-hover:bg-opacity-90	absolute z-[2]" src={telegramLogo} alt="" />
+                            <img className="min-h-[350px] max-h-[350px] min-w-[320px] max-w-[320px] z-[1] group-hover:brightness-50" src={telegram} alt="" />
                         </a>
                     </div>
                 </a>
 
-                
+                {/* Github */}
+                <a href="https://github.com/cloudmex/Nativo-NFT-UI" target="_blank">
+                    <div className="flex items-center min-h-[350px] max-h-[350px] min-w-[320px] max-w-[320px] m-5 bg-white rounded-[50px] border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700 hover:shadow-yellow1 hover:scale-105 overflow-hidden group">
+                        <a className="w-full flex justify-center items-center">
+                            <img className="rounded-t-lg mx-auto opacity-20 transition-opacity group-hover:opacity-100 group-hover:bg-yellow2 p-[5px] rounded group-hover:shadow-yellow1 group-hover:bg-opacity-90	absolute z-[2] h-[65px]" src={githubLogo} alt="" />
+                            <img className="min-h-[350px] max-h-[350px] min-w-[320px] max-w-[320px] z-[1] group-hover:brightness-50" src={github} alt="" />
+                        </a>
+                    </div>
+                </a>
 
             </div>
         </section>
