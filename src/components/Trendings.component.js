@@ -95,9 +95,9 @@ function Trendings() {
                               <div className="px-3 py-1">
 
                                 <div className="capitalize text-black text-sm  text-ellipsis overflow-hidden whitespace-nowrap  font-raleway font-bold">{item.metadata.title}</div>
-                                <div className="flex justify-end">
+                                {/* <div className="flex justify-end">
                                   <div className="text-black text-sm font-raleway font-normal py-2">token id: {item.token_id}</div>
-                                </div>
+                                </div> */}
                               </div>
                               <div className=" px-3 font-raleway text-xs text-right mx-auto justify-center text-ellipsis overflow-hidden">{t("tokCollection.createdBy")} <a href={`profile/${item.creator_id.split('.')[0]}`} className="font-raleway text-xs font-bold text-blue2 text-ellipsis overflow-hidden">{item.creator_id}</a></div>-
                             </div>
