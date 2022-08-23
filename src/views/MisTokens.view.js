@@ -1181,42 +1181,38 @@ function MisTokens(props) {
                             //obtenemos la data del token nft
                             //console.log(nft)
                             return (
-                              <div className="w-full md:w-1/2 lg:w-1/3 p-4  " key={index}>
+                              <>
+                              <div className="w-full md:w-1/2 lg:w-1/3 xl:w-1/4 md:p-4" key={index}>
                                 <a
                                   href={"/collection/" + i.collectionID}
                                 >
-                                  <div className="flex flex-row  mb-10 md:mb-0  justify-center " >
-                                    <div className="trending-token w-64 md:w-80 rounded-20 hover:shadow-yellow1   hover:scale-105 ">
-                                      <div className=" bg-white rounded-20 h-[365px] md:h-[450px]">
-                                        <div className="p-6 pt-3 pb-3">
+                                  <div className="flex flex-row  mb-5 md:mb-0 justify-center " >
+                                    <div className="trending-token w-full rounded-20 hover:shadow-yellow1   hover:scale-105 ">
+                                      <div className=" bg-white rounded-20 pb-4 ">
+                                        <div className="">
                                           <img
-                                            className="object-cover object-center rounded-xlarge h-[8rem] md:h-48  w-full bg-center"
-                                            src={`https://ipfs.io/ipfs/${i.mediaBanner}`}
-              
+                                            className="object-cover object-center rounded-t-xlarge h-[12rem] md:h-48  w-full bg-center"
+                                            src={`https://nativonft.mypinata.cloud/ipfs/${i.mediaBanner}`}
+
                                             alt={i.description}
                                           />
                                         </div>
-              
-                                        <div className="w-[70px] h-[70px]  bg-circle bg-center rounded-full border-4 border-white relative bg-cover mx-auto -mt-[45px]" style={{ backgroundImage: `url(https://ipfs.io/ipfs/${i.mediaIcon})` }} >
+
+                                        <div className="w-[125px] h-[125px]  bg-circle bg-center rounded-full border-4 border-white relative bg-cover mx-auto -mt-[100px]" style={{ backgroundImage: `url(https://nativonft.mypinata.cloud/ipfs/${i.mediaIcon})` }} >
                                         </div>
-                                        <div className=" pb-3 p-6 pt-3">
-              
-                                          <div className="capitalize text-black text-sm  text-ellipsis overflow-hidden whitespace-nowrap  font-raleway font-bold text-center">{i.title}</div>
-                                          <div className="h-[3.4em] text-sm  stroke-gray-700 collection-description font-raleway py-2 ">{i.description}</div>
-              
-                                          <div className="flex justify-around pt-2">
-                                            <div className="text-black text-sm font-raleway font-normal   "><span className="font-bold">Id:</span> {i.collectionID}</div>
-                                            <div className="text-black text-sm font-raleway font-normal   "><span className="font-bold"># Tokens:</span> {i.tokenCount}</div>
-              
-              
-              
+                                        <div className=" px-4">
+
+                                          <div className="capitalize text-black text-base text-ellipsis overflow-hidden whitespace-nowrap  font-raleway font-bold text-center">{i.title}</div>
+
+                                          <div className="flex justify-center pt-2">
+                                            {/* <div className="text-black text-sm font-raleway font-normal   "><span className="font-bold">Tokens:</span> {i.tokenCount}</div> */}
+
+
+
                                           </div>
-                                          <div className="relative group mt-2 my-2 mx-auto rounded-xlarge w-[130px]">
-                                            <div className="absolute -inset-0.5 bg-gradient-to-r from-[#f2b159] to-[#ca7e16] rounded-xlarge blur opacity-70 group-hover:opacity-100 transition duration-1000 group-hover:duration-200 animate-tilt group-hover:-inset-1"></div>
-                                            <div className="relative rounded-xlarge text-white p-2 bg-yellow2 justify-center flex text-xs font-semibold font-raleway uppercase" >{t("tokCollection.seeDetails")}</div>
-                                          </div>                                          
                                         </div>
-                                        <div className=" px-6 font-raleway text-xs text-right mx-auto justify-center">
+                                        <div className=" px-6 font-raleway text-xs text-right mx-auto justify-center text-ellipsis overflow-hidden">ID: <b>{i.collectionID}</b></div>
+                                        <div className=" px-6 font-raleway text-xs text-right mx-auto justify-center pt-2">
                                           <span 
                                             className={`inline-flex items-center justify-center px-2 py-1  font-raleway font-medium text-xs leading-none ${i.visibility ? "text-green-100 bg-green-600" : "text-red-100 bg-red-600"} rounded-full`}
                                           >
@@ -1234,6 +1230,9 @@ function MisTokens(props) {
                                   </div>
                                 </a>
                               </div>
+                              </>
+
+                              
                             )
                           })}
                         </div>
