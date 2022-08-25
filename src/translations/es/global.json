@@ -108,7 +108,9 @@
         "hasTok" : "La coleccion no tiene NFTs actualmente",
         "seeMore" : "...Ver más",
         "seeLess" : "Ver menos",
-        "search" : "Busca por: Cuenta ó Título.."
+        "search" : "Busca por: Cuenta ó Título..",
+        "markTitle" : "Mercado",
+        "markOwn" : "Dueño:"
     },
     "Detail" : {
         "collection" : "Colección",
