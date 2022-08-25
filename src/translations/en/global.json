@@ -46,7 +46,8 @@
         "finance" : "Finance",
         "auctions" : "Auctions",
         "loans" : "Loans",
-        "community" : "Community"
+        "community" : "Community",
+        "staking" : "Staking"
 
     },
     "Footer" : {
@@ -209,7 +210,7 @@
         "err3-msg" : "The description of the collection must have a minimum of 30 characters",
         "succ-title" : "Collection created",
         "succ-msg" : "Your collection has been created",
-        "placeTitle" : "Min. 10 Characters",
+        "placeTitle" : "Min. 1 Character",
         "placeDesc" : "Min. 30 Characters",
         "lblIcon-1" : "Maximum 5mb, accepted formats .jpg, .gif, .png, .webp",
         "errSize-1" : "Size cannot exceed 5mb",

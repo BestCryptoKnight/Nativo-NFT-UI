@@ -217,7 +217,7 @@ function LightHeroE(props) {
         confirmButtonColor: '#E79211'
       })
       return
-    } else if (title.length < 10) {
+    } else if (title.length < 1) {
       Swal.fire({
         icon: 'error',
         html:
