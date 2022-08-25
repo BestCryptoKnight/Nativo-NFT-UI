@@ -96,9 +96,8 @@ function LightEcommerceB(props) {
       let paramsSupplyForOwner = {
         account_id: account
       };
-      let totalTokensByOwner = await contract.nft_supply_for_owner(paramsSupplyForOwner);
-      let totalTokensByCreator = await contract.nft_supply_for_creator(paramsSupplyForOwner);
-
+      let totalTokensByOwner = 0;
+      let totalTokensByCreator = 0;
       if (localStorage.getItem("blockchain") == "0") {
         
       } else {
@@ -110,7 +109,12 @@ function LightEcommerceB(props) {
         else{
           account=user+'.testnet'
         }
-        console.log(account)
+
+        let paramsSupplyForOwner = {
+          account_id: account
+        };
+        totalTokensByOwner = await contract.nft_supply_for_owner(paramsSupplyForOwner);
+        totalTokensByCreator = await contract.nft_supply_for_creator(paramsSupplyForOwner);
         if(account == await getNearAccount()){
           setMyProfile(true)
         }
