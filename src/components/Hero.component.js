@@ -20,7 +20,7 @@ function LightHeroE(props) {
             {t("Landing.subtitle")}
           </p>
           <div className="flex justify-between z-20">
-            <Link to="/market">
+            <Link to="/collections">
               <button className="flex inline-flex rounded-xlarge w-full h-[50px]  mt-0 bg-gradient-to-b p-[7px] from-yellow  to-brown hover:shadow-brown-s customHover" >
                 <div className="flex inline-flex  w-full h-full text-white  text-center rounded-xlarge justify-center shadow-s">
                   <div className="flex flex-col font-bold h-full text-white  text-center rounded-xlarge justify-center shadow-s w-full">

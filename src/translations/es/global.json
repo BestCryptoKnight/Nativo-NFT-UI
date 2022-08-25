@@ -206,7 +206,7 @@
         "err3-msg" : "La descripción de la colección debe de tener minimo 30 caracteres",
         "succ-title" : "Colección creada",
         "succ-msg" : "Tu colección ha sido creada",
-        "placeTitle" : "Min. 10 Caracteres",
+        "placeTitle" : "Min. 1 Caracter",
         "placeDesc" : "Min. 30 Caracteres",
         "lblIcon-1" : "Maximo 5mb, formatos aceptados .jpg, .gif, .png, .webp",
         "errSize-1" : "El tamaño no puede superar los 5mb",

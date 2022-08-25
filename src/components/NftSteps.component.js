@@ -24,12 +24,12 @@ function NftSteps(props) {
   return (
     <section className="text-gray-600 body-font bg-gray-100 dark:bg-darkgray">
       <div className="container w-full px-5 pt-14 pb-28 dark:bg-darkgray mx-auto flex flex-row flex-wrap justify-center  ">
-        <div className="w-full">
+        <div className="w-full" data-aos="fade-down" data-aos-delay="200">
           <h2 className="dark:text-white  text-center  uppercase font-raleway font-bold text-3xl  lg:text-5xl">{t("Landing.steps-title")}</h2>
           <div className="h-[30px] w-1/2 bg-brown2 mt-[-10px] mx-auto " />
         </div>
         <div className="w-full flex flex-row flex-wrap mt-[50px]">
-          <div className="w-full flex flex-row flex-wrap mt-10 pt-12 pb-8 lg:mt-0 justify-center md:w-1/2 lg:w-1/4 cardsNFTSection p-2" onClick={async () => {nearSignIn(window.location.href);}}>
+          <div className="w-full flex flex-row flex-wrap mt-10 pt-12 pb-8 lg:mt-0 justify-center md:w-1/2 lg:w-1/4 cardsNFTSection p-2" onClick={async () => {nearSignIn(window.location.href);}} data-aos="fade-down" data-aos-delay="400">
             <img
               className="h-[100px] w-[100px] mx-auto"
               src={wallet}
@@ -41,7 +41,7 @@ function NftSteps(props) {
             </div>
           </div>
 
-          <div className="w-full flex flex-row flex-wrap mt-10 pt-12 pb-8 lg:mt-0 justify-center md:w-1/2 lg:w-1/4 cardsNFTSection p-2" onClick={async () => {createCollectionRoute();}}>
+          <div className="w-full flex flex-row flex-wrap mt-10 pt-12 pb-8 lg:mt-0 justify-center md:w-1/2 lg:w-1/4 cardsNFTSection p-2" onClick={async () => {createCollectionRoute();}} data-aos="fade-down" data-aos-delay="600">
             <img
               className="h-[100px] w-[100px] mx-auto"
               src={colecciones}
@@ -53,7 +53,7 @@ function NftSteps(props) {
             </div>
           </div>
 
-          <div className="w-full flex flex-row flex-wrap mt-10 pt-12 pb-8 lg:mt-0 justify-center md:w-1/2 lg:w-1/4 cardsNFTSection p-2" onClick={async () => {createNFTRoute();}}>
+          <div className="w-full flex flex-row flex-wrap mt-10 pt-12 pb-8 lg:mt-0 justify-center md:w-1/2 lg:w-1/4 cardsNFTSection p-2" onClick={async () => {createNFTRoute();}} data-aos="fade-down" data-aos-delay="800">
             <img
               className="h-[100px] w-[100px] mx-auto"
               src={pincel}
@@ -65,7 +65,7 @@ function NftSteps(props) {
             </div>
           </div>
           
-          <div className="w-full flex flex-row flex-wrap mt-10 pt-12 pb-8 lg:mt-0 justify-center md:w-1/2 lg:w-1/4 cardsNFTSection p-2" onClick={async () => {sellNFTRoute();}}>
+          <div className="w-full flex flex-row flex-wrap mt-10 pt-12 pb-8 lg:mt-0 justify-center md:w-1/2 lg:w-1/4 cardsNFTSection p-2" onClick={async () => {sellNFTRoute();}} data-aos="fade-down" data-aos-delay="1000">
             <img
               className="h-[100px] w-[100px] mx-auto"
               src={label}
