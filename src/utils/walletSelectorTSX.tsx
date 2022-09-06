@@ -1,18 +1,12 @@
 import React, { useCallback, useContext, useEffect, useState } from "react";
-import type { WalletSelector, AccountState } from "@near-wallet-selector/core";
-import type { WalletSelectorModal } from "@near-wallet-selector/modal-ui";
+import { map, distinctUntilChanged } from "rxjs";
 import { setupWalletSelector } from "@near-wallet-selector/core";
+import type { WalletSelector, AccountState } from "@near-wallet-selector/core";
 import { setupModal } from "@near-wallet-selector/modal-ui";
+import type { WalletSelectorModal } from "@near-wallet-selector/modal-ui";
 import { setupNearWallet } from "@near-wallet-selector/near-wallet";
-import { setupMyNearWallet } from "@near-wallet-selector/my-near-wallet";
 import { setupSender } from "@near-wallet-selector/sender";
-import { setupMathWallet } from "@near-wallet-selector/math-wallet";
-import { setupNightly } from "@near-wallet-selector/nightly";
-import { setupMeteorWallet } from "@near-wallet-selector/meteor-wallet";
-import { setupLedger } from "@near-wallet-selector/ledger";
-import { setupWalletConnect } from "@near-wallet-selector/wallet-connect";
-import { setupNightlyConnect } from "@near-wallet-selector/nightly-connect";
-import { setupDefaultWallets } from "@near-wallet-selector/default-wallets";
+
 
 declare global {
   interface Window {
@@ -28,7 +22,8 @@ interface WalletSelectorContextValue {
   accountId: string | null;
 }
 
-const WalletSelectorContext = React.createContext<WalletSelectorContextValue | null>(null);
+const WalletSelectorContext =
+  React.createContext<WalletSelectorContextValue | null>(null);
 
 export const WalletSelectorContextProvider: React.FC = ({ children }) => {
   const [selector, setSelector] = useState<WalletSelector | null>(null);
@@ -40,38 +35,18 @@ export const WalletSelectorContextProvider: React.FC = ({ children }) => {
       network: "testnet",
       debug: true,
       modules: [
-        ...(await setupDefaultWallets()),
         setupNearWallet(),
-        setupMyNearWallet(),
+        setupNearWallet(),
         setupSender(),
-        setupMathWallet(),
-        setupNightly(),
-        setupMeteorWallet(),
-        setupLedger(),
-        setupWalletConnect({
-          projectId: "test...",
-          metadata: {
-            name: "NEAR Wallet Selector",
-            description: "Example dApp used by NEAR Wallet Selector",
-            url: "https://github.com/near/wallet-selector",
-            icons: ["https://avatars.githubusercontent.com/u/37784886"],
-          },
-        }),
-        setupNightlyConnect({
-          url: "wss://ncproxy.nightly.app/app",
-          appMetadata: {
-            additionalInfo: "",
-            application: "NEAR Wallet Selector",
-            description: "Example dApp used by NEAR Wallet Selector",
-            icon: "https://near.org/wp-content/uploads/2020/09/cropped-favicon-192x192.png",
-          },
-        }),
       ],
     });
-    const _modal = setupModal(_selector, { contractId:  "minterv2.nativo-minter.testnet"});
+    const _modal = setupModal(_selector, { contractId: "minterv2.nativo-minter.testnet" });
     const state = _selector.store.getState();
 
     setAccounts(state.accounts);
+
+    window.selector = _selector;
+    window.modal = _modal;
 
     setSelector(_selector);
     setModal(_modal);
@@ -84,11 +59,31 @@ export const WalletSelectorContextProvider: React.FC = ({ children }) => {
     });
   }, [init]);
 
+  useEffect(() => {
+    if (!selector) {
+      return;
+    }
+
+    const subscription = selector.store.observable
+      .pipe(
+        map((state) => state.accounts),
+        distinctUntilChanged()
+      )
+      .subscribe((nextAccounts) => {
+        console.log("Accounts Update", nextAccounts);
+
+        setAccounts(nextAccounts);
+      });
+
+    return () => subscription.unsubscribe();
+  }, [selector]);
+
   if (!selector || !modal) {
     return null;
   }
 
-  const accountId = accounts.find((account) => account.active)?.accountId || null;
+  const accountId =
+    accounts.find((account) => account.active)?.accountId || null;
 
   return (
     <WalletSelectorContext.Provider

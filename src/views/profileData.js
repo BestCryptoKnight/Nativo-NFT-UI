@@ -30,8 +30,11 @@ import { Reader, uploadFile } from '../utils/fleek';
 import Swal from 'sweetalert2'
 import { useTranslation } from "react-i18next";
 import trashIcon from '../assets/img/bin.png';
+import { useWalletSelector } from "../utils/walletSelector";
+import { providers, utils } from "near-api-js";
 function LightHeroE(props) {
   //este estado contiene toda la info de el componente
+  const { selector, modal, accounts, accountId } = useWalletSelector();
   const [mint, setmint] = React.useState({
     file: undefined,
     blockchain: localStorage.getItem("blockchain"),
@@ -155,7 +158,7 @@ function LightHeroE(props) {
             return err;
           });
       } else {
-        let account = await getNearAccount()
+        let account = accountId
         let action = "create"
         if (type){
           action = "edit"
@@ -168,6 +171,22 @@ function LightHeroE(props) {
           _type: action
         }
         console.log(payload)
+        const wallet = await selector.wallet();
+        wallet.signAndSendTransaction({
+          signerId: accountId,
+          receiverId: process.env.REACT_APP_CONTRACT_MARKET,
+          actions: [
+            {
+              type: "FunctionCall",
+              params: {
+                methodName: "add_new_profile",
+                args: payload,
+                gas: 300000000000000,
+                deposit: 0,
+              }
+            }
+          ]
+        })
         ext_call(process.env.REACT_APP_CONTRACT_MARKET,'add_new_profile',payload,300000000000000,0)
         
       }
@@ -181,7 +200,7 @@ function LightHeroE(props) {
     (async () => {
       let type = state
       if(type=="edit"){
-        let account = await getNearAccount()
+        let account = accountId
         console.log("Entro a editar")
         setType(true)
         let userData

@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useCallback } from "react";
+import { providers, utils } from "near-api-js";
 import { useTranslation } from "react-i18next";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
@@ -6,8 +7,26 @@ import { sliderData } from "../assets/landingSlider/sliderData";
 import Slider from "react-slick";
 import { getNearContract, fromYoctoToNear, getNearAccount } from "../utils/near_interaction";
 import verifyImage from '../assets/img/Check.png';
+import { useWalletSelector } from "../utils/walletSelector";
 
 function Trendings() {
+  const { selector, modal, accounts, accountId } = useWalletSelector();
+  // const getMessages = React.useCallback(() => {
+  //   const { network } = selector.options;
+  //   const provider = new providers.JsonRpcProvider({ url: network.nodeUrl });
+      
+  //   return provider
+  //     .query<CodeResult>({
+  //       request_type: "call_function",
+  //       account_id: "minterv2.nativo-minter.testnet",
+  //       method_name: "getMessages",
+  //       args_base64: "",
+  //       finality: "optimistic",
+  //     })
+  //     .then((res) => console.log(JSON.parse(Buffer.from(res.result).toString())));
+  // }, [selector]);
+
+
   const [t, i18n] = useTranslation("global")
   const [tokens, setTokens] = React.useState({ items: [], totalTokens: 6 })
   const settings = {
@@ -33,6 +52,11 @@ function Trendings() {
 
   React.useEffect(() => {
     (async () => {
+      
+      const wallet = await selector.wallet();
+      console.log(wallet)
+      
+      
       window.contr = await getNearContract();
 
       //instanciar contracto
@@ -52,11 +76,27 @@ function Trendings() {
           limit: parseInt(tokens.totalTokens),
         }
       }
+      const args_b64 = btoa(JSON.stringify(payload))
+      console.log(args_b64)
+    // console.log(args_b64)
+      const { network } = selector.options;
+      const provider = new providers.JsonRpcProvider({ url: network.nodeUrl });
 
-      
-      let toks = await contract.nft_tokens(
-        payload,
-      )
+      const res = await provider.query({
+          request_type: "call_function",
+          account_id: "minterv2.nativo-minter.testnet",
+          method_name: "nft_tokens",
+          args_base64: args_b64,
+          finality: "optimistic",
+        })
+        console.log(res)
+      console.log(JSON.parse(Buffer.from(res.result).toString()))
+
+      let toks = JSON.parse(Buffer.from(res.result).toString())
+      // let toks = await contract.nft_tokens(
+      //   payload,
+      // )
+      console.log(toks)
       setTokens({
         ...tokens,
         items: tokens.items.concat(toks.reverse())

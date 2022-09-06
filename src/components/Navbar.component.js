@@ -17,8 +17,10 @@ import defaultUser from '../assets/img/defaultUser.png'
 import closeImg from '../assets/img/x.png'
 import Swal from 'sweetalert2'
 import nativoLogo from '../assets/img/logo_nativo.png'
+import { useWalletSelector } from "../utils/walletSelector";
 
 function LightHeaderB(props) {
+  const { selector, modal, accounts, accountId } = useWalletSelector();
   const APIURL = process.env.REACT_APP_API_TG;
   const [state, setState] = useState({
     owner: "",
@@ -37,6 +39,9 @@ function LightHeaderB(props) {
     return classes.filter(Boolean).join(" ");
   }
 
+  const handleSignIn = () =>{
+    modal.show();
+  }
 
   const handleLanguage = () => {
     if (window.localStorage.getItem("LanguageState") == "en") {
@@ -58,8 +63,11 @@ function LightHeaderB(props) {
 
   useEffect(() => {
     (async () => {
-      setStateLogin(await isNearReady());
-      let account = await getNearAccount();
+      console.log(selector)
+      console.log(accounts)
+      console.log(accountId)
+      setStateLogin(accountId !=null ? true : false);
+      let account = accountId;
 
       let userMedia = window.localStorage.getItem('userMedia');
 
@@ -96,24 +104,24 @@ function LightHeaderB(props) {
           .catch((err) => {
             console.log('error: ', err)
           });
-        let loggedAccount2 = window.localStorage.getItem('undefined_wallet_auth_key');
+        let loggedAccount2 = accountId;
         userMedia = window.localStorage.getItem('userMedia');
-        let json2 = "";
-        if (loggedAccount2) {
-          json2 = JSON.parse(loggedAccount2);
-        }
+        // let json2 = "";
+        // if (loggedAccount2) {
+        //   json2 = JSON.parse(loggedAccount2);
+        // }
 
         console.log('state', state);
-        setState({ ...state, owner: json2.accountId, userMedia: userMedia })
+        setState({ ...state, owner: loggedAccount2, userMedia: userMedia })
       } else {
-        let loggedAccount2 = window.localStorage.getItem('undefined_wallet_auth_key');
-        let json2 = "";
-        if (loggedAccount2) {
-          json2 = JSON.parse(loggedAccount2);
-        }
+        let loggedAccount2 = accountId;
+        // let json2 = "";
+        // if (loggedAccount2) {
+        //   json2 = JSON.parse(loggedAccount2);
+        // }
 
         console.log('state', state);
-        setState({ ...state, owner: json2.accountId, userMedia: userMedia })
+        setState({ ...state, owner: loggedAccount2, userMedia: userMedia })
       }
     })();
 
@@ -124,7 +132,7 @@ function LightHeaderB(props) {
       }
 
     }
-  }, []);
+  }, [selector]);
 
   /**
    * esta funcion nos permite cambiar de blockchain
@@ -145,7 +153,11 @@ function LightHeaderB(props) {
 
   async function logOut(){
     localStorage.removeItem('userMedia');
-    await signOut(window.location.href);
+    const wallet = await selector.wallet();
+    wallet.signOut().catch((err) => {
+      console.log("Failed to sign out");
+      console.error(err);
+    });
   }
 
   async function futureFeatureMsg(section) {
@@ -567,9 +579,7 @@ function LightHeaderB(props) {
                   className={`ml-auto mt-2 text-white bg-yellow2 border-0 py-2 px-6 focus:outline-none w-[320px] md:w-auto rounded-xlarge font-raleway font-medium hidden md:flex`}
                   style={{ justifyContent: "center" }}
                   // disabled={state?.tokens.onSale}
-                  onClick={async () => {
-                    nearSignIn(window.location.href);
-                  }}>
+                  onClick={handleSignIn}>
 
                   {t("Navbar.login")}
                 </button>
@@ -738,9 +748,7 @@ function LightHeaderB(props) {
                               )}
                             </Menu.Item>
                             <Menu.Item
-                              onClick={async () => {
-                                nearSignIn(window.location.href);
-                              }}
+                              onClick={handleSignIn}
                             >
                               {({ active }) => (
                                 <a className={classNames(
