@@ -63,9 +63,6 @@ function LightHeaderB(props) {
 
   useEffect(() => {
     (async () => {
-      console.log(selector)
-      console.log(accounts)
-      console.log(accountId)
       setStateLogin(accountId !=null ? true : false);
       let account = accountId;
 

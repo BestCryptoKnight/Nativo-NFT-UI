@@ -14,11 +14,12 @@ import {
 import { getNearContract, fromNearToYocto, ext_call, getNearAccount } from "../utils/near_interaction";
 import { useTranslation } from "react-i18next";
 import { ApolloClient, InMemoryCache, gql } from '@apollo/client'
-
+import { useWalletSelector } from "../utils/walletSelector";
 //import { useHistory } from "react-router";
 
 export default function AddTokenModal(props) {
   //const history = useHistory();
+  const { selector, modalWallet, accounts, accountId } = useWalletSelector();
   const [state, setState] = useState({ disabled: false });
   const [t, i18n] = useTranslation("global")
   const [highestbidder, setHighestbidder] = useState(0);
@@ -105,7 +106,23 @@ export default function AddTokenModal(props) {
           collection_id: parseInt(colID)
         }
         console.log(payload)
-        ext_call(process.env.REACT_APP_CONTRACT_MARKET, 'add_token_to_collection', payload, 300000000000000, 1)
+        // ext_call(process.env.REACT_APP_CONTRACT_MARKET, 'add_token_to_collection', payload, 300000000000000, 1)
+        const wallet = await selector.wallet();
+        wallet.signAndSendTransaction({
+          signerId: accountId,
+          receiverId: process.env.REACT_APP_CONTRACT_MARKET,
+          actions: [
+            {
+              type: "FunctionCall",
+              params: {
+                methodName: "add_token_to_collection",
+                args: payload,
+                gas: 300000000000000,
+                deposit: 1,
+              }
+            }
+          ]
+        })
       }
     })
   }

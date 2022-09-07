@@ -29,9 +29,12 @@ import loadingGif from "../assets/img/loadingGif.gif"
 import { useTranslation } from "react-i18next";
 import Swal from 'sweetalert2'
 import { use } from "i18next";
+import { useWalletSelector } from "../utils/walletSelector";
+import { providers, utils } from "near-api-js";
 
 function LightEcommerceB(props) {
   //guarda el estado de  toda la vista
+  const { selector, modalWallet, accounts, accountId } = useWalletSelector();
   const [state, setstate] = useState();
   const [btn, setbtn] = useState(true);
   const [t, i18n] = useTranslation("global")
@@ -54,38 +57,13 @@ function LightEcommerceB(props) {
 
   React.useEffect(() => {
     (async () => {
-      setStateLogin(await isNearReady());
-      let ownerAccount = await getNearAccount();
+      setStateLogin(accountId !=null ? true : false);
+      let ownerAccount = accountId;
  
 
       let totalSupply;
 
       if (localStorage.getItem("blockchain") == "0") {
-        //primero nos aseguramos de que la red de nuestro combo sea igual a la que esta en metamask
-        // await syncNets();
-
-        // //obtener cuantos tokens tiene el contrato
-        // totalSupply = await getContract().methods.totalSupply().call();
-
-        // //si es mayor que el total de tokens
-        // if (parseInt(tokenid) >= parseInt(totalSupply)) {
-        //   window.location.href = "/galeria";
-        // } else {
-        //   //obtener los datos del token que se queire
-        //   let toks = await getContract().methods.tokensData(tokenid).call();
-        //   toks.price = fromWEItoEth(toks.price);
-        //   //obtener el dueño del contrato
-        //   let owner = await getContract().methods.ownerOf(tokenid).call();
-        //   //agregar el dueño y los datos del token
-        //   //console.log(JSON.parse(toks.data));
-        //   setstate({
-        //     ...state,
-        //     tokens: toks,
-        //     jdata: JSON.parse(toks.data),
-        //     owner,
-        //   });
-        //   //console.log(toks.data);
-        // }
       } else {
 
         
@@ -135,7 +113,18 @@ function LightEcommerceB(props) {
         let bids = []
         let bidder = ""
         let bidPrice = ""
-        let nft = await contract.nft_token(payload);
+        // let nft = await contract.nft_token(payload);
+        const nft_payload = btoa(JSON.stringify(payload))
+        const { network } = selector.options;
+        const provider = new providers.JsonRpcProvider({ url: network.nodeUrl });
+        const res = await provider.query({
+            request_type: "call_function",
+            account_id: process.env.REACT_APP_CONTRACT,
+            method_name: "nft_token",
+            args_base64: nft_payload,
+            finality: "optimistic",
+          })
+        let nft = JSON.parse(Buffer.from(res.result).toString())
         let bidsData = await getBids(tokenId)
           console.log(bidsData)
         if(nft.creator_id == account){
@@ -195,7 +184,18 @@ function LightEcommerceB(props) {
     let extPayload={
       nft_contract_token : process.env.REACT_APP_CONTRACT+"."+tokenID
     }
-    let extData = await ext_view(process.env.REACT_APP_CONTRACT_MARKET,"get_sale",extPayload)
+    // let extData = await ext_view(process.env.REACT_APP_CONTRACT_MARKET,"get_sale",extPayload)
+    const args_b64 = btoa(JSON.stringify(extPayload))
+    const { network } = selector.options;
+    const provider = new providers.JsonRpcProvider({ url: network.nodeUrl });
+    const res = await provider.query({
+      request_type: "call_function",
+      account_id: process.env.REACT_APP_CONTRACT_MARKET,
+      method_name: "get_sale",
+      args_base64: args_b64,
+      finality: "optimistic",
+    })
+    let extData = JSON.parse(Buffer.from(res.result).toString())
     return extData
   }
   async function getBids(tokenID){
@@ -203,7 +203,18 @@ function LightEcommerceB(props) {
       nft_contract_id : process.env.REACT_APP_CONTRACT,
       token_id : tokenID
     }
-    let extData = await ext_view(process.env.REACT_APP_CONTRACT_MARKET,"get_offer",extPayload)
+    // let extData = await ext_view(process.env.REACT_APP_CONTRACT_MARKET,"get_offer",extPayload)
+    const args_b64 = btoa(JSON.stringify(extPayload))
+    const { network } = selector.options;
+    const provider = new providers.JsonRpcProvider({ url: network.nodeUrl });
+    const res = await provider.query({
+      request_type: "call_function",
+      account_id: process.env.REACT_APP_CONTRACT_MARKET,
+      method_name: "get_offer",
+      args_base64: args_b64,
+      finality: "optimistic",
+    })
+    let extData = JSON.parse(Buffer.from(res.result).toString())
     return extData
   }
 
@@ -298,32 +309,23 @@ function LightEcommerceB(props) {
         nft_contract_id: process.env.REACT_APP_CONTRACT,
         token_id: state.tokens.tokenID
       }
-      let toks = await ext_call(process.env.REACT_APP_CONTRACT_MARKET,"offer",payload,300000000000000,fromNearToYocto(amount))
-    }
-
-    //si status esta undefined o falso le mandamos el modal de error
-    if (!toks.status) {
-      setModal({
-        show: true,
-        title: "Error",
-        message: "intentalo de nuevo",
-        loading: false,
-        disabled: false,
-        change: setModal,
-      });
-      //desbloquear el boton
-      setstate({ ...state, btnDisabled: false });
-    } else {
-      setModal({
-        show: true,
-        title: "exito",
-        message: "token comprado con exito",
-        loading: false,
-        disabled: false,
-        change: setModal,
-      });
-      //desbloquear el boton
-      setstate({ ...state, btnDisabled: false });
+      // let toks = await ext_call(process.env.REACT_APP_CONTRACT_MARKET,"offer",payload,300000000000000,fromNearToYocto(amount))
+      const wallet = await selector.wallet();
+      wallet.signAndSendTransaction({
+        signerId: accountId,
+        receiverId: process.env.REACT_APP_CONTRACT_MARKET,
+        actions: [
+          {
+            type: "FunctionCall",
+            params: {
+              methodName: "offer",
+              args: payload,
+              gas: 300000000000000,
+              deposit: amount,
+            }
+          }
+        ]
+      })
     }
   }
 
@@ -332,7 +334,23 @@ function LightEcommerceB(props) {
       nft_contract_id: process.env.REACT_APP_CONTRACT,
       token_id: tokenID,
     }
-    ext_call(process.env.REACT_APP_CONTRACT_MARKET,"delete_offer",payload,300000000000000,1)
+    // ext_call(process.env.REACT_APP_CONTRACT_MARKET,"delete_offer",payload,300000000000000,1)
+    const wallet = await selector.wallet();
+    wallet.signAndSendTransaction({
+      signerId: accountId,
+      receiverId: process.env.REACT_APP_CONTRACT_MARKET,
+      actions: [
+        {
+          type: "FunctionCall",
+          params: {
+            methodName: "delete_offer",
+            args: payload,
+            gas: 300000000000000,
+            deposit: 1,
+          }
+        }
+      ]
+    })
   }
 
   async function processAcceptOffer(listed,tokenID){
@@ -347,11 +365,27 @@ function LightEcommerceB(props) {
       msg: msgData
     }
     console.log(payload)
-    let acceptOffer = contract.nft_approve(
-      payload,
-      300000000000000,
-      amount
-    )
+    // let acceptOffer = contract.nft_approve(
+    //   payload,
+    //   300000000000000,
+    //   amount
+    // )
+    const wallet = await selector.wallet();
+    wallet.signAndSendTransaction({
+      signerId: accountId,
+      receiverId: process.env.REACT_APP_CONTRACT,
+      actions: [
+        {
+          type: "FunctionCall",
+          params: {
+            methodName: "nft_approve",
+            args: payload,
+            gas: 300000000000000,
+            deposit: amount,
+          }
+        }
+      ]
+    })
   }
 
   async function makeAnOffer() {

@@ -13,11 +13,13 @@ import {
 
 import { getNearContract, fromNearToYocto, ext_call } from "../utils/near_interaction";
 import { useTranslation } from "react-i18next";
+import { useWalletSelector } from "../utils/walletSelector";
 
 //import { useHistory } from "react-router";
 
 export default function OfferModal(props) {
   //const history = useHistory();
+  const { selector, modalWallet, accounts, accountId } = useWalletSelector();
   const [state, setState] = useState({ disabled: false});
   const [t, i18n] = useTranslation("global")
   const [highestbidder, setHighestbidder] = useState(0);
@@ -75,8 +77,23 @@ export default function OfferModal(props) {
           })
           return
         }
-        ext_call(process.env.REACT_APP_CONTRACT_MARKET,'add_offer',payload,300000000000000,amount)
-   
+        // ext_call(process.env.REACT_APP_CONTRACT_MARKET,'add_offer',payload,300000000000000,amount)
+        const wallet = await selector.wallet();
+        wallet.signAndSendTransaction({
+          signerId: accountId,
+          receiverId: process.env.REACT_APP_CONTRACT_MARKET,
+          actions: [
+            {
+              type: "FunctionCall",
+              params: {
+                methodName: "add_offer",
+                args: payload,
+                gas: 300000000000000,
+                deposit: amount,
+              }
+            }
+          ]
+        })
         
       // if (highestbidder != 'notienealtos') {
       //   if (bigAmount <= BigInt(highestbidder)) {
