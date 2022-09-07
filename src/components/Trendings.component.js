@@ -84,7 +84,7 @@ function Trendings() {
 
       const res = await provider.query({
           request_type: "call_function",
-          account_id: "minterv2.nativo-minter.testnet",
+          account_id: process.env.REACT_APP_CONTRACT,
           method_name: "nft_tokens",
           args_base64: args_b64,
           finality: "optimistic",

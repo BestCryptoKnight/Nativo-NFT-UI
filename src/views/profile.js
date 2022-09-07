@@ -126,7 +126,7 @@ function LightEcommerceB(props) {
         const provider = new providers.JsonRpcProvider({ url: network.nodeUrl });
         const owner = await provider.query({
           request_type: "call_function",
-          account_id: "minterv2.nativo-minter.testnet",
+          account_id: process.env.REACT_APP_CONTRACT,
           method_name: "nft_supply_for_owner",
           args_base64: args_b64,
           finality: "optimistic",
@@ -134,7 +134,7 @@ function LightEcommerceB(props) {
         totalTokensByOwner = JSON.parse(Buffer.from(owner.result).toString())
         const creator = await provider.query({
           request_type: "call_function",
-          account_id: "minterv2.nativo-minter.testnet",
+          account_id: process.env.REACT_APP_CONTRACT,
           method_name: "nft_supply_for_creator",
           args_base64: args_b64,
           finality: "optimistic",

@@ -28,7 +28,7 @@ export const WalletSelectorContextProvider = ({ children }) => {
                 setupMeteorWallet(),
             ],
         });
-        const _modal = setupModal(_selector, { contractId: process.env.REACT_APP_CONTRACT_MINTER });
+        const _modal = setupModal(_selector, { contractId: process.env.REACT_APP_CONTRACT });
         const state = _selector.store.getState();
         setAccounts(state.accounts);
         window.selector = _selector;

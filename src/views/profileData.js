@@ -187,8 +187,6 @@ function LightHeroE(props) {
             }
           ]
         })
-        ext_call(process.env.REACT_APP_CONTRACT_MARKET,'add_new_profile',payload,300000000000000,0)
-        
       }
       //if de error
 //test

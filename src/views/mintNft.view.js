@@ -4,7 +4,6 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import { ApolloClient, InMemoryCache, gql } from '@apollo/client'
 import { acceptedFormats, currencys } from "../utils/constraint";
-import Modal from "../components/modal.component";
 import load from "../assets/landingSlider/img/loader.gif";
 import uploadImg from "../assets/img/UPLOAD.png";
 import {
@@ -29,7 +28,9 @@ import { uploadFileAPI } from '../utils/pinata'
 import Swal from 'sweetalert2'
 import { useTranslation } from "react-i18next";
 import trashIcon from '../assets/img/bin.png';
+import { useWalletSelector } from "../utils/walletSelector";
 function LightHeroE(props) {
+  const { selector, modal, accounts, accountId } = useWalletSelector();
   //este estado contiene toda la info de el componente
   const [mint, setmint] = React.useState({
     file: undefined,
@@ -44,14 +45,7 @@ function LightHeroE(props) {
   const [colID, setColID] = useState("")
   const [t, i18n] = useTranslation("global")
   const [loading, setLoading] = useState(false);
-  //guarda el estado de el modal
-  const [modal, setModal] = React.useState({
-    show: false,
-    title: "cargando",
-    message: "hola como estas",
-    loading: true,
-    disabled: true,
-  });
+
 
   const [actualDate, setactualDate] = useState("");
   let collectionData
@@ -139,7 +133,7 @@ function LightHeroE(props) {
         //console.log(account);
       }
 
-      //cargamos el modal
+      
       // console.log(JSON.stringify(values))
       const fecha = values.date.split('-')
       let dateSTR = fecha[1] + '-' + fecha[2] + '-' + fecha[0]
@@ -234,7 +228,7 @@ function LightHeroE(props) {
           finality: "final",
         });
         const dateActual = (data.header.timestamp) / 1000000;
-        const owner = await getNearAccount()
+        const owner = accountId
         console.log(fromNearToYocto(values.price))
         let payload = {
           metadata: {
@@ -263,11 +257,27 @@ function LightHeroE(props) {
             }).then(async (result) => {
               if (result.isConfirmed) {
                 console.log("Creando NFT")
-                let tokenres = await contract.nft_mint(
-                  payload,
-                  300000000000000,
-                  amount,
-                )
+                const wallet = await selector.wallet();
+                wallet.signAndSendTransaction({
+                  signerId: accountId,
+                  receiverId: process.env.REACT_APP_CONTRACT,
+                  actions: [
+                    {
+                      type: "FunctionCall",
+                      params: {
+                        methodName: "nft_mint",
+                        args: payload,
+                        gas: 300000000000000,
+                        deposit: amount,
+                      }
+                    }
+                  ]
+                })
+                // let tokenres = await contract.nft_mint(
+                //   payload,
+                //   300000000000000,
+                //   amount,
+                // )
               }
               else if (result.isDismissed) {
                 setmint({ ...mint, onSubmitDisabled: false });
@@ -275,19 +285,30 @@ function LightHeroE(props) {
             })
           }
           else {
-            let tokenres = await contract.nft_mint(
-              payload,
-              300000000000000,
-              amount,
-            )
+            const wallet = await selector.wallet();
+            wallet.signAndSendTransaction({
+              signerId: accountId,
+              receiverId: process.env.REACT_APP_CONTRACT,
+              actions: [
+                {
+                  type: "FunctionCall",
+                  params: {
+                    methodName: "nft_mint",
+                    args: payload,
+                    gas: 300000000000000,
+                    deposit: amount,
+                  }
+                }
+              ]
+            })
+            // let tokenres = await contract.nft_mint(
+            //   payload,
+            //   300000000000000,
+            //   amount,
+            // )
           }
           console.log(payload)
         }
-        // let tokenres = await contract.nft_mint(
-        //   payload,
-        //   300000000000000,
-        //   amount,
-        // )
       }
       //if de error
 
@@ -546,7 +567,7 @@ function LightHeroE(props) {
                 </div>
               </div>
             </form>
-            <Modal {...modal} />
+            
           </>
         </>}
 

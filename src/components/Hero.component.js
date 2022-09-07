@@ -9,15 +9,6 @@ import rocket from '../assets/img/Rocket.png';
 
 function LightHeroE(props) {
   const { selector, modal, accounts, accountId } = useWalletSelector();
-  const handleSignIn = () => {
-      console.log(selector)
-      console.log(modal)
-      console.log(accounts)
-      console.log(accountId)
-      modal.show();
-    };
-  
-
   const [t, i18n] = useTranslation("global")
   return (
     <section className="text-gray-600 body-font dark:bg-darkgray h-screen">
@@ -42,14 +33,6 @@ function LightHeroE(props) {
                 </div>
               </button>
             </Link>
-            <button onClick={handleSignIn} className="flex inline-flex rounded-xlarge w-full h-[50px]  mt-0 bg-gradient-to-b p-[7px] from-yellow  to-brown hover:shadow-brown-s customHover" >
-              <div className="flex inline-flex  w-full h-full text-white  text-center rounded-xlarge justify-center shadow-s">
-                <div className="flex flex-col font-bold h-full text-white  text-center rounded-xlarge justify-center shadow-s w-full">
-                <svg className="fill-current w-4 h-4 mr-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M13 8V2H7v6H2l8 8 8-8h-5zM0 18h20v2H0v-2z"/></svg>
-                  <span className="title-font  text-white font-open-sans font-normal text-base md:text-2xl p-5">{t("Landing.gallery")}</span>
-                </div>
-              </div>
-            </button>
           </div>
           <div className="bg-background-landing landingBackground absolute z-10"></div>
         </div>
