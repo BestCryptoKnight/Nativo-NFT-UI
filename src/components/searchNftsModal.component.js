@@ -13,11 +13,13 @@ import {
 
 import { getNearAccount, getNFTById } from "../utils/near_interaction";
 import { useTranslation } from "react-i18next";
-
+import { useWalletSelector } from "../utils/walletSelector";
+import { providers, utils } from "near-api-js";
 //import { useHistory } from "react-router";
 
 export default function SearchNftsModal(props) {
   //const history = useHistory();
+  const { selector, modal, accounts, accountId } = useWalletSelector();
   const [state, setState] = useState({ disabled: false, nftsSearched: [], account: ''});
   const [t, i18n] = useTranslation("global")
 
@@ -37,8 +39,20 @@ export default function SearchNftsModal(props) {
       let allNFTS=[];
       let account = await getNearAccount();
       for await (let contract of props.contracts){
-        let searchedNfts = await getNFTById(contract, value.nftID, state.account);
-        if(searchedNfts !== null && searchedNfts.owner_id == state.account){
+        // let searchedNfts = await getNFTById(contract, value.nftID, state.account);
+        let payload = { token_id: value.nftID, account_id: accountId }
+        const nft_payload = btoa(JSON.stringify(payload))
+        const { network } = selector.options;
+        const provider = new providers.JsonRpcProvider({ url: network.nodeUrl });
+        const res = await provider.query({
+          request_type: "call_function",
+          account_id: contract,
+          method_name: "nft_token",
+          args_base64: nft_payload,
+          finality: "optimistic",
+        })
+        let searchedNfts = JSON.parse(Buffer.from(res.result).toString())
+        if(searchedNfts !== null && searchedNfts.owner_id == accountId){
           allNFTS.push({...searchedNfts,contract:contract})
         }
         

@@ -20,7 +20,6 @@ import {
   getNearAccount,
   getNearContract,
 } from "../utils/near_interaction";
-import Modal from "../components/modal.component";
 import flechaiz from '../assets/landingSlider/img/flechaIz.png'
 import ReactHashtag from "react-hashtag";
 import OfferModal from "../components/offerModal.component";
@@ -34,14 +33,11 @@ import { providers, utils } from "near-api-js";
 
 function LightEcommerceB(props) {
   //guarda el estado de  toda la vista
-  const { selector, modalWallet, accounts, accountId } = useWalletSelector();
+  const { selector, modal, accounts, accountId } = useWalletSelector();
   const [state, setstate] = useState();
   const [btn, setbtn] = useState(true);
   const [t, i18n] = useTranslation("global")
-  //guarda el estado de el modal
-  const [modal, setModal] = React.useState({
-    show: false,
-  });
+  
   //Esta logeado
   const [stateLogin, setStateLogin] = useState(false);
   const [hasRoyalty, setHasRoyalty] = useState(false)
@@ -54,6 +50,9 @@ function LightEcommerceB(props) {
   //es el historial de busqueda
   //let history = useHistory();
   const APIURL= process.env.REACT_APP_API_TG
+  const handleSignIn = () =>{
+    modal.show();
+  }
 
   React.useEffect(() => {
     (async () => {
@@ -264,29 +263,6 @@ function LightEcommerceB(props) {
     }
 
     //si el dueño intenta comprar un token le decimos que no lo puede comprar
-    if (state.owner.toUpperCase() === account.toUpperCase()) {
-      setModal({
-        show: true,
-        title: "Error",
-        message: "El dueño del token no puede recomparlo",
-        loading: false,
-        disabled: false,
-        change: setModal,
-      });
-      //desbloquear el boton
-      setstate({ ...state, btnDisabled: false });
-      return;
-    }
-
-    //modal de espera
-    setModal({
-      show: true,
-      title: "cargando",
-      message: "hola como estas",
-      loading: true,
-      disabled: true,
-      change: setModal,
-    });
 
     if (localStorage.getItem("blockchain") == "0") {
       //llamar el metodo de comprar
@@ -669,9 +645,7 @@ function LightEcommerceB(props) {
                             {}
                         }
                         // disabled={state?.tokens.onSale}
-                        onClick={async () => {
-                          nearSignIn(window.location.href);
-                        }}
+                        onClick={handleSignIn}
                       >
                         {t("Detail.login")}
                       </button>
@@ -755,7 +729,6 @@ function LightEcommerceB(props) {
 
 
         </div>
-        <Modal {...modal} />
         <OfferModal {...offerModal}  />
         <AddTokenModal {...addTokenModal} />
       </section>

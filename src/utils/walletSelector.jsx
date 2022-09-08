@@ -8,6 +8,7 @@ import { setupSender } from "@near-wallet-selector/sender";
 import { setupMathWallet } from "@near-wallet-selector/math-wallet";
 import { setupNightly } from "@near-wallet-selector/nightly";
 import { setupMeteorWallet } from "@near-wallet-selector/meteor-wallet";
+import { providers, utils } from "near-api-js";
 
 const WalletSelectorContext = React.createContext(null);
 

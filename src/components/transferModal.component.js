@@ -13,11 +13,13 @@ import {
 
 import { getNearContract, fromNearToYocto } from "../utils/near_interaction";
 import { useTranslation } from "react-i18next";
+import { useWalletSelector } from "../utils/walletSelector";
 
 //import { useHistory } from "react-router";
 
 export default function TransferModal(props) {
   //const history = useHistory();
+  const { selector, modal, accounts, accountId } = useWalletSelector();
   const [state, setState] = useState({ disabled: false});
   const [t, i18n] = useTranslation("global")
   const [highestbidder, setHighestbidder] = useState(0);
@@ -78,11 +80,27 @@ export default function TransferModal(props) {
           confirmButtonText: t("Modal.transAlert3Btn")
         }).then(async (result) => {
           if (result.isConfirmed) {
-            let transferir = await contract.nft_transfer(
-              payload,
-              300000000000000,
-              1
-            )
+            // let transferir = await contract.nft_transfer(
+            //   payload,
+            //   300000000000000,
+            //   1
+            // )
+            const wallet = await selector.wallet();
+            wallet.signAndSendTransaction({
+              signerId: accountId,
+              receiverId: process.env.REACT_APP_CONTRACT,
+              actions: [
+                {
+                  type: "FunctionCall",
+                  params: {
+                    methodName: "nft_transfer",
+                    args: payload,
+                    gas: 300000000000000,
+                    deposit: 1,
+                  }
+                }
+              ]
+            })
             Swal.fire({
               title: 'NFT transferido',
               test: 'Has transferido tu NFT a: '+values.account,
@@ -93,32 +111,6 @@ export default function TransferModal(props) {
         })
 
    
-        
-      // if (highestbidder != 'notienealtos') {
-      //   if (bigAmount <= BigInt(highestbidder)) {
-      //     Swal.fire({
-      //       title: 'El Precio es menor a la ultima oferta',
-      //       text: 'Para poder ofertar por este NFT es necesario que el precio mayor a la ultima oferta',
-      //       icon: 'error',
-      //       confirmButtonColor: '#E79211'
-      //     })
-      //     return
-      //   }
-      // }
-        
-
-        
-      //   ofertar = await contract.market_bid_generic(
-      //     payload,
-      //     300000000000000, // attached GAS (optional)
-      //     bigAmount.toString()//amount
-      //   ).
-      //   catch(e=>{
-      //     console.log('error',e);
-      //   });
-      
-
-      // setState({ disabled: false });
     },
   });
 

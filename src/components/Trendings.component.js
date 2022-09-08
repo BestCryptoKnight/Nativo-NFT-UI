@@ -91,8 +91,8 @@ function Trendings() {
         })
         console.log(res)
       console.log(JSON.parse(Buffer.from(res.result).toString()))
-
       let toks = JSON.parse(Buffer.from(res.result).toString())
+      
       // let toks = await contract.nft_tokens(
       //   payload,
       // )

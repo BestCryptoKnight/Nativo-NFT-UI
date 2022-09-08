@@ -35,12 +35,15 @@ import { ApolloClient, InMemoryCache, gql } from '@apollo/client'
 import { useTranslation } from "react-i18next";
 import InfiniteScroll from 'react-infinite-scroll-component';
 import SearchNftsModal from "../components/searchNftsModal.component";
+import { useWalletSelector } from "../utils/walletSelector";
+import { providers, utils } from "near-api-js";
 
 function MisTokens(props) {
   //Hooks para el manejo de estados
   const [pagsale, setpagsale] = React.useState(0);
   const [pagCount, setpagCount] = React.useState("");
   const [chunksale, setchunksale] = React.useState(0);
+  const { selector, modalWallet, accounts, accountId } = useWalletSelector();
   const [page, setpage] = React.useState(1);
   const [pageCreations, setpageCreations] = React.useState(1);
   const [pageCollections, setPageCollections] = React.useState(1);
@@ -203,32 +206,40 @@ function MisTokens(props) {
     await delay(.75)
     setpage(page + 1);
 
-    let contract = await getNearContract();
-    let account = await getNearAccount();
     let paramsSupplyForOwner = {
-      account_id: account
+      account_id: accountId
     };
-    let totalTokensByOwner = await contract.nft_supply_for_owner(paramsSupplyForOwner);
-
-
+    // let totalTokensByOwner = await contract.nft_supply_for_owner(paramsSupplyForOwner);
+    const supply_payload = btoa(JSON.stringify(paramsSupplyForOwner))
+    const { network } = selector.options;
+    const provider = new providers.JsonRpcProvider({ url: network.nodeUrl });
+    const res_supply = await provider.query({
+      request_type: "call_function",
+      account_id: process.env.REACT_APP_CONTRACT,
+      method_name: "nft_supply_for_owner",
+      args_base64: supply_payload,
+      finality: "optimistic",
+    })
+    let totalTokensByOwner = JSON.parse(Buffer.from(res_supply.result).toString())
     if (nfts.nfts.length >= totalTokensByOwner) {
       setState({...state, hasMore: false });
       return;
     }
-
-
-
-
     let payload = {
-      account_id: account,
+      account_id: accountId,
       from_index: (page * 3).toString(),
       limit: nfts.tokensPerPage,
     };
-
-    let nftsPerOwnerArr = await contract.nft_tokens_for_owner(payload);
-
-
-
+    // let nftsPerOwnerArr = await contract.nft_tokens_for_owner(payload);
+    const nft_payload = btoa(JSON.stringify(payload))
+    const res_nft = await provider.query({
+      request_type: "call_function",
+      account_id: process.env.REACT_APP_CONTRACT,
+      method_name: "nft_tokens_for_owner",
+      args_base64: nft_payload,
+      finality: "optimistic",
+    })
+    let nftsPerOwnerArr = JSON.parse(Buffer.from(res_nft.result).toString())
     // //convertir los datos al formato esperado por la vista
     let nftsArr = nftsPerOwnerArr.map((tok, i) => {
       let onSale = false
@@ -258,13 +269,9 @@ function MisTokens(props) {
           creator: tok.creator_id
         }),
       };
-
     });
-
-
     let newValue = nfts.nfts.concat(nftsArr);
     setNfts({...nfts, nfts: newValue });
-
   };
 
   const fetchMoreDataCreator = async () => {
@@ -272,32 +279,40 @@ function MisTokens(props) {
     setpageCreations(pageCreations + 1);
 
     let contract = await getNearContract();
-    console.log('contract',contract);
-    let account = await getNearAccount();
     let paramsSupplyForOwner = {
-      account_id: account
+      account_id: accountId
     };
-    let totalTokensByOwner = await contract.nft_supply_for_creator(paramsSupplyForOwner);
-
-
+    // let totalTokensByOwner = await contract.nft_supply_for_creator(paramsSupplyForOwner);
+    const supply_payload = btoa(JSON.stringify(paramsSupplyForOwner))
+    const { network } = selector.options;
+    const provider = new providers.JsonRpcProvider({ url: network.nodeUrl });
+    const res = await provider.query({
+      request_type: "call_function",
+      account_id: process.env.REACT_APP_CONTRACT,
+      method_name: "nft_supply_for_creator",
+      args_base64: supply_payload,
+      finality: "optimistic",
+    })
+    let totalTokensByOwner = JSON.parse(Buffer.from(res.result).toString())
     if (nfts.nftsCreations.length >= totalTokensByOwner) {
       setState({...state, hasMoreCreations: false });
       return;
     }
-
-
-
-
     let payload = {
-      account_id: account,
+      account_id: accountId,
       from_index: (pageCreations * 3).toString(),
       limit: nfts.tokensPerPage,
     };
-
-    let nftsPerOwnerArr = await contract.nft_tokens_for_creator(payload);
-
-
-
+    // let nftsPerOwnerArr = await contract.nft_tokens_for_creator(payload);
+    const nft_payload = btoa(JSON.stringify(payload))
+    const res_nft = await provider.query({
+      request_type: "call_function",
+      account_id: process.env.REACT_APP_CONTRACT,
+      method_name: "nft_tokens_for_creator",
+      args_base64: nft_payload,
+      finality: "optimistic",
+    })
+    let nftsPerOwnerArr = JSON.parse(Buffer.from(res_nft.result).toString())
     // //convertir los datos al formato esperado por la vista
     let nftsArr = nftsPerOwnerArr.map((tok, i) => {
       let onSale = false
@@ -327,14 +342,11 @@ function MisTokens(props) {
           creator: tok.creator_id
         }),
       };
-
     });
-
-
     let newValue = nfts.nftsCreations.concat(nftsArr);
     setNfts({...nfts, nftsCreations: newValue });
-
   };
+
   let fetchMoreDataCollections = async () => {
     setPageCollections(pageCollections + 1);
     //instanciar contracto
@@ -370,7 +382,7 @@ function MisTokens(props) {
         variables: {
           first: nfts.tokensPerPage,
           lastTokenID: lastIDCollection,
-          account: account
+          account: accountId
         },
       })
       .then((data) => {
@@ -540,10 +552,30 @@ function MisTokens(props) {
       } else {
         let contract = await getNearContract();
         let account = await getNearAccount();
-        let numNFT = await contract.nft_supply_for_owner({ account_id: account })
-        let numNFTCreations = await contract.nft_supply_for_creator({ account_id: account })
+        // let numNFT = await contract.nft_supply_for_owner({ account_id: accountId })
+        // let numNFTCreations = await contract.nft_supply_for_creator({ account_id: accountId })
+        const supply_payload = btoa(JSON.stringify({ account_id: accountId }))
+        const { network } = selector.options;
+        const provider = new providers.JsonRpcProvider({ url: network.nodeUrl });
+        const res_numNFT = await provider.query({
+          request_type: "call_function",
+          account_id: process.env.REACT_APP_CONTRACT,
+          method_name: "nft_supply_for_owner",
+          args_base64: supply_payload,
+          finality: "optimistic",
+        })
+        let numNFT = JSON.parse(Buffer.from(res_numNFT.result).toString())
 
-        await getContractsByAccount(account);//
+        const res_numNFTCrea = await provider.query({
+          request_type: "call_function",
+          account_id: process.env.REACT_APP_CONTRACT,
+          method_name: "nft_supply_for_creator",
+          args_base64: supply_payload,
+          finality: "optimistic",
+        })
+        let numNFTCreations = JSON.parse(Buffer.from(res_numNFTCrea.result).toString())
+
+        await getContractsByAccount(accountId);//
 
         if (numNFT == 0) {
           setLoadMsg(false)
@@ -553,11 +585,21 @@ function MisTokens(props) {
           setLoadMsgCreations(false)
         }
         let payload = {
-          account_id: account,
+          account_id: accountId,
           from_index: "0",
           limit: nfts.tokensPerPage,
         };
-        let nftsPerOwnerArr = await contract.nft_tokens_for_owner(payload);
+        // let nftsPerOwnerArr = await contract.nft_tokens_for_owner(payload);
+        
+        const tok_payload = btoa(JSON.stringify(payload))
+        const res_tokOwn = await provider.query({
+          request_type: "call_function",
+          account_id: process.env.REACT_APP_CONTRACT,
+          method_name: "nft_tokens_for_owner",
+          args_base64: tok_payload,
+          finality: "optimistic",
+        })
+        let nftsPerOwnerArr = JSON.parse(Buffer.from(res_tokOwn.result).toString())
 
         let toks;
 
@@ -598,11 +640,21 @@ function MisTokens(props) {
         //ARR for Creators 
         
         let payloadCreations = {
-          account_id: account,
+          account_id: accountId,
           from_index: "0",
           limit: nfts.tokensPerPage,
         };
-        let nftsPerOwnerArrCreations = await contract.nft_tokens_for_creator(payloadCreations);
+        // let nftsPerOwnerArrCreations = await contract.nft_tokens_for_creator(payloadCreations);
+
+        const tokCrea_payload = btoa(JSON.stringify(payloadCreations))
+        const res_tokCrea = await provider.query({
+          request_type: "call_function",
+          account_id: process.env.REACT_APP_CONTRACT,
+          method_name: "nft_tokens_for_creator",
+          args_base64: tokCrea_payload,
+          finality: "optimistic",
+        })
+        let nftsPerOwnerArrCreations = JSON.parse(Buffer.from(res_tokCrea.result).toString())
 
         // //convertir los datos al formato esperado por la vista
         let nftsArrCreations = nftsPerOwnerArrCreations.map((tok, i) => {
@@ -667,7 +719,7 @@ function MisTokens(props) {
         query: gql(queryData),
         variables: {
           first: nfts.tokensPerPageNear,
-          account: account
+          account: accountId
         },
       })
       .then((data) => {
@@ -702,7 +754,7 @@ function MisTokens(props) {
           ...nfts,
           nftsCreations: nftsArrCreations, 
           nfts: nftsArr,
-          owner: account,
+          owner: accountId,
           collections: nfts.collections.concat(col)
         });
 
@@ -725,11 +777,27 @@ function MisTokens(props) {
       token_id: tokenID,
       account_id: process.env.REACT_APP_CONTRACT_MARKET
     }
-    let revoke = contract.nft_revoke(
-      payload,
-      300000000000000, // attached GAS (optional)
-      1
-    )
+    // let revoke = contract.nft_revoke(
+    //   payload,
+    //   300000000000000, // attached GAS (optional)
+    //   1
+    // )
+    const wallet = await selector.wallet();
+    wallet.signAndSendTransaction({
+      signerId: accountId,
+      receiverId: process.env.REACT_APP_CONTRACT,
+      actions: [
+        {
+          type: "FunctionCall",
+          params: {
+            methodName: "nft_revoke",
+            args: payload,
+            gas: 300000000000000,
+            deposit: 1,
+          }
+        }
+      ]
+    })
   }
 
   async function quitarDelMarketplace(tokenId, collectionTit, contractSend, collectionId) {
@@ -758,11 +826,27 @@ function MisTokens(props) {
       let amount = fromNearToYocto(0.05);
       //console.log(amount);
       //console.log(payload);
-      quitar = await contract.market_remove_generic(
-        payload,
-        300000000000000, // attached GAS (optional)
-        0
-      );
+      // quitar = await contract.market_remove_generic(
+      //   payload,
+      //   300000000000000, // attached GAS (optional)
+      //   0
+      // );
+      const wallet = await selector.wallet();
+      wallet.signAndSendTransaction({
+        signerId: accountId,
+        receiverId: process.env.REACT_APP_CONTRACT,
+        actions: [
+          {
+            type: "FunctionCall",
+            params: {
+              methodName: "market_remove_generic",
+              args: payload,
+              gas: 300000000000000,
+              deposit: 0,
+            }
+          }
+        ]
+      })
       Swal.fire({
         title: 'NFT quitado de la venta',
         text: 'Se ha quitado un NFT de la venta con exito',
@@ -789,7 +873,7 @@ function MisTokens(props) {
   }
 
   async function getContractsByAccount(account){
-    let contracts = await getNFTContractsByAccount(account).catch(data=>{
+    let contracts = await getNFTContractsByAccount(accountId).catch(data=>{
       console.log('data contracts',data);
       
     });
@@ -800,9 +884,23 @@ function MisTokens(props) {
 
     for await (let [i, contract] of contracts.entries()) {
       console.log('dentro de contratos',contract+i);
-     let nfts = await getNFTByContract(contract, account).catch(data=>{
-        console.log('data contracts',data);
-      });
+    //  let nfts = await getNFTByContract(contract, account).catch(data=>{
+    //     console.log('data contracts',data);
+    //   });
+      let payload = {
+        account_id: accountId,
+      }
+      const nft_payload = btoa(JSON.stringify(payload))
+      const { network } = selector.options;
+      const provider = new providers.JsonRpcProvider({ url: network.nodeUrl });
+      const res = await provider.query({
+        request_type: "call_function",
+        account_id: contract,
+        method_name: "nft_tokens_for_owner",
+        args_base64: nft_payload,
+        finality: "optimistic",
+      })
+      let nfts = JSON.parse(Buffer.from(res.result).toString())
 
       let obj = {
         contract : contract,

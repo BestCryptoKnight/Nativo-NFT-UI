@@ -4,10 +4,11 @@ import nearicon from "../icons/near.svg";
 import nativoLogo from '../assets/img/nativologocrop.png'
 import { useTranslation } from "react-i18next";
 import { ext_call, getNearAccount } from "../utils/near_interaction";
+import { useWalletSelector } from "../utils/walletSelector";
 import Swal from 'sweetalert2'
 function LightFooterB(props) {
   const [t, i18n] = useTranslation("global")
-
+  const { selector, modal, accounts, accountId } = useWalletSelector();
   async function addNTVToken() {
     let account = await getNearAccount()
     let payload = {
@@ -24,7 +25,23 @@ function LightFooterB(props) {
     }).then(async (result) => {
       if (result.isConfirmed) {
         console.log("Transfer NTV")
-        ext_call(process.env.REACT_APP_CONTRACT_TOKEN,'ft_transfer', payload, 300000000000000,1)
+        // ext_call(process.env.REACT_APP_CONTRACT_TOKEN,'ft_transfer', payload, 300000000000000,1)
+        const wallet = await selector.wallet();
+        wallet.signAndSendTransaction({
+          signerId: accountId,
+          receiverId: process.env.REACT_APP_CONTRACT_TOKEN,
+          actions: [
+            {
+              type: "FunctionCall",
+              params: {
+                methodName: "ft_transfer",
+                args: payload,
+                gas: 300000000000000,
+                deposit: 1,
+              }
+            }
+          ]
+        })
       }
     })
   }
