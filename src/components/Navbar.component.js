@@ -155,7 +155,7 @@ function LightHeaderB(props) {
       console.log("Failed to sign out");
       console.error(err);
     }).then((res)=>{
-      window.location.reload()
+      window.location.href = "/"
     })
     
   }

@@ -10,7 +10,7 @@ export default function goNear(props) {
   return (
     <div className="container mx-auto flex  my- md:flex-row flex-col  justify-center h-96 items-center text-3xl">
       <div className="flex flex-col justify-center">
-        <h1 className="text-center">{window.localStorage.getItem("LanguageState") == "es" ? "Haz click e inicia sesión con near" : "Click and log in with near"}</h1>
+        <h1 className="text-center">{window.localStorage.getItem("LanguageState") == "es" ? "Presiona el botón de arriba para iniciar sesión" : "Press the button above to login"}</h1>
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="200"
@@ -18,9 +18,6 @@ export default function goNear(props) {
           viewBox="0 0 130 50"
           fill="black"
           className="h-32 mx-auto  cursor-pointer "
-          onClick={async () => {
-            nearSignIn(window.location.href);
-          }}
         >
           <path
             d="M60.5002 6.31846V24.817C60.4993 24.8868 60.472 24.9535 60.4241 25.0028C60.3763 25.0522 60.3116 25.0803 60.2439 25.0812H58.3786C57.9504 25.0816 57.529 24.9711 57.153 24.76C56.777 24.5488 56.4583 24.2437 56.2262 23.8727L47.7603 10.3776L48.0507 17.1181V24.817C48.0498 24.8868 48.0226 24.9535 47.9747 25.0028C47.9268 25.0522 47.8622 25.0803 47.7945 25.0812H45.3278C45.2601 25.0803 45.1955 25.0522 45.1476 25.0028C45.0998 24.9535 45.0725 24.8868 45.0716 24.817V6.31846C45.0725 6.24866 45.0998 6.18197 45.1476 6.13261C45.1955 6.08325 45.2601 6.05511 45.3278 6.0542H47.1829C47.6106 6.05443 48.0314 6.16477 48.4073 6.3752C48.7832 6.58563 49.1021 6.8895 49.3353 7.25924L57.8012 20.7332L57.5381 14.0174V6.31846C57.5381 6.24838 57.5651 6.18116 57.6132 6.1316C57.6612 6.08204 57.7264 6.0542 57.7944 6.0542H60.261C60.3257 6.05948 60.3861 6.08953 60.4303 6.13844C60.4746 6.18734 60.4995 6.25157 60.5002 6.31846Z"
