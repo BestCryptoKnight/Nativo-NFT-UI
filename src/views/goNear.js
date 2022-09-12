@@ -1,6 +1,7 @@
 import React from "react";
 //import metamasklogo from "../icons/metamasklogo.png";
 import { nearSignIn } from "../utils/near_interaction";
+import { useWalletSelector } from "../utils/walletSelector";
 /**
  *
  * se muestra cuando el usuario no esta logueado con near

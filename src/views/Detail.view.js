@@ -124,9 +124,10 @@ function LightEcommerceB(props) {
             finality: "optimistic",
           })
         let nft = JSON.parse(Buffer.from(res.result).toString())
+        console.log(nft)
         let bidsData = await getBids(tokenId)
           console.log(bidsData)
-        if(nft.creator_id == account){
+        if(nft.creator_id == accountId){
           setCreator(true)
         }
         if(Object.keys(nft.royalty).length!=0){
@@ -159,7 +160,7 @@ function LightEcommerceB(props) {
             price: priceData,
             bidder: bidder,
             bidPrice: bidPrice,
-            account: account,
+            account: accountId,
             owner: nft.owner_id,
             //chunk: parseInt(toks.token_id/2400),
           },
@@ -287,6 +288,7 @@ function LightEcommerceB(props) {
       }
       // let toks = await ext_call(process.env.REACT_APP_CONTRACT_MARKET,"offer",payload,300000000000000,fromNearToYocto(amount))
       const wallet = await selector.wallet();
+      
       wallet.signAndSendTransaction({
         signerId: accountId,
         receiverId: process.env.REACT_APP_CONTRACT_MARKET,
@@ -297,7 +299,7 @@ function LightEcommerceB(props) {
               methodName: "offer",
               args: payload,
               gas: 300000000000000,
-              deposit: amount,
+              deposit: fromNearToYocto(amount),
             }
           }
         ]

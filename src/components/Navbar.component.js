@@ -40,7 +40,7 @@ function LightHeaderB(props) {
   }
 
   const handleSignIn = () =>{
-    modal.show();
+    modal.show()
   }
 
   const handleLanguage = () => {
@@ -141,7 +141,7 @@ function LightHeaderB(props) {
     localStorage.setItem("blockchain", index);
     window.localStorage.setItem("page", 0)
     await signOut();
-    window.location.reload();
+    // window.location.reload();
   }
 
   async function goNativoV1() {
@@ -154,7 +154,10 @@ function LightHeaderB(props) {
     wallet.signOut().catch((err) => {
       console.log("Failed to sign out");
       console.error(err);
-    });
+    }).then((res)=>{
+      window.location.reload()
+    })
+    
   }
 
   async function futureFeatureMsg(section) {
@@ -548,7 +551,7 @@ function LightHeaderB(props) {
                             }}
                           >
                             {({ active }) => (
-                              <a href="/" className={classNames(
+                              <a  className={classNames(
                                 active
                                   ? "bg-yellow text-darkgray "
                                   : "text-darkgray ml-2 ",

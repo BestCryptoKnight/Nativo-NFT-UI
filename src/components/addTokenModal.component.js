@@ -33,7 +33,7 @@ export default function AddTokenModal(props) {
       if (props.show) {
         console.log(props)
         let userData
-        let account = await getNearAccount()
+        let account = accountId
         const query = `
           query($account: String){
             collections (where : {owner_id : $account}){

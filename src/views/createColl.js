@@ -129,7 +129,7 @@ function LightHeroE(props) {
         .catch((err) =>{
           console.log('error: ',err)
         })
-        if(collectionData.owner_id == await getNearAccount()){
+        if(collectionData.owner_id == accountId){
           setColId(collectionData.collectionID)
           setTitle(collectionData.title)
           setDesc(collectionData.description)

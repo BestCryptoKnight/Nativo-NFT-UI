@@ -467,55 +467,6 @@ function MisTokens(props) {
     })
   }
 
-  async function getPage(pag) {
-    if (nfts.blockchain == "0") {
-      //esta funcion nos regresa todos los tokens por que solidity no permite arreglos
-      //dinamicos en memory
-      let toks = await getContract()
-        .methods.tokensOfPaginav1(nfts.owner, nfts.tokensPerPage, pag)
-        .call();
-
-      //asignamos y filtramos todos los tokens que estan a  la venta
-
-      setNfts({
-        ...nfts,
-        nfts: toks.filter((tok) => tok.onSale),
-        page: pag,
-      });
-    } else {
-      let contract = await getNearContract();
-      let account = await getNearAccount();
-      //console.log("pag",pag,"nfts.tokensPerPageNear",nfts.tokensPerPageNear)
-      let payload = {
-        account_id: account.toString(),
-        from_index: "" + pag.toString(),
-        limit: nfts.tokensPerPageNear.toString(),
-      };
-
-      let nftsArr = await contract.nft_tokens_for_owner(payload);
-
-      //convertir los datos al formato esperado por la vista
-      nftsArr = nftsArr.map((tok) => {
-        return {
-          tokenID: tok.token_id,
-          price: fromYoctoToNear(tok.metadata.price),
-          onSale: tok.metadata.on_sale,
-          description: tok.metadata.description,
-          data: JSON.stringify({
-            title: tok.metadata.title,
-            image: tok.metadata.media,
-          }),
-        };
-      });
-
-      setNfts({
-        ...nfts,
-        nfts: nftsArr,
-        page: pag,
-      });
-    }
-  }
-
   //Hook para el manejo de efectos
   useEffect(() => {
     (async () => {
