@@ -7,6 +7,7 @@ import {
 } from "../utils/blockchain_interaction";
 import { currencys } from "../utils/constraint";
 import { getNearContract, fromYoctoToNear, getNearAccount, ext_call, ext_view } from "../utils/near_interaction";
+import { providers, utils } from "near-api-js";
 import { useParams, useHistory } from "react-router-dom";
 
 import filtroimg from '../assets/landingSlider/img/filtro.png'
@@ -19,8 +20,10 @@ import { useTranslation } from "react-i18next";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { inputUnstyledClasses } from "@mui/material";
 import verifyImage from '../assets/img/Check.png';
+import { useWalletSelector } from "../utils/walletSelector";
 
 function LightEcommerceA() {
+  const { selector, modal, accounts, accountId } = useWalletSelector();
   const [Landing, setLanding] = React.useState({
     theme: "yellow",
     currency: currencys[parseInt(localStorage.getItem("blockchain"))],
@@ -95,7 +98,7 @@ function LightEcommerceA() {
   let fetchMoreData = async () => {
     await delay(.75)
     let limit=true
-    let contract = await getNearContract();
+
     let indexQuery
     let lastLimit
     if(index>Landing.tokensPerPageNear){
@@ -118,7 +121,17 @@ function LightEcommerceA() {
       limit: (limit ? Landing.tokensPerPageNear : lastLimit),
     }
     console.log(payload)
-    let toks = await ext_view(process.env.REACT_APP_CONTRACT_MARKET,"get_sales_by_nft_contract_id",payload)
+    const args_toks = btoa(JSON.stringify(payload))
+    const { network } = selector.options;
+    const provider = new providers.JsonRpcProvider({ url: network.nodeUrl });
+    const owner = await provider.query({
+      request_type: "call_function",
+      account_id: process.env.REACT_APP_CONTRACT_MARKET,
+      method_name: "get_sales_by_nft_contract_id",
+      args_base64: args_toks,
+      finality: "optimistic",
+    })
+    let toks = JSON.parse(Buffer.from(owner.result).toString())
     setTokens({...tokens,
       items: tokens.items.concat(toks.reverse())
     });
@@ -201,9 +214,17 @@ function LightEcommerceA() {
           nft_contract_id: process.env.REACT_APP_CONTRACT
         }
         //instanciar contracto
-        let contract = await getNearContract();
-        let account = await getNearAccount();
-        let nft_total_supply = await ext_view(process.env.REACT_APP_CONTRACT_MARKET,"get_supply_by_nft_contract_id",supplyPayload)
+        const args_b64 = btoa(JSON.stringify(supplyPayload))
+        const { network } = selector.options;
+        const provider = new providers.JsonRpcProvider({ url: network.nodeUrl });
+        const owner = await provider.query({
+          request_type: "call_function",
+          account_id: process.env.REACT_APP_CONTRACT_MARKET,
+          method_name: "get_supply_by_nft_contract_id",
+          args_base64: args_b64,
+          finality: "optimistic",
+        })
+        let nft_total_supply = JSON.parse(Buffer.from(owner.result).toString())
         setIndex(nft_total_supply)
         if(nft_total_supply>0){
           setini(true)
@@ -215,7 +236,18 @@ function LightEcommerceA() {
               limit: parseInt(nft_total_supply),
             }
             setIndex(0)
-            let toks = await ext_view(process.env.REACT_APP_CONTRACT_MARKET,"get_sales_by_nft_contract_id",payload)
+            
+            const args_toks = btoa(JSON.stringify(payload))
+            const { network } = selector.options;
+            const provider = new providers.JsonRpcProvider({ url: network.nodeUrl });
+            const owner = await provider.query({
+              request_type: "call_function",
+              account_id: process.env.REACT_APP_CONTRACT_MARKET,
+              method_name: "get_sales_by_nft_contract_id",
+              args_base64: args_toks,
+              finality: "optimistic",
+            })
+            let toks = JSON.parse(Buffer.from(owner.result).toString())
             setTokens({...tokens,
               items: tokens.items.concat(toks.reverse())
             });
@@ -227,7 +259,18 @@ function LightEcommerceA() {
               limit: Landing.tokensPerPageNear,
             }
             setIndex(nft_total_supply-Landing.tokensPerPageNear)
-            let toks = await ext_view(process.env.REACT_APP_CONTRACT_MARKET,"get_sales_by_nft_contract_id",payload)
+            
+            const args_toks = btoa(JSON.stringify(payload))
+            const { network } = selector.options;
+            const provider = new providers.JsonRpcProvider({ url: network.nodeUrl });
+            const owner = await provider.query({
+              request_type: "call_function",
+              account_id: process.env.REACT_APP_CONTRACT_MARKET,
+              method_name: "get_sales_by_nft_contract_id",
+              args_base64: args_toks,
+              finality: "optimistic",
+            })
+            let toks = JSON.parse(Buffer.from(owner.result).toString())
             setTokens({...tokens,
               items: tokens.items.concat(toks.reverse())
             });

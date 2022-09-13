@@ -5,7 +5,6 @@ import * as Yup from "yup";
 import { ApolloClient, InMemoryCache, gql } from '@apollo/client'
 import { useParams, useHistory } from "react-router-dom";
 import { acceptedFormats, currencys } from "../utils/constraint";
-import Modal from "../components/modal.component";
 import icon from "../assets/img/iconoColeccion.png"
 import banner from "../assets/img/portadaColeccion.jpg"
 import ImageUploader from 'react-images-upload';
@@ -32,9 +31,11 @@ import { Reader2, uploadFile2 } from '../utils/fleek2';
 import { uploadFileAPI } from '../utils/pinata'
 import Swal from 'sweetalert2'
 import { useTranslation } from "react-i18next";
+import { useWalletSelector } from "../utils/walletSelector";
 
 function LightHeroE(props) {
   //este estado contiene toda la info de el componente
+  const { selector, modal, accounts, accountId } = useWalletSelector();
   const [mint, setmint] = React.useState({
     fileIcon: undefined,
     fileBanner: undefined,
@@ -59,14 +60,7 @@ function LightHeroE(props) {
   const [type, setType] = useState(false)
   
   
-  //guarda el estado de el modal
-  const [modal, setModal] = React.useState({
-    show: false,
-    title: "cargando",
-    message: "hola como estas",
-    loading: true,
-    disabled: true,
-  });
+  
 
   const [actualDate, setactualDate] = useState("");
   let collectionData
@@ -135,7 +129,7 @@ function LightHeroE(props) {
         .catch((err) =>{
           console.log('error: ',err)
         })
-        if(collectionData.owner_id == await getNearAccount()){
+        if(collectionData.owner_id == accountId){
           setColId(collectionData.collectionID)
           setTitle(collectionData.title)
           setDesc(collectionData.description)
@@ -240,7 +234,22 @@ function LightHeroE(props) {
       })
       return
     }
-    let colResult = await ext_call(process.env.REACT_APP_CONTRACT_MARKET,"add_new_user_collection",payloadCol,200000000000000,1)
+    const wallet = await selector.wallet();
+    wallet.signAndSendTransaction({
+      signerId: accountId,
+      receiverId: process.env.REACT_APP_CONTRACT_MARKET,
+      actions: [
+        {
+          type: "FunctionCall",
+          params: {
+            methodName: "add_new_user_collection",
+            args: payloadCol,
+            gas: 300000000000000,
+            deposit: 1,
+          }
+        }
+      ]
+    })
     // Swal.fire({
     //   html:
     //   '<div>'+

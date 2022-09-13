@@ -13,11 +13,13 @@ import {
 
 import { getNearContract, fromNearToYocto } from "../utils/near_interaction";
 import { useTranslation } from "react-i18next";
+import { useWalletSelector } from "../utils/walletSelector";
 
 //import { useHistory } from "react-router";
 
 export default function ApprovalModal(props) {
   //const history = useHistory();
+  const { selector, modal, accounts, accountId } = useWalletSelector();
   const [state, setState] = useState({ disabled: false});
   const [t, i18n] = useTranslation("global")
   const [highestbidder, setHighestbidder] = useState(0);
@@ -65,11 +67,27 @@ export default function ApprovalModal(props) {
           })
           return
         }
-        let approval = contract.nft_approve(
-          payload,
-          300000000000000,
-          amount
-        )
+        // let approval = contract.nft_approve(
+        //   payload,
+        //   300000000000000,
+        //   amount
+        // )
+        const wallet = await selector.wallet();
+        wallet.signAndSendTransaction({
+          signerId: accountId,
+          receiverId: process.env.REACT_APP_CONTRACT,
+          actions: [
+            {
+              type: "FunctionCall",
+              params: {
+                methodName: "nft_approve",
+                args: payload,
+                gas: 300000000000000,
+                deposit: amount,
+              }
+            }
+          ]
+        })
         
 
    

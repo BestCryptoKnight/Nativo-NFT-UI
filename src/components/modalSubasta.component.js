@@ -145,7 +145,6 @@ export default function ModalSubasta(props) {
                   <input
                     type="number"
                     placeholder="Hrs"
-                    type="hrs"
                     name="hrs"
                     id="date"{...formik.getFieldProps("hrs")}
                     min="0"
@@ -156,7 +155,6 @@ export default function ModalSubasta(props) {
                   <input
                     type="number"
                     placeholder="Min"
-                    type="min"
                     name="min"
                     id="date"{...formik.getFieldProps("min")}
                     min="0"

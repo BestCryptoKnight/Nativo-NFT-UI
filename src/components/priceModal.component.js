@@ -13,11 +13,13 @@ import {
 
 import { getNearContract, fromNearToYocto, ext_call, ext_view, fromYoctoToNear } from "../utils/near_interaction";
 import { useTranslation } from "react-i18next";
+import { useWalletSelector } from "../utils/walletSelector";
 
 //import { useHistory } from "react-router";
 
 export default function PriceModal(props) {
   //const history = useHistory();
+  const { selector, modal, accounts, accountId } = useWalletSelector();
   const [state, setState] = useState({ disabled: false});
   const [t, i18n] = useTranslation("global")
   const [highestbidder, setHighestbidder] = useState(0);
@@ -75,7 +77,23 @@ export default function PriceModal(props) {
           })
           return
         }
-        ext_call(process.env.REACT_APP_CONTRACT_MARKET,"update_price",payload,300000000000000,1)
+        // ext_call(process.env.REACT_APP_CONTRACT_MARKET,"update_price",payload,300000000000000,1)
+        const wallet = await selector.wallet();
+        wallet.signAndSendTransaction({
+          signerId: accountId,
+          receiverId: process.env.REACT_APP_CONTRACT_MARKET,
+          actions: [
+            {
+              type: "FunctionCall",
+              params: {
+                methodName: "update_price",
+                args: payload,
+                gas: 300000000000000,
+                deposit: 1,
+              }
+            }
+          ]
+        })
         // 
         
 

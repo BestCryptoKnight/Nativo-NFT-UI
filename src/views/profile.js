@@ -4,6 +4,7 @@ import PropTypes from "prop-types";
 import { useParams, useHistory } from "react-router-dom";
 // import { Helmet } from "react-helmet";
 import { isNearReady } from "../utils/near_interaction";
+import { providers, utils } from "near-api-js";
 import { nearSignIn, ext_view, ext_call } from "../utils/near_interaction";
 import { ApolloClient, InMemoryCache, gql } from '@apollo/client'
 import {
@@ -20,25 +21,20 @@ import {
   getNearAccount,
   getNearContract,
 } from "../utils/near_interaction";
-import Modal from "../components/modal.component";
 import flechaiz from '../assets/landingSlider/img/flechaIz.png'
 import defaultUser from '../assets/img/defaultUser.png'
 import ReactHashtag from "react-hashtag";
-import OfferModal from "../components/offerModal.component";
 import { useTranslation } from "react-i18next";
 import Swal from 'sweetalert2'
 import { date } from "yup";
+import { useWalletSelector } from "../utils/walletSelector";
 
 function LightEcommerceB(props) {
+  const { selector, modal, accounts, accountId } = useWalletSelector();
   //guarda el estado de  toda la vista
   const [state, setstate] = useState();
   const [btn, setbtn] = useState(true);
   const [t, i18n] = useTranslation("global")
-  //guarda el estado de el modal
-  const [modal, setModal] = React.useState({
-    show: false,
-  });
-  //Esta logeado
   const [stateLogin, setStateLogin] = useState(false);
   const [hasRoyalty, setHasRoyalty] = useState(false)
   const [myProfile, setMyProfile] = useState(false)
@@ -63,12 +59,13 @@ function LightEcommerceB(props) {
   }
 
   async function addNTVToken() {
-    let account = await getNearAccount()
+    let account = accountId
     let payload = {
       receiver_id: account,
       amount: "0",
       memo: ":"
     }
+    const wallet = await selector.wallet();
     Swal.fire({
       title: t("Footer.msg-ntv-title"),
       text: t("Footer.msg-ntv-desc"),
@@ -78,7 +75,22 @@ function LightEcommerceB(props) {
     }).then(async (result) => {
       if (result.isConfirmed) {
         console.log("Transfer NTV")
-        ext_call(process.env.REACT_APP_CONTRACT_TOKEN, 'ft_transfer', payload, 300000000000000, 1)
+        // ext_call(process.env.REACT_APP_CONTRACT_TOKEN, 'ft_transfer', payload, 300000000000000, 1)
+        wallet.signAndSendTransaction({
+          signerId: accountId,
+          receiverId: process.env.REACT_APP_CONTRACT_TOKEN,
+          actions: [
+            {
+              type: "FunctionCall",
+              params: {
+                methodName: "ft_transfer",
+                args: payload,
+                gas: 300000000000000,
+                deposit: 1,
+              }
+            }
+          ]
+        })
       }
     })
   }
@@ -89,13 +101,9 @@ function LightEcommerceB(props) {
   React.useEffect(() => {
     (async () => {
       setStateLogin(await isNearReady());
-      let ownerAccount = await getNearAccount();
+      let ownerAccount = await accountId;
 
-      let contract = await getNearContract();
-      let account = await getNearAccount();
-      let paramsSupplyForOwner = {
-        account_id: account
-      };
+      // let contract = await getNearContract();
       let totalTokensByOwner = 0;
       let totalTokensByCreator = 0;
       if (localStorage.getItem("blockchain") == "0") {
@@ -110,12 +118,29 @@ function LightEcommerceB(props) {
           account=user+'.testnet'
         }
 
-        let paramsSupplyForOwner = {
+        let paramsSupply = {
           account_id: account
         };
-        totalTokensByOwner = await contract.nft_supply_for_owner(paramsSupplyForOwner);
-        totalTokensByCreator = await contract.nft_supply_for_creator(paramsSupplyForOwner);
-        if(account == await getNearAccount()){
+        const args_b64 = btoa(JSON.stringify(paramsSupply))
+        const { network } = selector.options;
+        const provider = new providers.JsonRpcProvider({ url: network.nodeUrl });
+        const owner = await provider.query({
+          request_type: "call_function",
+          account_id: process.env.REACT_APP_CONTRACT,
+          method_name: "nft_supply_for_owner",
+          args_base64: args_b64,
+          finality: "optimistic",
+        })
+        totalTokensByOwner = JSON.parse(Buffer.from(owner.result).toString())
+        const creator = await provider.query({
+          request_type: "call_function",
+          account_id: process.env.REACT_APP_CONTRACT,
+          method_name: "nft_supply_for_creator",
+          args_base64: args_b64,
+          finality: "optimistic",
+        })
+        totalTokensByCreator = JSON.parse(Buffer.from(creator.result).toString())
+        if(account == accountId){
           setMyProfile(true)
         }
         const query = `
@@ -190,27 +215,6 @@ function LightEcommerceB(props) {
   }, []);
 
 
-
-  async function makeAnOffer() {
-    console.log("Make a offer")
-    setOfferModal({
-      ...state,
-      show: true,
-      title: t("Detail.modalMakeBid"),
-      message: t("Detail.modalMsg"),
-      loading: false,
-      disabled: false,
-      change: setOfferModal,
-      buttonName: 'X',
-      tokenId: 'hardcoded'
-    })
-  }
-
-
-  //setting state for the offer modal
-  const [offerModal, setOfferModal] = useState({
-    show: false,
-  });
   return (
     <>
       <section className="text-white body-font overflow-hidden dark:bg-darkgray font-open-sans">
@@ -310,8 +314,7 @@ function LightEcommerceB(props) {
           
 
         </div>
-        <Modal {...modal} />
-        <OfferModal {...offerModal} />
+
       </section>
     </>
   );
