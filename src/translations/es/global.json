@@ -63,10 +63,10 @@
         "discord" : "discord",
         "medium" : "medium",
         "github" : "github",
-        "whitepaper" : "whitepaper",
-        "tokenomics" : "tokenomics",
-        "docs" : "docs",
-        "terms" : "términos y condiciones",
+        "whitepaper" : "Whitepaper",
+        "tokenomics" : "Tokenomics y gobernanza",
+        "docs" : "Docs",
+        "terms" : "Términos y condiciones",
         "aboutNativo" : "acerca de nativo nft",
         "theTeam" : "el equipo",
         "tribu" : "Nativo NFT 2022 - Mantenido por la tribu de",
@@ -74,7 +74,10 @@
         "btn-NTV" : "Agregar mis NTVs a mi wallet",
         "msg-ntv-title" : "Advertencia",
         "msg-ntv-desc" : "La transaccion que estas por ejecutar fallara, no te preocupes no hay ningun problema, ejecuta la transaccion, una vez esta falle presiona cancelar para volver a la pagina.",
-        "msg-ntv-btn" : "Continuar"
+        "msg-ntv-btn" : "Continuar",
+        "nftLicense" : "Licencia NFT",
+        "privPolicy" : "Politíca de privacidad",
+        "creaPolicy" : "Politica de creatividad"
     },
     "Collections" : {
         "creator" : "Creador",

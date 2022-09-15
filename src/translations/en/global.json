@@ -65,7 +65,7 @@
         "medium" : "Medium",
         "github" : "Github",
         "whitepaper" : "Whitepaper",
-        "tokenomics" : "Tokenomics",
+        "tokenomics" : "Tokenomics and governance",
         "docs" : "Docs",
         "terms" : "Terms and conditions",
         "aboutNativo" : "About NativoNFT",
@@ -75,7 +75,10 @@
         "btn-NTV" : "Add my NTVs to my wallet",
         "msg-ntv-title" : "Warning",
         "msg-ntv-desc" : "The transaction that you are about to execute will fail, don't worry there is no problem, execute the transaction, once it fails press cancel to return to the page.",
-        "msg-ntv-btn" : "Continue"
+        "msg-ntv-btn" : "Continue",
+        "nftLicense" : "NFT license",
+        "privPolicy" : "Privacy Policy",
+        "creaPolicy" : "Creativity policy"
     },
     "Collections" : {
         "creator" : "Creator",
