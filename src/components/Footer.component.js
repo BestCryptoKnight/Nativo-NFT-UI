@@ -99,7 +99,7 @@ function LightFooterB(props) {
                   {t("Footer.github")}
                 </a>
               </li>
-              <li className="pb-4">
+              <li className="pt-4">
                 <button 
                   className="bg-yellow2 text-white py-1 px-2 text-sm rounded-xlarge"
                   onClick={async () => {addNTVToken()}}>{t("Footer.btn-NTV")}</button>
@@ -119,18 +119,33 @@ function LightFooterB(props) {
                 </a>
               </li>
               <li className="">
-              <a href="https://docs.google.com/document/d/1PP5FHzvaFQUiimJlgPyRkxLqyFAi6WCauccN9sgdcas/edit?usp=sharing" target="_blank" rel="noopener noreferrer" className="text-gray-600  hover:text-[#ec8b01] hover:font-bold dark:text-white capitalize font-raleway font-normal text-sm">
+              <a href="https://docs.nativo.art/internal-wiki/tokenomics/tokenomics-y-gobernanza" target="_blank" rel="noopener noreferrer" className="text-gray-600  hover:text-[#ec8b01] hover:font-bold dark:text-white capitalize font-raleway font-normal text-sm">
                   {t("Footer.tokenomics")}
                 </a>
               </li>
               <li className="">
-                <a href="" target="_blank" rel="noopener noreferrer" className="text-gray-600  hover:text-[#ec8b01] hover:font-bold dark:text-white capitalize font-raleway font-normal text-sm">
+                <a href="https://docs.nativo.art" target="_blank" rel="noopener noreferrer" className="text-gray-600  hover:text-[#ec8b01] hover:font-bold dark:text-white capitalize font-raleway font-normal text-sm">
                   {t("Footer.docs")}
                 </a>
               </li>
-              <li className="pb-4">
-                <a href="" target="_blank" rel="noopener noreferrer" className="text-gray-600  hover:text-[#ec8b01] hover:font-bold dark:text-white capitalize font-raleway font-normal text-sm">
+              <li className="">
+                <a href="https://docs.nativo.art/internal-wiki/terminos-legales/terminos-y-condiciones" target="_blank" rel="noopener noreferrer" className="text-gray-600  hover:text-[#ec8b01] hover:font-bold dark:text-white capitalize font-raleway font-normal text-sm">
                   {t("Footer.terms")}
+                </a>
+              </li>
+              <li className="">
+                <a href="https://docs.nativo.art/internal-wiki/licencia-nft/licencia-nft" target="_blank" rel="noopener noreferrer" className="text-gray-600  hover:text-[#ec8b01] hover:font-bold dark:text-white capitalize font-raleway font-normal text-sm">
+                  {t("Footer.nftLicense")}
+                </a>
+              </li>
+              <li className="">
+                <a href="https://docs.nativo.art/internal-wiki/terminos-legales/politica-de-privacidad" target="_blank" rel="noopener noreferrer" className="text-gray-600  hover:text-[#ec8b01] hover:font-bold dark:text-white capitalize font-raleway font-normal text-sm">
+                  {t("Footer.privPolicy")}
+                </a>
+              </li>
+              <li className="">
+                <a href="https://docs.nativo.art/internal-wiki/terminos-legales/politica-de-creatividad" target="_blank" rel="noopener noreferrer" className="text-gray-600  hover:text-[#ec8b01] hover:font-bold dark:text-white capitalize font-raleway font-normal text-sm">
+                  {t("Footer.creaPolicy")}
                 </a>
               </li>
             </nav>
