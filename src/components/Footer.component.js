@@ -113,12 +113,7 @@ function LightFooterB(props) {
               {t("Footer.resources")}
             </h2>
             <nav className="list-none mb-10">
-            <li className="pt-4">
-                <a href="" target="_blank" rel="noopener noreferrer" className="text-gray-600  hover:text-[#ec8b01] hover:font-bold dark:text-white capitalize font-raleway font-normal text-sm">
-                  {t("Footer.whitepaper")}
-                </a>
-              </li>
-              <li className="">
+              <li className="pt-4">
               <a href="https://docs.nativo.art/internal-wiki/tokenomics/tokenomics-y-gobernanza" target="_blank" rel="noopener noreferrer" className="text-gray-600  hover:text-[#ec8b01] hover:font-bold dark:text-white capitalize font-raleway font-normal text-sm">
                   {t("Footer.tokenomics")}
                 </a>
