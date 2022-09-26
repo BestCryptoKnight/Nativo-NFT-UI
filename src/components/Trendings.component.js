@@ -11,21 +11,6 @@ import { useWalletSelector } from "../utils/walletSelector";
 
 function Trendings() {
   const { selector, modal, accounts, accountId } = useWalletSelector();
-  // const getMessages = React.useCallback(() => {
-  //   const { network } = selector.options;
-  //   const provider = new providers.JsonRpcProvider({ url: network.nodeUrl });
-      
-  //   return provider
-  //     .query<CodeResult>({
-  //       request_type: "call_function",
-  //       account_id: "minterv2.nativo-minter.testnet",
-  //       method_name: "getMessages",
-  //       args_base64: "",
-  //       finality: "optimistic",
-  //     })
-  //     .then((res) => console.log(JSON.parse(Buffer.from(res.result).toString())));
-  // }, [selector]);
-
 
   const [t, i18n] = useTranslation("global")
   const [tokens, setTokens] = React.useState({ items: [], totalTokens: 6 })
@@ -52,9 +37,6 @@ function Trendings() {
 
   React.useEffect(() => {
     (async () => {
-      
-      const wallet = await selector.wallet();
-      console.log(wallet)
       
       
       window.contr = await getNearContract();
