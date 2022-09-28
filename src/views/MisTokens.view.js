@@ -844,21 +844,27 @@ function MisTokens(props) {
       const nft_payload = btoa(JSON.stringify(payload))
       const { network } = selector.options;
       const provider = new providers.JsonRpcProvider({ url: network.nodeUrl });
-      const res = await provider.query({
-        request_type: "call_function",
-        account_id: contract,
-        method_name: "nft_tokens_for_owner",
-        args_base64: nft_payload,
-        finality: "optimistic",
-      })
-      let nfts = JSON.parse(Buffer.from(res.result).toString())
-
-      let obj = {
-        contract : contract,
-        contractNfts: nfts
+      try{
+        const res = await provider.query({
+          request_type: "call_function",
+          account_id: contract,
+          method_name: "nft_tokens_for_owner",
+          args_base64: nft_payload,
+          finality: "optimistic",
+        })
+        let nfts = JSON.parse(Buffer.from(res.result).toString())
+  
+        let obj = {
+          contract : contract,
+          contractNfts: nfts
+        }
+  
+        allNfts.push(obj);
       }
-
-      allNfts.push(obj);
+      catch(err){
+        console.log(err)
+      }
+      
     }
 
     setAllNfts({nfts: allNfts, contracts: contracts});
