@@ -27,6 +27,10 @@
         "steps-createn": "Create your NFTs",
         "steps-sell": "Sell your NFTs",
         "steps-title" : "Create your NFTs",
+        "popular_col-title":"Popular Collections",
+        "popular_col-see_all":"See All",
+        "popular_col-tokens_on":"NFT in the Collection",
+        "popular_col-by":"By:",
         "trending-title" : "Trends on nativo",
         "trending-buy" : "See detail"
     },
