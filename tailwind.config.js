@@ -29,7 +29,16 @@ module.exports = {
         "yellow4": '#f5bc25',
         "orange": "#f9650b",
         "yellow5" : "#f6c930",
-        "blue2" : "#2b96ea"
+        "blue2" : "#2b96ea",
+        "white2" : "#fdfcfd",
+        "yellow4" : "#F79336",
+        "yellowHover" : "#F8A85D",
+        "yellowPressed" : "#C5752B",
+        "yellowDisabled" : "#F79336",
+        "outlineHover" : "#ECE7EE",
+        "outlinePressed" : "#A4A2A4",
+        "textOutlineHover" : "#A4A2A4",
+        "textOutlinePressed" : " #FDFCFD"
       },
       borderRadius: {
         'xlarge': '15px',
@@ -47,7 +56,8 @@ module.exports = {
       },
       fontFamily: {
         'raleway': ['raleway', 'sans-serif'], 
-        'open-sans': ['Open Sans', 'sans-serif']
+        'open-sans': ['Open Sans', 'sans-serif'],
+        'clash-grotesk': ["Clash Grotesk", "sans-serif"]
       }
     }
   },

@@ -2,7 +2,9 @@
     "Landing": {
         "title" : "Crea, compra y gana",
         "title-2" : "con tus NFT's",
-        "subtitle" : "La plataforma de Finanzas Descentralizadas que permite usar NFT's como garantía",
+        "subtitle" : "Nativo es un marketplace de NFT que busca recuperar la cultura nativa de países hispánicos a través del",
+        "subtitle2" : "ecosistema de Blockchain.",
+        "connect" : "Conectar mi near wallet",
         "btnCollections" : "Colecciones",
         "gallery" : "Explorar",
         "useNear" : "Utiliza tu Near wallet",

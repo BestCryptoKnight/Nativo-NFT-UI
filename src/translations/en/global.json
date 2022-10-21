@@ -2,7 +2,9 @@
     "Landing": {
         "title" : "Create, buy and earn",
         "title-2" : "with your NFT's",
-        "subtitle" : "Decentralized Finance platform that allows the use of NFT's as warranty",
+        "subtitle" : "Nativo is an NFT marketplace that seeks to recover the native culture of Hispanic countries through",
+        "subtitle2" : "Blockchain ecosystem",
+        "connect" : "Connect my near wallet",
         "btnCollections" : "Collections",
         "gallery" : "Explore",
         "useNear" : "Use your Near wallet",
