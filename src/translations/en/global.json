@@ -26,6 +26,7 @@
         "dao-txt-2" : "Be part of the governance with $NTV token",
         "steps-connect": "Connect your NEAR wallet",
         "steps-create": "Create your collection",
+        "steps-add": "Add your NFT's",
         "steps-createn": "Create your NFTs",
         "steps-sell": "Sell your NFTs",
         "steps-title" : "Create and sell",

@@ -26,6 +26,7 @@
         "dao-txt-2" : "Se parte de la gobernanza con el token $NTV",
         "steps-connect": "Conecta tu NEAR wallet",
         "steps-create": "Crea tu colección",
+        "steps-add": "Agrega tus NFT's",
         "steps-createn": "Crea tus NFTs",
         "steps-sell": "Vende tus NFTs",
         "steps-title" : "Crea y vende",

@@ -9,7 +9,8 @@ module.exports = {
         's': '4px 1px 17px rgba(253, 252, 252, 0.05)',
         'brown-s': '0 0 20px rgba(158, 009, 004, 1)',
         'yellow2': '0 0 20px rgba(235, 138, 006, 1)',
-        'yellow1' : '0 0 20px rgb(209, 131, 40, 1)'
+        'yellow1' : '0 0 20px rgb(209, 131, 40, 1)',
+        'stepCard': '4px 8px 12px rgba(0, 0, 0, 0.12)'
       },
       colors: {
         'white': '#fff',
