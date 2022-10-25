@@ -31,6 +31,10 @@
         "steps-sell": "Vende tus NFTs",
         "steps-title" : "Crea y vende",
         "steps-title2" : "tus NFT's",
+        "steps-sub1": "Conectar",
+        "steps-sub2": "Crear",
+        "steps-sub3": "Agregar",
+        "steps-sub4": "Vender",
         "trending-title" : "Tendencias en nativo",
         "trending-buy" : "Ver detalle"
     },
