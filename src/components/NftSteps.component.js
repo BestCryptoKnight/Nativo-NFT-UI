@@ -11,6 +11,7 @@ import Ellipse_7 from "../assets/img/landing/thirdSection/Ellipse_7.png";
 import Money_Icon from "../assets/img/landing/thirdSection/Money_Icon.png";
 import NFTImage_Icon from "../assets/img/landing/thirdSection/NFTImage_Icon.png";
 import Wallet_Icon from "../assets/img/landing/thirdSection/Wallet_Icon.png";
+import rigth_arrow from "../assets/img/landing/thirdSection/arrow-right.png";
 import NftStepsCard from "./NftStepsCard.component";
 import { render } from "@testing-library/react";
 
@@ -22,21 +23,29 @@ function NftSteps(props) {
       imgSrc: Wallet_Icon,
       bgSrc: Ellipse_7,
       text: t("Landing.steps-connect"),
+      sub: t("Landing.steps-sub1"),
+      arrow: rigth_arrow
     },
     {
       imgSrc: Collection_Icon,
       bgSrc: Ellipse_7,
-      text: t("Landing.steps-create")
+      text: t("Landing.steps-create"),
+      sub: t("Landing.steps-sub2"),
+      arrow: rigth_arrow
     },
     {
       imgSrc: NFTImage_Icon,
       bgSrc: Ellipse_7,
-      text: t("Landing.steps-add")
+      text: t("Landing.steps-add"),
+      sub: t("Landing.steps-sub3"),
+      arrow: rigth_arrow
     },
     {
       imgSrc: Money_Icon,
       bgSrc: Ellipse_7,
-      text: t("Landing.steps-sell")
+      text: t("Landing.steps-sell"),
+      sub: t("Landing.steps-sub4"),
+      arrow: rigth_arrow
     }
   ];
 
@@ -54,13 +63,13 @@ function NftSteps(props) {
 
   
   return (
-    <section className="text-gray-600 body-font bg-gray-100 dark:bg-darkgray">
-      <div className="container w-full px-5 pt-[72px] pb-28 dark:bg-darkgray mx-auto flex flex-row flex-wrap justify-center h-[758px] bg-steps-background bg-no-repeat bg-cover">
-        <div className="w-full flex flex-col lg:flex-row text-left" data-aos="fade-down" data-aos-delay="200">
-          <h2 className="dark:text-white   font-clash-grotesk font-semibold text-4xl  lg:text-5xl text-left">{t("Landing.steps-title")}</h2>
+    <section className="text-gray-600 body-font bg-gray-100 dark:bg-darkgray h-[758px] lg:h-[433px] bg-steps-background lg:bg-Crea_y_vende_tus_NFTs_2 bg-no-repeat bg-cover">
+      <div className="container w-full px-3 pt-[72px] pb-28  mx-auto flex flex-row flex-wrap justify-center lg:justify-start ">
+        <div className="w-full flex flex-col lg:flex-row text-left lg:ml-[15px]" data-aos="fade-down" data-aos-delay="200">
+          <h2 className="dark:text-white   font-clash-grotesk font-semibold text-4xl  lg:text-5xl text-left">{t("Landing.steps-title")} &nbsp;</h2> 
           <h2 className="dark:text-white   font-clash-grotesk font-semibold text-4xl  lg:text-5xl text-left">{t("Landing.steps-title2")}</h2>
         </div>
-        <div className="w-full flex flex-row flex-wrap mt-[12px]">
+        <div className="w-full flex flex-row flex-wrap lg:flex-nowrap mt-[12px] lg:mt-[50px]">
         {steps.map((card, i) => {
             return (
             <NftStepsCard card={card} key={i}/>
