@@ -63,7 +63,7 @@ function NftSteps(props) {
 
   
   return (
-    <section className="text-gray-600 body-font bg-gray-100 dark:bg-darkgray h-[758px] lg:h-[433px] bg-steps-background lg:bg-Crea_y_vende_tus_NFTs_2 bg-no-repeat bg-cover">
+    <section className="text-gray-600 body-font bg-gray-100 dark:bg-darkgray h-[758px] lg:h-[433px] bg-steps-background lg:bg-Crea_y_vende_tus_NFTs_2 bg-no-repeat bg-cover bg-center">
       <div className="container w-full px-3 pt-[72px] pb-28  mx-auto flex flex-row flex-wrap justify-center lg:justify-start ">
         <div className="w-full flex flex-col lg:flex-row text-left lg:ml-[15px]" data-aos="fade-down" data-aos-delay="200">
           <h2 className="dark:text-white   font-clash-grotesk font-semibold text-4xl  lg:text-5xl text-left">{t("Landing.steps-title")} &nbsp;</h2> 
