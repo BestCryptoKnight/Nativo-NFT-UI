@@ -25,8 +25,8 @@ export default function Landing() {
   return (
     <>
       <Hero />
-      <NftSteps/>
       <Popular_col/>
+      <NftSteps/>
       <Trendings/>
       <Statisct theme={Landing.theme} />
     </>
