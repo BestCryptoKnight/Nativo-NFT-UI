@@ -6,6 +6,7 @@ import Hero from "../components/Hero.component";
 import Steps from "../components/steps.component";
 import NftSteps from "../components/NftSteps.component";
 import Statisct from "../components/statistc.component";
+import Popular_col from "../components/Popular_collections.component";
 import Trendings from "../components/Trendings.component";
 import Aos from "aos";
 import "aos/dist/aos.css";
@@ -25,6 +26,7 @@ export default function Landing() {
     <>
       <Hero />
       <NftSteps/>
+      <Popular_col/>
       <Trendings/>
       <Statisct theme={Landing.theme} />
     </>

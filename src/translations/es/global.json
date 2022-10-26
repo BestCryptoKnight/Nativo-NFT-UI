@@ -34,7 +34,12 @@
         "steps-sub1": "Conectar",
         "steps-sub2": "Crear",
         "steps-sub3": "Agregar",
-        "steps-sub4": "Vender",
+        "steps-sub4": "Vender",        
+        "popular_col-title":"Colecciones Populares",
+        "popular_col-see_all":"Ver Todo",
+        "popular_col-tokens_on":"NFT en la Colección",
+        "popular_col-by":"Por:",
+        "popular_col-best-seller":"Mejor vendedor",
         "trending-title" : "Tendencias en nativo",
         "trending-buy" : "Ver detalle"
     },

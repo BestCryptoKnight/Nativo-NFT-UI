@@ -3,7 +3,9 @@
 @tailwind utilities;
 
 
-
+.popular_col  .slick-track .slick-active .popular_col-banner {
+  @apply rounded-xlarge w-[342px] h-[187.76px]   bg-gradient-to-b  from-yellow  to-brown  shadow-yellow1 m-auto ;
+}
 .trending  .slick-track .slick-active .trending-token {
     @apply rounded-xlarge w-[295px] p-2  bg-gradient-to-b  from-yellow  to-brown  shadow-yellow1 m-auto ;
 }

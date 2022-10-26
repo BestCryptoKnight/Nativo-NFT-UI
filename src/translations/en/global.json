@@ -35,6 +35,11 @@
         "steps-sub2": "Create",
         "steps-sub3": "Add",
         "steps-sub4": "Sell",
+        "popular_col-title":"Popular Collections",
+        "popular_col-see_all":"See All",
+        "popular_col-tokens_on":"NFT in the Collection",
+        "popular_col-by":"By:",
+        "popular_col-best-seller":"Best seller",        
         "trending-title" : "Trends on nativo",
         "trending-buy" : "See detail"
     },
