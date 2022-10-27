@@ -13,6 +13,7 @@ import InfiniteScroll from "react-infinite-scroll-component";
 import verifyImage from '../assets/img/Check.png';
 import { textAlign } from "@mui/system";
 import { FiEdit } from 'react-icons/fi';
+import {Helmet} from "react-helmet";
 
 function LightEcommerceA() {
   const [Landing, setLanding] = React.useState({
@@ -262,7 +263,9 @@ function LightEcommerceA() {
   return (
     
     <section className="text-gray-600 body-font bg-darkgray">
-      <title>Nativo NFT TEST</title>
+      <Helmet>
+        <title>Nativo NFTTest</title>
+      </Helmet>
       <div className={`flex flex-row  mb-10 md:mb-0  justify-center `}>
         <div className="trending-token w-full p-5 rounded-20  ">
           <div className=" bg-white rounded-20 ">
