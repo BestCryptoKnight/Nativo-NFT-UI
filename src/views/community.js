@@ -1,8 +1,4 @@
 import React from "react";
-import {
-    getContract,
-    syncNets,
-} from "../utils/blockchain_interaction";
 import { currencys } from "../utils/constraint";
 import { getNearContract, fromYoctoToNear, getNearAccount } from "../utils/near_interaction";
 import { useParams, useHistory } from "react-router-dom";

@@ -12,10 +12,6 @@ import Gallery from "./views/gallery";
 import Detail from "./views/Detail.view";
 import Mint from "./views/mintNft.view";
 import MisNfts from "./views/MisTokens.view";
-import AuctionGaleria from "./views/AuctionGaleria.view";
-import Auction from "./views/auction.view";
-import SendAuction from "./views/SendAuction.view";
-import Perfil from "./views/Perfil.view";
 import creCol from "./views/createColl"
 import Collections from "./views/collectionGallery"
 import Community from "./views/community"
@@ -79,10 +75,6 @@ class App extends Component {
             <Route path="/collections" component={Collections} />
             <Route path="/community" component={Community} />
             <Route path="/collection/:data" component={TokensCollection} />
-            <Route path="/perfil/:tokenid" component={Perfil} />
-            <Route path="/auctions" component={AuctionGaleria} />
-            <Route path="/auction/:tokenid" component={Auction} />
-            <BlockchainProtectedRoute path="/sendauction/:tokenid" component={SendAuction} />
             <Route path="/detail/:data" component={Detail}/>
             <BlockchainProtectedRoute path="/mynfts" component={MisNfts} />
             <Route component={notFound} />

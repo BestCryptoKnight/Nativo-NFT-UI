@@ -1,7 +1,6 @@
 import React, { useEffect } from "react";
 
 //components
-import Team from "../components/teamMembers.component";
 import Hero from "../components/Hero.component";
 import Steps from "../components/steps.component";
 import NftSteps from "../components/NftSteps.component";
