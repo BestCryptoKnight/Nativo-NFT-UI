@@ -6,12 +6,24 @@ import { useWalletSelector } from "../utils/walletSelector";
 import { useTranslation } from "react-i18next";
 import verifyImage from '../assets/img/Check.png';
 import rocket from '../assets/img/Rocket.png';
+import MetaTags from 'react-meta-tags';
+
 
 function LightHeroE(props) {
   const { selector, modal, accounts, accountId } = useWalletSelector();
   const [t, i18n] = useTranslation("global")
   return (
     <section className="text-gray-600 body-font dark:bg-darkgray h-screen">
+      <MetaTags>
+        <meta property="og:title" content="Nativo NFT" />
+        <meta property="og:description" content="Marketplace de NFT creado por y para la comunidad latina e hispano hablante creado sobre NEAR Protocol." />
+        <meta property="og:image" content="https://www.talent-network.org/comunidades/wp-content/uploads/2022/09/tn-comunidades-22-nativo.png" />
+        <meta property="og:url" content="https://deletejsfiles-metatags.dphj3ja30lftx.amplifyapp.com/" />
+        <meta property="og:type" content="website" />
+        <meta name="theme-color" content="#000000" />
+        <meta name="description" content="Marketplace de NFT creado por y para la comunidad latina e hispano hablante creado sobre NEAR Protocol" />
+        <title>Nativo NFT</title>
+      </MetaTags>
       <div className="container mx-auto flex px-5 pb-10 flex-col items-center justify-center h-screen">
         <div className=" h-72 lg:h-96 lg:flex-grow  flex flex-col md:text-left items-center justify-center" >
           <div className="w-full z-20 pt-10">
