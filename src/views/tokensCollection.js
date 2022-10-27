@@ -260,7 +260,9 @@ function LightEcommerceA() {
   };
 
   return (
+    
     <section className="text-gray-600 body-font bg-darkgray">
+      <title>Nativo NFT TEST</title>
       <div className={`flex flex-row  mb-10 md:mb-0  justify-center `}>
         <div className="trending-token w-full p-5 rounded-20  ">
           <div className=" bg-white rounded-20 ">
