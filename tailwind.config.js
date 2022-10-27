@@ -46,7 +46,8 @@ module.exports = {
       },
       fontFamily: {
         'raleway': ['raleway', 'sans-serif'], 
-        'open-sans': ['Open Sans', 'sans-serif']
+        'open-sans': ['Open Sans', 'sans-serif'],
+        'clash-grotesk': ["Clash Grotesk", "sans-serif"]
       }
     }
   },
