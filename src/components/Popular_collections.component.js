@@ -197,11 +197,11 @@ function Trendings() {
   }, [trigger]);
 
   return (
-    <section className="text-gray-600  open-sans     " >
+    <section className="text-gray-600  open-sans  h-[550px] lg:h-[670px]  " >
       <div className="w-full md:pt-4 pb-8 dark:flex flex-row flex-wrap justify-center" >
         <div className="w-full bg-white pt-6 pb-8 ">
-          <h2 className="dark:text-black  text-left px-4  w-1/3  text-3xl  md:px-6
-                        lg:px-8 mb-4">{t("Landing.popular_col-title")}</h2>
+          <h2 className="dark:text-black  text-left px-4  w-1/3 lg:w-1/2  text-3xl  md:px-6
+                        lg:px-8 mb-4  font-clash-grotesk  font-semibold leading-9  lg:text-4xl">{t("Landing.popular_col-title")} </h2>
            
         </div>
         <div className=" w-full    ">
@@ -216,7 +216,7 @@ function Trendings() {
                           <div className="flex flex-row drop-shadow-md justify-items-center px-4 mb-4 md:px-6 lg:px-8 " key={key}>
                           
                               <div className="rounded-md drop-shadow-md   w-full  bg-white hover:scale-105 ">
-                              <div className=" best-seller  ">{t("Landing.popular_col-best-seller")}</div>  
+                              <div className=" best-seller font-open-sans  font-bold text-xlg ">{t("Landing.popular_col-best-seller")}</div>  
                                       <div className="  overflow-hidden rounded-t-md w-full md:w-full  lg:w-full  bg-white   ">
                                         
                                            <img className="  h-[190px] mx-auto  object-cover object-center scale-150	 " alt={item.description}  src={`https://nativonft.mypinata.cloud/ipfs/${item.mediaBanner}`}/>   
@@ -224,13 +224,13 @@ function Trendings() {
                                       </div>  
                                         <div className="flex flex-row  mb-4   " name="card_detail">
                                           <div className=" z-10 -mt-8 ml-4        ">
-                                                <img    className="  object-cover   bg-white  border-2 border-white min-w-[90px] max-w-[90px] min-h-[90px] max-h-[90px]  "src={`https://nativonft.mypinata.cloud/ipfs/${item.mediaIcon}`} alt={item.description}/>
+                                                <img    className="  object-cover  rounded-md bg-white  border-2 border-white min-w-[90px] max-w-[90px] min-h-[90px] max-h-[90px]  "src={`https://nativonft.mypinata.cloud/ipfs/${item.mediaIcon}`} alt={item.description}/>
                                           </div> 
 
                                           <div class="flex flex-col  mx-2 mt-2  ">
-                                                <div className="   w-full uppercase tracking-tighter text-black text-xs	    font-bold">{item.title}</div>
-                                                <div className="   w-full uppercase tracking-tighter text-xs text-left font-semibold justify-center  ">{t("Landing.popular_col-by")  +" " +item.owner}</div>
-                                                <div className="   w-full   text-xs  text-black text-left justify-center font-semibold ">{item.tokenCount>999 ? "+"+item.tokenCount +"k " :  item.tokenCount+" "} <a className="w-full   text-xs text-gray-600   text-left justify-center "> {t("Landing.popular_col-tokens_on")}</a></div>
+                                                <div className="   w-full uppercase tracking-tighter text-black text-base	   font-open-sans  font-extrabold    collection-description h-[50px] justify-center items-center">{item.title}</div>
+                                                <div className="   w-full uppercase tracking-tighter text-xs text-left font-bold justify-center font-open-sans leading-4 text-black  text-ellipsis overflow-hidden whitespace-pre">{t("Landing.popular_col-by")  +" " +item.owner}</div>
+                                                <div className="   w-full   text-xs  text-black text-left justify-center font-normal font-open-sans  text-ellipsis overflow-hidden whitespace-nowrap">{item.tokenCount>999 ? "+"+item.tokenCount +"k " :  item.tokenCount+" "} <a className="w-full   text-xs text-black font-open-sans font-normal tracking-wide leading-4  text-left justify-center "> {t("Landing.popular_col-tokens_on")}</a></div>
                                           </div>
                                       </div>  
                               </div>
@@ -243,8 +243,9 @@ function Trendings() {
           </Slider>
           
         </div>
-        <a href='/collections'>
-          <button    class=" rounded border-2 text-gray-400  border-slate-400 px-4 py-1 capitalize text-darkgray-100 font-bold sm:text-xs md:text-xl lg:text-xl hover:scale-105">{t("Landing.popular_col-see_all")}</button>
+
+        <a href='/collections' className="lg:w-full w-[143px] lg:text-right lg:mr-7 lg:mt-[55px]">
+          <button    class=" rounded border-2 text-gray-400  border-slate-400 lg:bg-white lg:border-2 lg:border-[#F79336] lg:w-[339px] lg:h-[48px] lg:text-[#F79336] px-4 py-1 capitalize text-darkgray-100 font-bold sm:text-xs md:text-xl lg:text-xl hover:scale-105 font-open-sans text-base">{t("Landing.popular_col-see_all")}</button>
         </a>
          
       </div>
