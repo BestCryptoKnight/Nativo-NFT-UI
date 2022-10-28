@@ -6,6 +6,7 @@
 .popular_col  .slick-track .slick-active .popular_col-banner {
   @apply rounded-xlarge w-[342px] h-[187.76px]   bg-gradient-to-b  from-yellow  to-brown  shadow-yellow1 m-auto ;
 }
+
 .trending  .slick-track .slick-active .trending-token {
     @apply rounded-xlarge w-[295px] p-2  bg-gradient-to-b  from-yellow  to-brown  shadow-yellow1 m-auto ;
 }
@@ -18,27 +19,70 @@
 }
 
 @media (min-width: 1024px) {
-    .trending  .slick-track .slick-active .trending-token {
-        @apply shadow-none bg-none ;
-    }
-
-    .trending  .slick-track .slick-current + .slick-slide  .trending-token{
-        @apply rounded-xlarge shadow-yellow1  scale-110  !important;
-        @apply w-[295px] p-2 rounded-xlarge bg-gradient-to-b  from-yellow  to-brown relative z-30  ;
-    }
-
-    .trending  .slick-track  .trending-token > div {
-        @apply -m-[5px];
-    }
-    .trending  .slick-track  .trending-token  {
-        @apply m-[5px] rounded-xlarge;
-    }
-    .trending  .slick-track {
-        height: 727px;
-        top: 125px;
-        margin-top: -80px;
-    }
+  .trending .slick-track .slick-active .trending-token {
+    @apply shadow-none bg-none;
   }
+
+  .trending .slick-track .slick-current+.slick-slide .trending-token {
+    @apply rounded-xlarge shadow-yellow1 scale-110 !important;
+    @apply w-[295px] p-2 rounded-xlarge bg-gradient-to-b from-yellow to-brown relative z-30;
+  }
+
+  .trending .slick-track .trending-token>div {
+    @apply -m-[5px];
+  }
+
+  .trending .slick-track .trending-token {
+    @apply m-[5px] rounded-xlarge;
+  }
+
+  .trending .slick-track {
+    height: 727px;
+    top: 125px;
+    margin-top: -80px;
+  }
+
+  .slick-prev:before,
+  .slick-next:before {
+    color: white;
+    border-radius: 6px;
+  }
+
+  .slick-prev:before {
+    content: url('./assets/img/landing/secondSection/arrow-left.png');
+  }
+
+  .slick-next:before {
+    content: url('./assets/img/landing/secondSection/arrow-right.png');
+  }
+
+  .slick-arrow.slick-prev {
+    position: absolute;
+    top: 125%;
+    left: 30px;
+    width: 100px;
+    height: 44px;
+  }
+
+  .slick-arrow.slick-next {
+    position: absolute;
+    top: 125%;
+    left: 170px;
+    width: 100px;
+    height: 44px;
+  }
+
+  button.slick-arrow {
+    width: 100px;
+    height: 44px;
+    background: #F79336;
+    border-radius: 6px;
+  }
+
+  button.slick-arrow:hover {
+    background-color: #F8A85D;
+  }
+}
   
 
   .yellow-button {

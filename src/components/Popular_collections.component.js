@@ -197,7 +197,7 @@ function Trendings() {
   }, [trigger]);
 
   return (
-    <section className="text-gray-600  open-sans  h-[550px] lg:h-[670px]  " >
+    <section className="text-gray-600  open-sans  h-[550px] lg:h-[670px] overflow-hidden " >
       <div className="w-full md:pt-4 pb-8 dark:flex flex-row flex-wrap justify-center" >
         <div className="w-full bg-white pt-6 pb-8 ">
           <h2 className="dark:text-black  text-left px-4  w-1/3 lg:w-1/2  text-3xl  md:px-6
@@ -206,7 +206,7 @@ function Trendings() {
         </div>
         <div className=" w-full    ">
         
-        <Slider {...settings} >
+        <Slider {...settings} className="mt-3">
             {collections.items.map((item, key) => {
               return (
                 <div className="">
@@ -244,8 +244,8 @@ function Trendings() {
           
         </div>
 
-        <a href='/collections' className="lg:w-full w-[143px] lg:text-right lg:mr-7 lg:mt-[55px]">
-          <button    class=" rounded border-2 text-gray-400  border-slate-400 lg:bg-white lg:border-2 lg:border-[#F79336] lg:w-[339px] lg:h-[48px] lg:text-[#F79336] px-4 py-1 capitalize text-darkgray-100 font-bold sm:text-xs md:text-xl lg:text-xl hover:scale-105 font-open-sans text-base">{t("Landing.popular_col-see_all")}</button>
+        <a href='/collections' className=" w-[163px] lg:w-full lg:text-right lg:mr-7 lg:mt-[55px]">
+          <button    class="  rounded border-2  text-gray-400  border-slate-400 lg:bg-white lg:border-2 lg:border-[#F79336]  lg:w-[339px] lg:h-[48px] lg:text-[#F79336] px-4 py-1 capitalize text-darkgray-100 font-bold sm:text-xs md:text-xl lg:text-xl hover:scale-105 font-open-sans text-base  ">{t("Landing.popular_col-see_all")}</button>
         </a>
          
       </div>
