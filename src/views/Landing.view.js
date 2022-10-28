@@ -8,7 +8,7 @@ import Statisct from "../components/statistc.component";
 import Trendings from "../components/Trendings.component";
 import Aos from "aos";
 import "aos/dist/aos.css";
-import { Helmet } from 'react-helmet-async';
+import { Helmet } from 'react-helmet';
 
 
 export default function Landing() {
@@ -23,7 +23,7 @@ export default function Landing() {
     });
   });
   return (
-    <>
+    <div>
       <Helmet>
         <meta property="og:title" content="Nativo NFT" />
         <meta property="og:description" content="Marketplace de NFT creado por y para la comunidad latina e hispano hablante creado sobre NEAR Protocol." />
@@ -38,6 +38,6 @@ export default function Landing() {
       <NftSteps/>
       <Trendings/>
       <Statisct theme={Landing.theme} />
-    </>
+    </div>
   );
 }
