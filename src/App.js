@@ -62,8 +62,8 @@ class App extends Component {
   render() {
     return (
       <>
-      <HelmetProvider>
         <Router>
+        <HelmetProvider>
           <Navbar theme={this.state.theme} />
           <Switch>
             <Route exact path="/" component={Landing} />
@@ -81,8 +81,8 @@ class App extends Component {
             <Route component={notFound} />
           </Switch>
           <Footer theme={this.state.theme} />
+          </HelmetProvider>
         </Router>
-      </HelmetProvider>
       </>
     );
   }
