@@ -461,16 +461,6 @@ function LightEcommerceA() {
   }
 return (
   <section className={"text-gray-600 body-font " + (ini && hasData ? "" : "py-64 dark:bg-darkgray")}>
-    <Helmet>
-      <meta property="og:title" content="Nativo NFT - Colecciones" />
-      <meta property="og:description" content="Marketplace de NFT creado por y para la comunidad latina e hispano hablante creado sobre NEAR Protocol." />
-      <meta property="og:image" content="https://www.talent-network.org/comunidades/wp-content/uploads/2022/09/tn-comunidades-22-nativo.png" />
-      <meta property="og:url" content="https://deletejsfiles-metatags.dphj3ja30lftx.amplifyapp.com/" />
-      <meta property="og:type" content="website" />
-      <meta name="theme-color" content="#000000" />
-      <meta name="description" content="Marketplace de NFT creado por y para la comunidad latina e hispano hablante creado sobre NEAR Protocol" />
-      <title>Nativo NFT - Colecciones</title>
-    </Helmet>
     <div className={"pt-3 mx-auto dark:bg-darkgray "}>
       <div className="lg:w-full  h-[30px] flex my-8 justify-center">
         <h1 className="text-3xl lg:text-6xl font-black dark:text-white bg-darkgray m-0 px-6 font-raleway uppercase self-center">
