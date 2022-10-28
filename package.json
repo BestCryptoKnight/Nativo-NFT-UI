@@ -42,6 +42,7 @@
     "react-frame-component": "^4.1.1",
     "react-hashtag": "^2.1.2",
     "react-helmet": "^6.1.0",
+    "react-helmet-async": "^1.3.0",
     "react-i18next": "^11.15.6",
     "react-icons": "^4.2.0",
     "react-images-upload": "^1.2.7",
