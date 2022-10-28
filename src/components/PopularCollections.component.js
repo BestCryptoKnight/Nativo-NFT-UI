@@ -12,7 +12,7 @@ import { Button } from "@mui/material";
 import { ApolloClient, InMemoryCache, gql } from '@apollo/client'
 
 
-function Trendings() {
+function PopularCollections() {
   let [collections, setCollections] = React.useState({
     items: [],
     hasMore: true
@@ -254,4 +254,4 @@ function Trendings() {
 }
 
 
-export default Trendings;
+export default PopularCollections;
