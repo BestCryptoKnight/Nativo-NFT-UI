@@ -11,7 +11,7 @@ import global_es from "./translations/es/global.json"
 import global_en from "./translations/en/global.json"
 import {WalletSelectorContextProvider} from "./utils/walletSelector"
 import "@near-wallet-selector/modal-ui/styles.css";
-import { HelmetProvider } from 'react-helmet-async';
+
 i18next.init({
     interpolation: { escapeValue: false },
     lng: (window.localStorage.getItem("LanguageState") == "en" ? "en" : "es"),
@@ -26,13 +26,11 @@ i18next.init({
 })
 
 ReactDOM.render(
-    <HelmetProvider>
     <I18nextProvider i18n={i18next}>      
         <WalletSelectorContextProvider>
             <App />
         </WalletSelectorContextProvider>  
-    </I18nextProvider>
-    </HelmetProvider>, 
+    </I18nextProvider>, 
     document.getElementById("root")
 );
 
