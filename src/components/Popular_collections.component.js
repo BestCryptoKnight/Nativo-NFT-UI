@@ -244,8 +244,8 @@ function Trendings() {
           
         </div>
 
-        <a href='/collections' className=" w-[163px] lg:w-full lg:text-right lg:mr-7 lg:mt-[55px]">
-          <button    class="  rounded border-2  text-gray-400  border-slate-400 lg:bg-white lg:border-2 lg:border-[#F79336]  lg:w-[339px] lg:h-[48px] lg:text-[#F79336] px-4 py-1 capitalize text-darkgray-100 font-bold sm:text-xs md:text-xl lg:text-xl hover:scale-105 font-open-sans text-base  ">{t("Landing.popular_col-see_all")}</button>
+        <a href='/collections' className="lg:w-full lg:text-right lg:mr-7 lg:mt-[55px]">
+          <button    class="w-[163px]  rounded border-2  text-gray-400  border-slate-400 lg:bg-white lg:border-2 lg:border-[#F79336]  lg:w-[339px] lg:h-[48px] lg:text-[#F79336] px-4 py-1 capitalize text-darkgray-100 font-bold sm:text-xs md:text-xl lg:text-xl hover:scale-105 font-open-sans text-base  mt-5 lg:mt-0">{t("Landing.popular_col-see_all")}</button>
         </a>
          
       </div>

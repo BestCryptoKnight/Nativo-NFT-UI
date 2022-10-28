@@ -18,6 +18,49 @@
     @apply -m-[5px]   !important;
 }
 
+.slick-prev:before,
+.slick-next:before {
+  color: white;
+  border-radius: 6px;
+}
+
+.slick-prev:before {
+  content: url('./assets/img/landing/secondSection/arrow-left.png');
+}
+
+.slick-next:before {
+  content: url('./assets/img/landing/secondSection/arrow-right.png');
+}
+
+.slick-arrow.slick-prev {
+  position: absolute;
+  top: 35%;
+  left: 2%;
+  width: 30px;
+  height: 30px;
+  z-index: 100;
+}
+
+.slick-arrow.slick-next {
+  position: absolute;
+  top: 35%;
+  left: 90%;
+  width: 30px;
+  height: 30px;
+  z-index: 100;
+}
+
+button.slick-arrow {
+  width: 30px;
+  height: 30px;
+  background: rgba(30, 29, 29, 0.5);
+  border-radius: 6px;
+}
+
+button.slick-arrow:hover {
+  background-color: #F8A85D;
+}
+
 @media (min-width: 1024px) {
   .trending .slick-track .slick-active .trending-token {
     @apply shadow-none bg-none;
