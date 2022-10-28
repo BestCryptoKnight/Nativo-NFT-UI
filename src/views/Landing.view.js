@@ -8,7 +8,7 @@ import Statisct from "../components/statistc.component";
 import Trendings from "../components/Trendings.component";
 import Aos from "aos";
 import "aos/dist/aos.css";
-import { Helmet } from 'react-helmet';
+import { Helmet } from 'react-helmet-asyc';
 
 
 export default function Landing() {

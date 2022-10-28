@@ -26,11 +26,13 @@ i18next.init({
 })
 
 ReactDOM.render(
+    <HelmetProvider>
     <I18nextProvider i18n={i18next}>      
         <WalletSelectorContextProvider>
             <App />
         </WalletSelectorContextProvider>  
-    </I18nextProvider>,
+    </I18nextProvider>
+    </HelmetProvider>, 
     document.getElementById("root")
 );
 
