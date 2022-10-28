@@ -6,13 +6,7 @@ import { useParams, useHistory } from "react-router-dom";
 import { isNearReady } from "../utils/near_interaction";
 import { nearSignIn, ext_view, ext_call } from "../utils/near_interaction";
 import { ApolloClient, InMemoryCache, gql } from '@apollo/client'
-import {
-  syncNets,
-  getSelectedAccount,
-  getContract,
-  fromWEItoEth,
-  fromETHtoWei,
-} from "../utils/blockchain_interaction";
+
 import { currencys } from "../utils/constraint";
 import {
   fromNearToYocto,
@@ -255,27 +249,7 @@ function LightEcommerceB(props) {
     setstate({ ...state, btnDisabled: true });
     let account, toks;
     if (localStorage.getItem("blockchain") == "0") {
-      //primero nos aseguramos de que la red de nuestro combo sea igual a la que esta en metamask
-      await syncNets();
-      //la cuenta a la cual mandaremos el token
-      account = await getSelectedAccount();
-    } else {
-      account = await getNearAccount();
-    }
-
-    //si el dueño intenta comprar un token le decimos que no lo puede comprar
-
-    if (localStorage.getItem("blockchain") == "0") {
-      //llamar el metodo de comprar
-      toks = await getContract()
-        .methods.comprarNft(state.tokens.tokenID)
-        .send({
-          from: account,
-          value: fromETHtoWei(Number(state.tokens.price)),
-        })
-        .catch((err) => {
-          return err;
-        });
+      return
     } else {
 
       let amount = parseFloat(state.tokens.price);

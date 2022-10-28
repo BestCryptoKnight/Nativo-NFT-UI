@@ -1,7 +1,6 @@
 import React, { useEffect } from "react";
 
 //components
-import Team from "../components/teamMembers.component";
 import Hero from "../components/Hero.component";
 import Steps from "../components/steps.component";
 import NftSteps from "../components/NftSteps.component";
@@ -9,6 +8,7 @@ import Statisct from "../components/statistc.component";
 import Trendings from "../components/Trendings.component";
 import Aos from "aos";
 import "aos/dist/aos.css";
+
 
 export default function Landing() {
   const [Landing, setLanding] = React.useState({ theme: "yellow" });
@@ -22,11 +22,11 @@ export default function Landing() {
     });
   });
   return (
-    <>
+    <div>
       <Hero />
       <NftSteps/>
       <Trendings/>
       <Statisct theme={Landing.theme} />
-    </>
+    </div>
   );
 }

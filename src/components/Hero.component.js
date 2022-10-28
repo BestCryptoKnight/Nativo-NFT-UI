@@ -7,6 +7,7 @@ import { useTranslation } from "react-i18next";
 import verifyImage from '../assets/img/Check.png';
 import rocket from '../assets/img/Rocket.png';
 
+
 function LightHeroE(props) {
   const { selector, modal, accounts, accountId } = useWalletSelector();
   const [t, i18n] = useTranslation("global")
