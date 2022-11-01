@@ -356,7 +356,7 @@ function LightHeaderB(props) {
                             )}
                           </Menu.Item>
 
-                          <Menu.Item>
+                          {/* <Menu.Item>
                             {({ active }) => (
                               <a href="/gallery" className={classNames(
                                 active
@@ -371,7 +371,7 @@ function LightHeaderB(props) {
                                 </div>
                               </a>
                             )}
-                          </Menu.Item>
+                          </Menu.Item> */}
 
                           <Menu.Item
                           >
