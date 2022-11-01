@@ -41,7 +41,9 @@
         "popular_col-by":"Por:",
         "popular_col-best-seller":"Mejor vendedor",
         "trending-title" : "Tendencias en nativo",
-        "trending-buy" : "Ver detalle"
+        "trending-buy" : "Ver detalle",
+        "tokens" : "Tokens",
+        "collections" : "Colecciones"
     },
     "Navbar" : {
         "collections" : "Colecciones",

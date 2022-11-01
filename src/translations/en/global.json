@@ -41,7 +41,9 @@
         "popular_col-by":"By:",
         "popular_col-best-seller":"Best seller",        
         "trending-title" : "Trends on nativo",
-        "trending-buy" : "See detail"
+        "trending-buy" : "See detail",
+        "tokens" : "Tokens",
+        "collections" : "Collections"
     },
     "Navbar" : {
         "collections" : "Collections",

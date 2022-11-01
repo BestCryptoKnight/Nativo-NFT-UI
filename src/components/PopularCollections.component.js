@@ -197,11 +197,11 @@ function PopularCollections() {
   }, [trigger]);
 
   return (
-    <section className="text-gray-600  open-sans  h-[550px] lg:h-[670px] overflow-hidden " >
+    <section className="text-gray-600  open-sans  h-[580px] lg:h-[670px] overflow-hidden " >
       <div className="w-full md:pt-4 pb-8 dark:flex flex-row flex-wrap justify-center" >
         <div className="w-full bg-white pt-6 pb-8 ">
-          <h2 className="dark:text-black  text-left px-4  w-1/3 lg:w-1/2  text-3xl  md:px-6
-                        lg:px-8 mb-4  font-clash-grotesk  font-semibold leading-9  lg:text-4xl">{t("Landing.popular_col-title")} </h2>
+          <h2 className="dark:text-black  text-left px-4  w-full lg:w-1/2  text-3xl  md:px-6
+                        lg:px-8 mb-4  font-clash-grotesk  font-semibold leading-9  lg:text-4xl">{t("Landing.popular_col-title")}⭐</h2>
            
         </div>
         <div className=" w-full    ">
