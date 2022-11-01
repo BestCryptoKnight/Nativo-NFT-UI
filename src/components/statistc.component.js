@@ -17,6 +17,7 @@ function LightStatisicC(props) {
               <img
                 className="h-9/10"
                 src={nativoLogo}
+                alt='logo'
               />            
             </div>
           </div>
