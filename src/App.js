@@ -20,7 +20,7 @@ import SalesGallery from "./views/salesGallery"
 import ProfileData from "./views/profileData"
 import Profile from "./views/profile"
 import notFound from "./views/notFound.view";
-import { Helmet } from 'react-helmet';
+
 
 //este hoc nos regresa el componente que le mandamos si tiene instalado metamask
 //import MetamaskProtectedRoute from "./HOCS/MetamaskProtectedRoute.hoc";

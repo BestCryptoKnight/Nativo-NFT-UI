@@ -39,8 +39,8 @@ function Community() {
                 <a href="https://discord.gg/q2R6rtY4ks" target="_blank">
                     <div className="flex items-center min-h-[369px] max-h-[369px] min-w-[256.5px] max-w-[256.5px] m-5 bg-white rounded-[50px] border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700 hover:shadow-yellow1 hover:scale-105 overflow-hidden group">
                         <a className="w-full flex justify-center">
-                            <img className="rounded-t-lg mx-auto mt-[40px] min-w-[245px] max-w-[245px] opacity-20 transition-opacity group-hover:opacity-100 rounded group-hover:bg-opacity-90 absolute z-[2]" src={discordLogo} alt="" />
-                            <img className="min-h-[369px] max-h-[369px] min-w-[256.5px] max-w-[256.5px] z-[1] group-hover:brightness-50" src={discord} alt="" />
+                            <img className="rounded-t-lg mx-auto mt-[40px] min-w-[245px] max-w-[245px] opacity-20 transition-opacity group-hover:opacity-100 rounded group-hover:bg-opacity-90 absolute z-[2]" src={discordLogo} alt="discordLogo" />
+                            <img className="min-h-[369px] max-h-[369px] min-w-[256.5px] max-w-[256.5px] z-[1] group-hover:brightness-50" src={discord} alt="discord" />
                         </a>
                     </div>
                 </a>
@@ -49,8 +49,8 @@ function Community() {
                 <a href="https://twitter.com/nativonft" target="_blank">
                     <div className="flex items-center min-h-[369px] max-h-[369px] min-w-[256.5px] max-w-[256.5px] m-5 bg-white rounded-[50px] border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700 hover:shadow-yellow1 hover:scale-105 overflow-hidden group">
                         <a className="w-full flex justify-center">
-                            <img className="rounded-t-lg mx-auto mt-[40px] min-w-[245px] max-w-[245px] opacity-20 transition-opacity group-hover:opacity-100 rounded group-hover:bg-opacity-90 absolute z-[2]" src={twitterLogo} alt="" />
-                            <img className="min-h-[369px] max-h-[369px] min-w-[256.5px] max-w-[256.5px] z-[1] group-hover:brightness-50" src={twitter} alt="" />
+                            <img className="rounded-t-lg mx-auto mt-[40px] min-w-[245px] max-w-[245px] opacity-20 transition-opacity group-hover:opacity-100 rounded group-hover:bg-opacity-90 absolute z-[2]" src={twitterLogo} alt="twitterLogo" />
+                            <img className="min-h-[369px] max-h-[369px] min-w-[256.5px] max-w-[256.5px] z-[1] group-hover:brightness-50" src={twitter} alt="twitter" />
                         </a>
                     </div>
                 </a>
@@ -59,8 +59,8 @@ function Community() {
                 <a href="https://t.me/+TFdhJmJzwmkwNDQx" target="_blank">
                     <div className="flex items-center min-h-[369px] max-h-[369px] min-w-[256.5px] max-w-[256.5px] m-5 bg-white rounded-[50px] border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700 hover:shadow-yellow1 hover:scale-105 overflow-hidden group">
                         <a className="w-full flex justify-center">
-                            <img className="rounded-t-lg mx-auto mt-[40px] min-w-[245px] max-w-[245px] opacity-20 transition-opacity group-hover:opacity-100 rounded group-hover:bg-opacity-90 absolute z-[2]" src={telegramLogo} alt="" />
-                            <img className="min-h-[369px] max-h-[369px] min-w-[256.5px] max-w-[256.5px] z-[1] group-hover:brightness-50" src={telegram} alt="" />
+                            <img className="rounded-t-lg mx-auto mt-[40px] min-w-[245px] max-w-[245px] opacity-20 transition-opacity group-hover:opacity-100 rounded group-hover:bg-opacity-90 absolute z-[2]" src={telegramLogo} alt="telegramLogo" />
+                            <img className="min-h-[369px] max-h-[369px] min-w-[256.5px] max-w-[256.5px] z-[1] group-hover:brightness-50" src={telegram} alt="telegram" />
                         </a>
                     </div>
                 </a>
@@ -69,8 +69,8 @@ function Community() {
                 <a href="https://nativonft.medium.com/" target="_blank">
                 <div className="flex items-center min-h-[369px] max-h-[369px] min-w-[256.5px] max-w-[256.5px] m-5 bg-white rounded-[50px] border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700 hover:shadow-yellow1 hover:scale-105 overflow-hidden group">
                 <a className="w-full flex justify-center">
-                        <img className="rounded-t-lg mx-auto mt-[40px] min-w-[245px] max-w-[245px] opacity-20 transition-opacity group-hover:opacity-100 rounded group-hover:bg-opacity-90 absolute z-[2]"src={mediumLogo} alt="" />
-                            <img className="min-h-[369px] max-h-[369px] min-w-[256.5px] max-w-[256.5px] z-[1] group-hover:brightness-50" src={medium} alt="" />
+                        <img className="rounded-t-lg mx-auto mt-[40px] min-w-[245px] max-w-[245px] opacity-20 transition-opacity group-hover:opacity-100 rounded group-hover:bg-opacity-90 absolute z-[2]"src={mediumLogo} alt="mediumLogo" />
+                            <img className="min-h-[369px] max-h-[369px] min-w-[256.5px] max-w-[256.5px] z-[1] group-hover:brightness-50" src={medium} alt="medium" />
                         </a>
                     </div>
                 </a> 
@@ -79,8 +79,8 @@ function Community() {
                <a href="https://github.com/cloudmex/Nativo-NFT-UI" target="_blank">
                <div className="flex items-center min-h-[369px] max-h-[369px] min-w-[256.5px] max-w-[256.5px] m-5 bg-white rounded-[50px] border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700 hover:shadow-yellow1 hover:scale-105 overflow-hidden group">
                <a className="w-full flex justify-center">
-                        <img className="rounded-t-lg mx-auto mt-[40px] min-w-[245px] max-w-[245px] opacity-20 transition-opacity group-hover:opacity-100 rounded group-hover:bg-opacity-90 absolute z-[2]" src={githubLogo} alt="" />
-                            <img className="min-h-[369px] max-h-[369px] min-w-[256.5px] max-w-[256.5px] z-[1] group-hover:brightness-50" src={github} alt="" />
+                        <img className="rounded-t-lg mx-auto mt-[40px] min-w-[245px] max-w-[245px] opacity-20 transition-opacity group-hover:opacity-100 rounded group-hover:bg-opacity-90 absolute z-[2]" src={githubLogo} alt="githubLogo" />
+                            <img className="min-h-[369px] max-h-[369px] min-w-[256.5px] max-w-[256.5px] z-[1] group-hover:brightness-50" src={github} alt="github" />
                         </a>
                     </div>
                 </a> 

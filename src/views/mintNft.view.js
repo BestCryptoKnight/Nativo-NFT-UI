@@ -344,7 +344,7 @@ function LightHeroE(props) {
                     {mint?.file ? 
                     <div className="flex flex-col leading-7 text-sm h-[45px] dark:bg-white dark:text-darkgray   rounded-xlarge justify-center focus-visible:outline-none text-center  shadow-brown-s w-full font-semibold font-raleway">{t("MintNFT.changeImg")}</div> : 
                     <div className="flex flex-col leading-7 text-sm h-[170px] lg:h-[300px] dark:bg-white dark:text-darkgray   rounded-xlarge justify-center focus-visible:outline-none text-center  shadow-brown-s w-full font-semibold font-raleway">
-                    <img src={uploadImg} className="h-[150px] lg:h-[250px] object-contain"></img><span className="text-sm">{t("MintNFT.upImg")}</span></div>}
+                    <img src={uploadImg} className="h-[150px] lg:h-[250px] object-contain" alt='nft'></img><span className="text-sm">{t("MintNFT.upImg")}</span></div>}
                   </div>
                   <input
                     onChange={uploadFilePinata}

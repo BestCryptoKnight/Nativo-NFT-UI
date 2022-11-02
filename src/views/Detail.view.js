@@ -2,7 +2,6 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
 import { useParams, useHistory } from "react-router-dom";
-// import { Helmet } from "react-helmet";
 import { isNearReady } from "../utils/near_interaction";
 import { nearSignIn, ext_view, ext_call } from "../utils/near_interaction";
 import { ApolloClient, InMemoryCache, gql } from '@apollo/client'
@@ -388,6 +387,7 @@ function LightEcommerceB(props) {
               <img
                 className="hover:cursor-pointer h-[50px] "
                 src={flechaiz}
+                alt='flecha'
               />
             </a>
           </div>

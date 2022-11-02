@@ -47,6 +47,7 @@ function LightFooterB(props) {
   }
 
   const handleLanguage = () =>{
+    console.log("entro")
     if(window.localStorage.getItem("LanguageState")=="en"){
       i18n.changeLanguage("es")
       window.localStorage.setItem("LanguageState","es")
@@ -74,6 +75,7 @@ function LightFooterB(props) {
               {t("Footer.community")}
             </h2>
             <nav className="list-none mb-10">
+              <ul>
               <li className="pt-4">
                 <a href="https://twitter.com/nativonft" target="_blank" rel="noopener noreferrer" className="text-gray-600  hover:text-[#ec8b01] hover:font-bold dark:text-white capitalize font-raleway font-normal text-sm">
                   {t("Footer.twitter")}
@@ -105,7 +107,13 @@ function LightFooterB(props) {
                   onClick={async () => {addNTVToken()}}>{t("Footer.btn-NTV")}</button>
               </li>
 
-              
+              <li className="pt-3">
+                <button 
+                  className="bg-yellow2 text-white py-1 px-2 text-sm rounded-xlarge"
+                  onClick={handleLanguage}>{t("Navbar.language")}</button>
+              </li>
+
+              </ul>
             </nav>
           </div>
           <div className="lg:w-1/4 md:w-1/2 w-full px-4 items-center">
@@ -113,6 +121,7 @@ function LightFooterB(props) {
               {t("Footer.resources")}
             </h2>
             <nav className="list-none mb-10">
+              <ul>
               <li className="pt-4">
               <a href="https://docs.nativo.art/internal-wiki/tokenomics/tokenomics-y-gobernanza" target="_blank" rel="noopener noreferrer" className="text-gray-600  hover:text-[#ec8b01] hover:font-bold dark:text-white capitalize font-raleway font-normal text-sm">
                   {t("Footer.tokenomics")}
@@ -143,6 +152,7 @@ function LightFooterB(props) {
                   {t("Footer.creaPolicy")}
                 </a>
               </li>
+              </ul>
             </nav>
           </div>
           
@@ -152,6 +162,7 @@ function LightFooterB(props) {
               {t("Footer.aboutUs")}  
             </h2>
             <nav className="list-none mb-10">
+              <ul>
             <li className="pt-4">
                 <a href="https://cloudmex.io/" target="_blank" rel="noopener noreferrer" className="text-gray-600  hover:text-[#ec8b01] hover:font-bold dark:text-white capitalize font-raleway font-normal text-sm">
                 {t("Footer.aboutNativo")}  
@@ -162,6 +173,7 @@ function LightFooterB(props) {
                 {t("Footer.theTeam")}  
                 </a>
               </li>
+              </ul>
             </nav>
           </div>
           <div className="bg-transparent ">

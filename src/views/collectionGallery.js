@@ -15,7 +15,7 @@ import { useTranslation } from "react-i18next";
 import InfiniteScroll from "react-infinite-scroll-component";
 import verifyImage from '../assets/img/Check.png';
 import { Fab } from "@mui/material";
-import { Helmet } from "react-helmet";
+
 
 function LightEcommerceA() {
   const [Landing, setLanding] = React.useState({
@@ -505,7 +505,6 @@ return (
                             <img
                               className="object-cover object-center rounded-t-xlarge h-[12rem] md:h-48  w-full bg-center"
                               src={`https://nativonft.mypinata.cloud/ipfs/${i.mediaBanner}`}
-
                               alt={i.description}
                             />
                           </div>
