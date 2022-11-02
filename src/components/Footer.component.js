@@ -47,6 +47,7 @@ function LightFooterB(props) {
   }
 
   const handleLanguage = () =>{
+    console.log("entro")
     if(window.localStorage.getItem("LanguageState")=="en"){
       i18n.changeLanguage("es")
       window.localStorage.setItem("LanguageState","es")
@@ -104,6 +105,12 @@ function LightFooterB(props) {
                 <button 
                   className="bg-yellow2 text-white py-1 px-2 text-sm rounded-xlarge"
                   onClick={async () => {addNTVToken()}}>{t("Footer.btn-NTV")}</button>
+              </li>
+
+              <li className="pt-3">
+                <button 
+                  className="bg-yellow2 text-white py-1 px-2 text-sm rounded-xlarge"
+                  onClick={handleLanguage}>{t("Navbar.language")}</button>
               </li>
 
               </ul>
