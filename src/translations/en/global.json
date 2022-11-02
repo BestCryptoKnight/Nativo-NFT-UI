@@ -43,7 +43,8 @@
         "trending-title" : "Trends on nativo",
         "trending-buy" : "See detail",
         "tokens" : "Tokens",
-        "collections" : "Collections"
+        "collections" : "Collections",
+        "supporting-title" : "Supported by great people"
     },
     "Navbar" : {
         "collections" : "Collections",

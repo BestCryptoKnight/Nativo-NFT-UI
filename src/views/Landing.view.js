@@ -8,8 +8,10 @@ import NftSteps from "../components/NftSteps.component";
 import Statisct from "../components/statistc.component";
 import Popular_col from "../components/PopularCollections.component";
 import Trendings from "../components/Trendings.component";
+import Sponsors from "../components/sponsors.component";
 import Aos from "aos";
 import "aos/dist/aos.css";
+import { useTranslation } from "react-i18next";
 
 export default function Landing() {
   const [Landing, setLanding] = React.useState({ theme: "yellow" });
@@ -28,6 +30,7 @@ export default function Landing() {
       <Popular_col/>
       <NftSteps/>
       <Trendings/>
+      <Sponsors />
       <Statisct theme={Landing.theme} />
     </>
   );
