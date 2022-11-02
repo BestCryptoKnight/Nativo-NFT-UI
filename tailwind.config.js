@@ -39,7 +39,9 @@ module.exports = {
         "outlineHover" : "#ECE7EE",
         "outlinePressed" : "#A4A2A4",
         "textOutlineHover" : "#A4A2A4",
-        "textOutlinePressed" : " #FDFCFD"
+        "textOutlinePressed" : " #FDFCFD",
+        "grayColor" : "#F3F0F5",
+        "dark-blue" : "#164E55"
       },
       borderRadius: {
         'xlarge': '15px',
