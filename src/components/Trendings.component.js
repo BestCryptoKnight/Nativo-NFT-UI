@@ -11,6 +11,7 @@ import { useWalletSelector } from "../utils/walletSelector";
 import { Button } from "@mui/material";
 import { ApolloClient, InMemoryCache, gql } from '@apollo/client'
 import { Tab  } from "@headlessui/react";
+import nearImage from '../assets/img/landing/trendingSection/Vector.png';
 
 
 function Trendings() {
@@ -82,7 +83,64 @@ function Trendings() {
         settings: {
           slidesToShow: 1,
           slidesToScroll: 1 ,
+          swipeToSlide: true
+        }
+      }
+      
+    ]
+  };
+
+  const settingsTokens = {
+    // className: "center",
+    // centerMode: true,
+    slidesToShow: 4,
+    slidesToScroll: 1,
+    infinite: true,
+    focusOnSelect: true,
+    arrows: true,
+    autoplaySpeed: 3500,
+    autoplay: false,
+    useTransform: true,
+    useCSS: true,
+    adaptiveHeight: false,
+    pauseOnHover: true,
+   
+    responsive: [
+      {
+        breakpoint: 1536,
+        settings: {
+          slidesToShow: 4,
+          slidesToScroll: 1
+        }
+      },
+      {
+        breakpoint: 1280,
+        settings: {
+          slidesToShow: 4,
+          slidesToScroll: 1
+        }
+      },
+      {
+        breakpoint: 1024,
+        settings: {
+          slidesToShow: 3,
+          slidesToScroll: 1
+        }
+      },
+      {
+        breakpoint: 768,
+        settings: {
+          slidesToShow: 2,
+          slidesToScroll: 1,
           swipeToSlide: true,
+        }
+      },
+      {
+        breakpoint: 640,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1 ,
+          swipeToSlide: true
         }
       }
       
@@ -191,7 +249,79 @@ function Trendings() {
         setHasData(false);
       }
   
+      /*window.contr = await getNearContract();
+
+      //instanciar contracto
+      let nft_total_supply = await contract.nft_total_supply()
+
+      let payload = {};
+
+      if(nft_total_supply < tokens.totalTokens ) {
+         payload = {
+          from_index: "0",
+          limit: parseInt(tokens.totalTokens),
+        }
+      } else {
+         payload = {
+          from_index: (nft_total_supply - (tokens.totalTokens)).toString(),
+          limit: parseInt(tokens.totalTokens),
+        }
+      }
+      const args_b64 = btoa(JSON.stringify(payload))
+      console.log(args_b64)
+    // console.log(args_b64)
+      const { network } = selector.options;
+      const provider = new providers.JsonRpcProvider({ url: network.nodeUrl });
+
+      const res = await provider.query({
+          request_type: "call_function",
+          account_id: process.env.REACT_APP_CONTRACT,
+          method_name: "nft_tokens",
+          args_base64: args_b64,
+          finality: "optimistic",
+        })
+        console.log(res)
+      console.log(JSON.parse(Buffer.from(res.result).toString()))
+      let toks2 = JSON.parse(Buffer.from(res.result).toString())
+      
+      // let toks = await contract.nft_tokens(
+      //   payload,
+      // )
+      console.log(toks2)
+      setTokens({
+        ...tokens,
+        items: tokens.items.concat(toks2.reverse())
+      });
+      console.log('tokens', tokens) */
      
+     
+
+      //NUEVA COSUlTA
+      let payload = {
+        nft_contract_id: process.env.REACT_APP_CONTRACT,
+        from_index: (0).toString(),
+        limit: parseInt(tokens.totalTokens),
+      }
+      
+      const args_toks = btoa(JSON.stringify(payload))
+      const { network } = selector.options;
+      const provider = new providers.JsonRpcProvider({ url: network.nodeUrl });
+
+      
+      const owner = await provider.query({
+        request_type: "call_function",
+        account_id: process.env.REACT_APP_CONTRACT_MARKET,
+        method_name: "get_sales_by_nft_contract_id",
+        args_base64: args_toks,
+        finality: "optimistic",
+      })
+      
+      let toks2 = JSON.parse(Buffer.from(owner.result).toString())
+      console.log('toks2',toks2 )
+      setTokens({...tokens,
+        items: tokens.items.concat(toks2.reverse())
+      });
+      console.log('tokens', tokens) 
 
 
     })();
@@ -202,7 +332,7 @@ function Trendings() {
   }
 
   return (
-    <section className="text-gray-600  open-sans  h-[580px] lg:h-[670px] overflow-hidden " >
+    <section className="text-gray-600  open-sans  h-[580px] lg:h-[800px] overflow-hidden " >
       <div className="w-full md:pt-4 pb-8 dark:flex flex-row flex-wrap justify-center" >
         <div className="w-full bg-white pt-6 pb-8 ">
           <h2 className="dark:text-black  text-left px-4  w-full lg:w-1/2  text-3xl  md:px-6
@@ -246,9 +376,54 @@ function Trendings() {
               <Tab.Panel
                 key={"tokens"}
                 className={classNames(
-                  'rounded-xl  bg-white'
+                  'rounded-xl  bg-white trending-tokens '
                 )}
               >
+                                <Slider {...settingsTokens} >
+                  {tokens.items.map((item, key) => {
+                    return (
+                      <>
+                        <a
+                          href={"/detail/" + item.token_id}
+                        >
+                          <div className="flex flex-row  mb-10 md:mb-0  justify-center " key={key}>
+                            <div className="trending-token w-64 md:w-[300px] rounded-20 drop-shadow-md    hover:scale-105 ">
+                              <div className=" bg-white rounded-xl">
+                                <div className="pb-3">
+                                  <img
+                                    className="object-cover object-center rounded-t-xl h-48 md:h-56 w-full "
+                                    src={`https://nativonft.mypinata.cloud/ipfs/${item.media}`}
+
+                                    alt={item.description}
+                                  />
+                                </div>
+                                <div className="px-3 py-1">
+                                  <div className=" text-black text-base leading-6 text-ellipsis overflow-hidden whitespace-nowrap  font-open-sans font-extrabold uppercase">{item.title}</div>
+                                 <div className="flex justify-start">
+                                  <div className=" text-base font-open-sans font-semibold py-2 text-yellow4 flex">  <img
+                                    className="w-[16px] h-[16px] my-auto mr-2"
+                                    src={nearImage}
+                                    alt={item.description}
+                                    width={15}
+                                    height={15}
+                                  /> {fromYoctoToNear(item.price)} NEAR</div>
+                                </div> 
+                                </div>
+                                <div className="text-black px-3 font-open-sans text-xs font-semibold leading-4 uppercase mx-auto justify-center text-ellipsis overflow-hidden py-3">                                  
+                                 {t("tokCollection.createdBy") +":"} <a href={`profile/${item.creator_id.split('.')[0]}`} className=" text-ellipsis overflow-hidden">{item.creator_id}</a></div>
+                              </div>
+                            </div>
+                          </div>
+                        </a>
+                      </>
+
+                    );
+                  })}
+                </Slider>
+
+                <a href='/market' className="lg:w-full lg:text-right lg:mt-[55px] flex flex-row-reverse justify-center lg:justify-start lg:mr-7" >
+                  <button class="w-full mx-2 rounded border-2  text-gray-400  border-slate-400 lg:bg-white lg:border-2 lg:border-[#F79336]  lg:w-[339px] lg:h-[48px] lg:text-[#F79336] px-4 lg:py-1 capitalize text-darkgray-100 font-bold sm:text-xs md:text-xl lg:text-xl hover:scale-105 font-open-sans text-base  lg:mt-5   lg:mr-7 ">{t("Landing.popular_col-see_all")}</button>
+                </a>
               </Tab.Panel>
               <Tab.Panel
                 key={"collections"}
@@ -291,7 +466,7 @@ function Trendings() {
                   })}
                 </Slider>
                 <a href='/collections' className="lg:w-full lg:text-right lg:mt-[55px] flex flex-row-reverse justify-center lg:justify-start lg:mr-7" >
-                  <button class="w-[163px]  rounded border-2  text-gray-400  border-slate-400 lg:bg-white lg:border-2 lg:border-[#F79336]  lg:w-[339px] lg:h-[48px] lg:text-[#F79336] px-4 py-1 capitalize text-darkgray-100 font-bold sm:text-xs md:text-xl lg:text-xl hover:scale-105 font-open-sans text-base  mt-5 lg:mt-0  lg:mr-7 ">{t("Landing.popular_col-see_all")}</button>
+                  <button class="w-full lg:w-[163px] mx-2 rounded border-2  text-gray-400  border-slate-400 lg:bg-white lg:border-2 lg:border-[#F79336]   lg:h-[48px] lg:text-[#F79336] px-4 py-1 capitalize text-darkgray-100 font-bold sm:text-xs md:text-xl lg:text-xl hover:scale-105 font-open-sans text-base  mt-5 lg:mt-0  lg:mr-7 ">{t("Landing.popular_col-see_all")}</button>
                 </a>
               </Tab.Panel>
             </Tab.Panels>
