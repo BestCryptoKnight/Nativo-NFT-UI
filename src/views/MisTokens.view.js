@@ -6,7 +6,7 @@ import { Accordion } from 'react-bootstrap-accordion'
 import 'react-bootstrap-accordion/dist/index.css'
 //Importamos metodos de interacción con el smartcontract
 
-import { useHistory } from "react-router";
+import { useHistory } from "react-router-dom";
 import ModalRevender from "../components/modalRevender.component";
 import TransferModal from "../components/transferModal.component"
 import ApprovalModal from "../components/approvalModal.component"
