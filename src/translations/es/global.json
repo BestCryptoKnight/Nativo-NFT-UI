@@ -44,7 +44,9 @@
         "trending-buy" : "Ver detalle",
         "tokens" : "Tokens",
         "collections" : "Colecciones",
-        "supporting-title" : "Apoyado por personas grandiosas"
+        "supporting-title" : "Apoyado por personas grandiosas",
+        "gobernance" : "Sé parte de la gobernanza con el token $NTV",
+        "gobernance-button" : "Participa en nativo dao"
     },
     "Navbar" : {
         "collections" : "Colecciones",

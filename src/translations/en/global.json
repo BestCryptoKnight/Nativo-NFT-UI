@@ -44,7 +44,9 @@
         "trending-buy" : "See detail",
         "tokens" : "Tokens",
         "collections" : "Collections",
-        "supporting-title" : "Supported by great people"
+        "supporting-title" : "Supported by great people",
+        "gobernance" : "Be part of the governance with $NTV token",
+        "gobernance-button" : "Participate on nativo dao"
     },
     "Navbar" : {
         "collections" : "Collections",
