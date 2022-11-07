@@ -1,16 +1,25 @@
-import React from "react";
+import React, { Fragment, useEffect, useState }  from "react";
 import PropTypes from "prop-types";
 import nativoLogo from '../assets/img/logo_nativo_ntv.png'
 import arteNativo from '../assets/img/arte nativo.png'
 import { useTranslation } from "react-i18next";
+import { useWalletSelector } from "../utils/walletSelector";
 import Moneda_1 from '../assets/img/landing/sponsorsSection/Moneda_1.png';
 import Moneda_2 from '../assets/img/landing/sponsorsSection/Moneda_2.png';
 function LightStatisicC(props) {
+  const { selector, modal, accounts, accountId } = useWalletSelector();
   const [t, i18n] = useTranslation("global");
+  const [stateLogin, setStateLogin] = useState(false);
 
   const handleSignIn = () =>{
     console.log("alex");
   }
+
+  useEffect(() => {
+    (async () => {
+      setStateLogin(accountId !=null ? true : false);
+    })();
+  }, [selector]);
 
   return (
     <section className="open-sans  h-[290px] lg:h-[350px] overflow-hidden bg-Light/Light flex " >

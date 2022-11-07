@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import wallet from '../assets/img/Wallet.png';
 import pincel from '../assets/img/Pincel.png';
@@ -14,38 +14,46 @@ import Wallet_Icon from "../assets/img/landing/thirdSection/Wallet_Icon.png";
 import rigth_arrow from "../assets/img/landing/thirdSection/arrow-right.png";
 import NftStepsCard from "./NftStepsCard.component";
 import { render } from "@testing-library/react";
+import { Account } from "near-api-js";
+import { useWalletSelector } from "../utils/walletSelector";
+
 
 
 function NftSteps(props) {
-  const [t, i18n] = useTranslation("global")
+  const [t, i18n] = useTranslation("global");
+  const { selector, modal, accounts, accountId } = useWalletSelector();
   const steps = [
     {
       imgSrc: Wallet_Icon,
       bgSrc: Ellipse_7,
       text: t("Landing.steps-connect"),
       sub: t("Landing.steps-sub1"),
-      arrow: rigth_arrow
+      arrow: rigth_arrow,
+      redirect: "market"
     },
     {
       imgSrc: Collection_Icon,
       bgSrc: Ellipse_7,
       text: t("Landing.steps-create"),
       sub: t("Landing.steps-sub2"),
-      arrow: rigth_arrow
+      arrow: rigth_arrow,
+      redirect: "collectionData/create"
     },
     {
       imgSrc: NFTImage_Icon,
       bgSrc: Ellipse_7,
       text: t("Landing.steps-add"),
       sub: t("Landing.steps-sub3"),
-      arrow: rigth_arrow
+      arrow: rigth_arrow,
+      redirect: "create"
     },
     {
       imgSrc: Money_Icon,
       bgSrc: Ellipse_7,
       text: t("Landing.steps-sell"),
       sub: t("Landing.steps-sub4"),
-      arrow: rigth_arrow
+      arrow: rigth_arrow,
+      redirect: accountId != null ? "profile/" + accountId.split('.')[0] :  ""
     }
   ];
 
