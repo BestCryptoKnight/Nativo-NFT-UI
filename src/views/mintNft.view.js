@@ -7,14 +7,6 @@ import { acceptedFormats, currencys } from "../utils/constraint";
 import load from "../assets/landingSlider/img/loader.gif";
 import uploadImg from "../assets/img/UPLOAD.png";
 import {
-  addNetwork,
-  fromETHtoWei,
-  getContract,
-  getSelectedAccount,
-  syncNets,
-  syncNetworks,
-} from "../utils/blockchain_interaction";
-import {
   estimateGas,
   fromNearToEth,
   fromNearToYocto,
@@ -23,7 +15,6 @@ import {
   getNearContract,
   storage_byte_cost,
 } from "../utils/near_interaction";
-import { Reader, uploadFile } from '../utils/fleek';
 import { uploadFileAPI } from '../utils/pinata'
 import Swal from 'sweetalert2'
 import { useTranslation } from "react-i18next";
@@ -125,41 +116,7 @@ function LightHeroE(props) {
       setmint({ ...mint, onSubmitDisabled: true });
       let account;
       if (mint.blockchain == "0") {
-        //primero nos aseguramos de que la red de nuestro combo sea igual a la que esta en metamask
-        await syncNets();
-
-        //la cuenta a la cual mandaremos el token
-        account = await getSelectedAccount();
-        //console.log(account);
-      }
-
-      
-      // console.log(JSON.stringify(values))
-      const fecha = values.date.split('-')
-      let dateSTR = fecha[1] + '-' + fecha[2] + '-' + fecha[0]
-      // console.log(dateSTR)
-      const date = new Date(dateSTR)
-      date.setDate(date.getDate())
-      date.setHours(values.hrs)
-      date.setMinutes(values.min)
-      if (date < Date.now()) {
-        alert("La fecha y hora para la subasta debe de ser mayor a la fecha y hora actual")
-        window.location.reload();
         return
-      }
-      let token;
-      if (mint.blockchain == "0") {
-        //los datos de la transacccion
-        token = await getContract()
-          .methods.minar(
-            account,
-            JSON.stringify(values),
-            fromETHtoWei(values.price)
-          )
-          .send({ from: account })
-          .catch((err) => {
-            return err;
-          });
       } else {
         let percentage = 0
         let royalties = {}
@@ -334,27 +291,7 @@ function LightHeroE(props) {
     console.log(cid)
   }
 
-  function imageChange(e) {
-    const { file, reader } = Reader(e);
-
-    if (file) {
-      //asignar imagen de preview
-      setmint({ ...mint, file: URL.createObjectURL(e.target.files[0]) });
-
-      //una vez que cargue el arhcivo lo mandamos a ipfs
-      //una vez que cargue el arhcivo lo mandamos a ipfs
-
-      //una vez que cargue
-      reader.onloadend = function () {
-        //subimos la imagen a ipfs
-        uploadFile(file.name, reader.result).then(({ hash }) => {
-          formik.setFieldValue("image", hash);
-          console.log(hash)
-        })
-
-      };
-    }
-  }
+  
   const format = (v) => {
     return v < 10 ? "0" + v : v;
   }
@@ -407,7 +344,7 @@ function LightHeroE(props) {
                     {mint?.file ? 
                     <div className="flex flex-col leading-7 text-sm h-[45px] dark:bg-white dark:text-darkgray   rounded-xlarge justify-center focus-visible:outline-none text-center  shadow-brown-s w-full font-semibold font-raleway">{t("MintNFT.changeImg")}</div> : 
                     <div className="flex flex-col leading-7 text-sm h-[170px] lg:h-[300px] dark:bg-white dark:text-darkgray   rounded-xlarge justify-center focus-visible:outline-none text-center  shadow-brown-s w-full font-semibold font-raleway">
-                    <img src={uploadImg} className="h-[150px] lg:h-[250px] object-contain"></img><span className="text-sm">{t("MintNFT.upImg")}</span></div>}
+                    <img src={uploadImg} className="h-[150px] lg:h-[250px] object-contain" alt='nft'></img><span className="text-sm">{t("MintNFT.upImg")}</span></div>}
                   </div>
                   <input
                     onChange={uploadFilePinata}

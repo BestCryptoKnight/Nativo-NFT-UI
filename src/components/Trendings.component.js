@@ -393,7 +393,6 @@ function Trendings() {
                                   <img
                                     className="object-cover object-center rounded-t-xl h-48 md:h-56 w-full "
                                     src={`https://nativonft.mypinata.cloud/ipfs/${item.media}`}
-
                                     alt={item.description}
                                   />
                                 </div>

@@ -4,12 +4,7 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import Swal from 'sweetalert2'
 //importamos metodos para interactuar con el smart contract, la red de aurora y el account
-import {
-  syncNets,
-  getContract,
-  getSelectedAccount,
-  fromETHtoWei,
-} from "../utils/blockchain_interaction";
+
 
 import { getNearContract, fromNearToYocto, ext_call, ext_view, fromYoctoToNear } from "../utils/near_interaction";
 import { useTranslation } from "react-i18next";

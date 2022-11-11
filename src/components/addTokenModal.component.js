@@ -4,12 +4,6 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import Swal from 'sweetalert2'
 //importamos metodos para interactuar con el smart contract, la red de aurora y el account
-import {
-  syncNets,
-  getContract,
-  getSelectedAccount,
-  fromETHtoWei,
-} from "../utils/blockchain_interaction";
 
 import { getNearContract, fromNearToYocto, ext_call, getNearAccount } from "../utils/near_interaction";
 import { useTranslation } from "react-i18next";
@@ -249,7 +243,7 @@ export default function AddTokenModal(props) {
                   <>
                     <div className="flex flex-col justify-center">
                       <h1 className="text-darkgray text-xl text-center font-raleway mb-4">{t('addToken.msgNoCol')}</h1>
-                      <a className="relative bg-yellow2 text-white text-center font-bold uppercase text-sm px-6 py-3 rounded-full shadow outline-none focus:outline-none  ease-linear transition-all duration-150 hover:shadow-yellow1 hover:scale-105" href="/createCollection">{t('addToken.btnCol')}</a>
+                      <a className="relative bg-yellow2 text-white text-center font-bold uppercase text-sm px-6 py-3 rounded-full shadow outline-none focus:outline-none  ease-linear transition-all duration-150 hover:shadow-yellow1 hover:scale-105" href="/collectionData/create">{t('addToken.btnCol')}</a>
                     </div>
                   </>
                 }

@@ -1,16 +1,9 @@
 import React from "react";
-import {
-  fromWEItoEth,
-  getContract,
-  getSelectedAccount,
-  syncNets,
-} from "../utils/blockchain_interaction";
 import { currencys } from "../utils/constraint";
 import { getNearContract, fromYoctoToNear, getNearAccount } from "../utils/near_interaction";
 import { useParams, useHistory } from "react-router-dom";
 
 import filtroimg from '../assets/landingSlider/img/filtro.png'
-import countrys from '../utils/countrysList'
 import loading from '../assets/landingSlider/img/loader.gif'
 import Pagination from '@mui/material/Pagination';
 import { Account } from "near-api-js";
@@ -20,6 +13,7 @@ import InfiniteScroll from "react-infinite-scroll-component";
 import verifyImage from '../assets/img/Check.png';
 import { textAlign } from "@mui/system";
 import { FiEdit } from 'react-icons/fi';
+
 
 function LightEcommerceA() {
   const [Landing, setLanding] = React.useState({
@@ -107,32 +101,7 @@ function LightEcommerceA() {
       let arr = [];
 
       if (Landing.blockchain == "0") {
-        //primero nos aseguramos de que la red de nuestro combo sea igual a la que esta en metamask
-        await syncNets();
-        //obtener cuantos tokens tiene el contrato
-        let totalSupply = await getContract().methods.totalSupply().call();
-        //obtener el numero de tokens a la venta
-        onSaleToks = await getContract().methods.nTokenOnSale.call().call();
-
-        //indices del arreglo para la paginacion :::0*10=0 1*10=10  1*10=10 2*10=20
-        for (let i = Landing.page * 10; i < (parseInt(Landing.page) + 1) * Landing.tokensPerPage; i++) {
-          //console.log("ini",Landing.page*10,"actual",i,"fin",(parseInt(Landing.page)+1)*Landing.tokensPerPage)
-          //obtiene la informacion de x token
-          let infoe = await getContract().methods.getItemInfo(i).call();
-          //Valida si está a la venta
-          if (infoe[0].onSale) {
-            //agrega el token al arreglo para mostrar
-            arr.push(infoe[0]);
-          }
-
-          //Concadena el token encontrado con los tokens que ya se mostraron
-          setLanding({
-            ...Landing,
-            tokens: arr,
-            nPages: Math.ceil(arr.length / Landing.tokensPerPage),
-          });
-
-        }
+        return
 
 
       } else {
@@ -292,6 +261,7 @@ function LightEcommerceA() {
   };
 
   return (
+    
     <section className="text-gray-600 body-font bg-darkgray">
       <div className={`flex flex-row  mb-10 md:mb-0  justify-center `}>
         <div className="trending-token w-full p-5 rounded-20  ">
@@ -300,6 +270,7 @@ function LightEcommerceA() {
               <img
                 className="object-cover object-center rounded-xlarge h-[8rem] md:h-48  w-full bg-center"
                 src={`https://nativonft.mypinata.cloud/ipfs/${Landing.bannerCol}`}
+                alt='banner'
               />
               {isOwner?
               <div className="absolute bottom-0 right-0 m-4">

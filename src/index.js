@@ -11,9 +11,10 @@ import global_es from "./translations/es/global.json"
 import global_en from "./translations/en/global.json"
 import {WalletSelectorContextProvider} from "./utils/walletSelector"
 import "@near-wallet-selector/modal-ui/styles.css";
+
 i18next.init({
     interpolation: { escapeValue: false },
-    lng: (window.localStorage.getItem("LanguageState") == "en" ? "en" : "es"),
+    lng: (window.localStorage.getItem("LanguageState") == "es" ? "es" : "en"),
     resources: {
         es: {
             global: global_es
