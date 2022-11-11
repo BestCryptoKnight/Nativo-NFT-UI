@@ -1117,3 +1117,23 @@ select{
     display: flex !important;
   }
 }
+
+.best-seller{
+  z-index: 50;
+  right: 15px;
+  top: 15px;
+  position: absolute;
+  width: 54px;
+  height: 54px;
+  line-height: 10px; 
+  border-radius: 50%;
+  font-size: 10px;
+  font-weight: bold;
+  color: rgb(250, 250, 250);
+  text-align: center;
+  vertical-align: top;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #F79236
+}

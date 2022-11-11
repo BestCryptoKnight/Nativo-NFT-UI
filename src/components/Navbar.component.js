@@ -782,10 +782,6 @@ function LightHeaderB(props) {
         </div>
 
       </header>
-      <div className={`beta ${Beta ? "h-auto" : ""}`}>
-        <p>{t("Navbar.warning")}</p>
-        <img src={closeImg} title="Cerrar" alt='cerrar' onClick={e => closeBeta()} />
-      </div>
     </>
   );
 }
