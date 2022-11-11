@@ -28,7 +28,7 @@ function LightStatisicC(props) {
 
         <div className=" w-2/6 flex m-auto justify-center ">
           <img
-            className="h-[100px] lg:h-[200px] bg-center w-[120px] lg:w-[240px] "
+            className="h-[100px] lg:h-[240px] bg-center w-[100px] lg:w-[240px] "
             src={Moneda_nativotkn}
 
             alt={Moneda_nativotkn}

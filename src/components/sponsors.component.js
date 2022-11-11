@@ -13,7 +13,7 @@ function Sponsors() {
   return (
     <section className="open-sans  h-[290px] lg:h-[350px] overflow-hidden bg-grayColor " >
       <div className="w-full md:pt-4 dark:flex flex-row flex-wrap justify-center" >
-        <div className="w-full  pt-6 pb-8 mx-auto ">
+        <div className="w-full  pt-6 pb-12 mx-auto ">
           <h2 className="text-dark-blue pt-5 px-4  w-[250px]  mx-auto text-center lg:w-1/2  text-3xl  md:px-6
                         lg:px-8 mb-4  font-clash-grotesk  font-semibold leading-9  lg:text-4xl">{t("Landing.supporting-title")}</h2>
 
@@ -29,7 +29,7 @@ function Sponsors() {
       </svg>
       </div>
           <img
-            className="h-[65px] lg:h-20 w-[150px] lg:w-[280px] bg-center"
+            className="h-[65px] lg:h-28 w-[150px] lg:w-[280px] bg-center"
             src={CloudMex}
             fill="#000"
             alt={CloudMex} 

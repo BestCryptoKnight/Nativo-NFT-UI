@@ -29,7 +29,7 @@ function LightHeroE(props) {
       <div className="container mx-auto lg:pl-28 flex px-5 lg:px-0 pb-10 flex-col items-center  lg:items-start  justify-center ">
         <div className=" h-[823px] lg:h-[594px] lg:flex-grow  flex flex-col md:text-left items-center lg:items-start" >
           <div className="w-full z-20 mt-[90px] lg:mt-[100px] ">
-            <h2 className="dark:text-white text-[36px]  lg:text-6xl md:text-6xl font-clash-grotesk font-semibold leading-9 tracking-wider text-left w-[343px] lg:w-[672px]">{t("Landing.title") + " " +t("Landing.title-2")}</h2>
+            <h2 className="dark:text-white text-[36px]  lg:text-6xl md:text-6xl font-clash-grotesk font-semibold leading-9 tracking-wider text-left w-[343px] lg:w-[700px]">{t("Landing.title") + " " +t("Landing.title-2")}</h2>
           </div>
           <p className="mt-[18px] lg:mt-[23px] lg:text-1xl text-base dark:text-white z-20 font-open-sans font-normal text-left leading-6 tracking-wider w-[343px] lg:w-[630px]">
             {t("Landing.subtitle")} <span className="italic"> {" " +t("Landing.subtitle2")}</span>
