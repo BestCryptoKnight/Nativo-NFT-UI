@@ -9,6 +9,7 @@ import rocket from '../assets/img/Rocket.png';
 import arrowRight from '../assets/img/landing/firstSection/ARROW.png';
 import plus from '../assets/img/landing/firstSection/plus.png';
 
+
 function LightHeroE(props) {
   const { selector, modal, accounts, accountId } = useWalletSelector();
   const [t, i18n] = useTranslation("global");

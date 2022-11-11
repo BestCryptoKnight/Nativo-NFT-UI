@@ -2,18 +2,10 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
 import { useParams, useHistory } from "react-router-dom";
-// import { Helmet } from "react-helmet";
 import { isNearReady } from "../utils/near_interaction";
 import { providers, utils } from "near-api-js";
 import { nearSignIn, ext_view, ext_call } from "../utils/near_interaction";
 import { ApolloClient, InMemoryCache, gql } from '@apollo/client'
-import {
-  syncNets,
-  getSelectedAccount,
-  getContract,
-  fromWEItoEth,
-  fromETHtoWei,
-} from "../utils/blockchain_interaction";
 import { currencys } from "../utils/constraint";
 import {
   fromNearToYocto,

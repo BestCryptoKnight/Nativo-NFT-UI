@@ -3,12 +3,7 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import Swal from 'sweetalert2'
 //importamos metodos para interactuar con el smart contract, la red de aurora y el account
-import {
-  syncNets,
-  getContract,
-  getSelectedAccount,
-  fromETHtoWei,
-} from "../utils/blockchain_interaction";
+
 import { useTranslation } from "react-i18next";
 import { getNearContract, fromNearToYocto } from "../utils/near_interaction";
 
@@ -38,15 +33,7 @@ export default function ModalRevender(props) {
       //setstate({ disabled: true });
       let revender;
       if (props.blockchain == "0") {
-        //nos aseguramos que sigamos en la red de aurora
-        await syncNets();
-        let account = await getSelectedAccount();
-        revender = await getContract()
-          .methods.revender(props.tokenId, fromETHtoWei(values.price))
-          .send({ from: account })
-          .catch((err) => {
-            return err;
-          });
+        console.log('hola')
       } else {
         let contract = await getNearContract();
         let payload = {

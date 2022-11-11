@@ -41,6 +41,7 @@ function LightStatisicC(props) {
           <button className="flex inline-flex rounded-xlarge w-[250px] lg:w-[267px] h-[50px]   mt-0 lg:mx-auto" onClick={handleSignIn} >
             <div className="flex flex-col font-bold h-full text-white  text-center  justify-center shadow-s w-full bg-yellow4 hover:bg-yellowHover active:bg-yellowPressed rounded-md">
               <span className="title-font  text-white font-open-sans font-extrabold lg:font-semibold text-base  uppercase leading-6">{t("Landing.gobernance-button")}</span>
+
             </div>
           </button>
 

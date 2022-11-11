@@ -5,15 +5,8 @@ import { Tab  } from "@headlessui/react";
 import { Accordion } from 'react-bootstrap-accordion'
 import 'react-bootstrap-accordion/dist/index.css'
 //Importamos metodos de interacción con el smartcontract
-import {
-  fromWEItoEth,
-  getContract,
-  getSelectedAccount,
-  syncNets,
-} from "../utils/blockchain_interaction"; 
 
-import { useHistory } from "react-router";
-import ModalSubasta from '../components/modalSubasta.component'
+import { useHistory } from "react-router-dom";
 import ModalRevender from "../components/modalRevender.component";
 import TransferModal from "../components/transferModal.component"
 import ApprovalModal from "../components/approvalModal.component"
@@ -475,31 +468,7 @@ function MisTokens(props) {
 
 
       if (nfts.blockchain == "0") {
-        //Comparamos la red en el combo de metamask con la red de aurora
-        await syncNets();
-        let account = await getSelectedAccount();
-        //obtenemos el listado de nfts
-        let nftsArr = await getContract()
-          .methods.tokensOfPaginav1(account, nfts.tokensPerPage, nfts.page)
-          .call();
-        let balance = await getContract().methods.balanceOf(account).call();
-        //console.log(nftsArr);
-
-        //filtrar tokens
-        let copytoks = nftsArr.filter((tok) => tok.price > 0);
-
-        //convertir los precios de wei a eth
-        copytoks = copytoks.map((tok) => {
-          return { ...tok, price: fromWEItoEth(tok.price) };
-        });
-
-        //Actualizamos el estado el componente con una propiedad que almacena los tokens nft
-        setNfts({
-          ...nfts,
-          nfts: copytoks,
-          nPages: Math.ceil(balance / nfts.tokensPerPage) + 1,
-          owner: account,
-        });
+        return
       } else {
         let contract = await getNearContract();
         let account = await getNearAccount();
@@ -755,17 +724,7 @@ function MisTokens(props) {
     setNfts({ ...nfts, disabled: true });
     let quitar;
     if (nfts.blockchain == "0") {
-      await syncNets();
-
-      let account = await getSelectedAccount();
-      quitar = await getContract()
-        .methods.quitarDelMarketPlace(tokenId)
-        .send({
-          from: account,
-        })
-        .catch((err) => {
-          return err;
-        });
+      return
     } else {
       let contract = await getNearContract();
       let payload = {
@@ -1385,7 +1344,6 @@ function MisTokens(props) {
 
         {/* Mandamos a llamar al modal con el state como props*/}
         <ApprovalModal {...approvalModal} />
-        <ModalSubasta {...modalSub} />
         <ModalRevender {...modal} />
         <TransferModal {...transferModal} />
 

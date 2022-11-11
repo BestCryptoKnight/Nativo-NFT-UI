@@ -9,14 +9,6 @@ import icon from "../assets/img/iconoColeccion.png"
 import banner from "../assets/img/portadaColeccion.jpg"
 import ImageUploader from 'react-images-upload';
 import {
-  addNetwork,
-  fromETHtoWei,
-  getContract,
-  getSelectedAccount,
-  syncNets,
-  syncNetworks,
-} from "../utils/blockchain_interaction";
-import {
   estimateGas,
   fromNearToEth,
   fromNearToYocto,
@@ -26,8 +18,6 @@ import {
   storage_byte_cost,
   ext_call
 } from "../utils/near_interaction";
-import { Reader, uploadFile } from '../utils/fleek';
-import { Reader2, uploadFile2 } from '../utils/fleek2';
 import { uploadFileAPI } from '../utils/pinata'
 import Swal from 'sweetalert2'
 import { useTranslation } from "react-i18next";
@@ -41,11 +31,6 @@ function LightHeroE(props) {
     fileBanner: undefined,
     blockchain: localStorage.getItem("blockchain"),
   });
-
-  function onDrop(picture) {
-    console.log(picture[0])
-    imageChangeIcon(picture)
-  }
 
   const [t, i18n] = useTranslation("global")
   const [combo, setcombo] = useState(true);
@@ -298,62 +283,6 @@ function LightHeroE(props) {
     console.log(cid)
   }
 
-  function imageChangeIcon(picture) {
-    setTxtBttnIcon(t("CreateCol.btnImg-2"))
-    let data = picture.pop()
-    const { file, reader } = Reader2(data);
-    console.log(data)
-    if (file) {
-      //asignar imagen de preview
-
-      setmint({ ...mint, fileIcon: URL.createObjectURL(data) });
-
-      //una vez que cargue el arhcivo lo mandamos a ipfs
-      //una vez que cargue el arhcivo lo mandamos a ipfs
-
-      //una vez que cargue
-      reader.onloadend = function () {
-        //subimos la imagen a ipfs
-        uploadFile2(file.name, reader.result).then(({ hash }) => {
-          // //console.log(result);
-          //console.log(`https://nativonft.mypinata.cloud/ipfs/${hash}`);
-          formik.setFieldValue("image", hash);
-          setMediaIcon(hash)
-          setTxtBttnIcon(t("CreateCol.btnImg-3"))
-        })
-
-      };
-    }
-  }
-
-
-
-  function imageChangeBanner(picture) {
-    setTxtBttnBanner(t("CreateCol.btnImg-2"))
-    let data = picture.pop()
-    const { file, reader } = Reader2(data);
-    if (file) {
-      //asignar imagen de preview
-      setmint({ ...mint, fileBanner: URL.createObjectURL(data) });
-
-      //una vez que cargue el arhcivo lo mandamos a ipfs
-      //una vez que cargue el arhcivo lo mandamos a ipfs
-      //una vez que cargue
-      reader.onloadend = function () {
-        //subimos la imagen a ipfs
-        console.log(this)
-        uploadFile2(file.name, reader.result).then(({ hash }) => {
-          // //console.log(result);
-          //console.log(`https://nativonft.mypinata.cloud/ipfs/${hash}`);
-          formik.setFieldValue("image", hash);
-          setMediaBanner(hash)
-          setTxtBttnBanner(t("CreateCol.btnImg-3"))
-        })
-
-      };
-    }
-  }
-
   const format = (v) => {
     return v < 10 ? "0" + v : v;
   }
@@ -508,10 +437,12 @@ function LightHeroE(props) {
             <img
               className="object-cover h-96 w-full rounded-3xl  z-0 opacity-80 brightness-[.75] blur-sm"
               src={mediaBanner == "" ? icon : `https://nativonft.mypinata.cloud/ipfs/${mediaBanner}`}
+              alt='banner'
             />
             <img
               className="object-cover h-48 w-48 rounded-3xl border-solid border-4 border-slate-700 z-10 -mt-96"
               src={mediaIcon == "" ? banner : `https://nativonft.mypinata.cloud/ipfs/${mediaIcon}`}
+              alt='icon'
             />
             <div className="z-10 -mt-120 w-full text-white">
               <div className="bg-white lg:mx-20 mx-5 text-black mt-4 pt-2 rounded-t-2xl bg-opacity-80 rounded-xlarge">
