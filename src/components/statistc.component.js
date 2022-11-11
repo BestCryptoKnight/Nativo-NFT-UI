@@ -6,6 +6,7 @@ import { useTranslation } from "react-i18next";
 import { useWalletSelector } from "../utils/walletSelector";
 import Moneda_1 from '../assets/img/landing/sponsorsSection/Moneda_1.png';
 import Moneda_2 from '../assets/img/landing/sponsorsSection/Moneda_2.png';
+import Moneda_nativotkn from '../assets/img/landing/sponsorsSection/Moneda_nativotkn.png';
 function LightStatisicC(props) {
   const { selector, modal, accounts, accountId } = useWalletSelector();
   const [t, i18n] = useTranslation("global");
@@ -27,10 +28,10 @@ function LightStatisicC(props) {
 
         <div className=" w-2/6 flex m-auto justify-center ">
           <img
-            className="h-[100px] lg:h-24   bg-center w-[120px] lg:w-[280px] "
-            src={Moneda_1}
+            className="h-[100px] lg:h-[200px] bg-center w-[120px] lg:w-[240px] "
+            src={Moneda_nativotkn}
 
-            alt={Moneda_1}
+            alt={Moneda_nativotkn}
           />
 
         </div>
