@@ -22,10 +22,10 @@ function PopularCollections() {
   let colData;
   const { selector, modal, accounts, accountId } = useWalletSelector();
   const [loadMsg, setLoadMsg] = React.useState(true)
-  const [firstID, setFirstID] = React.useState(-1);
-  const [lastID, setLastID] = React.useState(-1);
+  const [firstIDC, setFirstIDC] = React.useState(-1);
+  const [lastIDCC, setLastIDC] = React.useState(-1);
   const [hasData, setHasData] = React.useState(true);
-  const [totalCol, setTotalCol] = React.useState(0);
+  const [totalColC, setTotalColC] = React.useState(0);
   const [trigger, settrigger] = React.useState(true);
 
   const [t, i18n] = useTranslation("global")
@@ -150,8 +150,8 @@ function PopularCollections() {
         if (data.data.collections.length <= 0) {
           setLoadMsg(false)
         }
-        setFirstID(parseInt(data.data.collections[0].collectionID))
-        setLastID(parseInt(data.data.collections[data.data.collections.length - 1].collectionID))
+        setFirstIDC(parseInt(data.data.collections[0].collectionID))
+        setLastIDC(parseInt(data.data.collections[data.data.collections.length - 1].collectionID))
         //setpage(page + 1)
         // colData = data.data.collections[0]
       })
@@ -186,7 +186,7 @@ function PopularCollections() {
         });
     
       } else {
-        setTotalCol(0);
+        setTotalColC(0);
         setHasData(false);
       }
   
@@ -207,7 +207,7 @@ function PopularCollections() {
         <div className=" w-full    ">
         
         <Slider {...settings} className="mt-3">
-            {collections.items.map((item, key) => {
+        {collections.items.map((item, key) => {
               return (
                 <div className="">
              

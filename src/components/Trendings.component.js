@@ -294,20 +294,38 @@ function Trendings() {
       });
       console.log('tokens', tokens) */
      
-     
-
-      //NUEVA COSUlTA
-      let payload = {
-        nft_contract_id: process.env.REACT_APP_CONTRACT,
-        from_index: (0).toString(),
-        limit: parseInt(tokens.totalTokens),
-      }
-      
-      const args_toks = btoa(JSON.stringify(payload))
       const { network } = selector.options;
       const provider = new providers.JsonRpcProvider({ url: network.nodeUrl });
 
       
+
+      //getting total nfts
+
+      let payloadTotalTokens = {
+        nft_contract_id: process.env.REACT_APP_CONTRACT
+      }
+      
+      const args_toks2 = btoa(JSON.stringify(payloadTotalTokens));
+
+      const totalTokens = await provider.query({
+        request_type: "call_function",
+        account_id: process.env.REACT_APP_CONTRACT_MARKET,
+        method_name: "get_supply_by_nft_contract_id",
+        args_base64: args_toks2,
+        finality: "optimistic",
+      });
+      let totalTokensParsed = JSON.parse(Buffer.from(totalTokens.result).toString())
+      console.log('totalTokensParsed',totalTokensParsed);
+      
+      //NUEVA COSUlTA
+      let payload = {
+        nft_contract_id: process.env.REACT_APP_CONTRACT,
+        from_index: (parseInt(totalTokensParsed)-5).toString(),
+        limit: 5,
+      }
+      
+      const args_toks = btoa(JSON.stringify(payload))
+
       const owner = await provider.query({
         request_type: "call_function",
         account_id: process.env.REACT_APP_CONTRACT_MARKET,
