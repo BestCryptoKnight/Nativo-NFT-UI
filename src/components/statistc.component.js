@@ -12,8 +12,8 @@ function LightStatisicC(props) {
   const [t, i18n] = useTranslation("global");
   const [stateLogin, setStateLogin] = useState(false);
 
-  const handleSignIn = () =>{
-    console.log("alex");
+  const handleNativoDaoButton = () =>{
+    window.location.href= "https://app.astrodao.com/dao/nativo-dao.sputnik-dao.near"
   }
 
   useEffect(() => {
@@ -38,7 +38,7 @@ function LightStatisicC(props) {
         <div className="w-4/6  pt-6 pb-8 mx-auto flex flex-col m-auto">
           <h2 className="text-dark-blue text-left lg:text-center w-[250px]   lg:w-full lg:mx-auto text-3xl  md:px-6
                     lg:px-8 mb-4  font-clash-grotesk  font-semibold leading-9  lg:text-4xl">{t("Landing.gobernance")}</h2>
-          <button className="flex inline-flex rounded-xlarge w-[250px] lg:w-[267px] h-[50px]   mt-0 lg:mx-auto" onClick={handleSignIn} >
+          <button className="flex inline-flex rounded-xlarge w-[250px] lg:w-[267px] h-[50px]   mt-0 lg:mx-auto" onClick={handleNativoDaoButton} >
             <div className="flex flex-col font-bold h-full text-white  text-center  justify-center shadow-s w-full bg-yellow4 hover:bg-yellowHover active:bg-yellowPressed rounded-md">
               <span className="title-font  text-white font-open-sans font-extrabold lg:font-semibold text-base  uppercase leading-6">{t("Landing.gobernance-button")}</span>
 
