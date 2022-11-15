@@ -213,13 +213,12 @@ function PopularCollections() {
              
                       <a href={"/collection/" + item.collectionID}
                       >
-                          <div className="flex flex-row drop-shadow-md justify-items-center px-4 mb-4 md:px-6 lg:px-8 " key={key}>
+                          <div className="flex flex-row justify-items-center px-4 mb-4 md:px-6 lg:px-8 " key={key}>
                           
-                              <div className="rounded-md drop-shadow-md   w-full  bg-white hover:scale-105 ">
-                              <div className=" best-seller font-open-sans  font-bold text-xlg ">{t("Landing.popular_col-best-seller")}</div>  
+                              <div className="rounded-md shadow-lg   w-full  bg-white hover:scale-105 ">
                                       <div className="  overflow-hidden rounded-t-md w-full md:w-full  lg:w-full  bg-white   ">
                                         
-                                           <img className="  h-[190px] mx-auto  object-cover object-center scale-150	 " alt={item.description}  src={`https://nativonft.mypinata.cloud/ipfs/${item.mediaBanner}`}/>   
+                                           <img className="  h-[190px] mx-auto  object-cover object-center scale-150	w-full " alt={item.description}  src={`https://nativonft.mypinata.cloud/ipfs/${item.mediaBanner}`}/>   
                                              
                                       </div>  
                                         <div className="flex flex-row  mb-4   " name="card_detail">
