@@ -31,7 +31,7 @@ function NftStepsCard({card}) {
   }
 
   return (
-    <div className="w-full lg:w-1/4 mt-6 h-[107px] hover:lg:h-[132px] transition-[height] duration-1000 flex flex-col pt-6 pb-8 lg:mt-2 justify-center lg:justify-start  mx-auto lg:mx-2 p-2 bg-white2 rounded-[12px] shadow-md" data-aos="fade-down" data-aos-delay="1000"
+    <div className="w-full lg:w-1/4 mt-6 h-[107px] hover:lg:h-[132px] transition-[height] duration-100 flex flex-col pt-6 pb-8 lg:mt-2 justify-center lg:justify-start  mx-auto lg:mx-2 p-2 bg-white2 rounded-[12px] shadow-md" data-aos="fade-down" data-aos-delay="250"
     onMouseEnter={() => setIsShown(true)}
     onMouseLeave={() => setIsShown(false)}
     onClick={stateLogin ? () => handleRedirect(card.redirect) : () => handleSignIn() }
@@ -55,7 +55,7 @@ function NftStepsCard({card}) {
         </div>
       </div>
       {isShown && (
-            <button className="flex flex-row text-left h-full text-[#F79336] leading-6 rounded-3xl justify-center shadow-s font-open-sans font-semibold text-base mt-4 leading buttonsNFTSection mx-auto duration-1000"
+            <button className="flex flex-row text-left h-full text-[#F79336] leading-6 rounded-3xl justify-center shadow-s font-open-sans font-semibold text-base mt-4 leading buttonsNFTSection mx-auto duration-100"
             >
               {card.sub}
               <img

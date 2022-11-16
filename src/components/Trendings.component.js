@@ -294,20 +294,38 @@ function Trendings() {
       });
       console.log('tokens', tokens) */
      
-     
-
-      //NUEVA COSUlTA
-      let payload = {
-        nft_contract_id: process.env.REACT_APP_CONTRACT,
-        from_index: (0).toString(),
-        limit: parseInt(tokens.totalTokens),
-      }
-      
-      const args_toks = btoa(JSON.stringify(payload))
       const { network } = selector.options;
       const provider = new providers.JsonRpcProvider({ url: network.nodeUrl });
 
       
+
+      //getting total nfts
+
+      let payloadTotalTokens = {
+        nft_contract_id: process.env.REACT_APP_CONTRACT
+      }
+      
+      const args_toks2 = btoa(JSON.stringify(payloadTotalTokens));
+
+      const totalTokens = await provider.query({
+        request_type: "call_function",
+        account_id: process.env.REACT_APP_CONTRACT_MARKET,
+        method_name: "get_supply_by_nft_contract_id",
+        args_base64: args_toks2,
+        finality: "optimistic",
+      });
+      let totalTokensParsed = JSON.parse(Buffer.from(totalTokens.result).toString())
+      console.log('totalTokensParsed',totalTokensParsed);
+      
+      //NUEVA COSUlTA
+      let payload = {
+        nft_contract_id: process.env.REACT_APP_CONTRACT,
+        from_index: (parseInt(totalTokensParsed)-5).toString(),
+        limit: 5,
+      }
+      
+      const args_toks = btoa(JSON.stringify(payload))
+
       const owner = await provider.query({
         request_type: "call_function",
         account_id: process.env.REACT_APP_CONTRACT_MARKET,
@@ -387,7 +405,7 @@ function Trendings() {
                           href={"/detail/" + item.token_id}
                         >
                           <div className="flex flex-row  mb-10 md:mb-0  justify-center " key={key}>
-                            <div className="trending-token w-64 md:w-[300px] rounded-20 drop-shadow-md    hover:scale-105 ">
+                            <div className="trending-token w-64 md:w-[300px] rounded-20 shadow-lg   hover:scale-105 ">
                               <div className=" bg-white rounded-xl">
                                 <div className="pb-3">
                                   <img
@@ -436,16 +454,15 @@ function Trendings() {
                       <div className="">
                         <a href={"/collection/" + item.collectionID}
                         >
-                          <div className="flex flex-row drop-shadow-md justify-items-center px-4 mb-4 md:px-6 lg:px-8 " key={key}>
+                          <div className="flex flex-row justify-items-center px-4 mb-4 md:px-6 lg:px-8 " key={key}>
 
-                            <div className="rounded-md drop-shadow-md   w-full  bg-white hover:scale-105 ">
-                              <div className=" best-seller font-open-sans  font-bold text-xlg ">{t("Landing.popular_col-best-seller")}</div>
+                            <div className="rounded-md shadow-lg  w-full  bg-white hover:scale-105 ">
                               <div className="  overflow-hidden rounded-t-md w-full md:w-full  lg:w-full  bg-white   ">
 
-                                <img className="  h-[190px] mx-auto  object-cover object-center scale-150	 " alt={item.description} src={`https://nativonft.mypinata.cloud/ipfs/${item.mediaBanner}`} />
+                                <img className="  h-[190px] mx-auto  object-cover object-center scale-150	w-full " alt={item.description} src={`https://nativonft.mypinata.cloud/ipfs/${item.mediaBanner}`} />
 
                               </div>
-                              <div className="flex flex-row  mb-4   " name="card_detail">
+                              <div className="flex flex-row  mb-4" name="card_detail">
                                 <div className=" z-10 -mt-8 ml-4        ">
                                   <img className="  object-cover  rounded-md bg-white  border-2 border-white min-w-[90px] max-w-[90px] min-h-[90px] max-h-[90px]  " src={`https://nativonft.mypinata.cloud/ipfs/${item.mediaIcon}`} alt={item.description} />
                                 </div>
