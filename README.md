@@ -3,6 +3,7 @@
 ![Logo](https://develop.testnet.nativonft.app/static/media/LogoBlanco.30fcfa22.png)
 
 Nativo NFT is a marketplace builded over NEAR Protocol. It is building the next generation of NFT-DeFi mechanism for NFT ecosystem.
+<br />
 <a href="https://www.nativo.art"> click here </a>
 ## Nativo NFT UI features
 1. View of collections [x]
